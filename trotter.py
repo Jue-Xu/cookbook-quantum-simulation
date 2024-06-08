@@ -91,16 +91,19 @@ def matrix_product(list_U, t=1):
     product = np.linalg.multi_dot([matrix_power(U, t) for U in list_U])
     return product
 
-def pf_r(h_list, t, r, order=2, verbose=False):
+def pf_r(h_list, t, r, order=2, verbose=False, use_jax=True):
     if order == 2:
-        list_U = [jax.scipy.linalg.expm(-1j * (t / (2*r)) * herm.toarray()) for herm in h_list]
+        if use_jax:
+            list_U = [jax.scipy.linalg.expm(-1j * (t / (2*r)) * herm) for herm in h_list]
+        else:
+            list_U = [scipy.linalg.expm(-1j * (t / (2*r)) * herm.toarray()) for herm in h_list]
         if verbose: print('----expm Herm finished----')
         appro_U_dt_forward = np.linalg.multi_dot(list_U)
         appro_U_dt_reverse = np.linalg.multi_dot(list_U[::-1])
         # appro_U_dt = list_U[0] @ list_U[1]
         if verbose: print('----matrix product finished----')
         appro_U = np.linalg.matrix_power(appro_U_dt_reverse @ appro_U_dt_forward, r)
-        # appro_U = np.linalg.matrix_power(appro_U_dt_forward @ appro_U_dt_reverse, r)
+        appro_U = np.linalg.matrix_power(appro_U_dt_forward @ appro_U_dt_reverse, r)
         if verbose: print('----matrix power finished----')
     elif order == 1:
         list_U = [jax.scipy.linalg.expm(-1j * (t / (r)) * herm.toarray()) for herm in h_list]
@@ -127,7 +130,8 @@ def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2
     elif type == 'worst_loose_bound':
         return relaxed_st_bound(r, coeffs[1], coeffs[2], t, ob_type=coeffs[0])
     elif type == 'lightcone_bound':
-        return relaxed_lc_bound(r, coeffs[1], coeffs[2], t, ob_type=coeffs[0], verbose=False)
+        return lc_tail_bound(r, coeffs[1], coeffs[2], t, ob_type=coeffs[0], verbose=False)
+        # return relaxed_lc_bound(r, coeffs[1], coeffs[2], t, ob_type=coeffs[0], verbose=False)
     elif type == 'average_bound':
         return tight_bound(h_list, 2, t, r, type='fro')
     elif type == 'average_empirical':
@@ -168,7 +172,7 @@ def binary_search_r(r_start, r_end, epsilon, error_measure, step=1, verbose=Fals
                 r_start = r_mid
             else:
                 r_end = r_mid
-            if verbose: print('r_start:', r_start, 'r_end:', r_end)
+            if verbose: print('r_start:', r_start, '; r_end:', r_end)
         r = r_end
     if verbose: print('r:', r, '; err: ', error_measure(r))
     return r

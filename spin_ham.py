@@ -4,17 +4,39 @@
 
 import numpy as np
 from qiskit.quantum_info import SparsePauliOp
-
+import random
 
 class Nearest_Neighbour_1d:
-    def __init__(self, n: int, Jx=1, Jy=1, Jz=1, hx=0.2, hy=0, hz=0, pbc=False, verbose=False):
+    def __init__(self, n: int, Jx=1, Jy=1, Jz=1, hx=0.2, hy=0, hz=0, pbc=False, verbose=False, rand_field=[]):
         self.n = n
         self.xx_tuples = [('XX', [i, i + 1], Jx) for i in range(0, n-1)]
         self.yy_tuples = [('YY', [i, i + 1], Jy) for i in range(0, n-1)]
         self.zz_tuples = [('ZZ', [i, i + 1], Jz) for i in range(0, n-1)]
-        self.x_tuples = [('X', [i], hx) for i in range(0, n)] 
-        self.y_tuples = [('Y', [i], hy) for i in range(0, n)] 
-        self.z_tuples = [('Z', [i], hz) for i in range(0, n)] 
+
+        if len(rand_field) != 0:
+            self.rand_field = rand_field[:n]
+            # if len(rand_field) < n:
+            #     self.rand_field = rand_field + [random.gauss(0, 0.1) for _ in range(n-len(rand_field))]
+            # else:
+            #     self.rand_field = rand_field[:n]
+            # # self.rand_field = rand_field + [0.2*(random.random()-0.5) for _ in range(n-len(rand_field))]
+            if hx != 0: 
+                self.x_tuples = [('X', [i], (self.rand_field[i]+1)*hx) for i in range(0, n)] 
+            else:
+                self.x_tuples = [('X', [i], hx) for i in range(0, n)]
+            if hy != 0: 
+                self.y_tuples = [('Y', [i], (self.rand_field[i]+1)*hy) for i in range(0, n)] 
+            else:
+                self.y_tuples = [('Y', [i], hy) for i in range(0, n)]
+            if hz != 0: 
+                self.z_tuples = [('Z', [i], (self.rand_field[i]+1)*hz) for i in range(0, n)] 
+            else:
+                self.z_tuples = [('Z', [i], hz) for i in range(0, n)]
+        else:
+            self.x_tuples = [('X', [i], hx) for i in range(0, n)] 
+            self.y_tuples = [('Y', [i], hy) for i in range(0, n)] 
+            self.z_tuples = [('Z', [i], hz) for i in range(0, n)] 
+
         if pbc: 
             self.xx_tuples.append(('XX', [n-1, 0], Jx))
             self.yy_tuples.append(('YY', [n-1, 0], Jy))
@@ -38,6 +60,9 @@ class Nearest_Neighbour_1d:
         self.even_terms = SparsePauliOp.from_sparse_list([*self.xx_tuples[::2], *self.yy_tuples[::2], *self.zz_tuples[::2], *self.x_tuples[::2], *self.y_tuples[::2], *self.z_tuples[::2]], num_qubits=self.n).simplify()
         self.odd_terms = SparsePauliOp.from_sparse_list([*self.xx_tuples[1::2], *self.yy_tuples[1::2], *self.zz_tuples[1::2], *self.x_tuples[1::2], *self.y_tuples[1::2], *self.z_tuples[1::2]], num_qubits=self.n).simplify()
         self.ham_par = [self.even_terms, self.odd_terms]
+
+    def lc_group(self, right, left, step):
+        self.ham_lc = []
 
 
 class Power_law:

@@ -3,6 +3,7 @@ from scipy import sparse
 from scipy.linalg import expm
 from numpy.linalg import matrix_power
 import scipy.sparse.linalg as ssla
+import multiprocessing
 
 import numpy as np
 
@@ -148,7 +149,8 @@ def analy_st_bound(r, n, J, h, t, ob_type='single'):
 
 def analy_lc_bound(r, n, J, h, t, ob_type='single', verbose=False):
     err_bound = 0
-    for i in range(1, r+1):
+    # for i in range(1, r+1):
+    for i in range(1, r+2):
         if ob_type == 'single':
             n_lc = min(i*2, n)
             err_bound += 2 * analytic_loose_commutator_bound(n_lc, J, h, t/r, verbose) 
@@ -187,7 +189,8 @@ from spin_ham import *
 #     hnn = Nearest_Neighbour_1d(n, Jx=J, Jy=J, Jz=J, hx=h, hy=0, hz=0, pbc=False, verbose=False)
 #     h_list = hnn.ham_par
 def relaxed_commutator_bound(n, cmm_data, dt, verbose=False):
-    relaxed_error_bound = cmm_data['c1'][n] * dt**3 / 12 + cmm_data['c2'][n] * dt**3 / 24
+    if verbose: print(f'c1 (relax)={cmm_data["c1"][n-1]}, c2={cmm_data["c2"][n-1]}')
+    relaxed_error_bound = cmm_data['c1'][n-1] * dt**3 / 12 + cmm_data['c2'][n-1] * dt**3 / 24
     return relaxed_error_bound
 
 def relaxed_st_bound(r, n, cmm_data, t, ob_type='singl'):
@@ -201,16 +204,185 @@ def relaxed_st_bound(r, n, cmm_data, t, ob_type='singl'):
 
 def relaxed_lc_bound(r, n, cmm_data, t, ob_type='singl', verbose=False):
     err_bound = 0
-    for i in range(1, r+1):
+    for i in range(1, r+2):
+    # for i in range(1, r+1):
         if ob_type == 'singl':
             n_lc = min(i*2, n)
-            err_bound += 2 * relaxed_commutator_bound(n_lc, cmm_data, t/r, verbose) 
+            err_bound += 2 * relaxed_commutator_bound(n_lc, cmm_data, t/r, verbose=verbose) 
         elif ob_type == 'multi':   
             for j in range(0, n):
                 n_lc = min(min(n-j, i*2) + min(j, 2*i), n)
                 # err_bound += 2 * analytic_loose_commutator_bound(n_lc, J, h, t/r, verbose) 
-                err_bound += 2 * relaxed_commutator_bound(n_lc, cmm_data, t/r, verbose) / n
+                err_bound += 2 * relaxed_commutator_bound(n_lc, cmm_data, t/r, verbose=verbose) / n
         else:
             raise ValueError('ob_type should be either single or multi')
 
     return err_bound
+
+# # def lc_tail_bound(r, n, tail_cmm_data, t, ob_type='singl', verbose=False):
+# def lc_tail_bound(r, n, tail_cmm_data, t, ob_type='singl', verbose=True):
+#     err_bound = 0
+#     dt = t/r
+#     if verbose: print(f'index={n}, r={r}')
+#     if verbose: print(tail_cmm_data['n'][n-1])
+#     if ob_type == 'singl':
+#         err_bound = 2 * (tail_cmm_data['c1_z'][n-1][r-1][0] * dt**3 / 12 + tail_cmm_data['c2_z'][n-1][r-1][0] * dt**3 / 24)
+#     elif ob_type == 'multi_z':
+#         err_bound = 2 * (sum(tail_cmm_data['c1_z'][n-1][r-1]) * dt**3 / 12 + sum(tail_cmm_data['c2_z'][n-1][r-1]) * dt**3 / 24 ) / tail_cmm_data['n'][n-1]
+#     elif ob_type == 'multi_zz':
+#         err_bound = 2 * (sum(tail_cmm_data['c1_zz'][n-1][r-1]) * dt**3 / 12 + sum(tail_cmm_data['c2_zz'][n-1][r-1]) * dt**3 / 24) / (tail_cmm_data['n'][n-1]-1)
+#     else:
+#         raise ValueError('ob_type should be either single or multi')
+
+#     return err_bound
+
+def lc_tail_bound(r, n, h, t, ob_type='singl', verbose=True):
+    err_bound = 0
+    dt = t/r
+    if verbose: print(f'index={n}, r={r}')
+    if ob_type == 'singl':
+        h_list_z  = lc_group(h, 0, 0, 2*r, False)
+        c1_cmm_z, c2_cmm_z = nested_commutator_norm(h_list_z) 
+        err_bound = 2 * (c1_cmm_z * dt**3 / 12 + c2_cmm_z * dt**3 / 24)
+    elif ob_type == 'multi_z':
+        h_list_z_list = [lc_group(h, i, i, 2*r, False) for i in range(0, n)]
+        tail_cmm_data = np.array([nested_commutator_norm(h_list_z) for h_list_z in h_list_z_list])
+        err_bound = 2 * (sum(tail_cmm_data[:, 0])*dt**3/12 + sum(tail_cmm_data[:, 1])*dt**3/24) / n
+    elif ob_type == 'multi_zz':
+        h_list_zz_list = [lc_group(h, i, i+1, 2*r, False) for i in range(0, n-1)]
+        tail_cmm_data = np.array([nested_commutator_norm(h_list_zz) for h_list_zz in h_list_zz_list])
+        err_bound = 2 * (sum(tail_cmm_data[:, 0])*dt**3/12 + sum(tail_cmm_data[:, 1])*dt**3/24) / (n-1)
+        # err_bound = 2 * (sum(tail_cmm_data['c1_zz'][n-1][r-1]) * dt**3 / 12 + sum(tail_cmm_data['c2_zz'][n-1][r-1]) * dt**3 / 24) / (n-1)
+    else:
+        raise ValueError('ob_type should be either single or multi')
+
+    return err_bound
+
+def nested_commutator_norm(h_list):
+    if len(h_list) == 2:
+        c1_cmm = commutator(h_list[1], commutator(h_list[1], h_list[0]).simplify()).simplify()
+        c2_cmm = commutator(h_list[0], commutator(h_list[0], h_list[1]).simplify()).simplify()
+        c1_cmm_norm = np.linalg.norm(c1_cmm.coeffs, ord=1)
+        c2_cmm_norm = np.linalg.norm(c2_cmm.coeffs, ord=1)
+    elif len(h_list) == 3:
+        c1_cmm_0 = commutator(h_list[1]+h_list[2], commutator(h_list[1]+h_list[2], h_list[0]).simplify()).simplify() 
+        c1_cmm_1 = commutator(h_list[2], commutator(h_list[2], h_list[1]).simplify()).simplify()
+        c2_cmm_0 = commutator(h_list[0], commutator(h_list[0], h_list[1]+h_list[2]).simplify()).simplify() 
+        c2_cmm_1 = commutator(h_list[1], commutator(h_list[1], h_list[2]).simplify()).simplify()
+        c1_cmm_norm = np.linalg.norm(c1_cmm_0.coeffs, ord=1) + np.linalg.norm(c1_cmm_1.coeffs, ord=1)
+        c2_cmm_norm = np.linalg.norm(c2_cmm_0.coeffs, ord=1) + np.linalg.norm(c2_cmm_1.coeffs, ord=1)
+    else:
+        raise Exception('Invalid number of terms in the Hamiltonian list')
+
+    return c1_cmm_norm, c2_cmm_norm
+
+def lc_nested_commutator_norm(i, h, r):
+    h_list_z  = lc_group(h, i, i, 2*r, False)
+    c1_cmm_z, c2_cmm_z = nested_commutator_norm(h_list_z) 
+
+    h_list_zz = lc_group(h, i, i+1, 2*r, False)
+    c1_cmm_zz, c2_cmm_zz = nested_commutator_norm(h_list_zz) 
+
+    return c1_cmm_z, c2_cmm_z, c1_cmm_zz, c2_cmm_zz
+
+# def process_data(i):
+#     # print(np.log(exp(i)))
+#     # random matrix of dim i
+#     m = np.random.rand(i, i)
+#     m_norm = np.linalg.norm(m, ord=1)
+#     print(i, m_norm)
+#     return m_norm
+
+def lc_group(h, right, left, step, verbose=False):
+    if verbose: print(f'n={h.n}, right={right}, left={left}, step={step}')
+    tail_tuples = []
+    right_range = list(range(0, right-step))
+    left_range = list(range(left+step, h.n-1))
+    if verbose: print(right_range, left_range)
+    all_tuples = [h.x_tuples, h.y_tuples, h.z_tuples, h.xx_tuples, h.yy_tuples, h.zz_tuples]
+    if verbose: print(all_tuples)
+    for i in right_range:
+        for tuple in all_tuples:
+            tail_tuples.append(tuple[i])
+            # if verbose: print(tuple[i])
+
+    for i in left_range:
+        # for tuple in all_tuples:
+        tail_tuples.append(h.xx_tuples[i])
+        tail_tuples.append(h.yy_tuples[i])
+        tail_tuples.append(h.zz_tuples[i])
+        tail_tuples.append(h.x_tuples[i+1])
+        tail_tuples.append(h.y_tuples[i+1])
+        tail_tuples.append(h.z_tuples[i+1])
+            # tail_tuples.append(tuple[i])
+            # if verbose: print(tuple[i])
+
+    # if left_range != []:
+    #     tail_tuples.append(h.x_tuples[-1])
+    #     tail_tuples.append(h.y_tuples[-1])
+    #     tail_tuples.append(h.z_tuples[-1])
+    # print([*h.x_tuples, *h.y_tuples, *h.z_tuples, *h.xx_tuples, *h.yy_tuples, *h.zz_tuples]-tail_terms)
+    odd_lc_tuples, even_lc_tuples = [], []
+    for i in list(range(max(right-step, 0), right))[::-1][::2]:
+        odd_lc_tuples.append(h.xx_tuples[i])
+        odd_lc_tuples.append(h.yy_tuples[i])
+        odd_lc_tuples.append(h.zz_tuples[i])
+        odd_lc_tuples.append(h.x_tuples[i])
+        odd_lc_tuples.append(h.y_tuples[i])
+        odd_lc_tuples.append(h.z_tuples[i])
+
+    if verbose: print(list(range(left, min(left+step, h.n-1)))[::2])
+    for i in list(range(left, min(left+step, h.n-1)))[::2]:
+        odd_lc_tuples.append(h.xx_tuples[i])
+        odd_lc_tuples.append(h.yy_tuples[i])
+        odd_lc_tuples.append(h.zz_tuples[i])
+        odd_lc_tuples.append(h.x_tuples[i+1])
+        odd_lc_tuples.append(h.y_tuples[i+1])
+        odd_lc_tuples.append(h.z_tuples[i+1])
+
+    for i in range(right, left):
+        even_lc_tuples.append(h.xx_tuples[i])
+        even_lc_tuples.append(h.yy_tuples[i])
+        even_lc_tuples.append(h.zz_tuples[i])
+        even_lc_tuples.append(h.x_tuples[i])
+        even_lc_tuples.append(h.y_tuples[i])
+        even_lc_tuples.append(h.z_tuples[i])
+    even_lc_tuples.append(h.x_tuples[left])
+    even_lc_tuples.append(h.y_tuples[left])
+    even_lc_tuples.append(h.z_tuples[left])
+
+    for i in list(range(max(right-step, 0), right-1))[::-1][::2]:
+        even_lc_tuples.append(h.xx_tuples[i])
+        even_lc_tuples.append(h.yy_tuples[i])
+        even_lc_tuples.append(h.zz_tuples[i])
+        even_lc_tuples.append(h.x_tuples[i])
+        even_lc_tuples.append(h.y_tuples[i])
+        even_lc_tuples.append(h.z_tuples[i])
+
+    for i in list(range(left+1, min(left+step, h.n-1)))[::2]:
+        even_lc_tuples.append(h.xx_tuples[i])
+        even_lc_tuples.append(h.yy_tuples[i])
+        even_lc_tuples.append(h.zz_tuples[i])
+        even_lc_tuples.append(h.x_tuples[i+1])
+        even_lc_tuples.append(h.y_tuples[i+1])
+        even_lc_tuples.append(h.z_tuples[i+1])
+    # for i in
+    all_pauli = SparsePauliOp.from_sparse_list([*h.xx_tuples, *h.yy_tuples, *h.zz_tuples, *h.x_tuples, *h.y_tuples, *h.z_tuples], h.n).simplify() 
+    lc_pauli = SparsePauliOp.from_sparse_list([*odd_lc_tuples, *even_lc_tuples, *tail_tuples], h.n).simplify()
+    difference = (all_pauli - lc_pauli).simplify()
+
+    if len(difference.coeffs) == 1 and difference.coeffs[0] == 0:
+        if verbose: print('Success!')
+    else:
+        print('Lightcone decomposition error!: ', difference)
+        # print(set([*odd_lc_tuples, *even_lc_tuples, *tail_tuples])-set([*h.x_tuples, *h.y_tuples, *h.z_tuples, *h.xx_tuples, *h.yy_tuples, *h.zz_tuples]))
+        # print('', [*odd_lc_tuples, *even_lc_tuples, *tail_tuples])
+        # print('', [*h.x_tuples, *h.y_tuples, *h.z_tuples, *h.xx_tuples, *h.yy_tuples, *h.zz_tuples])
+        # raise Exception( e.args )
+
+    even_lc_terms = SparsePauliOp.from_sparse_list(even_lc_tuples, h.n).simplify()
+    odd_lc_terms  = SparsePauliOp.from_sparse_list(odd_lc_tuples, h.n).simplify()
+    tail_lc_terms = SparsePauliOp.from_sparse_list(tail_tuples, h.n).simplify()
+    # print(h.even_terms)
+    # print(h.x_tuples)
+    return [even_lc_terms, odd_lc_terms, tail_lc_terms]

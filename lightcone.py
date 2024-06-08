@@ -5,7 +5,8 @@ from cmath import exp
 from math import ceil, floor, log
 import numpy as np
 from numpy.linalg import matrix_power
-from scipy.linalg import expm
+from jax.scipy.linalg import expm
+# from scipy.linalg import expm
 np.set_printoptions(precision=6)
 
 from qiskit.quantum_info.operators import Operator, Pauli
@@ -35,13 +36,14 @@ def analy_lc_bound(r, n, J, h, t, ob_type='single', verbose=False):
     err_bound = 0
     for i in range(1, r+1):
         if ob_type == 'single':
+            # print('single')
             n_lc = min(i*2, n)
-            err_bound += 2 * analytic_loose_commutator_bound(n_lc, J, h, t/r, verbose) 
+            err_bound += 2 * analytic_loose_commutator_bound(n_lc, J, h, t/r, verbose=verbose) 
         elif ob_type == 'multi':   
             for j in range(0, n):
                 n_lc = min(min(n-j, i*2) + min(j, 2*i), n)
                 # err_bound += 2 * analytic_loose_commutator_bound(n_lc, J, h, t/r, verbose) 
-                err_bound += 2 * analytic_loose_commutator_bound(n_lc, J, h, t/r, verbose) / n
+                err_bound += 2 * analytic_loose_commutator_bound(n_lc, J, h, t/r, verbose=verbose) / n
         else:
             raise ValueError('ob_type should be either single or multi')
 
@@ -61,7 +63,6 @@ def analytic_loose_commutator_bound(n, J, h, dt, pbc=False, verbose=False):
             c1 = 4*J*h**2*(n-1) + 4*J**2*h*(n-2)
             c2 = 4*J*h**2*(n-1) + 4*J**2*h*(n-1)
 
-
     if verbose: print(f'c1 (analy)={c1}, c2={c2}')
     analytic_error_bound = c1 * dt**3 / 12 + c2 * dt**3 / 24
     return analytic_error_bound
@@ -72,48 +73,76 @@ def bin_search_r(n, J, h, t, epsilon, search_precision, pf_type='standard', ob_t
     error_list, r_list, exp_count_list = [], [], []
     error = 2
     print(f'=========pf_type={pf_type}, ob_type={ob_type}=========')
-    while abs(error - epsilon) > epsilon * search_precision and r_end - r_start != 1:
-        r = floor((r_start + r_end) / 2)
-        r_list.append(r)
-        if pf_type == 'standard':
-            error = analy_st_bound(r, n, J, h, t, ob_type=ob_type)
+
+    if pf_type == 'empirical':
+        r = r_start
+        tfI = transverse_field_ising_1d(n, J, h, [0], t=t, initialize=False)
+        exact_U = jax.scipy.linalg.expm(-1j * t * tfI.H_mat.toarray())
+        appro_U = standard_trotter(tfI.H_parity, t, r)
+        # appro_U = standard_trotter(tfI.H_parity[::-1], t, r_start)
+        if ob_type == 'single':
+            magn_op = SparsePauliOp.from_sparse_list([('Z', [0], 1)], n)
+            # # print('single observable error (jax): ', ob_error(magn_op, exact_U, appro_U))
+            # exact_ob = exact_U.conj().T @ magn_op.to_matrix() @ exact_U 
+            # appro_ob = appro_U.conj().T @ magn_op.to_matrix() @ appro_U
+            error = ob_error(magn_op, exact_U, appro_U)
+            print(f'r={r_start}, single observable error (jax): ', error)
+            exp_count = exp_count_LC(r, n, 2*n)
+        elif ob_type == 'multi':
+            magn_op = SparsePauliOp.from_sparse_list([('Z', [i], 1) for i in range(0, n)], n)/n
+            error = ob_error(magn_op, exact_U, appro_U)
             exp_count = 2 * (2*n) * r
-        elif pf_type == 'lightcone':
-            error = analy_lc_bound(r, n, J, h, t, ob_type=ob_type, verbose=False)
-            if ob_type == 'single':
-                exp_count = exp_count_LC(r, n, 2*n)
-            elif ob_type == 'multi':
-                exp_count = 2 * (2*n) * r
-        elif pf_type == 'empirical':
-            tfI = transverse_field_ising_1d(n, J, h, [0], t=t, initialize=False)
-            exact_U = expm(-1j * t * tfI.H_mat.toarray())
-            # magn_op = SparsePauliOp.from_sparse_list([('Z', [i], 1) for i in range(0, n)], n)
-            appro_U = standard_trotter(tfI.H_parity, t, r)
-            if ob_type == 'single':
-                magn_op = SparsePauliOp.from_sparse_list([('Z', [0], 1)], n)
-                error = ob_error(magn_op, exact_U, appro_U)
-                exp_count = exp_count_LC(r, n, 2*n)
-            elif ob_type == 'multi':
-                magn_op = SparsePauliOp.from_sparse_list([('Z', [i], 1) for i in range(0, n)], n)/n
-                error = ob_error(magn_op, exact_U, appro_U)
-                exp_count = 2 * (2*n) * r
-
-        exp_count_list.append(exp_count)
-
-        if verbose: print(f'r={r}; error={error:.6f}; exp_count={exp_count}')
+    if error < epsilon: 
+        r_list.append(r_start)
         error_list.append(error)
+        exp_count_list.append(exp_count)
+        print(f'r={r_start}; error={error:.6f}; exp_count={exp_count}')
+        r_found = r
+    else:
+        while r_start < r_end - 1: 
+        # while abs(error - epsilon) > epsilon * search_precision and r_end - r_start != 1:
+            r = floor((r_start + r_end) / 2)
+            r_list.append(r)
+            if pf_type == 'standard':
+                error = analy_st_bound(r, n, J, h, t, ob_type=ob_type)
+                exp_count = 2 * (2*n) * r
+            elif pf_type == 'lightcone':
+                error = analy_lc_bound(r, n, J, h, t, ob_type=ob_type, verbose=False)
+                if ob_type == 'single':
+                    exp_count = exp_count_LC(r, n, 2*n)
+                elif ob_type == 'multi':
+                    exp_count = 2 * (2*n) * r
+            elif pf_type == 'empirical':
+                tfI = transverse_field_ising_1d(n, J, h, [0], t=t, initialize=False)
+                exact_U = expm(-1j * t * tfI.H_mat.toarray())
+                # magn_op = SparsePauliOp.from_sparse_list([('Z', [i], 1) for i in range(0, n)], n)
+                appro_U = standard_trotter(tfI.H_parity, t, r)
+                if ob_type == 'single':
+                    magn_op = SparsePauliOp.from_sparse_list([('Z', [0], 1)], n)
+                    error = ob_error(magn_op, exact_U, appro_U)
+                    exp_count = exp_count_LC(r, n, 2*n)
+                elif ob_type == 'multi':
+                    magn_op = SparsePauliOp.from_sparse_list([('Z', [i], 1) for i in range(0, n)], n)/n
+                    error = ob_error(magn_op, exact_U, appro_U)
+                    exp_count = 2 * (2*n) * r
 
-        if error > epsilon: r_start = r
-        else: r_end = r
+            exp_count_list.append(exp_count)
 
-        if r_end - r_start == 0: 
-            print('precision warning!!!')
-            # raise ValueError('Binary search failed. Please increase the search range.')
-    print(f'-------- binary search end --------')
+            if verbose: print(f'r={r}; error={error:.6f}; exp_count={exp_count}')
+            error_list.append(error)
+
+            if error > epsilon: r_start = r
+            else: r_end = r
+
+            if r_end - r_start == 0: 
+                print('precision warning!!!')
+                # raise ValueError('Binary search failed. Please increase the search range.')
+        print(f'-------- binary search end --------')
     
+        # r_abs_err_dict = dict(zip(r_list, [abs(error-epsilon) for error in error_list]))
+        # r_found = min(r_abs_err_dict, key=r_abs_err_dict.get)
+        r_found = r_end 
     r_err_dict = dict(zip(r_list, error_list))
-    r_abs_err_dict = dict(zip(r_list, [abs(error-epsilon) for error in error_list]))
-    r_found = min(r_abs_err_dict, key=r_abs_err_dict.get)
 
     return r_list, error_list, exp_count_list, r_found, r_err_dict
 
@@ -544,17 +573,19 @@ class transverse_field_ising_1d:
 
         """
         if method == 'parity':
-            self.zz_even = self.zz_pstr[::2]
-            self.zz_odd = self.zz_pstr[1::2]
-            self.x_even = self.x_pstr[::2]
-            self.x_odd = self.x_pstr[1::2]
+            self.zz_even = self.zz_pstr[::-1][::2]
+            self.zz_odd = self.zz_pstr[::-1][1::2]
+            self.x_even = self.x_pstr[::-1][::2]
+            self.x_odd = self.x_pstr[::-1][1::2]
+            # self.x_even = self.x_pstr[::2]
+            # self.x_odd = self.x_pstr[1::2]
 
             self.even_op = SparsePauliOp(self.zz_even, [self.J]*len(self.zz_even)) + SparsePauliOp(self.x_even, [self.h]*len(self.x_even)) 
 
             self.odd_op = SparsePauliOp(self.zz_odd, [self.J]*len(self.zz_odd))  + SparsePauliOp(self.x_odd, [self.h]*len(self.x_odd)) 
 
-            self.H_parity = [self.odd_op.to_matrix(True), self.even_op.to_matrix(True)]
-            # self.H_parity = [self.even_op.to_matrix(True), self.odd_op.to_matrix(True)]
+            # self.H_parity = [self.odd_op.to_matrix(True), self.even_op.to_matrix(True)]
+            self.H_parity = [self.even_op.to_matrix(True), self.odd_op.to_matrix(True)]
 
             if verbose:
                 print(f'---------({method}) Partitioned Hamiltonian---------')

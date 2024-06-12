@@ -75,9 +75,10 @@ class Power_law:
         self.y_tuples = [('Y', [i], hy) for i in range(0, n)] 
         self.z_tuples = [('Z', [i], hz) for i in range(0, n)] 
         if pbc: 
-            self.xx_tuples.append(('XX', [n-1, 0], -Jx))
-            self.yy_tuples.append(('YY', [n-1, 0], -Jy))
-            self.zz_tuples.append(('ZZ', [n-1, 0], -Jz))
+            # self.xx_tuples.append(('XX', [n-1, 0], Jx))
+            # self.yy_tuples.append(('YY', [n-1, 0], Jy))
+            # self.zz_tuples.append(('ZZ', [n-1, 0], Jz))
+            raise ValueError(f'PBC is not defined!')
 
         self.ham = SparsePauliOp.from_sparse_list([*self.xx_tuples, *self.yy_tuples, *self.zz_tuples, *self.x_tuples, *self.y_tuples, *self.z_tuples], num_qubits=n).simplify()
         if verbose: print('The Hamiltonian: \n', self.ham)

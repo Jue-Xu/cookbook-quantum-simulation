@@ -96,7 +96,12 @@ def pf_r(h_list, t, r, order=2, verbose=False, use_jax=True):
         if use_jax:
             list_U = [jax.scipy.linalg.expm(-1j * (t / (2*r)) * herm) for herm in h_list]
         else:
-            list_U = [scipy.linalg.expm(-1j * (t / (2*r)) * herm.toarray()) for herm in h_list]
+            if isinstance(h_list[0], csr_matrix):
+                list_U = [scipy.linalg.expm(-1j * (t / (2*r)) * herm.toarray()) for herm in h_list]
+            elif isinstance(h_list[0], np.ndarray):
+                list_U = [scipy.linalg.expm(-1j * (t / (2*r)) * herm) for herm in h_list]
+            else:
+                raise ValueError('h_list is not defined')
         if verbose: print('----expm Herm finished----')
         appro_U_dt_forward = np.linalg.multi_dot(list_U)
         appro_U_dt_reverse = np.linalg.multi_dot(list_U[::-1])
@@ -112,14 +117,14 @@ def pf_r(h_list, t, r, order=2, verbose=False, use_jax=True):
 
     return appro_U
 
-def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2, coeffs=[], verbose=False): 
+def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2, coeffs=[], use_jax=False, verbose=False): 
     # print(type)
     if type == 'worst_empirical':
-        return np.linalg.norm(exact_U - pf_r(h_list, t, r, order=pf_ord), ord=2)
+        return np.linalg.norm(exact_U - pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax), ord=2)
     elif type == 'worst_bound':
         return tight_bound(h_list, 2, t, r)
     elif type == 'worst_ob_empirical':
-        appro_U = pf_r(h_list, t, r, order=2)
+        appro_U = pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax)
         # appro_U = pf_r(h_list, t, r, order=pf_ord)
         exact_ob = exact_U.conj().T @ ob @ exact_U 
         appro_ob = appro_U.conj().T @ ob @ appro_U
@@ -135,18 +140,22 @@ def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2
     elif type == 'average_bound':
         return tight_bound(h_list, 2, t, r, type='fro')
     elif type == 'average_empirical':
-        err_list = [np.linalg.norm((exact_U - pf_r(h_list, t, r, order=pf_ord)) @ state.data) for state in rand_states]
+        err_list = [np.linalg.norm((exact_U - pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax)) @ state.data) for state in rand_states]
         return np.mean(err_list)
     elif type == 'average_ob_bound':
-        onestep_exactU = scipy.linalg.expm(-1j * t/r * sum([herm.toarray() for herm in h_list]))
-        E_op = onestep_exactU - pf_r(h_list, t/r, 1, order=pf_ord)
-        d = len(h_list[0].toarray())
+        if isinstance(h_list[0], csr_matrix):
+            onestep_exactU = scipy.linalg.expm(-1j * t/r * sum([herm.toarray() for herm in h_list]))
+            d = len(h_list[0].toarray())
+        elif isinstance(h_list[0], np.ndarray):
+            onestep_exactU = scipy.linalg.expm(-1j * t/r * sum([herm for herm in h_list]))
+            d = len(h_list[0])
+        E_op = onestep_exactU - pf_r(h_list, t/r, 1, order=pf_ord, use_jax=use_jax)
         # print((np.trace(E_op @ E_op.conj().T @ E_op @ E_op.conj().T)/d)**(1/4))
         bound = 2 * r * (np.trace(E_op @ E_op.conj().T @ E_op @ E_op.conj().T)/d)**(1/4) * (np.trace(ob @ ob @ ob @ ob)/d)**(1/4)
         return bound
     # elif type == 'observable_empirical':
     elif type == 'average_ob_empirical':
-        approx_U = pf_r(h_list, t, r, order=pf_ord)
+        approx_U = pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax)
         exact_final_states = [exact_U @ state.data.T for state in rand_states]
         appro_final_states = [approx_U @ state.data.T for state in rand_states]
         err_list = [abs(appro_final_states[i].conj().T @ ob @ appro_final_states[i] - exact_final_states[i].conj().T @ ob @ exact_final_states[i]) for i in range(len(rand_states))]

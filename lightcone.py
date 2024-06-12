@@ -146,32 +146,32 @@ def bin_search_r(n, J, h, t, epsilon, search_precision, pf_type='standard', ob_t
 
     return r_list, error_list, exp_count_list, r_found, r_err_dict
 
-def linear_loglog_fit(x, y, verbose=False):
-    # Define the linear function
-    def linear_func(x, a, b):
-        return a * x + b
+# def linear_loglog_fit(x, y, verbose=False):
+#     # Define the linear function
+#     def linear_func(x, a, b):
+#         return a * x + b
 
-    log_x = np.array([log(n) for n in x])
-    log_y = np.array([log(cost) for cost in y])
-    # Fit the linear function to the data
-    params, covariance = curve_fit(linear_func, log_x, log_y)
-    # Extract the parameters
-    a, b = params
-    # Predict y values
-    y_pred = linear_func(log_x, a, b)
-    # Print the parameters
-    if verbose: print('Slope (a):', a, 'Intercept (b):', b)
-    exp_y_pred = [exp(cost) for cost in y_pred]
+#     log_x = np.array([log(n) for n in x])
+#     log_y = np.array([log(cost) for cost in y])
+#     # Fit the linear function to the data
+#     params, covariance = curve_fit(linear_func, log_x, log_y)
+#     # Extract the parameters
+#     a, b = params
+#     # Predict y values
+#     y_pred = linear_func(log_x, a, b)
+#     # Print the parameters
+#     if verbose: print('Slope (a):', a, 'Intercept (b):', b)
+#     exp_y_pred = [exp(cost) for cost in y_pred]
 
-    return exp_y_pred, a, b
+#     return exp_y_pred, a, b
 
-def plot_fit(ax, x, y, var='n', offset=1.07, verbose=True):
-    y_pred_em, a_em, b_em = linear_loglog_fit(x, y)
-    if verbose: print(f'a_em: {a_em}; b_em: {b_em}')
-    text_a_em = "{:.2f}".format(round(abs(a_em), 4))
-    y_pred_em = [exp(cost) for cost in a_em*np.array([log(n) for n in x]) + b_em]
-    ax.plot(x, y_pred_em, 'k--', linewidth=1)
-    ax.annotate(r'$O(%s^{%s})$' % (var, text_a_em), xy=(x[-1], np.real(y_pred_em)[-1]), xytext=(x[-1]*offset, np.real(y_pred_em)[-1]))
+# def plot_fit(ax, x, y, var='n', offset=1.07, verbose=True):
+#     y_pred_em, a_em, b_em = linear_loglog_fit(x, y)
+#     if verbose: print(f'a_em: {a_em}; b_em: {b_em}')
+#     text_a_em = "{:.2f}".format(round(abs(a_em), 4))
+#     y_pred_em = [exp(cost) for cost in a_em*np.array([log(n) for n in x]) + b_em]
+#     ax.plot(x, y_pred_em, 'k--', linewidth=1)
+#     ax.annotate(r'$O(%s^{%s})$' % (var, text_a_em), xy=(x[-1], np.real(y_pred_em)[-1]), xytext=(x[-1]*offset, np.real(y_pred_em)[-1]))
 # =====================================================
 # =====================================================
 def partial_trotter(approx_U, tau, a, pauli_strs, h, J, parity=1, verbose=True):

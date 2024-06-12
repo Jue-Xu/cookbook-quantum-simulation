@@ -69,7 +69,7 @@ def linear_loglog_fit(x, y, verbose=False):
 
     return exp_y_pred, a, b
 
-def plot_fit(ax, x, y, var='t', offset=1.07, label='', verbose=True):
+def plot_fit(ax, x, y, var='t', x_offset=1.07, y_offset=1.0, label='', verbose=True):
     y_pred_em, a_em, b_em = linear_loglog_fit(x, y)
     if verbose: print(f'a_em: {a_em}; b_em: {b_em}')
     text_a_em = "{:.2f}".format(round(abs(a_em), 4))
@@ -78,4 +78,4 @@ def plot_fit(ax, x, y, var='t', offset=1.07, label='', verbose=True):
         ax.plot(x, y_pred_em, 'k--', linewidth=1)
     else:
         ax.plot(x, y_pred_em, 'k--', linewidth=1, label=label)
-    ax.annotate(r'$O(%s^{%s})$' % (var, text_a_em), xy=(x[-1], np.real(y_pred_em)[-1]), xytext=(x[-1]*offset, np.real(y_pred_em)[-1]))
+    ax.annotate(r'$O(%s^{%s})$' % (var, text_a_em), xy=(x[-1], np.real(y_pred_em)[-1]), xytext=(x[-1]*x_offset, np.real(y_pred_em)[-1]*y_offset))

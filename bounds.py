@@ -193,12 +193,20 @@ def relaxed_commutator_bound(n, cmm_data, dt, verbose=False):
     relaxed_error_bound = cmm_data['c1'][n-1] * dt**3 / 12 + cmm_data['c2'][n-1] * dt**3 / 24
     return relaxed_error_bound
 
-def relaxed_st_bound(r, n, cmm_data, t, ob_type='singl'):
+# def relaxed_st_bound(r, n, cmm_data, t, ob_type='singl'):
+def relaxed_st_bound(r, n, h, t, ob_type='singl'):
+    h_list = h.ham_par
+    dt = t/r
     if ob_type == 'singl':
-        return 2 * relaxed_commutator_bound(n, cmm_data, t/r) * r
-    elif ob_type == 'multi':
-        # return 2 * analytic_loose_commutator_bound(n, J, h, t/r) * r  * n
-        return 2 * relaxed_commutator_bound(n, cmm_data, t/r) * r 
+        c1_cmm = commutator(h_list[1], commutator(h_list[1], h_list[0]).simplify()).simplify()
+        c2_cmm = commutator(h_list[0], commutator(h_list[0], h_list[1]).simplify()).simplify()
+        c1 = np.linalg.norm(c1_cmm.coeffs, ord=1)
+        c2 = np.linalg.norm(c2_cmm.coeffs, ord=1)
+        return 2 * (c1 * dt**3 / 12 + c2 * dt**3 / 24) * r
+    #     return 2 * relaxed_commutator_bound(n, cmm_data, t/r) * r
+    # elif ob_type == 'multi':
+    #     # return 2 * analytic_loose_commutator_bound(n, J, h, t/r) * r  * n
+    #     return 2 * relaxed_commutator_bound(n, cmm_data, t/r) * r 
     else:
         raise ValueError('ob_type should be either single or multi')
 

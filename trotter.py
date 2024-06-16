@@ -117,12 +117,15 @@ def pf_r(h_list, t, r, order=2, verbose=False, use_jax=True):
 
     return appro_U
 
-def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2, coeffs=[], use_jax=False, verbose=False): 
+def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2, coeffs=[], use_jax=False, verbose=False, return_error_list=False): 
     # print(type)
     if type == 'worst_empirical':
-        return np.linalg.norm(exact_U - pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax), ord=2)
+        return 2 * np.linalg.norm(exact_U - pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax), ord=2)
     elif type == 'worst_bound':
-        return tight_bound(h_list, 2, t, r)
+        if coeffs != []:
+            return 2 * tight_bound(h_list, 2, t, r) * coeffs[0]
+        else:
+            return 2 * tight_bound(h_list, 2, t, r)
     elif type == 'worst_ob_empirical':
         appro_U = pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax)
         # appro_U = pf_r(h_list, t, r, order=pf_ord)
@@ -138,11 +141,21 @@ def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2
         return lc_tail_bound(r, coeffs[1], coeffs[2], t, ob_type=coeffs[0], verbose=False)
         # return relaxed_lc_bound(r, coeffs[1], coeffs[2], t, ob_type=coeffs[0], verbose=False)
     elif type == 'average_bound':
-        return tight_bound(h_list, 2, t, r, type='fro')
+        # return tight_bound(h_list, 2, t, r, type='4')
+        if coeffs != []:
+            return 2 * tight_bound(h_list, 2, t, r, type='fro') * coeffs[0]
+        else:
+            return 2 * tight_bound(h_list, 2, t, r, type='fro')
     elif type == 'average_empirical':
-        err_list = [np.linalg.norm((exact_U - pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax)) @ state.data) for state in rand_states]
-        return np.mean(err_list)
-    elif type == 'average_ob_bound':
+        appro_U = pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax)
+        err_list = [np.linalg.norm(np.outer(exact_U @ state.data.conj().T , (exact_U @ state.data.conj().T).conj().T) - np.outer(appro_U @ state.data.conj().T, (appro_U @ state.data.conj().T).conj().T), ord='nuc') for state in rand_states]
+        # err_list = [np.linalg.norm((exact_U - pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax)) @ state.data) for state in rand_states]
+        if return_error_list:
+            return np.array(err_list) * np.linalg.norm(ob, ord=2)
+        else:
+            return np.mean(err_list) * np.linalg.norm(ob, ord=2)
+    elif type == 'average_ob_bound_legacy':
+    # elif type == 'average_ob_bound':
         if isinstance(h_list[0], csr_matrix):
             onestep_exactU = scipy.linalg.expm(-1j * t/r * sum([herm.toarray() for herm in h_list]))
             d = len(h_list[0].toarray())
@@ -152,6 +165,15 @@ def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2
         E_op = onestep_exactU - pf_r(h_list, t/r, 1, order=pf_ord, use_jax=use_jax)
         # print((np.trace(E_op @ E_op.conj().T @ E_op @ E_op.conj().T)/d)**(1/4))
         bound = 2 * r * (np.trace(E_op @ E_op.conj().T @ E_op @ E_op.conj().T)/d)**(1/4) * (np.trace(ob @ ob @ ob @ ob)/d)**(1/4)
+        # print(f'bound_e={bound_e}, bound={bound}')
+        return bound
+    elif type == 'average_ob_bound':
+    # elif type == 'average_ob_bound_nc':
+        if isinstance(h_list[0], csr_matrix):
+            d = len(h_list[0].toarray())
+        elif isinstance(h_list[0], np.ndarray):
+            d = len(h_list[0])
+        bound = 2 * tight_bound(h_list, 2, t, r, type='4') * (np.trace(ob @ ob @ ob @ ob)/d)**(1/4)
         return bound
     # elif type == 'observable_empirical':
     elif type == 'average_ob_empirical':
@@ -159,7 +181,10 @@ def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2
         exact_final_states = [exact_U @ state.data.T for state in rand_states]
         appro_final_states = [approx_U @ state.data.T for state in rand_states]
         err_list = [abs(appro_final_states[i].conj().T @ ob @ appro_final_states[i] - exact_final_states[i].conj().T @ ob @ exact_final_states[i]) for i in range(len(rand_states))]
-        return np.mean(err_list)
+        if return_error_list:
+            return np.array(err_list)
+        else:
+            return np.mean(err_list)
     # elif type == 'observable_bound':
     #     return None
     else: 

@@ -15,6 +15,8 @@ def norm(A, ord='spectral'):
         return np.linalg.norm(A)
     elif ord == 'spectral':
         return np.linalg.norm(A, ord=2)
+    elif ord == '4':
+        return np.trace(A @ A.conj().T @ A @ A.conj().T)**(1/4)
     else:
         # raise ValueError('norm is not defined')
         return np.linalg.norm(A, ord=ord)
@@ -93,6 +95,8 @@ def tight_bound(h, order: int, t: float, r: int, type='spectral', verbose=False)
             # print(c1, c2)
             error = c1 * t**3 / r**2 / 12 / np.sqrt(d) + c2 *  t**3 / r**2 / 24 / np.sqrt(d)
             # print('random input:', error)
+        elif type == '4':
+            error = c1 * t**3 / r**2 / 12 / d**(1/4) + c2 *  t**3 / r**2 / 24 / d**(1/4)
         else:
             raise ValueError(f'type={type} is not defined')
     else: 

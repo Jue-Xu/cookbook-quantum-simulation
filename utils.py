@@ -35,11 +35,11 @@ SMALL_SIZE = 14
 MEDIUM_SIZE = 15  #default 10
 LARGE_SIZE = 20
 
-plt.rc('font', size=MEDIUM_SIZE)  # controls default text sizes
-plt.rc('axes', titlesize=LARGE_SIZE+2)  # fontsize of the axes title
-plt.rc('axes', labelsize=LARGE_SIZE)  # fontsize of the x and y labels
-plt.rc('xtick', labelsize=LARGE_SIZE)  # fontsize of the tick labels
-plt.rc('ytick', labelsize=LARGE_SIZE)  # fontsize of the tick labels
+plt.rc('font', size=MEDIUM_SIZE+4)  # controls default text sizes
+plt.rc('axes', titlesize=LARGE_SIZE)  # fontsize of the axes title
+plt.rc('axes', labelsize=LARGE_SIZE+4)  # fontsize of the x and y labels
+plt.rc('xtick', labelsize=LARGE_SIZE+2)  # fontsize of the tick labels
+plt.rc('ytick', labelsize=LARGE_SIZE+2)  # fontsize of the tick labels
 plt.rc('legend', fontsize=MEDIUM_SIZE)  # legend fontsize
 plt.rc('figure', titlesize=LARGE_SIZE)  # fontsize of the figure title
 

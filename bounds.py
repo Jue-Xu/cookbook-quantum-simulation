@@ -253,15 +253,18 @@ def lc_tail_bound(r, n, h, t, ob_type='singl', verbose=True):
     dt = t/r
     if verbose: print(f'index={n}, r={r}')
     if ob_type == 'singl':
-        h_list_z  = lc_group(h, 0, 0, 2*r, False)
+        h_list_z  = lc_group(h, 0, 0, 2*r, verbose=False)
         c1_cmm_z, c2_cmm_z = nested_commutator_norm(h_list_z) 
         err_bound = 2 * (c1_cmm_z * dt**3 / 12 + c2_cmm_z * dt**3 / 24)
     elif ob_type == 'multi_z':
-        h_list_z_list = [lc_group(h, i, i, 2*r, False) for i in range(0, n)]
+        h_list_z_list = [lc_group(h, i, i, 2*r+2, verbose=False) for i in range(0, n)]
+        # h_list_z_list = [lc_group(h, i, i, 4*r+1, False) for i in range(0, n)]
+        # h_list_z_list = [lc_group(h, i, i, 2*r, False) for i in range(0, n)]
         tail_cmm_data = np.array([nested_commutator_norm(h_list_z) for h_list_z in h_list_z_list])
         err_bound = 2 * (sum(tail_cmm_data[:, 0])*dt**3/12 + sum(tail_cmm_data[:, 1])*dt**3/24) / n
     elif ob_type == 'multi_zz':
-        h_list_zz_list = [lc_group(h, i, i+1, 2*r, False) for i in range(0, n-1)]
+        h_list_zz_list = [lc_group(h, i, i+1, 2*r+2, verbose=False) for i in range(0, n-1)]
+        # h_list_zz_list = [lc_group(h, i, i+1, 2*r, False) for i in range(0, n-1)]
         tail_cmm_data = np.array([nested_commutator_norm(h_list_zz) for h_list_zz in h_list_zz_list])
         err_bound = 2 * (sum(tail_cmm_data[:, 0])*dt**3/12 + sum(tail_cmm_data[:, 1])*dt**3/24) / (n-1)
         # err_bound = 2 * (sum(tail_cmm_data['c1_zz'][n-1][r-1]) * dt**3 / 12 + sum(tail_cmm_data['c2_zz'][n-1][r-1]) * dt**3 / 24) / (n-1)
@@ -305,7 +308,7 @@ def lc_nested_commutator_norm(i, h, r):
 #     print(i, m_norm)
 #     return m_norm
 
-def lc_group(h, right, left, step, verbose=False):
+def lc_group(h, right, left, step, verbose=False, legacy=False):
     if verbose: print(f'n={h.n}, right={right}, left={left}, step={step}')
     tail_tuples = []
     right_range = list(range(0, right-step))
@@ -397,4 +400,54 @@ def lc_group(h, right, left, step, verbose=False):
     tail_lc_terms = SparsePauliOp.from_sparse_list(tail_tuples, h.n).simplify()
     # print(h.even_terms)
     # print(h.x_tuples)
-    return [even_lc_terms, odd_lc_terms, tail_lc_terms]
+    # return [even_lc_tuples, odd_lc_tuples, tail_tuples]
+    
+    new_even_lc_tuples, new_odd_lc_tuples = [], []
+    for item in even_lc_tuples + odd_lc_tuples:
+        if verbose: print(item)
+        if item[1][0] % 2 == 0 and item[2] != 0:
+            if verbose: print('even: ', item)
+            new_even_lc_tuples.append(item)
+        elif item[1][0] % 2 == 1 and item[2] != 0:
+            if verbose: print('odd: ', item)
+            new_odd_lc_tuples.append(item)
+
+    temp = []
+    if len(new_even_lc_tuples) % 2 == 1:
+        for item in new_even_lc_tuples:
+            if len(item[0]) == 1:
+                temp.append(item)
+        if verbose: print('single even: ', sorted(temp, key=lambda x: x[1][0]))
+        boundary_element = sorted(temp, key=lambda x: x[1][0])[-1]
+        new_even_lc_tuples.remove(boundary_element)
+        new_odd_lc_tuples.append(boundary_element)
+    else:
+        for item in new_odd_lc_tuples:
+            if len(item[0]) == 1:
+                temp.append(item)
+        if verbose: print('single odd: ', sorted(temp, key=lambda x: x[1][0]))
+        boundary_element = sorted(temp, key=lambda x: x[1][0])[-1]
+        new_odd_lc_tuples.remove(boundary_element)
+        new_even_lc_tuples.append(boundary_element)
+
+    if verbose:
+        print("even: ", SparsePauliOp.from_sparse_list(new_even_lc_tuples, h.n))
+        print("odd:  ", SparsePauliOp.from_sparse_list(new_odd_lc_tuples, h.n))
+        print("tail: ", SparsePauliOp.from_sparse_list(tail_tuples, h.n))
+
+    all_pauli = SparsePauliOp.from_sparse_list([*new_odd_lc_tuples, *new_even_lc_tuples, *tail_tuples], h.n).simplify() 
+    lc_pauli = SparsePauliOp.from_sparse_list([*odd_lc_tuples, *even_lc_tuples, *tail_tuples], h.n).simplify()
+    difference = (all_pauli - lc_pauli).simplify()
+    if len(difference.coeffs) == 1 and difference.coeffs[0] == 0:
+        # print('Success!')
+        if verbose: print('Success!')
+    else:
+        print('Lightcone decomposition error!: ', difference)
+
+    if legacy:
+        return [even_lc_terms, odd_lc_terms, tail_lc_terms]
+    else:
+        even_lc_terms = SparsePauliOp.from_sparse_list(new_even_lc_tuples, h.n).simplify()
+        odd_lc_terms  = SparsePauliOp.from_sparse_list(new_odd_lc_tuples, h.n).simplify()
+
+        return [even_lc_terms, odd_lc_terms, tail_lc_terms]

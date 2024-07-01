@@ -111,7 +111,8 @@ def pf_r(h_list, t, r, order=2, verbose=False, use_jax=True):
         appro_U = np.linalg.matrix_power(appro_U_dt_forward @ appro_U_dt_reverse, r)
         if verbose: print('----matrix power finished----')
     elif order == 1:
-        list_U = [jax.scipy.linalg.expm(-1j * (t / (r)) * herm.toarray()) for herm in h_list]
+        list_U = [jax.scipy.linalg.expm(-1j * (t / (r)) * herm) for herm in h_list]
+        # list_U = [jax.scipy.linalg.expm(-1j * (t / (r)) * herm.toarray()) for herm in h_list]
         appro_U_dt = np.linalg.multi_dot(list_U)
         appro_U = np.linalg.matrix_power(appro_U_dt, r)
 
@@ -181,6 +182,15 @@ def measure_error(r, h_list, t, exact_U, type, rand_states=[], ob=None, pf_ord=2
         exact_final_states = [exact_U @ state.data.T for state in rand_states]
         appro_final_states = [approx_U @ state.data.T for state in rand_states]
         err_list = [abs(appro_final_states[i].conj().T @ ob @ appro_final_states[i] - exact_final_states[i].conj().T @ ob @ exact_final_states[i]) for i in range(len(rand_states))]
+        if return_error_list:
+            return np.array(err_list)
+        else:
+            return np.mean(err_list)
+    elif type == 'average_ob_empirical_bnd_test':
+        approx_U = pf_r(h_list, t, r, order=pf_ord, use_jax=use_jax)
+        exact_final_states = [exact_U @ state.data.T for state in rand_states]
+        appro_final_states = [approx_U @ state.data.T for state in rand_states]
+        err_list = [abs(np.outer(appro_final_states[i].conj().T, appro_final_states[i]) - np.outer(exact_final_states[i].conj().T, exact_final_states[i]) * np.linalg.norm(ob, ord='nuc')) for i in range(len(rand_states))]
         if return_error_list:
             return np.array(err_list)
         else:

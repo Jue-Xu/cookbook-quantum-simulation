@@ -181,6 +181,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantities.html">Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -402,9 +403,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-states">Pure states</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-states">Pure states</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#product-states">Product states</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-states">Random states</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#haar-random">Haar random</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#design">1-design</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entangled-state">Entangled state</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entangled-state">Entangled state</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ghz-w-states">GHZ, W states</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -422,13 +434,15 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import quantum_simulation_recipe as qsr</span>
 <span class="c1"># from quantum_simulation_recipe import spin_ham</span>
-<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">Statevector</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Statevector</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="pure-states">
 <h2>Pure states<a class="headerlink" href="#pure-states" title="Link to this heading">#</a></h2>
+<section id="product-states">
+<h3>Product states<a class="headerlink" href="#product-states" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
@@ -447,11 +461,66 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="random-states">
+<h3>Random states<a class="headerlink" href="#random-states" title="Link to this heading">#</a></h3>
+<section id="haar-random">
+<h4>Haar random<a class="headerlink" href="#haar-random" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_statevector</span>
+
+<span class="n">random_state</span> <span class="o">=</span> <span class="n">random_statevector</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-0.09081579+0.12513075j  0.19769797-0.14667103j -0.28060377-0.12584223j
+ -0.2751727 -0.39587669j -0.07633596-0.1410992j   0.00471524-0.09256986j
+  0.14260193-0.06328101j  0.16894435+0.01590109j -0.04954691+0.30859787j
+  0.32500897+0.01028549j  0.30726571+0.06728063j  0.05450585+0.07976649j
+  0.01127881+0.01900263j -0.30618225+0.0096613j   0.16725853-0.14290867j
+  0.20175574+0.07676475j]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="design">
+<h4>1-design<a class="headerlink" href="#design" title="Link to this heading">#</a></h4>
+</section>
+</section>
+</section>
 <section id="mixed-state">
 <h2>Mixed state<a class="headerlink" href="#mixed-state" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_density_matrix</span>
+
+<span class="n">random_density_matrix</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DensityMatrix([[ 0.58373403+2.08430915e-18j, -0.07331106-1.32731929e-01j,
+                 0.11552931+2.22411908e-01j,  0.01988641+8.75886022e-02j],
+               [-0.07331106+1.32731929e-01j,  0.11747843+2.86081041e-19j,
+                -0.07924569-4.57508090e-02j, -0.00093165+2.40173156e-03j],
+               [ 0.11552931-2.22411908e-01j, -0.07924569+4.57508090e-02j,
+                 0.21030716-2.57208051e-18j,  0.06945752+1.54699495e-02j],
+               [ 0.01988641-8.75886022e-02j, -0.00093165-2.40173156e-03j,
+                 0.06945752-1.54699495e-02j,  0.08848038+2.01690317e-19j]],
+              dims=(2, 2))
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="entangled-state">
 <h2>Entangled state<a class="headerlink" href="#entangled-state" title="Link to this heading">#</a></h2>
+<section id="ghz-w-states">
+<h3>GHZ, W states<a class="headerlink" href="#ghz-w-states" title="Link to this heading">#</a></h3>
+</section>
 </section>
 </section>
 
@@ -519,9 +588,20 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-states">Pure states</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-states">Pure states</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#product-states">Product states</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-states">Random states</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#haar-random">Haar random</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#design">1-design</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entangled-state">Entangled state</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entangled-state">Entangled state</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ghz-w-states">GHZ, W states</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

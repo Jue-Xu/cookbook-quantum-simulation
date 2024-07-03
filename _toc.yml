@@ -7,14 +7,24 @@ parts:
   - caption: Basics
     chapters:
     # - file: intro
-    - file: README
-      sections:
-      - file: long_time
+    # - file: README
+    - file: basics/state
+    - file: basics/operator
+
+  - caption: Hamiltonians
+    chapters:
+    - file: Hamiltonians/spin
+
+  - caption: Trotter
+    chapters:
+    - file: Trotter/adaptive
+      # sections:
+    - file: Trotter/long_time
       # - file: short_time
       # - file: random_input
-    - file: trotter_bound
+    - file: Trotter/trotter_bound
 
-  - caption: Applications
-    chapters:
-    - file: misc
+  # - caption: Applications
+  #   chapters:
+  #   - file: misc
  

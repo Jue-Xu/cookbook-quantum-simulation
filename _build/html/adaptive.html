@@ -1,0 +1,1122 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Adaptive &#8212; Quantum Simulation Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'adaptive';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Quantum Simulation Cookbook - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Quantum Simulation Cookbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Quantum Simulation Cookbook for Novice
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="README.html">Quantum Simulatoin Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fadaptive.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/adaptive.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Adaptive</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-law">Power-law</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-vs-time">Error VS time</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-interaction">Nearest-neighbor interaction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemistry">Chemistry</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="adaptive">
+<h1>Adaptive<a class="headerlink" href="#adaptive" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">bounds</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">trotter</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_statevector</span>
+
+<span class="n">figs_dir</span><span class="p">,</span> <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;./figs&#39;</span><span class="p">,</span> <span class="s1">&#39;./data&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">bounds</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;utils&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="power-law">
+<h2>Power-law<a class="headerlink" href="#power-law" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pow_test</span> <span class="o">=</span> <span class="n">Power_law</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">Jy</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">hy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">hz</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pow_test</span><span class="o">.</span><span class="n">ham</span>
+<span class="n">pow_test</span><span class="o">.</span><span class="n">ham_xyz</span>
+<span class="c1"># commutator(pow_test.ham_xyz[0], pow_test.ham_xyz[1]).simplify()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[SparsePauliOp([&#39;IIIXX&#39;, &#39;IIXIX&#39;, &#39;IXIIX&#39;, &#39;XIIIX&#39;, &#39;IIXXI&#39;, &#39;IXIXI&#39;, &#39;XIIXI&#39;, &#39;IXXII&#39;, &#39;XIXII&#39;, &#39;XXIII&#39;],
+               coeffs=[-1.      +0.j, -0.0625  +0.j, -0.012346+0.j, -0.003906+0.j, -1.      +0.j,
+  -0.0625  +0.j, -0.012346+0.j, -1.      +0.j, -0.0625  +0.j, -1.      +0.j]),
+ SparsePauliOp([&#39;IIIYY&#39;, &#39;IIYIY&#39;, &#39;IYIIY&#39;, &#39;YIIIY&#39;, &#39;IIYYI&#39;, &#39;IYIYI&#39;, &#39;YIIYI&#39;, &#39;IYYII&#39;, &#39;YIYII&#39;, &#39;YYIII&#39;],
+               coeffs=[-1.      +0.j, -0.0625  +0.j, -0.012346+0.j, -0.003906+0.j, -1.      +0.j,
+  -0.0625  +0.j, -0.012346+0.j, -1.      +0.j, -0.0625  +0.j, -1.      +0.j]),
+ SparsePauliOp([&#39;IIIZZ&#39;, &#39;IIZIZ&#39;, &#39;IZIIZ&#39;, &#39;ZIIIZ&#39;, &#39;IIZZI&#39;, &#39;IZIZI&#39;, &#39;ZIIZI&#39;, &#39;IZZII&#39;, &#39;ZIZII&#39;, &#39;ZZIII&#39;, &#39;IIIIZ&#39;, &#39;IIIZI&#39;, &#39;IIZII&#39;, &#39;IZIII&#39;, &#39;ZIIII&#39;],
+               coeffs=[-1.      +0.j, -0.0625  +0.j, -0.012346+0.j, -0.003906+0.j, -1.      +0.j,
+  -0.0625  +0.j, -0.012346+0.j, -1.      +0.j, -0.0625  +0.j, -1.      +0.j,
+  -0.5     +0.j, -0.5     +0.j, -0.5     +0.j, -0.5     +0.j, -0.5     +0.j])]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)],</span> <span class="n">n</span><span class="p">),</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.0
+</pre></div>
+</div>
+</div>
+</div>
+<section id="error-vs-time">
+<h3>Error VS time<a class="headerlink" href="#error-vs-time" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s1">&#39;YY&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">8</span><span class="p">)])</span>
+<span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;ZZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="p">))],</span> <span class="n">n</span><span class="p">)</span> 
+<span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;ZZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s1">&#39;XXZYXYXZ&#39;</span><span class="p">,</span><span class="mi">1</span> <span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;XXZYXYXZ&#39;],
+              coeffs=[1.+0.j])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openfermion.linalg</span> <span class="kn">import</span> <span class="n">get_ground_state</span><span class="p">,</span> <span class="n">get_sparse_operator</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">SparsePauliOp</span>
+<span class="kn">from</span> <span class="nn">fermion_ham</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">openfermion</span> <span class="kn">import</span> <span class="n">MolecularData</span>
+<span class="kn">from</span> <span class="nn">openfermion.transforms</span> <span class="kn">import</span> <span class="n">get_fermion_operator</span><span class="p">,</span> <span class="n">jordan_wigner</span>
+<span class="kn">from</span> <span class="nn">openfermion.linalg</span> <span class="kn">import</span> <span class="n">get_ground_state</span><span class="p">,</span> <span class="n">get_sparse_operator</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_unitary</span>
+
+<span class="kn">import</span> <span class="nn">jax</span><span class="o">,</span> <span class="nn">scipy</span>
+
+<span class="k">def</span> <span class="nf">trace_distance</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">appro_U</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">@</span> <span class="n">rho</span> <span class="o">@</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">appro_U</span> <span class="o">@</span> <span class="n">rho</span> <span class="o">@</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">expval_error</span><span class="p">(</span><span class="n">init_st</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">appro_U</span><span class="p">,</span> <span class="n">ob</span><span class="p">,</span> <span class="n">use_dm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  
+    <span class="k">if</span> <span class="n">use_dm</span><span class="p">:</span>
+        <span class="n">init_dm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">init_st</span><span class="p">,</span> <span class="n">init_st</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>
+        <span class="n">exact_dm</span><span class="p">,</span> <span class="n">appro_dm</span> <span class="o">=</span> <span class="n">exact_U</span> <span class="o">@</span> <span class="n">init_dm</span> <span class="o">@</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">appro_U</span> <span class="o">@</span> <span class="n">init_dm</span> <span class="o">@</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">exact_dm</span> <span class="o">@</span> <span class="n">ob</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">appro_dm</span> <span class="o">@</span> <span class="n">ob</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">exact_st</span><span class="p">,</span> <span class="n">appro_st</span> <span class="o">=</span> <span class="n">exact_U</span> <span class="o">@</span> <span class="n">init_st</span><span class="p">,</span> <span class="n">appro_U</span> <span class="o">@</span> <span class="n">init_st</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">exact_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob</span> <span class="o">@</span> <span class="n">exact_st</span> <span class="o">-</span> <span class="n">appro_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob</span> <span class="o">@</span> <span class="n">appro_st</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+
+<span class="c1"># prefix, suffix = &#39;Chem&#39;, &#39;t&#39;</span>
+<span class="n">prefix</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;Pow&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_sample</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">t_max</span><span class="p">,</span> <span class="n">t_n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span>
+<span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">t_n</span><span class="p">)</span> 
+
+<span class="c1"># keys = [&#39;worst_err&#39;, &#39;averg_err&#39;, &#39;averg_err_std&#39;, &#39;typic_err&#39;, &#39;worst_ob_err&#39;, &#39;averg_ob_err&#39;, &#39;averg_ob_err_std&#39;, &#39;typic_ob_err&#39;,&#39;t&#39;]</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;trace_dist&#39;</span><span class="p">,</span> <span class="s1">&#39;l2_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;energy_diff&#39;</span><span class="p">,</span> <span class="s1">&#39;op_diff&#39;</span><span class="p">,</span> <span class="s1">&#39;worst_err&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">])</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_list</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">J</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span>   
+
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">hz</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># H = TF_Ising_1d(n=n, J=-J, h=-h)</span>
+<span class="c1"># H = Power_law(n, alpha=2, Jx=-1, Jy=-1, Jz=-1, hx=0.5, hy=0.2, hz=-0.2, pbc=False, verbose=False)</span>
+<span class="n">h_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">H</span><span class="o">.</span><span class="n">ham_xyz</span><span class="p">]</span>
+<span class="n">ob</span> <span class="o">=</span> <span class="n">H</span><span class="o">.</span><span class="n">ham</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+<span class="c1"># ob = ob @ ob @ ob</span>
+
+<span class="c1"># n_hydrogen = 3</span>
+<span class="c1"># n = n_hydrogen * 2</span>
+<span class="c1"># d = 1.0</span>
+
+<span class="c1"># H = hydrogen_chain_hamiltonian(n_hydrogen, d, verbose=False)</span>
+<span class="c1"># h_list = H.hamiltonian_list</span>
+<span class="c1"># ob = sum(h_list)</span>
+
+<span class="n">ob</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s1">&#39;Y&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+<span class="c1"># ob = SparsePauliOp.from_list([(&#39;XXZYXYXZ&#39;,1 )]).to_matrix()</span>
+<span class="c1"># ob = SparsePauliOp.from_sparse_list([(&#39;ZZ&#39;, [i, j], 1) for j in range(0, n) for i in range(j+1, n)], n).to_matrix()</span>
+<span class="c1"># ob = SparsePauliOp.from_sparse_list([(&#39;Z&#39;, [i], 1/(n)) for i in range(0, n)], n).to_matrix()</span>
+<span class="c1"># ob = SparsePauliOp.from_sparse_list([(&#39;ZZ&#39;, [i, i+1], 1/(n-1)) for i in range(0, n-1)], n).to_matrix()</span>
+<span class="n">ob_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ob</span> <span class="o">=</span> <span class="n">ob</span><span class="o">/</span><span class="n">ob_norm</span>
+<span class="c1"># ob = ob/ob_norm</span>
+
+<span class="c1"># init_st = Statevector.from_label(&#39;+&#39;*n).data</span>
+<span class="c1"># init_st = Statevector.from_label(&#39;1&#39;*n).data</span>
+<span class="c1"># init_st = scipy.linalg.expm(-1j * SparsePauliOp.from_list([(&#39;Y&#39;*n, np.pi / 8)]).to_matrix()) @ init_st</span>
+<span class="c1"># init_st = scipy.linalg.expm(-1j * SparsePauliOp.from_sparse_list([(&#39;Y&#39;, [i], np.pi / 8) for i in range(0, n)], n).to_matrix()) @ init_st</span>
+<span class="c1"># init_st = Statevector.from_label(&#39;11010101&#39;).data</span>
+<span class="n">init_st</span> <span class="o">=</span> <span class="n">random_statevector</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+<span class="n">init_dm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">init_st</span><span class="p">,</span> <span class="n">init_st</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>
+<span class="c1"># print(init_st)</span>
+<span class="c1"># init_st = get_ground_state(tfi.ham.to_matrix())[1]</span>
+<span class="c1"># init_st = np.linalg.eigh(exact_U - pf_AB(par_group, 3, r, ord=2))[1][-1]</span>
+<span class="c1"># init_st = np.linalg.eigh(exact_U - appro_U)[1][-1]</span>
+<span class="c1"># rand_states = [random_statevector(2**n) for _ in range(n_sample)]</span>
+
+<span class="c1"># exact_U_dt = scipy.linalg.expm(-1j * dt * sum(h_list))</span>
+<span class="n">exact_U_dt</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">h_list</span><span class="p">))</span>
+<span class="n">appro_U_dt</span> <span class="o">=</span> <span class="n">pf_r</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">use_jax</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="c1"># print(f&#39;------ t = {t} ------&#39;)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span>
+    <span class="c1"># magn_op = SparsePauliOp.from_sparse_list([(&#39;Z&#39;, [i], 1/n) for i in range(0, n)], num_qubits=n).to_matrix()</span>
+    <span class="c1"># magn_op = SparsePauliOp(&#39;XYIIIIII&#39;).to_matrix()</span>
+    <span class="c1"># ob = magn_op</span>
+
+    <span class="c1"># print(rand_states)</span>
+
+    <span class="n">exact_U</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">h_list</span><span class="p">))</span>
+    <span class="c1"># exact_U = scipy.linalg.expm(-1j * t * H.ham)</span>
+    <span class="c1"># par_group = [h.to_matrix(True) for h in H.ham_parity]</span>
+    <span class="n">appro_U</span> <span class="o">=</span> <span class="n">pf_r</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_jax</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># assert np.allclose(exact_U, scipy.linalg.expm(-1j * t * sum([h.to_matrix() for h in H.ham_xyz])))</span>
+
+    <span class="n">exact_st</span><span class="p">,</span> <span class="n">appro_st</span> <span class="o">=</span> <span class="n">exact_U</span> <span class="o">@</span> <span class="n">init_st</span><span class="p">,</span> <span class="n">appro_U</span> <span class="o">@</span> <span class="n">init_st</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;worst_err&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U_dt</span> <span class="o">-</span> <span class="n">appro_U_dt</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;trace_dist&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trace_distance</span><span class="p">(</span><span class="n">init_dm</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">appro_U</span><span class="p">))</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;l2_norm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_st</span> <span class="o">-</span> <span class="n">appro_st</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;op_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">exact_U_dt</span> <span class="o">-</span> <span class="n">appro_U_dt</span><span class="p">)</span> <span class="o">@</span> <span class="n">appro_st</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># data[&#39;energy_diff&#39;].append(np.abs(exact_st.conj().T @ ob @ exact_st - appro_st.conj().T @ ob @ appro_st))</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;energy_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expval_error</span><span class="p">(</span><span class="n">init_st</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">appro_U</span><span class="p">,</span> <span class="n">ob</span><span class="p">,</span> <span class="n">use_dm</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="c1"># print(&quot;energy: &quot;, init_st.conj().T @ exact_U.conj().T @ ob @ exact_U @ init_st, init_st.conj().T @ appro_U.conj().T @ ob @ appro_U @ init_st)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+
+<span class="c1"># ax.plot(data[&#39;t&#39;], data[&#39;worst_err&#39;], &#39;.-&#39;, label=&#39;Worst-case&#39;)</span>
+<span class="c1"># ax.plot(data[&#39;t&#39;], [item*(t_list[index]/dt) for index, item in enumerate(data[&#39;op_diff&#39;])], &#39;.-&#39;, label=&#39;op diff&#39;)</span>
+<span class="c1"># ax.plot(data[&#39;t&#39;], [(t_max/t_n/dt)*sum(data[&#39;op_diff&#39;][:i+1]) for i in range(len(data[&#39;op_diff&#39;]))], &#39;.-&#39;, label=&#39;Integral op diff&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;l2_norm&#39;</span><span class="p">],</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;l2 norm&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;trace_dist&#39;</span><span class="p">],</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Trace dist&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;energy_diff&#39;</span><span class="p">],</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Energy diff&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">, dt=</span><span class="si">{</span><span class="n">dt</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="c1"># ax.loglog()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">figs_dir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">_n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">_adaptive.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;trace_dist&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;energy_diff&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++++++++++++++++++++++++++++++++++++++
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 203.025282,  151.696606,   15.941487,   68.374832,   45.962447,
+         48.313383,   42.638821,   22.291753,   86.603493,   34.067634,
+        191.922857,   54.485394, 3195.434844,   30.25893 ,   91.911241,
+         60.598971,   65.310616,   19.701211,  315.01863 ,  113.419667,
+         33.789951,  118.662054,   96.472849,   77.201262,   90.303113,
+         25.010513,   52.210872,   25.432291,   30.216636,   32.575948,
+         16.259733,   53.632468,   27.110211,   30.376268,  633.713208,
+        198.653316,   31.589203,   70.783232,  116.608845,   25.130693,
+         88.988624,   36.15752 ,   78.694599,   51.747512,  423.127093,
+        128.795203,   82.454857,   93.356293,   59.199584,   64.944432])
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/991a055dbb9a61d51e13b24b2a74458e63ab3e514f4467a756835bd53c054f7f.png"><img alt="_images/991a055dbb9a61d51e13b24b2a74458e63ab3e514f4467a756835bd53c054f7f.png" src="_images/991a055dbb9a61d51e13b24b2a74458e63ab3e514f4467a756835bd53c054f7f.png" style="width: 862px; height: 563px;" /></a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;trace_dist&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;energy_diff&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 62.712214, 104.031592,  59.214471,  17.698881,  73.136054,
+        26.883994,  76.836777,  31.950707,  56.30875 ,   8.894562,
+        32.090239, 359.065004,  15.542673,  28.186319,  26.118313,
+        32.11935 , 713.508663,  51.383755,  44.202148,  36.392678,
+        37.915718,  18.738164,  23.442815,  18.216088,  49.002455,
+       109.000008,  21.323297,  58.512225,  28.551012,  46.53042 ,
+        20.206619,  35.58386 ,  14.137549,  94.766945,  43.645968,
+        22.607872,  33.116395, 895.747859,  33.799012, 110.880126,
+       714.777711,  13.353476,  32.299317,  99.491085,  18.333827,
+        20.014451,  70.565877,  35.338975,  22.229174,  33.064289])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_sample</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">ob</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="o">+</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;ZZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="o">+</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s1">&#39;XXZYXYXZ&#39;</span><span class="p">,</span><span class="mi">1</span> <span class="p">)])</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+<span class="n">ob2</span> <span class="o">=</span>  <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s1">&#39;XXZYXYXZ&#39;</span><span class="p">,</span><span class="mi">1</span> <span class="p">)])</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+<span class="c1"># ob = SparsePauliOp.from_list([(&#39;Z&#39;*n, 1)]).to_matrix()</span>
+<span class="n">ob_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ob</span> <span class="o">=</span> <span class="n">ob</span><span class="o">/</span><span class="n">ob_norm</span>
+
+<span class="n">rand_st1</span> <span class="o">=</span> <span class="p">[</span><span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">)]</span>
+<span class="c1"># rand_st1 = [random_statevector(2**n).data for _ in range(n_sample)]</span>
+<span class="n">rand_st2</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_statevector</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">)]</span>
+<span class="n">tr_d_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">rand_st1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rand_st1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">rand_st2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rand_st2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()),</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">)]</span>
+<span class="n">expval_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rand_st1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob</span> <span class="o">@</span> <span class="n">rand_st1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">rand_st2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob</span> <span class="o">@</span> <span class="n">rand_st2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">)]</span>
+<span class="n">expval_list2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rand_st1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob2</span> <span class="o">@</span> <span class="n">rand_st1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">rand_st2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob2</span> <span class="o">@</span> <span class="n">rand_st2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">)]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">),</span> <span class="n">tr_d_list</span><span class="p">,</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;trace dist&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">),</span> <span class="n">expval_list</span><span class="p">,</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ob diff&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">),</span> <span class="n">expval_list2</span><span class="p">,</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ob2 diff&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x17e410b50&gt;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/0d44bc489a327e0d6141a520623093c0bf2a2fc3761f55adb7d28873c3c4f300.png"><img alt="_images/0d44bc489a327e0d6141a520623093c0bf2a2fc3761f55adb7d28873c3c4f300.png" src="_images/0d44bc489a327e0d6141a520623093c0bf2a2fc3761f55adb7d28873c3c4f300.png" style="width: 863px; height: 563px;" /></a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">integral_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">t_max</span><span class="o">/</span><span class="n">t_n</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;op_diff&#39;</span><span class="p">][:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;op_diff&#39;</span><span class="p">]))]</span>
+<span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">integral_list</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;trace_dist&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2.006181, 1.61421 , 1.811065, 2.044359, 2.204442, 2.375787,
+       2.502118, 2.632725, 2.71756 , 2.838834, 3.001758, 3.09562 ,
+       3.200021, 3.285983, 3.381488, 3.485138, 3.607745, 3.76158 ,
+       3.921184, 4.010668, 4.203078, 4.360362, 4.553653, 4.689277,
+       4.84407 , 4.927297, 4.979339, 4.929652, 4.911449, 4.893088,
+       4.870818, 4.826126, 4.817725, 4.827603, 4.889789, 4.962069,
+       4.976887, 4.96319 , 4.965815, 5.00841 , 5.061246, 5.058797,
+       5.053144, 5.074519, 5.071218, 5.042524, 5.063188, 5.146036,
+       5.233202, 5.275948])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">exact_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">exact_st</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">appro_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">appro_st</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">exact_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">exact_st</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">appro_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">appro_st</span><span class="p">),</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">exact_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">exact_st</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">appro_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">appro_st</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">exact_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">exact_st</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">appro_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">appro_st</span><span class="p">),</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;exact_st&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="nearest-neighbor-interaction">
+<h2>Nearest-neighbor interaction<a class="headerlink" href="#nearest-neighbor-interaction" title="Link to this heading">#</a></h2>
+</section>
+<section id="chemistry">
+<h2>Chemistry<a class="headerlink" href="#chemistry" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fermion_ham</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">openfermion</span> <span class="kn">import</span> <span class="n">MolecularData</span>
+<span class="kn">from</span> <span class="nn">openfermion.transforms</span> <span class="kn">import</span> <span class="n">get_fermion_operator</span><span class="p">,</span> <span class="n">jordan_wigner</span>
+<span class="kn">from</span> <span class="nn">openfermion.linalg</span> <span class="kn">import</span> <span class="n">get_ground_state</span><span class="p">,</span> <span class="n">get_sparse_operator</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_unitary</span>
+
+<span class="kn">import</span> <span class="nn">jax</span><span class="o">,</span> <span class="nn">scipy</span>
+
+<span class="n">prefix</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;Chem&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span>
+<span class="c1"># dir = &#39;../figs&#39;</span>
+
+<span class="n">rand_type</span> <span class="o">=</span> <span class="s1">&#39;haar&#39;</span> <span class="c1"># &#39;1&#39;</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">n_hydrogen</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n_hydrogen</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="n">n_hydrogen</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ground_state_energy</span><span class="p">,</span> <span class="n">ground_state</span> <span class="o">=</span>  <span class="n">get_ground_state</span><span class="p">(</span><span class="n">get_sparse_operator</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">fermion_hamiltonian</span><span class="p">))</span>
+<span class="c1"># ground_state = Statevector.from_label(&#39;0&#39;*n).data</span>
+<span class="c1"># ground_state = random_statevector(2**(2*n_hydrogen)).data</span>
+<span class="n">init_st</span> <span class="o">=</span> <span class="n">ground_state</span>
+<span class="c1"># print(&#39;init state: &#39;, init_st)  </span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_sample</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="c1"># dt = 0.1</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span>
+
+<span class="n">h_ob</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h2_init</span><span class="o">.</span><span class="n">hamiltonian_list</span><span class="p">])</span>
+<span class="n">exact_U</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="n">h</span>  <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h2_finl</span><span class="o">.</span><span class="n">hamiltonian_list</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_unitary</span>
+<span class="n">init_st</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0000&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+<span class="c1">## tensor product of four random unitaries</span>
+<span class="k">def</span> <span class="nf">tensor_random_unitaries</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">rand_U_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_unitary</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="n">global_random_U</span> <span class="o">=</span> <span class="n">rand_U_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">global_random_U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">global_random_U</span><span class="p">,</span> <span class="n">rand_U_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> 
+    <span class="k">return</span> <span class="n">global_random_U</span>
+<span class="c1"># tensor_random_unitaries(4) @ init_st</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fermion_ham</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">openfermion</span> <span class="kn">import</span> <span class="n">MolecularData</span>
+<span class="kn">from</span> <span class="nn">openfermion.transforms</span> <span class="kn">import</span> <span class="n">get_fermion_operator</span><span class="p">,</span> <span class="n">jordan_wigner</span>
+<span class="kn">from</span> <span class="nn">openfermion.linalg</span> <span class="kn">import</span> <span class="n">get_ground_state</span><span class="p">,</span> <span class="n">get_sparse_operator</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_unitary</span>
+
+<span class="n">test_H</span> <span class="o">=</span> <span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># pstr: 15, [&#39;IIII&#39;, &#39;ZIII&#39;, &#39;IZII&#39;, &#39;IIZI&#39;, &#39;IIIZ&#39;, &#39;ZZII&#39;, &#39;YXXY&#39;, &#39;YYXX&#39;, &#39;XXYY&#39;, &#39;XYYX&#39;, &#39;ZIZI&#39;, &#39;ZIIZ&#39;, &#39;IZZI&#39;, &#39;IZIZ&#39;, &#39;IIZZ&#39;]
+# groups: 2
+[[{&#39;IIII&#39;: (-0.3276081896748102+0j)}, {&#39;ZIII&#39;: (0.13716572937099497+0j)}, {&#39;IZII&#39;: (0.13716572937099497+0j)}, {&#39;IIZI&#39;: (-0.13036292057109025+0j)}, {&#39;IIIZ&#39;: (-0.13036292057109025+0j)}, {&#39;ZZII&#39;: (0.15660062488237947+0j)}], [{&#39;YXXY&#39;: (0.049197645871367546+0j)}, {&#39;YYXX&#39;: (-0.049197645871367546+0j)}, {&#39;XXYY&#39;: (-0.049197645871367546+0j)}, {&#39;XYYX&#39;: (0.049197645871367546+0j)}, {&#39;ZIZI&#39;: (0.10622904490856078+0j)}, {&#39;ZIIZ&#39;: (0.15542669077992832+0j)}, {&#39;IZZI&#39;: (0.15542669077992832+0j)}, {&#39;IZIZ&#39;: (0.10622904490856078+0j)}, {&#39;IIZZ&#39;: (0.16326768673564335+0j)}]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_H</span><span class="o">.</span><span class="n">qubit_terms</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;,
+ &lt;16x16 sparse matrix of type &#39;&lt;class &#39;numpy.complex128&#39;&gt;&#39;
+ 	with 16 stored elements in Compressed Sparse Column format&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">k</span><span class="o">=</span> <span class="mi">3</span>
+<span class="p">[(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">([</span><span class="s1">&#39;I&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">),</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)),</span> <span class="n">k</span><span class="p">),</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="c1"># &quot;&quot;.join(random.choices([&#39;I&#39;,&#39;X&#39;,&#39;Y&#39;,&#39;Z&#39;], k=n))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[([&#39;X&#39;, &#39;Y&#39;, &#39;Y&#39;], [0, 3, 5], 1)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fermion_ham</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">openfermion</span> <span class="kn">import</span> <span class="n">MolecularData</span>
+<span class="kn">from</span> <span class="nn">openfermion.transforms</span> <span class="kn">import</span> <span class="n">get_fermion_operator</span><span class="p">,</span> <span class="n">jordan_wigner</span>
+<span class="kn">from</span> <span class="nn">openfermion.linalg</span> <span class="kn">import</span> <span class="n">get_ground_state</span><span class="p">,</span> <span class="n">get_sparse_operator</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_unitary</span>
+
+<span class="kn">import</span> <span class="nn">jax</span><span class="o">,</span> <span class="nn">scipy</span>
+
+<span class="n">prefix</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;Chem&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span>
+<span class="c1"># dir = &#39;../figs&#39;</span>
+
+<span class="n">rand_type</span> <span class="o">=</span> <span class="s1">&#39;haar&#39;</span> <span class="c1"># &#39;1&#39;</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">n_hydrogen</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n_hydrogen</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">h2_init</span> <span class="o">=</span> <span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="n">n_hydrogen</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">h2_finl</span> <span class="o">=</span> <span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="n">n_hydrogen</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># print(get_ground_state(get_sparse_operator(h2_init.fermion_hamiltonian)))</span>
+<span class="c1"># print(get_ground_state(get_sparse_operator(h2_finl.fermion_hamiltonian)))</span>
+
+<span class="c1"># print(h2_init.jw)</span>
+<span class="n">ground_state_energy</span><span class="p">,</span> <span class="n">ground_state</span> <span class="o">=</span>  <span class="n">get_ground_state</span><span class="p">(</span><span class="n">get_sparse_operator</span><span class="p">(</span><span class="n">h2_init</span><span class="o">.</span><span class="n">fermion_hamiltonian</span><span class="p">))</span>
+<span class="c1"># print(&#39;ground energy: &#39;, ground_state_energy, ground_state)</span>
+<span class="c1"># vec0 = np.array([0 for _ in range(len(ground_state))])</span>
+<span class="c1"># vec0[-1] = 1</span>
+<span class="c1"># ground_state = vec0/np.sqrt(2)  + ground_state / np.sqrt(2) </span>
+<span class="c1"># ground_state = Statevector.from_label(&#39;+&#39;*n).data/np.sqrt(2)  + Statevector.from_label(&#39;1100&#39;).data / np.sqrt(2) </span>
+<span class="c1"># ground_state = Statevector.from_label(&#39;+&#39;*n).data</span>
+<span class="n">ground_state</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># ground_state = random_statevector(2**(2*n_hydrogen)).data</span>
+<span class="n">init_st</span> <span class="o">=</span> <span class="n">ground_state</span><span class="o">.</span><span class="n">T</span>
+<span class="c1"># print(&#39;init state: &#39;, init_st)  </span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_sample</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="c1"># dt = 0.1</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span>
+
+<span class="n">chem_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;worst_err&#39;</span><span class="p">,</span> <span class="s1">&#39;averg_err&#39;</span><span class="p">,</span> <span class="s1">&#39;averg_err_std&#39;</span><span class="p">,</span> <span class="s1">&#39;typic_err&#39;</span><span class="p">,</span> <span class="s1">&#39;typic_err_trace&#39;</span><span class="p">,</span> <span class="s1">&#39;worst_ob_err&#39;</span><span class="p">,</span> <span class="s1">&#39;averg_ob_err&#39;</span><span class="p">,</span> <span class="s1">&#39;averg_ob_err_std&#39;</span><span class="p">,</span> <span class="s1">&#39;typic_ob_err&#39;</span><span class="p">,</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
+<span class="n">chem_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">chem_keys</span><span class="p">])</span>
+<span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_list</span>
+
+<span class="c1"># h_ob =  SparsePauliOp.from_sparse_list([(&#39;XX&#39;, [i, i+1], 1/(n-1)) for i in range(0, n-1)], num_qubits=n).to_matrix()</span>
+<span class="c1"># h_ob =  SparsePauliOp.from_sparse_list([(&#39;Y&#39;, [i], 1/n) for i in range(0, n)], num_qubits=n).to_matrix()</span>
+<span class="n">rand_ob_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">([</span><span class="s1">&#39;I&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">n</span><span class="p">))</span>
+<span class="c1"># rand_ob_str = &#39;IIXI&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rand_ob_str: &quot;</span><span class="p">,</span> <span class="n">rand_ob_str</span><span class="p">)</span>
+<span class="n">h_ob</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="n">rand_ob_str</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+<span class="n">rand_pstr_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">([</span><span class="s1">&#39;I&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">n</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;rand_pstr_list: &#39;</span><span class="p">,</span> <span class="n">rand_pstr_list</span><span class="p">)</span>
+<span class="c1"># h_ob = (SparsePauliOp(rand_pstr_list[0]) + SparsePauliOp(rand_pstr_list[1])).to_matrix()</span>
+<span class="n">h_ob</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h2_init</span><span class="o">.</span><span class="n">hamiltonian_list</span><span class="p">])</span>
+<span class="c1"># h_ob = sum([SparsePauliOp.from_sparse_list([(random.choices([&#39;I&#39;,&#39;X&#39;,&#39;Y&#39;,&#39;Z&#39;], k=n), random.sample(list(range(0, n)), n), 1)], n) for _ in range(5)]).to_matrix()</span>
+<span class="c1"># h_ob = h_ob / np.linalg.norm(h_ob, ord=2)</span>
+<span class="n">h_ob_1norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">h2_init</span><span class="o">.</span><span class="n">pstrs_coeff</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="c1"># print(f&#39;------t: {t}-----&#39;)  </span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span>
+    <span class="c1"># print(&quot;H norm: &quot;, np.linalg.norm(sum([h for h in h2_init.hamiltonian_list]), ord=2) )</span>
+    <span class="n">exact_U</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="n">h</span>  <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h2_finl</span><span class="o">.</span><span class="n">hamiltonian_list</span><span class="p">]))</span>
+    <span class="c1"># h_list = h2_finl.qubit_terms</span>
+    <span class="n">h_list</span> <span class="o">=</span> <span class="n">h2_finl</span><span class="o">.</span><span class="n">hamiltonian_list</span>
+    <span class="n">appro_U</span> <span class="o">=</span> <span class="n">pf_r</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">use_jax</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># exact_U = jax.scipy.linalg.expm(-1j * t * sum([h  for h in h2_finl.hamiltonian_list]))</span>
+    <span class="c1"># h_list = h2_finl.hamiltonian_list</span>
+    <span class="c1"># appro_U = pf_r(h_list, t, r, order=2, use_jax=True)</span>
+    <span class="k">if</span> <span class="n">rand_type</span> <span class="o">==</span> <span class="s1">&#39;haar&#39;</span><span class="p">:</span>
+        <span class="n">rand_states</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_statevector</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">exact_U</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">)]</span>
+    <span class="k">elif</span> <span class="n">rand_type</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+        <span class="n">rand_states</span> <span class="o">=</span> <span class="p">[</span><span class="n">Statevector</span><span class="p">(</span><span class="n">tensor_random_unitaries</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">@</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;rand_type should be either haar or 1&#39;</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U</span>
+    <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+    <span class="c1"># init_st = V[0].T</span>
+
+    <span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;worst_err&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">averg_st_err</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">h_ob</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">@</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="p">,</span> <span class="p">(</span><span class="n">exact_U</span> <span class="o">@</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">appro_U</span> <span class="o">@</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="p">(</span><span class="n">appro_U</span> <span class="o">@</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">rand_states</span><span class="p">]</span> 
+    <span class="c1"># averg_st_err = [np.linalg.norm(exact_U @ state.data.conj().T - appro_U @ state.data.conj().T) for state in rand_states]</span>
+    <span class="c1"># print(averg_ob_err)</span>
+    <span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;averg_err&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">averg_st_err</span><span class="p">))</span>
+    <span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;averg_err_std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">averg_st_err</span><span class="p">))</span>
+    <span class="n">exact_st</span> <span class="o">=</span> <span class="n">exact_U</span> <span class="o">@</span> <span class="n">init_st</span>
+    <span class="n">appro_st</span> <span class="o">=</span> <span class="n">appro_U</span> <span class="o">@</span> <span class="n">init_st</span>
+    <span class="c1"># chem_data[&#39;typic_err&#39;].append(np.linalg.norm(np.outer(exact_st, exact_st.conj().T) - np.outer(appro_st, appro_st.conj().T), ord=&#39;nuc&#39;))</span>
+    <span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;typic_err_trace&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">exact_st</span><span class="p">,</span> <span class="n">exact_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">appro_st</span><span class="p">,</span> <span class="n">appro_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">))</span>
+    <span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;typic_err&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">@</span> <span class="n">init_st</span> <span class="o">-</span> <span class="n">appro_U</span> <span class="o">@</span> <span class="n">init_st</span><span class="p">))</span>
+    <span class="c1"># print(ground_state.conj().T @ exact_U.conj().T @ h_ob @ exact_U @ ground_state)</span>
+
+    <span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;worst_ob_err&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">appro_U</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">averg_ob_err</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">exact_U</span> <span class="o">@</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">appro_U</span> <span class="o">@</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">rand_states</span><span class="p">]</span>
+    <span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;averg_ob_err&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">averg_ob_err</span><span class="p">))</span>
+    <span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;averg_ob_err_std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">averg_ob_err</span><span class="p">))</span>
+    <span class="n">chem_data</span><span class="p">[</span><span class="s1">&#39;typic_ob_err&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">init_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">exact_U</span> <span class="o">@</span> <span class="n">init_st</span> <span class="o">-</span> <span class="n">init_st</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">appro_U</span> <span class="o">@</span> <span class="n">init_st</span><span class="p">))</span>
+    <span class="c1"># print(&quot;energy: &quot;, init_st.conj().T @ exact_U.conj().T @ h_ob @ exact_U @ init_st, init_st.conj().T @ appro_U.conj().T @ h_ob @ appro_U @ init_st)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># pstr: 62, [&#39;IIIIII&#39;, &#39;ZIIIII&#39;, &#39;YZZZYI&#39;, &#39;XZZZXI&#39;, &#39;IZIIII&#39;, &#39;IYZZZY&#39;, &#39;IXZZZX&#39;, &#39;IIZIII&#39;, &#39;IIIZII&#39;, &#39;IIIIZI&#39;, &#39;IIIIIZ&#39;, &#39;ZZIIII&#39;, &#39;YIZZYI&#39;, &#39;XIZZXI&#39;, &#39;YXXYII&#39;, &#39;YYXXII&#39;, &#39;XXYYII&#39;, &#39;XYYXII&#39;, &#39;ZYZZZY&#39;, &#39;ZXZZZX&#39;, &#39;YXIIXY&#39;, &#39;YYIIXX&#39;, &#39;XXIIYY&#39;, &#39;XYIIYX&#39;, &#39;ZIZIII&#39;, &#39;YZIZYI&#39;, &#39;XZIZXI&#39;, &#39;ZIIZII&#39;, &#39;YZZIYI&#39;, &#39;XZZIXI&#39;, &#39;YZYYZY&#39;, &#39;YZYXZX&#39;, &#39;XZXYZY&#39;, &#39;XZXXZX&#39;, &#39;ZIIIZI&#39;, &#39;ZIIIIZ&#39;, &#39;YZZZYZ&#39;, &#39;XZZZXZ&#39;, &#39;IZZIII&#39;, &#39;IYIZZY&#39;, &#39;IXIZZX&#39;, &#39;IYXXYI&#39;, &#39;IYYXXI&#39;, &#39;IXXYYI&#39;, &#39;IXYYXI&#39;, &#39;IZIZII&#39;, &#39;IYZIZY&#39;, &#39;IXZIZX&#39;, &#39;IZIIZI&#39;, &#39;IYZZIY&#39;, &#39;IXZZIX&#39;, &#39;IZIIIZ&#39;, &#39;IIZZII&#39;, &#39;IIYXXY&#39;, &#39;IIYYXX&#39;, &#39;IIXXYY&#39;, &#39;IIXYYX&#39;, &#39;IIZIZI&#39;, &#39;IIZIIZ&#39;, &#39;IIIZZI&#39;, &#39;IIIZIZ&#39;, &#39;IIIIZZ&#39;]
+# groups: 22
+[[{&#39;IIIIII&#39;: (-0.33362884012829697+0j)}, {&#39;ZIIIII&#39;: (0.16891173410254534+0j)}, {&#39;YZZZYI&#39;: (0.0004614778443555352+0j)}], [{&#39;XZZZXI&#39;: (0.0004614778443555352+0j)}, {&#39;IZIIII&#39;: (0.16891173410254526+0j)}, {&#39;IYZZZY&#39;: (0.00046147784435555516+0j)}], [{&#39;IXZZZX&#39;: (0.00046147784435555516+0j)}, {&#39;IIZIII&#39;: (0.020862150051427164+0j)}, {&#39;IIIZII&#39;: (0.02086215005142716+0j)}, {&#39;IIIIZI&#39;: (-0.2535728967411679+0j)}, {&#39;IIIIIZ&#39;: (-0.2535728967411678+0j)}, {&#39;ZZIIII&#39;: (0.13984206636700175+0j)}, {&#39;YIZZYI&#39;: (-0.022007608492169456+0j)}], [{&#39;XIZZXI&#39;: (-0.022007608492169456+0j)}, {&#39;YXXYII&#39;: (0.038692886305328696+0j)}], [{&#39;YYXXII&#39;: (-0.038692886305328696+0j)}, {&#39;XXYYII&#39;: (-0.038692886305328696+0j)}, {&#39;XYYXII&#39;: (0.038692886305328696+0j)}, {&#39;ZYZZZY&#39;: (-0.022007608492169456+0j)}, {&#39;ZXZZZX&#39;: (-0.022007608492169456+0j)}], [{&#39;YXIIXY&#39;: (0.03390830240101133+0j)}], [{&#39;YYIIXX&#39;: (-0.03390830240101133+0j)}, {&#39;XXIIYY&#39;: (-0.03390830240101133+0j)}, {&#39;XYIIYX&#39;: (0.03390830240101133+0j)}], [{&#39;ZIZIII&#39;: (0.08295876958230786+0j)}, {&#39;YZIZYI&#39;: (-0.02573161133632447+0j)}], [{&#39;XZIZXI&#39;: (-0.02573161133632447+0j)}], [{&#39;ZIIZII&#39;: (0.12165165588763656+0j)}, {&#39;YZZIYI&#39;: (0.009479775148539305+0j)}], [{&#39;XZZIXI&#39;: (0.009479775148539305+0j)}, {&#39;YZYYZY&#39;: (-0.03521138648486378+0j)}], [{&#39;YZYXZX&#39;: (-0.03521138648486378+0j)}, {&#39;XZXYZY&#39;: (-0.03521138648486378+0j)}, {&#39;XZXXZX&#39;: (-0.03521138648486378+0j)}], [{&#39;ZIIIZI&#39;: (0.11003101552075459+0j)}, {&#39;ZIIIIZ&#39;: (0.14393931792176595+0j)}, {&#39;YZZZYZ&#39;: (-0.02246908589022142+0j)}], [{&#39;XZZZXZ&#39;: (-0.02246908589022142+0j)}, {&#39;IZZIII&#39;: (0.12165165588763656+0j)}], [{&#39;IYIZZY&#39;: (0.009479775148539305+0j)}], [{&#39;IXIZZX&#39;: (0.009479775148539305+0j)}, {&#39;IYXXYI&#39;: (-0.03521138648486378+0j)}], [{&#39;IYYXXI&#39;: (0.03521138648486378+0j)}, {&#39;IXXYYI&#39;: (0.03521138648486378+0j)}, {&#39;IXYYXI&#39;: (-0.03521138648486378+0j)}, {&#39;IZIZII&#39;: (0.08295876958230786+0j)}], [{&#39;IYZIZY&#39;: (-0.02573161133632447+0j)}], [{&#39;IXZIZX&#39;: (-0.02573161133632447+0j)}], [{&#39;IZIIZI&#39;: (0.14393931792176595+0j)}, {&#39;IYZZIY&#39;: (-0.022469085890221424+0j)}], [{&#39;IXZZIX&#39;: (-0.022469085890221424+0j)}, {&#39;IZIIIZ&#39;: (0.11003101552075459+0j)}, {&#39;IIZZII&#39;: (0.13366602988233992+0j)}], [{&#39;IIYXXY&#39;: (0.03759887695074104+0j)}, {&#39;IIYYXX&#39;: (-0.03759887695074104+0j)}, {&#39;IIXXYY&#39;: (-0.03759887695074104+0j)}, {&#39;IIXYYX&#39;: (0.03759887695074104+0j)}, {&#39;IIZIZI&#39;: (0.09048399816423514+0j)}, {&#39;IIZIIZ&#39;: (0.12808287511497618+0j)}, {&#39;IIIZZI&#39;: (0.12808287511497618+0j)}, {&#39;IIIZIZ&#39;: (0.09048399816423514+0j)}, {&#39;IIIIZZ&#39;: (0.15636653196999328+0j)}]]
+# pstr: 62, [&#39;IIIIII&#39;, &#39;ZIIIII&#39;, &#39;YZZZYI&#39;, &#39;XZZZXI&#39;, &#39;IZIIII&#39;, &#39;IYZZZY&#39;, &#39;IXZZZX&#39;, &#39;IIZIII&#39;, &#39;IIIZII&#39;, &#39;IIIIZI&#39;, &#39;IIIIIZ&#39;, &#39;ZZIIII&#39;, &#39;YIZZYI&#39;, &#39;XIZZXI&#39;, &#39;YXXYII&#39;, &#39;YYXXII&#39;, &#39;XXYYII&#39;, &#39;XYYXII&#39;, &#39;ZYZZZY&#39;, &#39;ZXZZZX&#39;, &#39;YXIIXY&#39;, &#39;YYIIXX&#39;, &#39;XXIIYY&#39;, &#39;XYIIYX&#39;, &#39;ZIZIII&#39;, &#39;YZIZYI&#39;, &#39;XZIZXI&#39;, &#39;ZIIZII&#39;, &#39;YZZIYI&#39;, &#39;XZZIXI&#39;, &#39;YZYYZY&#39;, &#39;YZYXZX&#39;, &#39;XZXYZY&#39;, &#39;XZXXZX&#39;, &#39;ZIIIZI&#39;, &#39;ZIIIIZ&#39;, &#39;YZZZYZ&#39;, &#39;XZZZXZ&#39;, &#39;IZZIII&#39;, &#39;IYIZZY&#39;, &#39;IXIZZX&#39;, &#39;IYXXYI&#39;, &#39;IYYXXI&#39;, &#39;IXXYYI&#39;, &#39;IXYYXI&#39;, &#39;IZIZII&#39;, &#39;IYZIZY&#39;, &#39;IXZIZX&#39;, &#39;IZIIZI&#39;, &#39;IYZZIY&#39;, &#39;IXZZIX&#39;, &#39;IZIIIZ&#39;, &#39;IIZZII&#39;, &#39;IIYXXY&#39;, &#39;IIYYXX&#39;, &#39;IIXXYY&#39;, &#39;IIXYYX&#39;, &#39;IIZIZI&#39;, &#39;IIZIIZ&#39;, &#39;IIIZZI&#39;, &#39;IIIZIZ&#39;, &#39;IIIIZZ&#39;]
+# groups: 22
+[[{&#39;IIIIII&#39;: (-0.7946868861351186+0j)}, {&#39;ZIIIII&#39;: (0.07739154273134108+0j)}, {&#39;YZZZYI&#39;: (0.00017539853505802415+0j)}], [{&#39;XZZZXI&#39;: (0.00017539853505802415+0j)}, {&#39;IZIIII&#39;: (0.07739154273134108+0j)}, {&#39;IYZZZY&#39;: (0.00017539853505801548+0j)}], [{&#39;IXZZZX&#39;: (0.00017539853505801548+0j)}, {&#39;IIZIII&#39;: (0.03932832166911874+0j)}, {&#39;IIIZII&#39;: (0.03932832166911876+0j)}, {&#39;IIIIZI&#39;: (-0.009149698193001765+0j)}, {&#39;IIIIIZ&#39;: (-0.009149698193001737+0j)}, {&#39;ZZIIII&#39;: (0.10715552374494021+0j)}, {&#39;YIZZYI&#39;: (-0.020389947107044795+0j)}], [{&#39;XIZZXI&#39;: (-0.020389947107044795+0j)}, {&#39;YXXYII&#39;: (0.03967029647931012+0j)}], [{&#39;YYXXII&#39;: (-0.03967029647931012+0j)}, {&#39;XXYYII&#39;: (-0.03967029647931012+0j)}, {&#39;XYYXII&#39;: (0.03967029647931012+0j)}, {&#39;ZYZZZY&#39;: (-0.0203899471070448+0j)}, {&#39;ZXZZZX&#39;: (-0.0203899471070448+0j)}], [{&#39;YXIIXY&#39;: (0.044968644933350135+0j)}], [{&#39;YYIIXX&#39;: (-0.044968644933350135+0j)}, {&#39;XXIIYY&#39;: (-0.044968644933350135+0j)}, {&#39;XYIIYX&#39;: (0.044968644933350135+0j)}], [{&#39;ZIZIII&#39;: (0.04852342426899797+0j)}, {&#39;YZIZYI&#39;: (-0.016181513749289257+0j)}], [{&#39;XZIZXI&#39;: (-0.016181513749289257+0j)}], [{&#39;ZIIZII&#39;: (0.08819372074830809+0j)}, {&#39;YZZIYI&#39;: (0.0241160446363052+0j)}], [{&#39;XZZIXI&#39;: (0.0241160446363052+0j)}, {&#39;YZYYZY&#39;: (-0.040297558385594456+0j)}], [{&#39;YZYXZX&#39;: (-0.040297558385594456+0j)}, {&#39;XZXYZY&#39;: (-0.040297558385594456+0j)}, {&#39;XZXXZX&#39;: (-0.040297558385594456+0j)}], [{&#39;ZIIIZI&#39;: (0.06506707204703148+0j)}, {&#39;ZIIIIZ&#39;: (0.11003571698038164+0j)}, {&#39;YZZZYZ&#39;: (-0.020565345637688855+0j)}], [{&#39;XZZZXZ&#39;: (-0.020565345637688855+0j)}, {&#39;IZZIII&#39;: (0.08819372074830809+0j)}], [{&#39;IYIZZY&#39;: (0.0241160446363052+0j)}], [{&#39;IXIZZX&#39;: (0.0241160446363052+0j)}, {&#39;IYXXYI&#39;: (-0.040297558385594456+0j)}], [{&#39;IYYXXI&#39;: (0.040297558385594456+0j)}, {&#39;IXXYYI&#39;: (0.040297558385594456+0j)}, {&#39;IXYYXI&#39;: (-0.040297558385594456+0j)}, {&#39;IZIZII&#39;: (0.04852342426899797+0j)}], [{&#39;IYZIZY&#39;: (-0.016181513749289257+0j)}], [{&#39;IXZIZX&#39;: (-0.016181513749289257+0j)}], [{&#39;IZIIZI&#39;: (0.11003571698038164+0j)}, {&#39;IYZZIY&#39;: (-0.020565345637688855+0j)}], [{&#39;IXZZIX&#39;: (-0.020565345637688855+0j)}, {&#39;IZIIIZ&#39;: (0.06506707204703148+0j)}, {&#39;IIZZII&#39;: (0.11352455640491824+0j)}], [{&#39;IIYXXY&#39;: (0.04171213810945367+0j)}, {&#39;IIYYXX&#39;: (-0.04171213810945367+0j)}, {&#39;IIXXYY&#39;: (-0.04171213810945367+0j)}, {&#39;IIXYYX&#39;: (0.04171213810945367+0j)}, {&#39;IIZIZI&#39;: (0.04975768241666035+0j)}, {&#39;IIZIIZ&#39;: (0.091469820526114+0j)}, {&#39;IIIZZI&#39;: (0.091469820526114+0j)}, {&#39;IIIZIZ&#39;: (0.04975768241666035+0j)}, {&#39;IIIIZZ&#39;: (0.11424311324535724+0j)}]]
+rand_ob_str:  ZYXYIZ
+rand_pstr_list:  [&#39;YZIXYX&#39;, &#39;YYYYXI&#39;, &#39;ZYYIXZ&#39;, &#39;ZYIIXY&#39;]
++++++++++++++++
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">worst_st_err_bnd</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h_ob_1norm</span> <span class="o">*</span> <span class="n">tight_bound</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;spectral&#39;</span><span class="p">)</span>
+<span class="n">averg_st_err_bnd</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h_ob_1norm</span> <span class="o">*</span> <span class="n">tight_bound</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;fro&#39;</span><span class="p">)</span>
+
+<span class="n">onestep_exactU</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="n">herm</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">h_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">E_op</span> <span class="o">=</span> <span class="n">onestep_exactU</span> <span class="o">-</span> <span class="n">pf_r</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">use_jax</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># print((np.trace(E_op @ E_op.conj().T @ E_op @ E_op.conj().T)/d)**(1/4))</span>
+<span class="c1"># averg_ob_err_bnd = 2 * (np.trace(E_op @ E_op.conj().T @ E_op @ E_op.conj().T)/d)**(1/4) * (np.trace(h_ob @ h_ob @ h_ob @ h_ob)/d)**(1/4)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EEEE:&quot;</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">E_op</span> <span class="o">@</span> <span class="n">E_op</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">E_op</span> <span class="o">@</span> <span class="n">E_op</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">h_ob</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">h_ob</span><span class="p">)</span><span class="o">/</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;Fro:&quot;</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">E_op</span> <span class="o">@</span> <span class="n">E_op</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> 
+<span class="n">averg_ob_err_bnd</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">tight_bound</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;4&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">h_ob</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">h_ob</span><span class="p">)</span><span class="o">/</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># print( 2 * (np.trace(E_op @ E_op.conj().T)/d)**(1/2))</span>
+<span class="c1"># print( 2 * (np.trace(E_op @ E_op.conj().T @ E_op @ E_op.conj().T)/d)**(1/4) )</span>
+<span class="c1"># print((np.trace(h_ob @ h_ob @ h_ob @ h_ob)/d)**(1/4))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">worst_st_err_bnd</span><span class="p">,</span> <span class="n">averg_st_err_bnd</span><span class="p">,</span> <span class="n">averg_ob_err_bnd</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">tight_bound</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;4&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">h_ob</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">h_ob</span> <span class="o">@</span> <span class="n">h_ob</span><span class="p">)</span><span class="o">/</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EEEE: (5.661386972774727e-06-3.0905612449423607e-24j) Fro: (4.451729649547679e-06+6.362777701118939e-25j)
+0.009819972240223542 0.0035874049962433758 (0.0012333679927831924+0j)
+(0.0013428272046044044+0j) (0.918486003675016+0j)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plt.errorbar(chem_data[&#39;t&#39;][::s], chem_data[&#39;averg_err&#39;][::s], chem_data[&#39;averg_err_std&#39;][::s], fmt=&#39;o-&#39;, label=&#39;Average w/o observable (Empirical)&#39;, capsize=5, color=&#39;#0A75C7FF&#39;)</span>
+<span class="c1"># plt.errorbar(chem_data[&#39;t&#39;][::s], chem_data[&#39;averg_ob_err&#39;][::s], chem_data[&#39;averg_ob_err_std&#39;][::s], fmt=&#39;o--&#39;, capsize=5, color=&#39;#F39B7FFF&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-law">Power-law</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-vs-time">Error VS time</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-interaction">Nearest-neighbor interaction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemistry">Chemistry</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jue Xu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

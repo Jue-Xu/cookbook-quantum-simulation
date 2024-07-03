@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: Recipe of Quantum Computing
+title: Quantum Simulation Cookbook
 author: Jue Xu
 # logo: 512.png
 logo: logo.png

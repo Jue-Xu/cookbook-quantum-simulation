@@ -1,0 +1,2106 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Debug &#8212; Quantum Simulation Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'debug';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Quantum Simulation Cookbook - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Quantum Simulation Cookbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Quantum Simulation Cookbook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="basics/state.html">Quantum states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/operator.html">Quantum operators</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Hamiltonians/spin.html">Spin Hamiltonians</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Trotter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Trotter/adaptive.html">Adaptive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trotter/long_time.html">Localization of Trotter Error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trotter/trotter_bound.html">Trotter bounds</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdebug.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/debug.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Debug</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-transverse-field-ising-chain">1D Transverse Field Ising Chain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#different-groupings">Different groupings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main">Main</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bounds-tight-loose">Bounds (tight, loose)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="debug">
+<h1>Debug<a class="headerlink" href="#debug" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">random_statevector</span>
+
+<span class="kn">import</span> <span class="nn">scipy.sparse.linalg</span> <span class="k">as</span> <span class="nn">ssla</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">jax</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># from lightcone import *</span>
+<span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">trotter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">bounds</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># from noise import *</span>
+
+<span class="n">figs_dir</span><span class="p">,</span> <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;./figs&#39;</span><span class="p">,</span> <span class="s1">&#39;./data&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">---&gt; </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># from lightcone import *</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;utils&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># demo of the nearest-neighbor Hamiltonian</span>
+<span class="n">hnn</span> <span class="o">=</span> <span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">Jy</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hz</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">J</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span>
+<span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="n">hnn</span> <span class="o">=</span> <span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">Jy</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hz</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">singl_ob</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+<span class="n">multi_ob</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">]),</span> <span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+<span class="n">multi_ob</span> <span class="o">=</span> <span class="n">multi_ob</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">multi_ob</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># multi_ob = SparsePauliOp.from_sparse_list([(&#39;Z&#39;, [i], 1/n) for i in range(0, n)], n).to_matrix()</span>
+<span class="n">h_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hnn</span><span class="o">.</span><span class="n">ham_par</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="n">exact_U</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hnn</span><span class="o">.</span><span class="n">ham_par</span><span class="p">]))</span>
+    <span class="n">appro_U</span> <span class="o">=</span> <span class="n">pf_r</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">exact_ob_s</span> <span class="o">=</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">singl_ob</span> <span class="o">@</span> <span class="n">exact_U</span> 
+    <span class="n">appro_ob_s</span> <span class="o">=</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">singl_ob</span> <span class="o">@</span> <span class="n">appro_U</span>
+    <span class="n">exact_ob_m</span> <span class="o">=</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">multi_ob</span> <span class="o">@</span> <span class="n">exact_U</span> 
+    <span class="n">appro_ob_m</span> <span class="o">=</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">multi_ob</span> <span class="o">@</span> <span class="n">appro_U</span>
+    <span class="n">ob_error_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_ob_s</span> <span class="o">-</span> <span class="n">appro_ob_s</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ob_error_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_ob_m</span> <span class="o">-</span> <span class="n">appro_ob_m</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;single ob error (operator norm): &#39;</span><span class="p">,</span> <span class="n">ob_error_s</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;multip ob error (operator norm): &#39;</span><span class="p">,</span> <span class="n">ob_error_m</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span>
+<span class="kn">import</span> <span class="nn">scipy</span><span class="o">,</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">trotter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">J</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span>
+<span class="n">hnn</span> <span class="o">=</span> <span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Jy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">hy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hz</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ob</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+<span class="n">exact_U</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hnn</span><span class="o">.</span><span class="n">ham_par</span><span class="p">]))</span>
+<span class="n">h_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hnn</span><span class="o">.</span><span class="n">ham_par</span><span class="p">]</span>
+<span class="n">appro_U</span> <span class="o">=</span> <span class="n">pf_r</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">exact_ob_s</span> <span class="o">=</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob</span> <span class="o">@</span> <span class="n">exact_U</span> 
+<span class="n">appro_ob_s</span> <span class="o">=</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob</span> <span class="o">@</span> <span class="n">appro_U</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_ob_s</span> <span class="o">-</span> <span class="n">appro_ob_s</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_ob_s</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">appro_ob_s</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_ob_s</span> <span class="o">-</span> <span class="n">appro_ob_s</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">exact_ob_s</span> <span class="o">-</span> <span class="n">appro_ob_s</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_ob_s</span> <span class="o">-</span> <span class="n">appro_ob_s</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1"># np.linalg.eigvals(exact_ob_s - appro_ob_s)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">exact_ob_s</span> <span class="o">-</span> <span class="n">appro_ob_s</span><span class="p">)))[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># exact_ob_m = exact_U.conj().T @ multi_ob @ exact_U </span>
+<span class="c1"># appro_ob_m = appro_U.conj().T @ multi_ob @ appro_U</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;matrix6.txt&#39;</span>
+<span class="c1"># Save the matrix to the file</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">exact_ob_s</span> <span class="o">-</span> <span class="n">appro_ob_s</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="c1"># sys.modules[__name__].__dict__.clear()</span>
+<span class="c1"># globals().clear()</span>
+<span class="c1"># %reset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>22.627416997969508
+1.0000000000000169
+1.4649881645461555
+(-9.015010959956271e-14+4.255092054469643e-18j)
+0.0028613051827964587
+0.002861305182796463
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from spin_ham import *</span>
+<span class="c1"># from trotter import *</span>
+<span class="c1"># import sys</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">jax</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">J</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+<span class="c1"># for n in [7, 8, 9, 10, 11]:</span>
+    <span class="c1"># r = 1</span>
+    <span class="c1"># hnn = Nearest_Neighbour_1d(n, Jx=0, Jy=0, Jz=J, hx=h, hy=0, hz=0, pbc=False, verbose=False)</span>
+    <span class="n">zz_tuples</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;ZZ&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">J</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">x_tuples</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span> 
+    <span class="n">ham</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([</span><span class="o">*</span><span class="n">zz_tuples</span><span class="p">,</span> <span class="o">*</span><span class="n">x_tuples</span><span class="p">],</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span> 
+    <span class="n">even_terms</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([</span><span class="o">*</span><span class="n">zz_tuples</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="o">*</span><span class="n">x_tuples</span><span class="p">[::</span><span class="mi">2</span><span class="p">]],</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+    <span class="n">odd_terms</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([</span><span class="o">*</span><span class="n">zz_tuples</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">],</span> <span class="o">*</span><span class="n">x_tuples</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]],</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+    <span class="n">ham_par</span> <span class="o">=</span> <span class="p">[</span><span class="n">even_terms</span><span class="p">,</span> <span class="n">odd_terms</span><span class="p">]</span>
+    <span class="n">ob</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+    <span class="c1"># print(&#39;ob: &#39;, ob)</span>
+    <span class="c1"># exact_U = scipy.linalg.expm(-1j * t * sum([h.to_matrix() for h in hnn.ham_par]))</span>
+    <span class="n">h_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">ham_par</span><span class="p">]</span>
+    <span class="n">exact_U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">])))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n = &#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">h_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="c1"># for r in [1]:</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+        <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">))</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
+        <span class="c1"># list_U = [scipy.linalg.expm(-1j * (t / (2*r)) * h) for h in h_list]</span>
+        <span class="c1"># if verbose: print(&#39;----expm Herm finished----&#39;)</span>
+        <span class="c1"># appro_U_dt_forward = np.linalg.multi_dot(list_U)</span>
+        <span class="c1"># appro_U_dt_reverse = np.linalg.multi_dot(list_U[::-1])</span>
+        <span class="n">appro_U_dt_forward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">list_U</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">list_U</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">appro_U_dt_reverse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">list_U</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">list_U</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># appro_U_dt_forward = list_U[0] @ list_U[1]</span>
+        <span class="c1"># appro_U_dt_reverse = list_U[1] @ list_U[0]</span>
+        <span class="c1"># appro_U_dt = list_U[0] @ list_U[1]</span>
+        <span class="c1"># if verbose: print(&#39;----matrix product finished----&#39;)</span>
+        <span class="c1"># appro_U = np.matrix(appro_U_dt_reverse @ appro_U_dt_forward)</span>
+        <span class="n">appro_U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">appro_U_dt_reverse</span><span class="p">,</span> <span class="n">appro_U_dt_forward</span><span class="p">),</span> <span class="n">r</span><span class="p">))</span>
+        <span class="c1"># appro_U = np.matrix(np.linalg.matrix_power(appro_U_dt_reverse @ appro_U_dt_forward, r))</span>
+        <span class="c1"># appro_U = np.matrix(pf_r(h_list, t, r, order=2))</span>
+        <span class="n">exact_ob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">exact_U</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">))</span>
+        <span class="n">appro_ob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">appro_U</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">appro_U</span><span class="p">))</span>
+        <span class="c1"># exact_ob = exact_U.H @ ob @ exact_U </span>
+        <span class="c1"># appro_ob = appro_U.H @ ob @ appro_U</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">exact_ob</span><span class="p">,</span> <span class="n">exact_ob</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">appro_ob</span><span class="p">,</span> <span class="n">appro_ob</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="c1"># np.save(f&#39;./data/exact_ob_{n}_{r}.npy&#39;, appro_U)</span>
+
+        <span class="c1"># appro_ob_s = appro_U.conj().T @ ob @ appro_U</span>
+        <span class="c1"># scipy.linalg.norm(exact_ob_s - appro_ob_s, ord=2)  </span>
+        <span class="c1"># print(np.linalg.norm(exact_ob_s))</span>
+        <span class="c1"># print(np.linalg.norm(appro_ob_s, ord=2))</span>
+        <span class="c1"># print(np.linalg.norm(exact_ob_s - appro_ob_s, ord=&#39;nuc&#39;))</span>
+        <span class="c1"># print(np.trace(exact_ob_s - appro_ob_s))</span>
+        <span class="c1"># print(np.linalg.norm(exact_ob - appro_ob, ord=2))</span>
+        <span class="n">err_op</span> <span class="o">=</span> <span class="n">exact_ob</span> <span class="o">-</span> <span class="n">appro_ob</span>
+        <span class="c1"># np.linalg.eigvals(exact_ob_s - appro_ob_s)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">err_op</span><span class="p">)))[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># print(exact_ob[0,0], err_op[0,0], appro_ob[0,0])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>n =  7 (128, 128)
+0.00286220803327422
+0.0006709485731051255
+n =  8 (256, 256)
+0.0028623574552221406
+0.0006716175211252401
+n =  9 (512, 512)
+0.0028626517531851192
+0.0006725913518191965
+n =  10 (1024, 1024)
+0.002862755945093186
+0.0006719952371922001
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">appro_U_18</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;./data/exact_ob_9_1_18.npy&#39;</span><span class="p">)</span>
+<span class="n">appro_U_28</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;./data/exact_ob_9_1_28.npy&#39;</span><span class="p">)</span>
+<span class="n">appro_U_85</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;./data/exact_ob_9_1_85.npy&#39;</span><span class="p">)</span>
+<span class="n">appro_U_28</span> <span class="o">-</span> <span class="n">appro_U_85</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.10876450e-01+1.05853044e-01j,  1.30322901e-02-8.83995997e-04j,
+         8.11128069e-03+2.21833848e-03j, ...,
+         1.55045368e-09-1.72222480e-09j,  8.46805621e-10-1.83576306e-09j,
+        -2.32676865e-10-1.14028224e-10j],
+       [ 1.30322901e-02-8.83995981e-04j, -1.98717539e-02+1.14135515e-01j,
+         7.77389272e-04-9.10797202e-04j, ...,
+         5.47176067e-09+2.00686959e-08j, -2.32774082e-10-1.14855037e-10j,
+         8.43216883e-10-1.83767636e-09j],
+       [ 8.11663865e-03+2.19660448e-03j,  7.77389000e-04-9.10797126e-04j,
+        -7.27762262e-02+3.25817607e-02j, ...,
+        -1.37201516e-10-2.19998177e-10j,  5.43707044e-09+2.00871026e-08j,
+         1.55395401e-09-1.72018619e-09j],
+       ...,
+       [ 1.55395401e-09-1.72018619e-09j,  5.43707044e-09+2.00871026e-08j,
+        -1.37201516e-10-2.19998177e-10j, ...,
+        -7.27762262e-02+3.25817607e-02j,  7.77389000e-04-9.10797126e-04j,
+         8.11663865e-03+2.19660448e-03j],
+       [ 8.43216883e-10-1.83767636e-09j, -2.32774082e-10-1.14855037e-10j,
+         5.47176067e-09+2.00686959e-08j, ...,
+         7.77389272e-04-9.10797202e-04j, -1.98717539e-02+1.14135515e-01j,
+         1.30322901e-02-8.83995981e-04j],
+       [-2.32676865e-10-1.14028224e-10j,  8.46805621e-10-1.83576306e-09j,
+         1.55045368e-09-1.72222480e-09j, ...,
+         8.11128069e-03+2.21833848e-03j,  1.30322901e-02-8.83995997e-04j,
+         1.10876450e-01+1.05853044e-01j]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>(0.9816722463159797-2.332325238166409e-17j) (-0.0012541762468709639-2.181573997780833e-17j) (0.9829264225628507-1.5075124038557586e-18j)</p>
+<p>(0.9816722463159797-2.332325238166409e-17j) (-2.1008833811508865e-06-4.2249428514288504e-17j) (0.9816743471993609+1.8926176132624414e-17j)</p>
+<p>0.0171
+(0.9816722463159797-2.332325238166409e-17j) (0.000914037141718782-1.882305977087255e-17j) (0.9807582091742609-4.500192610791541e-18j)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exact_ob_s</span> <span class="o">-</span> <span class="n">appro_ob_s</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1.254176e-03-2.181574e-17j,  6.357182e-03-4.164055e-03j,
+         1.916763e-05-1.260949e-05j, ...,  1.138114e-13+1.771224e-14j,
+         2.546533e-14-2.143273e-15j, -3.808590e-24-1.113026e-14j],
+       [ 6.357182e-03+4.164055e-03j,  1.250334e-03-1.912847e-17j,
+        -3.839087e-04+1.884769e-03j, ..., -4.872551e-14-2.846347e-13j,
+         6.187315e-24+1.218178e-15j, -2.546533e-14-2.143273e-15j],
+       [ 1.916763e-05+1.260949e-05j, -3.839087e-04-1.884769e-03j,
+        -1.263336e-03+4.499314e-17j, ...,  4.909774e-24+1.084614e-14j,
+         4.872551e-14-2.846347e-13j, -1.138114e-13+1.771224e-14j],
+       ...,
+       [ 1.138114e-13-1.771224e-14j, -4.872551e-14+2.846347e-13j,
+         4.909774e-24-1.084614e-14j, ...,  1.263336e-03+6.588282e-18j,
+         3.839087e-04+1.884769e-03j, -1.916763e-05-1.260949e-05j],
+       [ 2.546533e-14+2.143273e-15j,  6.187315e-24-1.218178e-15j,
+         4.872551e-14+2.846347e-13j, ...,  3.839087e-04-1.884769e-03j,
+        -1.250334e-03-3.024805e-18j, -6.357182e-03-4.164055e-03j],
+       [-3.808590e-24+1.113026e-14j, -2.546533e-14+2.143273e-15j,
+        -1.138114e-13-1.771224e-14j, ..., -1.916763e-05+1.260949e-05j,
+        -6.357182e-03+4.164055e-03j,  1.254176e-03-3.349013e-18j]])
+</pre></div>
+</div>
+</div>
+</div>
+<section id="d-transverse-field-ising-chain">
+<h2>1D Transverse Field Ising Chain<a class="headerlink" href="#d-transverse-field-ising-chain" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Reduced product formula</p></li>
+<li><p>Chromatic product formula: multi-observable</p></li>
+</ul>
+<section id="different-groupings">
+<h3>Different groupings<a class="headerlink" href="#different-groupings" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="n">TF_Ising_1d</span>
+<span class="n">J</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.2</span><span class="p">;</span> 
+<span class="c1"># n = 8; </span>
+<span class="n">t</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="c1"># n_list = np.linspace(4, 500, 20, dtype=int)</span>
+<span class="n">n_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span>  <span class="mi">18</span><span class="p">,</span>  <span class="mi">24</span><span class="p">,</span>  <span class="mi">30</span><span class="p">,</span>  <span class="mi">40</span><span class="p">,</span>  <span class="mi">54</span><span class="p">,</span>  <span class="mi">70</span><span class="p">,</span>  <span class="mi">94</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">216</span><span class="p">,</span> <span class="mi">286</span><span class="p">,</span> <span class="mi">378</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
+<span class="n">n_list_emp</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;error_xyz&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;error_parity&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;error_standard&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;error_xyz_emp&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;error_parity_emp&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;J=</span><span class="si">{</span><span class="n">J</span><span class="si">}</span><span class="s2">, h=</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">, t=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">, r=</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_list</span><span class="p">:</span>
+    <span class="n">error_xyz</span> <span class="o">=</span> <span class="n">analy_st_loose_bound</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;xyz&#39;</span><span class="p">)</span>
+    <span class="n">error_standard</span> <span class="o">=</span> <span class="n">analy_st_loose_bound</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;parity&#39;</span><span class="p">)</span>
+    <span class="n">error_parity</span> <span class="o">=</span> <span class="n">analy_lc_bound</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ob_type</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_xyz&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">error_xyz</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_standard&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">error_standard</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_parity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">error_parity</span><span class="p">)</span>
+    <span class="c1"># print(f&quot;n={n}, empirical error_xyz={error_xyz}, empirical error_parity={error_parity}&quot;)  </span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_list_emp</span><span class="p">:</span>
+    <span class="n">tfI</span> <span class="o">=</span> <span class="n">TF_Ising_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+    <span class="n">exact_U</span> <span class="o">=</span> <span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">())</span>
+    <span class="n">appro_U_xyz</span> <span class="o">=</span> <span class="n">standard_trotter</span><span class="p">([</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_xyz</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">appro_U_parity</span> <span class="o">=</span> <span class="n">standard_trotter</span><span class="p">([</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_parity</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">magn_op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
+    <span class="c1"># z_op = SparsePauliOp.from_sparse_list([(&#39;Z&#39;, [0], 1)], n)</span>
+    <span class="n">error_xyz</span> <span class="o">=</span> <span class="n">ob_error</span><span class="p">(</span><span class="n">magn_op</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">appro_U_xyz</span><span class="p">)</span>
+    <span class="n">error_parity</span> <span class="o">=</span> <span class="n">ob_error</span><span class="p">(</span><span class="n">magn_op</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">appro_U_parity</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_xyz_emp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">error_xyz</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_parity_emp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">error_parity</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">, empirical error_xyz=</span><span class="si">{</span><span class="n">error_xyz</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">, empirical error_parity=</span><span class="si">{</span><span class="n">error_parity</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_xyz&#39;</span><span class="p">],</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#00A087FF&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;XZ (Worst case)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_standard&#39;</span><span class="p">],</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#F39B7FFF&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Parity (Worst case)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_parity&#39;</span><span class="p">],</span> <span class="s1">&#39;^--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#F39B7FFF&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Chromatic (Theoretical)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list_emp</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_xyz_emp&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#00A087FF&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;XZ (Empirical)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list_emp</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_parity_emp&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#F39B7FFF&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Parity (Empirical)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;n (qubits)&#39;</span><span class="p">)</span>
+<span class="c1"># ax.set_title(f&#39;t={t}, r={r}&#39;)</span>
+<span class="c1"># ax.set_yscale(&#39;log&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Multi-observable error&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../figs/grouping_TFI1d_n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">_Multi_t=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>J=1, h=0.2, t=0.5, r=5
+n=4, empirical error_xyz=0.000605, empirical error_parity=0.000389
+n=5, empirical error_xyz=0.000646, empirical error_parity=0.000472
+n=6, empirical error_xyz=0.000668, empirical error_parity=0.000452
+n=7, empirical error_xyz=0.000687, empirical error_parity=0.000501
+n=8, empirical error_xyz=0.000699, empirical error_parity=0.000483
+n=9, empirical error_xyz=0.000710, empirical error_parity=0.000517
+n=10, empirical error_xyz=0.000718, empirical error_parity=0.000501
+n=11, empirical error_xyz=0.000724, empirical error_parity=0.000527
+n=12, empirical error_xyz=0.000730, empirical error_parity=0.000513
+n=13, empirical error_xyz=0.000734, empirical error_parity=0.000534
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/d4e888eb3bc63e390edbdb92882c77effcf4b1f90f28aa44c0cd9e524a44af12.png"><img alt="_images/d4e888eb3bc63e390edbdb92882c77effcf4b1f90f28aa44c0cd9e524a44af12.png" src="_images/d4e888eb3bc63e390edbdb92882c77effcf4b1f90f28aa44c0cd9e524a44af12.png" style="width: 1162px; height: 862px;" /></a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="n">TF_Ising_1d</span>
+<span class="n">J</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.2</span><span class="p">;</span> 
+<span class="n">n</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span> 
+<span class="n">r</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="c1"># n_list = range(4, 20)</span>
+<span class="c1"># n_list_emp = range(4, 11)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;error_xyz&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;error_parity&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;error_xyz_emp&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;error_parity_emp&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;J=</span><span class="si">{</span><span class="n">J</span><span class="si">}</span><span class="s2">, h=</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">, t=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">, r=</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="n">tfI</span> <span class="o">=</span> <span class="n">TF_Ising_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+    <span class="n">exact_U</span> <span class="o">=</span> <span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">())</span>
+    <span class="n">appro_U_xyz</span> <span class="o">=</span> <span class="n">standard_trotter</span><span class="p">([</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_xyz</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">appro_U_parity</span> <span class="o">=</span> <span class="n">standard_trotter</span><span class="p">([</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_parity</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">magn_op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
+    <span class="c1"># z_op = SparsePauliOp.from_sparse_list([(&#39;Z&#39;, [0], 1)], n)</span>
+    <span class="n">error_xyz</span> <span class="o">=</span> <span class="n">ob_error</span><span class="p">(</span><span class="n">magn_op</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">appro_U_xyz</span><span class="p">)</span>
+    <span class="n">error_parity</span> <span class="o">=</span> <span class="n">ob_error</span><span class="p">(</span><span class="n">magn_op</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">appro_U_parity</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_xyz_emp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">error_xyz</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_parity_emp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">error_parity</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">, empirical error_xyz=</span><span class="si">{</span><span class="n">error_xyz</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">, empirical error_parity=</span><span class="si">{</span><span class="n">error_parity</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="c1"># ax.plot(n_list, data[&#39;error_xyz&#39;], &#39;.--&#39;, label=&#39;XYZ (Bound)&#39;)</span>
+<span class="c1"># ax.plot(n_list, data[&#39;error_parity&#39;], &#39;.--&#39;, label=&#39;Parity (Bound)&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_xyz_emp&#39;</span><span class="p">],</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;XYZ (Empirical)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error_parity_emp&#39;</span><span class="p">],</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Parity (Empirical)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="c1"># ax.set_yscale(&#39;log&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Multi-observable error&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>J=1, h=0.2, t=0.5, r=30
+n=8, empirical error_xyz=0.000019, empirical error_parity=0.000013
+n=8, empirical error_xyz=0.000039, empirical error_parity=0.000027
+n=8, empirical error_xyz=0.000062, empirical error_parity=0.000043
+n=8, empirical error_xyz=0.000084, empirical error_parity=0.000060
+n=8, empirical error_xyz=0.000101, empirical error_parity=0.000075
+n=8, empirical error_xyz=0.000109, empirical error_parity=0.000101
+n=8, empirical error_xyz=0.000113, empirical error_parity=0.000138
+n=8, empirical error_xyz=0.000138, empirical error_parity=0.000184
+n=8, empirical error_xyz=0.000207, empirical error_parity=0.000241
+n=8, empirical error_xyz=0.000300, empirical error_parity=0.000309
+n=8, empirical error_xyz=0.000399, empirical error_parity=0.000389
+n=8, empirical error_xyz=0.000489, empirical error_parity=0.000479
+n=8, empirical error_xyz=0.000559, empirical error_parity=0.000579
+n=8, empirical error_xyz=0.000609, empirical error_parity=0.000688
+n=8, empirical error_xyz=0.000661, empirical error_parity=0.000809
+n=8, empirical error_xyz=0.000719, empirical error_parity=0.000944
+n=8, empirical error_xyz=0.000788, empirical error_parity=0.001094
+n=8, empirical error_xyz=0.000893, empirical error_parity=0.001263
+n=8, empirical error_xyz=0.001112, empirical error_parity=0.001463
+n=8, empirical error_xyz=0.001368, empirical error_parity=0.001690
+n=8, empirical error_xyz=0.001613, empirical error_parity=0.001940
+n=8, empirical error_xyz=0.001821, empirical error_parity=0.002212
+n=8, empirical error_xyz=0.001974, empirical error_parity=0.002507
+n=8, empirical error_xyz=0.002074, empirical error_parity=0.002824
+n=8, empirical error_xyz=0.002159, empirical error_parity=0.003165
+n=8, empirical error_xyz=0.002340, empirical error_parity=0.003530
+n=8, empirical error_xyz=0.002578, empirical error_parity=0.003917
+n=8, empirical error_xyz=0.002846, empirical error_parity=0.004325
+n=8, empirical error_xyz=0.003183, empirical error_parity=0.004754
+n=8, empirical error_xyz=0.003538, empirical error_parity=0.005204
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x3000fb190&gt;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/8e4b2d45acb869a09c12229d9ebb10966d09c0125b8c768302dde9dd6add977d.png"><img alt="_images/8e4b2d45acb869a09c12229d9ebb10966d09c0125b8c768302dde9dd6add977d.png" src="_images/8e4b2d45acb869a09c12229d9ebb10966d09c0125b8c768302dde9dd6add977d.png" style="width: 675px; height: 474px;" /></a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfI</span><span class="o">.</span><span class="n">zz_pstr</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># hnn.z_terms</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;IIIZZ&#39;, &#39;IIZZI&#39;, &#39;IZZII&#39;, &#39;ZZIII&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lightcone</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="o">*</span>  
+<span class="n">r_start</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.5</span>
+<span class="n">J</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span>
+<span class="n">tfI</span> <span class="o">=</span> <span class="n">transverse_field_ising_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">hnn</span> <span class="o">=</span> <span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Jy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">hy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hz</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># print(tfI.H_op)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tfI</span><span class="o">.</span><span class="n">odd_op</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hnn</span><span class="o">.</span><span class="n">odd_terms</span><span class="p">)</span>
+<span class="n">exact_U</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">tfI</span><span class="o">.</span><span class="n">H_mat</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">appro_U</span> <span class="o">=</span> <span class="n">standard_trotter</span><span class="p">(</span><span class="n">tfI</span><span class="o">.</span><span class="n">H_parity</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r_start</span><span class="p">)</span>
+<span class="c1"># appro_U = standard_trotter([h.to_matrix(True) for h in hnn.ham_par], t, r_start)</span>
+<span class="c1"># appro_U = standard_trotter(tfI.H_parity[::-1], t, r_start)</span>
+<span class="n">magn_op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span>
+<span class="c1"># print(&#39;single observable error (jax): &#39;, ob_error(magn_op, exact_U, appro_U))</span>
+<span class="n">exact_ob</span> <span class="o">=</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">magn_op</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="o">@</span> <span class="n">exact_U</span> 
+<span class="n">appro_ob</span> <span class="o">=</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">magn_op</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="o">@</span> <span class="n">appro_U</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;r=</span><span class="si">{</span><span class="n">r_start</span><span class="si">}</span><span class="s1">, single observable error (jax): &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_ob</span> <span class="o">-</span> <span class="n">appro_ob</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">trotter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">ob</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+<span class="c1"># print(hnn.ham)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tfI</span><span class="o">.</span><span class="n">even_op</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hnn</span><span class="o">.</span><span class="n">even_terms</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">h_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hnn</span><span class="o">.</span><span class="n">ham_par</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">exact_U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">])))</span>
+<span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">))</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
+<span class="n">appro_U_dt_forward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">list_U</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">list_U</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">appro_U_dt_reverse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">list_U</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">list_U</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">appro_U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">appro_U_dt_reverse</span><span class="p">,</span> <span class="n">appro_U_dt_forward</span><span class="p">),</span> <span class="n">r</span><span class="p">))</span>
+<span class="n">exact_ob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">exact_U</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">exact_U</span><span class="p">))</span>
+<span class="n">appro_ob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">appro_U</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">appro_U</span><span class="p">))</span>
+<span class="n">exact_ob_s</span> <span class="o">=</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob</span> <span class="o">@</span> <span class="n">exact_U</span> 
+<span class="n">appro_ob_s</span> <span class="o">=</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ob</span> <span class="o">@</span> <span class="n">appro_U</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_ob_s</span> <span class="o">-</span> <span class="n">appro_ob_s</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;IIZZI&#39;, &#39;ZZIII&#39;, &#39;IIIXI&#39;, &#39;IXIII&#39;],
+              coeffs=[1. +0.j, 1. +0.j, 0.2+0.j, 0.2+0.j])
+SparsePauliOp([&#39;IIZZI&#39;, &#39;ZZIII&#39;, &#39;IIIXI&#39;, &#39;IXIII&#39;],
+              coeffs=[1. +0.j, 1. +0.j, 0.2+0.j, 0.2+0.j])
+r=1, single observable error (jax):  0.0020430607
+SparsePauliOp([&#39;IIIZZ&#39;, &#39;IZZII&#39;, &#39;IIIIX&#39;, &#39;IIXII&#39;, &#39;XIIII&#39;],
+              coeffs=[1. +0.j, 1. +0.j, 0.2+0.j, 0.2+0.j, 0.2+0.j])
+SparsePauliOp([&#39;IIIZZ&#39;, &#39;IZZII&#39;, &#39;IIIIX&#39;, &#39;IIXII&#39;, &#39;XIIII&#39;],
+              coeffs=[1. +0.j, 1. +0.j, 0.2+0.j, 0.2+0.j, 0.2+0.j])
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.002043025327695573
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="main">
+<h3>Main<a class="headerlink" href="#main" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># r_lc_found_list_s</span>
+<span class="kn">from</span> <span class="nn">lightcone</span> <span class="kn">import</span> <span class="o">*</span> 
+<span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">analy_lc_bound</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ob_type</span><span class="o">=</span><span class="s1">&#39;single&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">analytic_loose_commutator_bound</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="o">/</span><span class="n">r</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>single
+c1 (analy)=8.0, c2=3.2
+c1 (analy)=0.16000000000000003, c2=0.9600000000000001
+c1 (analy)=0.16000000000000003, c2=0.9600000000000001
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.05333333333333334
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lightcone</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">ScalarFormatter</span>
+<span class="n">formatter</span> <span class="o">=</span> <span class="n">ScalarFormatter</span><span class="p">(</span><span class="n">useMathText</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">formatter</span><span class="o">.</span><span class="n">set_scientific</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># n_list = [7, 8, 9, 10]</span>
+<span class="c1"># n_list = range(4, 200, 5)</span>
+<span class="c1"># n_list = np.array(sorted(list(set(np.logspace(0.65, 2.5, 30, dtype=int)))))</span>
+<span class="n">n_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span>  <span class="mi">18</span><span class="p">,</span>  <span class="mi">24</span><span class="p">,</span>  <span class="mi">30</span><span class="p">,</span>  <span class="mi">40</span><span class="p">,</span>  <span class="mi">54</span><span class="p">,</span>  <span class="mi">70</span><span class="p">,</span>  <span class="mi">94</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">216</span><span class="p">,</span> <span class="mi">286</span><span class="p">,</span> <span class="mi">378</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
+<span class="c1"># n_list = [4, 5, 6, 7, 8, 9, 10, 12,  16,  20,  26,  34,  43,  56,  71,  92, 117, 150, 193, 247, 316]</span>
+<span class="c1"># n_list = np.array(sorted(list(set(np.logspace(0.65, 3.0, 40, dtype=int)))))</span>
+<span class="c1"># n_list = np.logspace(0.6, 2.3, 40, dtype=int)    </span>
+<span class="c1"># n_list = range(4, 150, 3)</span>
+<span class="n">n_list_emp</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># st_r_bound_n, st_cost_bound_n, lc_r_bound_n, lc_cost_bound_n, em_r_bound_n, em_cost_bound_n = [], [], [], [], [], []</span>
+<span class="n">ob_index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># t = 1.0</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">J</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="c1"># J=1/2; h=1/2</span>
+<span class="n">ob_type</span> <span class="o">=</span> <span class="s1">&#39;multi&#39;</span>
+<span class="n">epsilon</span><span class="o">=</span><span class="mf">0.005</span><span class="p">;</span> <span class="n">search_precision</span><span class="o">=</span><span class="mf">0.02</span>
+<span class="n">r_st_found_list</span><span class="p">,</span> <span class="n">r_lc_found_list</span><span class="p">,</span> <span class="n">cost_st_found_list</span><span class="p">,</span> <span class="n">cost_lc_found_list</span><span class="p">,</span> <span class="n">r_em_found_list</span><span class="p">,</span> <span class="n">cost_em_found_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="n">r_lc_found_list_s</span><span class="p">,</span> <span class="n">cost_lc_found_list_s</span><span class="p">,</span> <span class="n">r_em_found_list_s</span><span class="p">,</span> <span class="n">cost_em_found_list_s</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--------------------------n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">----------------------------&#39;</span><span class="p">)</span>
+    <span class="c1"># ob, ob_dict = local_ob(ob_index, n)</span>
+    <span class="c1"># ising1d_n_bd = transverse_field_ising_1d(n, J, h, ob_index, t=t, initialize=True, verbose=verbose)</span>
+    <span class="c1"># print(ising1d_n_bd.all_terms)</span>
+    <span class="c1"># print(2 * tight_bound([h.to_matrix() for h in ising1d_n_bd.all_terms], 2, t, 1))</span>
+    <span class="c1"># print(&#39;========== STANDARD Bound ==========&#39;)</span>
+    <span class="n">r_list_st</span><span class="p">,</span> <span class="n">error_list_st</span><span class="p">,</span> <span class="n">exp_count_list_st</span><span class="p">,</span> <span class="n">r_found_st</span><span class="p">,</span> <span class="n">r_err_dict_st</span> <span class="o">=</span> <span class="n">bin_search_r</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">search_precision</span><span class="p">,</span> <span class="n">pf_type</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">,</span> <span class="n">ob_type</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">r_list_lc</span><span class="p">,</span> <span class="n">error_list_lc</span><span class="p">,</span> <span class="n">exp_count_list_lc</span><span class="p">,</span> <span class="n">r_found_lc</span><span class="p">,</span> <span class="n">r_err_dict_lc</span> <span class="o">=</span> <span class="n">bin_search_r</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">search_precision</span><span class="p">,</span> <span class="n">pf_type</span><span class="o">=</span><span class="s1">&#39;lightcone&#39;</span><span class="p">,</span> <span class="n">ob_type</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;standard: error=</span><span class="si">{</span><span class="n">r_err_dict_st</span><span class="p">[</span><span class="n">r_found_st</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">; exp_count=</span><span class="si">{</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r_found_st</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;lightcone: error=</span><span class="si">{</span><span class="n">r_err_dict_lc</span><span class="p">[</span><span class="n">r_found_lc</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">; exp_count=</span><span class="si">{</span><span class="n">exp_count_LC</span><span class="p">(</span><span class="n">r_found_lc</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">r_st_found_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r_found_st</span><span class="p">)</span>
+    <span class="n">r_lc_found_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r_found_lc</span><span class="p">)</span>
+    <span class="n">cost_st_found_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_found_st</span><span class="p">)</span>
+    <span class="n">cost_lc_found_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_found_lc</span><span class="p">)</span>
+
+    <span class="c1"># print(&#39;========== LIGHTCONE Bound ==========&#39;)</span>
+    <span class="n">r_list_lc_s</span><span class="p">,</span> <span class="n">error_list_lc_s</span><span class="p">,</span> <span class="n">exp_count_list_lc_s</span><span class="p">,</span> <span class="n">r_found_lc_s</span><span class="p">,</span> <span class="n">r_err_dict_lc_s</span> <span class="o">=</span> <span class="n">bin_search_r</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">search_precision</span><span class="p">,</span> <span class="n">pf_type</span><span class="o">=</span><span class="s1">&#39;lightcone&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;lightcone: error=</span><span class="si">{</span><span class="n">r_err_dict_lc_s</span><span class="p">[</span><span class="n">r_found_lc_s</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">; exp_count=</span><span class="si">{</span><span class="n">exp_count_LC</span><span class="p">(</span><span class="n">r_found_lc_s</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">r_lc_found_list_s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r_found_lc_s</span><span class="p">)</span>
+    <span class="n">cost_lc_found_list_s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exp_count_LC</span><span class="p">(</span><span class="n">r_found_lc_s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
+    <span class="c1"># cost_lc_found_list.append(exp_count_LC(r_found_lc, n, 2*n))</span>
+
+    <span class="c1"># _, _, _, r_bound = binary_search_r(ising1d_n, ob, t, epsilon, search_precision, type=&#39;bound&#39;, verbose=True)</span>
+    <span class="c1"># st_r_bound_n.append(r_bound)</span>
+    <span class="c1"># st_cost_bound_n.append(r_bound*2*ising1d_n.n_terms)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_list_emp</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;========== EMPIRICAL n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">==========&#39;</span><span class="p">)</span>
+    <span class="n">r_list_em</span><span class="p">,</span> <span class="n">error_list_em</span><span class="p">,</span> <span class="n">exp_count_list_em</span><span class="p">,</span> <span class="n">r_found_em</span><span class="p">,</span> <span class="n">r_err_dict_em</span> <span class="o">=</span> <span class="n">bin_search_r</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">search_precision</span><span class="p">,</span> <span class="n">pf_type</span><span class="o">=</span><span class="s1">&#39;empirical&#39;</span><span class="p">,</span> <span class="n">ob_type</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;empirical: error=</span><span class="si">{</span><span class="n">r_err_dict_em</span><span class="p">[</span><span class="n">r_found_em</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">; exp_count=</span><span class="si">{</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r_found_em</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">r_em_found_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r_found_em</span><span class="p">)</span>
+    <span class="n">cost_em_found_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_found_em</span><span class="p">)</span>
+
+    <span class="n">r_list_em_s</span><span class="p">,</span> <span class="n">error_list_em_s</span><span class="p">,</span> <span class="n">exp_count_list_em_s</span><span class="p">,</span> <span class="n">r_found_em_s</span><span class="p">,</span> <span class="n">r_err_dict_em_s</span> <span class="o">=</span> <span class="n">bin_search_r</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">search_precision</span><span class="p">,</span> <span class="n">pf_type</span><span class="o">=</span><span class="s1">&#39;empirical&#39;</span><span class="p">,</span> <span class="n">ob_type</span><span class="o">=</span><span class="s1">&#39;single&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># print(f&#39;empirical: error={r_err_dict_em[r_found_em]:.6f}; exp_count={ 2 * n * r_found_em}&#39;)</span>
+    <span class="c1"># r_em_found_list.append(r_found_em)</span>
+    <span class="c1"># cost_em_found_list.append(2 * (2*n) * r_found_em)</span>
+    <span class="n">cost_em_found_list_s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exp_count_LC</span><span class="p">(</span><span class="n">r_found_em_s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
+    <span class="c1"># cost_em_found_list_s.append(exp_count_LC(r_found_em, n, 2*n))</span>
+    <span class="c1"># cost_em_found_list_s.append(exp_count_list_em_s[-1])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">ob_string</span> <span class="o">=</span> <span class="s1">&#39;XIII&#39;</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">cost_st_found_list</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#E64B35FF&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Worst-case&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1"># ax2.plot(n_list, cost_st_found_list, &#39;s&#39;, label=r&#39;Worst-case (Ref \textcolor{blue}{[13]})&#39;, markersize=10)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">cost_lc_found_list_s</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#0A75C7&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Single-ob (Theoretical)&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">cost_lc_found_list</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#F39B7FFF&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Multip-ob (Theoretical)&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list_emp</span><span class="p">,</span> <span class="n">cost_em_found_list_s</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#0A75C7&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Single-ob (Empirical)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list_emp</span><span class="p">,</span> <span class="n">cost_em_found_list</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#F39B7FFF&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Multip-ob (Empirical)&#39;</span><span class="p">)</span>
+<span class="c1"># ax2.plot(n_list, r_lc_found_list, &#39;-*&#39;, label=&#39;Lightcone (bound)&#39;, markeredgecolor=&#39;k&#39;)</span>
+<span class="c1"># Add labels and a legend</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Number of qubits&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number of exponentials&#39;</span><span class="p">)</span>
+<span class="c1"># ax2.set_title(fr&#39;ob=$\sum Z_j/n$, TFI (fix t={t}, $\epsilon$={epsilon}) PF2&#39;)  </span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+<span class="c1"># ax2.set_yscale(&#39;log&#39;)</span>
+<span class="c1"># ax2.set_xscale(&#39;log&#39;)</span>
+
+<span class="n">y_pred_st</span><span class="p">,</span> <span class="n">a_st</span><span class="p">,</span> <span class="n">b_st</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">cost_st_found_list</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">y_pred_st</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$O(n^{</span><span class="si">%s</span><span class="s1">})$&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">a_st</span><span class="p">)[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_st</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_st</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">perc</span><span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mf">2.0</span>
+<span class="c1"># perc= 3/2.2</span>
+<span class="c1"># perc= 3/2.5</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_list</span><span class="p">)</span><span class="o">/</span><span class="n">perc</span><span class="p">)])</span>
+<span class="n">y_pred_lc</span><span class="p">,</span> <span class="n">a_lc</span><span class="p">,</span> <span class="n">b_lc</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_list</span><span class="p">)</span><span class="o">/</span><span class="n">perc</span><span class="p">):],</span> <span class="n">cost_lc_found_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_list</span><span class="p">)</span><span class="o">/</span><span class="n">perc</span><span class="p">):])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_list</span><span class="p">)</span><span class="o">/</span><span class="n">perc</span><span class="p">):],</span> <span class="n">y_pred_lc</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fit&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$O(n^{</span><span class="si">%s</span><span class="s1">})$&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">a_lc</span><span class="p">)[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_lc</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_lc</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># multip-ob empirical</span>
+<span class="n">y_pred_em</span><span class="p">,</span> <span class="n">a_em</span><span class="p">,</span> <span class="n">b_em</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">n_list_emp</span><span class="p">,</span> <span class="n">cost_em_found_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;a_em: </span><span class="si">{</span><span class="n">a_em</span><span class="si">}</span><span class="s1">; b_em: </span><span class="si">{</span><span class="n">b_em</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">text_a_em</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a_em</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">y_pred_em</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span> <span class="k">for</span> <span class="n">cost</span> <span class="ow">in</span> <span class="n">a_em</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">log</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_list</span><span class="p">])</span><span class="o">+</span><span class="n">b_em</span><span class="p">]</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">y_pred_em</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># ax2.plot(n_list_emp, y_pred_em, &#39;k--&#39;, linewidth=1)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$O(n^{</span><span class="si">%s</span><span class="s1">})$&#39;</span> <span class="o">%</span> <span class="n">text_a_em</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">n_list_emp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_em</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_em</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># single-ob empirical</span>
+<span class="n">y_pred_em</span><span class="p">,</span> <span class="n">a_em</span><span class="p">,</span> <span class="n">b_em</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">n_list_emp</span><span class="p">[</span><span class="mi">3</span><span class="p">:],</span> <span class="n">cost_em_found_list_s</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;a_em: </span><span class="si">{</span><span class="n">a_em</span><span class="si">}</span><span class="s1">; b_em: </span><span class="si">{</span><span class="n">b_em</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">text_a_em</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a_em</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">y_pred_em</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span> <span class="k">for</span> <span class="n">cost</span> <span class="ow">in</span> <span class="n">a_em</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">log</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_list</span><span class="p">])</span><span class="o">+</span><span class="n">b_em</span><span class="p">]</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">y_pred_em</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># ax2.plot(n_list_emp, y_pred_em, &#39;k--&#39;, linewidth=1)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$O(n^{</span><span class="si">%s</span><span class="s1">})$&#39;</span> <span class="o">%</span> <span class="n">text_a_em</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">n_list_emp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_em</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_em</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="c1"># ax2.annotate(r&#39;$O(n^{%s})$&#39; % str(round(abs(a_em), 4))[:4], xy=(n_list_emp[-1], np.real(y_pred_em)[-1]), xytext=(n_list[-1]*1.1, np.real(y_pred_em)[-1]+1))</span>
+
+<span class="c1"># single-ob bound</span>
+<span class="n">perc</span><span class="o">=</span> <span class="mi">3</span>
+<span class="n">y_pred_lc</span><span class="p">,</span> <span class="n">a_lc</span><span class="p">,</span> <span class="n">b_lc</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_list</span><span class="p">)</span><span class="o">/</span><span class="n">perc</span><span class="p">):],</span> <span class="n">cost_lc_found_list_s</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_list</span><span class="p">)</span><span class="o">/</span><span class="n">perc</span><span class="p">):])</span>
+<span class="n">text_a_lc</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a_lc</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_list</span><span class="p">)</span><span class="o">/</span><span class="n">perc</span><span class="p">):],</span> <span class="n">y_pred_lc</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># ax2.annotate(r&#39;$O(n^{%s})$&#39; % text_a_lc, xy=(n_list[-1], np.real(y_pred_lc)[-1]), xytext=(n_list[-1]*1.1, np.real(y_pred_lc)[-1]+1))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$O(n^{</span><span class="si">%s</span><span class="s1">})$&#39;</span> <span class="o">%</span> <span class="n">text_a_lc</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_lc</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">n_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y_pred_lc</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="c1"># ax2.xaxis.set_major_formatter(ScalarFormatter())</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+
+<span class="c1"># ax2.set_xticks(range(int(min(n_list)), int(max(n_list)) + 1))</span>
+<span class="c1"># plt.title(&#39;Two Lines with Intersection Point&#39;)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="c1"># fig.savefig(f&#39;../figs/lightcone_TFI1d_n={n}_eps={epsilon}_Bound_costVSn_multiOB_t={t}.pdf&#39;)</span>
+<span class="c1"># fig.savefig(f&#39;./figs/lightcone_TFI1d_n={n}_eps={epsilon}_SingleMulti_t={t}.pdf&#39;, bbox_inches=&#39;tight&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------------------n=4----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=10; error=0.000733; exp_count=160
+r=5; error=0.002933; exp_count=80
+r=3; error=0.008148; exp_count=48
+r=4; error=0.004583; exp_count=64
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=10; error=0.000708; exp_count=160
+r=5; error=0.002727; exp_count=80
+r=3; error=0.007191; exp_count=48
+r=4; error=0.004180; exp_count=64
+-------- binary search end --------
+standard: error=0.004583; exp_count=32
+lightcone: error=0.004180; exp_count=51
+=========pf_type=lightcone, ob_type=single=========
+r=10; error=0.000673; exp_count=147
+r=5; error=0.002453; exp_count=67
+r=3; error=0.005926; exp_count=35
+r=4; error=0.003646; exp_count=51
+-------- binary search end --------
+lightcone: error=0.003646; exp_count=51
+--------------------------n=5----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=13; error=0.000661; exp_count=260
+r=7; error=0.002279; exp_count=140
+r=4; error=0.006979; exp_count=80
+r=5; error=0.004467; exp_count=100
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=13; error=0.000630; exp_count=260
+r=7; error=0.002085; exp_count=140
+r=4; error=0.005937; exp_count=80
+r=5; error=0.003933; exp_count=100
+-------- binary search end --------
+standard: error=0.004467; exp_count=50
+lightcone: error=0.003933; exp_count=79
+=========pf_type=lightcone, ob_type=single=========
+r=13; error=0.000599; exp_count=239
+r=7; error=0.001880; exp_count=119
+r=4; error=0.004844; exp_count=59
+r=2; error=0.010833; exp_count=19
+r=3; error=0.007346; exp_count=39
+-------- binary search end --------
+lightcone: error=0.004844; exp_count=59
+--------------------------n=6----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=15; error=0.000593; exp_count=360
+r=8; error=0.002083; exp_count=192
+r=4; error=0.008333; exp_count=96
+r=6; error=0.003704; exp_count=144
+r=5; error=0.005333; exp_count=120
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=15; error=0.000565; exp_count=360
+r=8; error=0.001899; exp_count=192
+r=4; error=0.006858; exp_count=96
+r=6; error=0.003266; exp_count=144
+r=5; error=0.004578; exp_count=120
+-------- binary search end --------
+standard: error=0.003704; exp_count=72
+lightcone: error=0.004578; exp_count=89
+=========pf_type=lightcone, ob_type=single=========
+r=15; error=0.000539; exp_count=329
+r=8; error=0.001732; exp_count=161
+r=4; error=0.005521; exp_count=65
+r=6; error=0.002870; exp_count=113
+r=5; error=0.003893; exp_count=89
+-------- binary search end --------
+lightcone: error=0.003893; exp_count=89
+--------------------------n=7----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=18; error=0.000530; exp_count=504
+r=9; error=0.002119; exp_count=252
+r=5; error=0.006867; exp_count=140
+r=7; error=0.003503; exp_count=196
+r=6; error=0.004769; exp_count=168
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=18; error=0.000502; exp_count=504
+r=9; error=0.001899; exp_count=252
+r=5; error=0.005581; exp_count=140
+r=7; error=0.003035; exp_count=196
+r=6; error=0.004024; exp_count=168
+-------- binary search end --------
+standard: error=0.004769; exp_count=84
+lightcone: error=0.004024; exp_count=125
+=========pf_type=lightcone, ob_type=single=========
+r=18; error=0.000479; exp_count=461
+r=9; error=0.001715; exp_count=209
+r=5; error=0.004507; exp_count=97
+r=3; error=0.008148; exp_count=41
+r=4; error=0.006120; exp_count=69
+-------- binary search end --------
+lightcone: error=0.004507; exp_count=97
+--------------------------n=8----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=20; error=0.000483; exp_count=640
+r=10; error=0.001933; exp_count=320
+r=5; error=0.007733; exp_count=160
+r=7; error=0.003946; exp_count=224
+r=6; error=0.005370; exp_count=192
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=20; error=0.000458; exp_count=640
+r=10; error=0.001732; exp_count=320
+r=5; error=0.006120; exp_count=160
+r=7; error=0.003358; exp_count=224
+r=6; error=0.004437; exp_count=192
+-------- binary search end --------
+standard: error=0.003946; exp_count=112
+lightcone: error=0.004437; exp_count=135
+=========pf_type=lightcone, ob_type=single=========
+r=20; error=0.000438; exp_count=583
+r=10; error=0.001573; exp_count=263
+r=5; error=0.004853; exp_count=103
+r=3; error=0.008148; exp_count=42
+r=4; error=0.006458; exp_count=71
+-------- binary search end --------
+lightcone: error=0.004853; exp_count=103
+--------------------------n=9----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=23; error=0.000438; exp_count=828
+r=12; error=0.001609; exp_count=432
+r=6; error=0.006435; exp_count=216
+r=9; error=0.002860; exp_count=324
+r=7; error=0.004728; exp_count=252
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=23; error=0.000414; exp_count=828
+r=12; error=0.001438; exp_count=432
+r=6; error=0.005070; exp_count=216
+r=9; error=0.002456; exp_count=324
+r=7; error=0.003868; exp_count=252
+-------- binary search end --------
+standard: error=0.004728; exp_count=126
+lightcone: error=0.003868; exp_count=179
+=========pf_type=lightcone, ob_type=single=========
+r=23; error=0.000396; exp_count=755
+r=12; error=0.001312; exp_count=359
+r=6; error=0.004059; exp_count=143
+r=3; error=0.008148; exp_count=42
+r=4; error=0.006458; exp_count=71
+r=5; error=0.005160; exp_count=107
+-------- binary search end --------
+lightcone: error=0.004059; exp_count=143
+--------------------------n=10----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=25; error=0.000405; exp_count=1000
+r=13; error=0.001499; exp_count=520
+r=7; error=0.005170; exp_count=280
+r=10; error=0.002533; exp_count=400
+r=8; error=0.003958; exp_count=320
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=25; error=0.000383; exp_count=1000
+r=13; error=0.001340; exp_count=520
+r=7; error=0.004150; exp_count=280
+r=4; error=0.010365; exp_count=160
+r=5; error=0.007333; exp_count=200
+r=6; error=0.005417; exp_count=240
+-------- binary search end --------
+standard: error=0.003958; exp_count=160
+lightcone: error=0.004150; exp_count=189
+=========pf_type=lightcone, ob_type=single=========
+r=25; error=0.000367; exp_count=909
+r=13; error=0.001226; exp_count=429
+r=7; error=0.003421; exp_count=189
+r=4; error=0.006458; exp_count=72
+r=5; error=0.005333; exp_count=109
+r=6; error=0.004259; exp_count=149
+-------- binary search end --------
+lightcone: error=0.004259; exp_count=149
+--------------------------n=12----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=30; error=0.000348; exp_count=1440
+r=15; error=0.001393; exp_count=720
+r=8; error=0.004896; exp_count=384
+r=4; error=0.019583; exp_count=192
+r=6; error=0.008704; exp_count=288
+r=7; error=0.006395; exp_count=336
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=30; error=0.000328; exp_count=1440
+r=15; error=0.001233; exp_count=720
+r=8; error=0.003846; exp_count=384
+r=4; error=0.011319; exp_count=192
+r=6; error=0.006215; exp_count=288
+r=7; error=0.004828; exp_count=336
+-------- binary search end --------
+standard: error=0.004896; exp_count=192
+lightcone: error=0.004828; exp_count=203
+=========pf_type=lightcone, ob_type=single=========
+r=30; error=0.000315; exp_count=1307
+r=15; error=0.001126; exp_count=587
+r=8; error=0.003138; exp_count=251
+r=4; error=0.006458; exp_count=72
+r=6; error=0.004537; exp_count=155
+r=5; error=0.005333; exp_count=110
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=155
+--------------------------n=14----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=35; error=0.000305; exp_count=1960
+r=18; error=0.001152; exp_count=1008
+r=9; error=0.004609; exp_count=504
+r=5; error=0.014933; exp_count=280
+r=7; error=0.007619; exp_count=392
+r=8; error=0.005833; exp_count=448
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=35; error=0.000287; exp_count=1960
+r=18; error=0.001021; exp_count=1008
+r=9; error=0.003559; exp_count=504
+r=5; error=0.008867; exp_count=280
+r=7; error=0.005387; exp_count=392
+r=8; error=0.004338; exp_count=448
+-------- binary search end --------
+standard: error=0.004609; exp_count=252
+lightcone: error=0.004338; exp_count=265
+=========pf_type=lightcone, ob_type=single=========
+r=35; error=0.000275; exp_count=1777
+r=18; error=0.000936; exp_count=825
+r=9; error=0.002881; exp_count=321
+r=5; error=0.005333; exp_count=110
+r=7; error=0.003946; exp_count=209
+r=6; error=0.004537; exp_count=156
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=18----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=45; error=0.000244; exp_count=3240
+r=23; error=0.000933; exp_count=1656
+r=12; error=0.003426; exp_count=864
+r=6; error=0.013704; exp_count=432
+r=9; error=0.006091; exp_count=648
+r=10; error=0.004933; exp_count=720
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=45; error=0.000229; exp_count=3240
+r=23; error=0.000822; exp_count=1656
+r=12; error=0.002650; exp_count=864
+r=6; error=0.007635; exp_count=432
+r=9; error=0.004250; exp_count=648
+r=7; error=0.006174; exp_count=504
+r=8; error=0.005088; exp_count=576
+-------- binary search end --------
+standard: error=0.004933; exp_count=360
+lightcone: error=0.004250; exp_count=341
+=========pf_type=lightcone, ob_type=single=========
+r=45; error=0.000220; exp_count=2933
+r=23; error=0.000755; exp_count=1349
+r=12; error=0.002176; exp_count=557
+r=6; error=0.004537; exp_count=156
+r=3; error=0.008148; exp_count=42
+r=4; error=0.006458; exp_count=72
+r=5; error=0.005333; exp_count=110
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=24----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=60; error=0.000187; exp_count=5760
+r=30; error=0.000748; exp_count=2880
+r=15; error=0.002993; exp_count=1440
+r=8; error=0.010521; exp_count=768
+r=11; error=0.005565; exp_count=1056
+r=13; error=0.003984; exp_count=1248
+r=12; error=0.004676; exp_count=1152
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=60; error=0.000175; exp_count=5760
+r=30; error=0.000655; exp_count=2880
+r=15; error=0.002250; exp_count=1440
+r=8; error=0.005757; exp_count=768
+r=11; error=0.003683; exp_count=1056
+r=9; error=0.004908; exp_count=864
+-------- binary search end --------
+standard: error=0.004676; exp_count=576
+lightcone: error=0.004908; exp_count=342
+=========pf_type=lightcone, ob_type=single=========
+r=60; error=0.000169; exp_count=5207
+r=30; error=0.000601; exp_count=2327
+r=15; error=0.001819; exp_count=887
+r=8; error=0.003490; exp_count=272
+r=4; error=0.006458; exp_count=72
+r=6; error=0.004537; exp_count=156
+r=5; error=0.005333; exp_count=110
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=30----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=75; error=0.000152; exp_count=9000
+r=38; error=0.000591; exp_count=4560
+r=19; error=0.002364; exp_count=2280
+r=10; error=0.008533; exp_count=1200
+r=14; error=0.004354; exp_count=1680
+r=12; error=0.005926; exp_count=1440
+r=13; error=0.005049; exp_count=1560
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=75; error=0.000142; exp_count=9000
+r=38; error=0.000518; exp_count=4560
+r=19; error=0.001776; exp_count=2280
+r=10; error=0.004619; exp_count=1200
+r=5; error=0.010840; exp_count=600
+r=7; error=0.007256; exp_count=840
+r=8; error=0.006153; exp_count=960
+r=9; error=0.005299; exp_count=1080
+-------- binary search end --------
+standard: error=0.004354; exp_count=840
+lightcone: error=0.004619; exp_count=420
+=========pf_type=lightcone, ob_type=single=========
+r=75; error=0.000137; exp_count=8129
+r=38; error=0.000476; exp_count=3689
+r=19; error=0.001445; exp_count=1409
+r=10; error=0.002833; exp_count=420
+r=5; error=0.005333; exp_count=110
+r=7; error=0.003946; exp_count=210
+r=6; error=0.004537; exp_count=156
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=40----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=100; error=0.000115; exp_count=16000
+r=50; error=0.000461; exp_count=8000
+r=25; error=0.001845; exp_count=4000
+r=13; error=0.006824; exp_count=2080
+r=19; error=0.003195; exp_count=3040
+r=16; error=0.004505; exp_count=2560
+r=14; error=0.005884; exp_count=2240
+r=15; error=0.005126; exp_count=2400
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=100; error=0.000108; exp_count=16000
+r=50; error=0.000402; exp_count=8000
+r=25; error=0.001374; exp_count=4000
+r=13; error=0.003591; exp_count=2080
+r=7; error=0.007653; exp_count=1120
+r=10; error=0.005001; exp_count=1600
+r=11; error=0.004444; exp_count=1760
+-------- binary search end --------
+standard: error=0.004505; exp_count=1280
+lightcone: error=0.004444; exp_count=506
+=========pf_type=lightcone, ob_type=single=========
+r=100; error=0.000104; exp_count=14439
+r=50; error=0.000370; exp_count=6439
+r=25; error=0.001116; exp_count=2439
+r=13; error=0.002209; exp_count=702
+r=7; error=0.003946; exp_count=210
+r=4; error=0.006458; exp_count=72
+r=5; error=0.005333; exp_count=110
+r=6; error=0.004537; exp_count=156
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=54----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=135; error=0.000086; exp_count=29160
+r=68; error=0.000340; exp_count=14688
+r=34; error=0.001361; exp_count=7344
+r=17; error=0.005444; exp_count=3672
+r=25; error=0.002517; exp_count=5400
+r=21; error=0.003568; exp_count=4536
+r=19; error=0.004358; exp_count=4104
+r=18; error=0.004856; exp_count=3888
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=135; error=0.000081; exp_count=29160
+r=68; error=0.000297; exp_count=14688
+r=34; error=0.001012; exp_count=7344
+r=17; error=0.002777; exp_count=3672
+r=9; error=0.005982; exp_count=1944
+r=13; error=0.003879; exp_count=2808
+r=11; error=0.004735; exp_count=2376
+r=10; error=0.005295; exp_count=2160
+-------- binary search end --------
+standard: error=0.004856; exp_count=1944
+lightcone: error=0.004735; exp_count=506
+=========pf_type=lightcone, ob_type=single=========
+r=135; error=0.000078; exp_count=26297
+r=68; error=0.000273; exp_count=11825
+r=34; error=0.000825; exp_count=4481
+r=17; error=0.001707; exp_count=1190
+r=9; error=0.003128; exp_count=342
+r=5; error=0.005333; exp_count=110
+r=7; error=0.003946; exp_count=210
+r=6; error=0.004537; exp_count=156
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=70----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=175; error=0.000067; exp_count=49000
+r=88; error=0.000265; exp_count=24640
+r=44; error=0.001061; exp_count=12320
+r=22; error=0.004242; exp_count=6160
+r=11; error=0.016970; exp_count=3080
+r=16; error=0.008021; exp_count=4480
+r=19; error=0.005688; exp_count=5320
+r=20; error=0.005133; exp_count=5600
+r=21; error=0.004656; exp_count=5880
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=175; error=0.000063; exp_count=49000
+r=88; error=0.000231; exp_count=24640
+r=44; error=0.000786; exp_count=12320
+r=22; error=0.002149; exp_count=6160
+r=11; error=0.004925; exp_count=3080
+r=6; error=0.009671; exp_count=1680
+r=8; error=0.007042; exp_count=2240
+r=9; error=0.006176; exp_count=2520
+r=10; error=0.005486; exp_count=2800
+-------- binary search end --------
+standard: error=0.004656; exp_count=2940
+lightcone: error=0.004925; exp_count=506
+=========pf_type=lightcone, ob_type=single=========
+r=175; error=0.000060; exp_count=44169
+r=88; error=0.000213; exp_count=19809
+r=44; error=0.000642; exp_count=7489
+r=22; error=0.001329; exp_count=1980
+r=11; error=0.002590; exp_count=506
+r=6; error=0.004537; exp_count=156
+r=3; error=0.008148; exp_count=42
+r=4; error=0.006458; exp_count=72
+r=5; error=0.005333; exp_count=110
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=94----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=235; error=0.000050; exp_count=88360
+r=118; error=0.000199; exp_count=44368
+r=59; error=0.000797; exp_count=22184
+r=30; error=0.003081; exp_count=11280
+r=15; error=0.012326; exp_count=5640
+r=22; error=0.005730; exp_count=8272
+r=26; error=0.004103; exp_count=9776
+r=24; error=0.004815; exp_count=9024
+r=23; error=0.005243; exp_count=8648
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=235; error=0.000047; exp_count=88360
+r=118; error=0.000173; exp_count=44368
+r=59; error=0.000589; exp_count=22184
+r=30; error=0.001571; exp_count=11280
+r=15; error=0.003597; exp_count=5640
+r=8; error=0.007212; exp_count=3008
+r=11; error=0.005088; exp_count=4136
+r=13; error=0.004226; exp_count=4888
+r=12; error=0.004620; exp_count=4512
+-------- binary search end --------
+standard: error=0.004815; exp_count=4512
+lightcone: error=0.004620; exp_count=600
+=========pf_type=lightcone, ob_type=single=========
+r=235; error=0.000045; exp_count=79617
+r=118; error=0.000160; exp_count=35625
+r=59; error=0.000481; exp_count=13441
+r=30; error=0.000981; exp_count=3660
+r=15; error=0.001926; exp_count=930
+r=8; error=0.003490; exp_count=272
+r=4; error=0.006458; exp_count=72
+r=6; error=0.004537; exp_count=156
+r=5; error=0.005333; exp_count=110
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=124----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=310; error=0.000038; exp_count=153760
+r=155; error=0.000153; exp_count=76880
+r=78; error=0.000604; exp_count=38688
+r=39; error=0.002415; exp_count=19344
+r=20; error=0.009183; exp_count=9920
+r=29; error=0.004368; exp_count=14384
+r=24; error=0.006377; exp_count=11904
+r=26; error=0.005434; exp_count=12896
+r=27; error=0.005039; exp_count=13392
+r=28; error=0.004685; exp_count=13888
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=310; error=0.000036; exp_count=153760
+r=155; error=0.000133; exp_count=76880
+r=78; error=0.000446; exp_count=38688
+r=39; error=0.001214; exp_count=19344
+r=20; error=0.002690; exp_count=9920
+r=10; error=0.005768; exp_count=4960
+r=15; error=0.003708; exp_count=7440
+r=12; error=0.004735; exp_count=5952
+r=11; error=0.005204; exp_count=5456
+-------- binary search end --------
+standard: error=0.004685; exp_count=6944
+lightcone: error=0.004735; exp_count=600
+=========pf_type=lightcone, ob_type=single=========
+r=310; error=0.000034; exp_count=138507
+r=155; error=0.000122; exp_count=61627
+r=78; error=0.000365; exp_count=23435
+r=39; error=0.000758; exp_count=6162
+r=20; error=0.001458; exp_count=1640
+r=10; error=0.002833; exp_count=420
+r=5; error=0.005333; exp_count=110
+r=7; error=0.003946; exp_count=210
+r=6; error=0.004537; exp_count=156
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=164----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=410; error=0.000029; exp_count=268960
+r=205; error=0.000116; exp_count=134480
+r=103; error=0.000459; exp_count=67568
+r=52; error=0.001802; exp_count=34112
+r=26; error=0.007209; exp_count=17056
+r=39; error=0.003204; exp_count=25584
+r=32; error=0.004759; exp_count=20992
+r=29; error=0.005795; exp_count=19024
+r=30; error=0.005415; exp_count=19680
+r=31; error=0.005071; exp_count=20336
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=410; error=0.000027; exp_count=268960
+r=205; error=0.000101; exp_count=134480
+r=103; error=0.000339; exp_count=67568
+r=52; error=0.000909; exp_count=34112
+r=26; error=0.002071; exp_count=17056
+r=13; error=0.004426; exp_count=8528
+r=7; error=0.008553; exp_count=4592
+r=10; error=0.005857; exp_count=6560
+r=11; error=0.005292; exp_count=7216
+r=12; error=0.004822; exp_count=7872
+-------- binary search end --------
+standard: error=0.004759; exp_count=10496
+lightcone: error=0.004822; exp_count=600
+=========pf_type=lightcone, ob_type=single=========
+r=410; error=0.000026; exp_count=242227
+r=205; error=0.000093; exp_count=107747
+r=103; error=0.000277; exp_count=40835
+r=52; error=0.000571; exp_count=10920
+r=26; error=0.001129; exp_count=2756
+r=13; error=0.002209; exp_count=702
+r=7; error=0.003946; exp_count=210
+r=4; error=0.006458; exp_count=72
+r=5; error=0.005333; exp_count=110
+r=6; error=0.004537; exp_count=156
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=216----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=540; error=0.000022; exp_count=466560
+r=270; error=0.000088; exp_count=233280
+r=135; error=0.000353; exp_count=116640
+r=68; error=0.001391; exp_count=58752
+r=34; error=0.005565; exp_count=29376
+r=51; error=0.002473; exp_count=44064
+r=42; error=0.003647; exp_count=36288
+r=38; error=0.004455; exp_count=32832
+r=36; error=0.004964; exp_count=31104
+r=35; error=0.005252; exp_count=30240
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=540; error=0.000021; exp_count=466560
+r=270; error=0.000077; exp_count=233280
+r=135; error=0.000260; exp_count=116640
+r=68; error=0.000696; exp_count=58752
+r=34; error=0.001584; exp_count=29376
+r=17; error=0.003376; exp_count=14688
+r=9; error=0.006619; exp_count=7776
+r=13; error=0.004490; exp_count=11232
+r=11; error=0.005357; exp_count=9504
+r=12; error=0.004887; exp_count=10368
+-------- binary search end --------
+standard: error=0.004964; exp_count=15552
+lightcone: error=0.004887; exp_count=600
+=========pf_type=lightcone, ob_type=single=========
+r=540; error=0.000020; exp_count=420119
+r=270; error=0.000071; exp_count=186839
+r=135; error=0.000212; exp_count=70199
+r=68; error=0.000438; exp_count=18632
+r=34; error=0.000868; exp_count=4692
+r=17; error=0.001707; exp_count=1190
+r=9; error=0.003128; exp_count=342
+r=5; error=0.005333; exp_count=110
+r=7; error=0.003946; exp_count=210
+r=6; error=0.004537; exp_count=156
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=286----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=715; error=0.000017; exp_count=817960
+r=358; error=0.000067; exp_count=409552
+r=179; error=0.000266; exp_count=204776
+r=90; error=0.001053; exp_count=102960
+r=45; error=0.004214; exp_count=51480
+r=23; error=0.016131; exp_count=26312
+r=34; error=0.007382; exp_count=38896
+r=39; error=0.005610; exp_count=44616
+r=42; error=0.004837; exp_count=48048
+r=40; error=0.005333; exp_count=45760
+r=41; error=0.005076; exp_count=46904
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=715; error=0.000016; exp_count=817960
+r=358; error=0.000058; exp_count=409552
+r=179; error=0.000196; exp_count=204776
+r=90; error=0.000526; exp_count=102960
+r=45; error=0.001196; exp_count=51480
+r=23; error=0.002486; exp_count=26312
+r=12; error=0.004937; exp_count=13728
+r=6; error=0.010199; exp_count=6864
+r=9; error=0.006671; exp_count=10296
+r=10; error=0.005975; exp_count=11440
+r=11; error=0.005408; exp_count=12584
+-------- binary search end --------
+standard: error=0.004837; exp_count=24024
+lightcone: error=0.004937; exp_count=600
+=========pf_type=lightcone, ob_type=single=========
+r=715; error=0.000015; exp_count=736449
+r=358; error=0.000053; exp_count=328041
+r=179; error=0.000160; exp_count=123265
+r=90; error=0.000331; exp_count=32580
+r=45; error=0.000658; exp_count=8190
+r=23; error=0.001273; exp_count=2162
+r=12; error=0.002384; exp_count=600
+r=6; error=0.004537; exp_count=156
+r=3; error=0.008148; exp_count=42
+r=4; error=0.006458; exp_count=72
+r=5; error=0.005333; exp_count=110
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=378----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=945; error=0.000013; exp_count=1428840
+r=473; error=0.000050; exp_count=715176
+r=237; error=0.000201; exp_count=358344
+r=119; error=0.000797; exp_count=179928
+r=60; error=0.003137; exp_count=90720
+r=30; error=0.012548; exp_count=45360
+r=45; error=0.005577; exp_count=68040
+r=52; error=0.004177; exp_count=78624
+r=48; error=0.004902; exp_count=72576
+r=46; error=0.005337; exp_count=69552
+r=47; error=0.005112; exp_count=71064
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=945; error=0.000012; exp_count=1428840
+r=473; error=0.000044; exp_count=715176
+r=237; error=0.000148; exp_count=358344
+r=119; error=0.000398; exp_count=179928
+r=60; error=0.000896; exp_count=90720
+r=30; error=0.001904; exp_count=45360
+r=15; error=0.003944; exp_count=22680
+r=8; error=0.007585; exp_count=12096
+r=11; error=0.005446; exp_count=16632
+r=13; error=0.004578; exp_count=19656
+r=12; error=0.004975; exp_count=18144
+-------- binary search end --------
+standard: error=0.004902; exp_count=36288
+lightcone: error=0.004975; exp_count=600
+=========pf_type=lightcone, ob_type=single=========
+r=945; error=0.000011; exp_count=1286333
+r=473; error=0.000040; exp_count=572669
+r=237; error=0.000121; exp_count=215837
+r=119; error=0.000251; exp_count=56882
+r=60; error=0.000495; exp_count=14520
+r=30; error=0.000981; exp_count=3660
+r=15; error=0.001926; exp_count=930
+r=8; error=0.003490; exp_count=272
+r=4; error=0.006458; exp_count=72
+r=6; error=0.004537; exp_count=156
+r=5; error=0.005333; exp_count=110
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+--------------------------n=500----------------------------
+=========pf_type=standard, ob_type=multi=========
+r=1250; error=0.000010; exp_count=2500000
+r=625; error=0.000038; exp_count=1250000
+r=313; error=0.000153; exp_count=626000
+r=157; error=0.000607; exp_count=314000
+r=79; error=0.002396; exp_count=158000
+r=40; error=0.009346; exp_count=80000
+r=59; error=0.004296; exp_count=118000
+r=49; error=0.006228; exp_count=98000
+r=54; error=0.005128; exp_count=108000
+r=56; error=0.004768; exp_count=112000
+r=55; error=0.004943; exp_count=110000
+-------- binary search end --------
+=========pf_type=lightcone, ob_type=multi=========
+r=1250; error=0.000009; exp_count=2500000
+r=625; error=0.000033; exp_count=1250000
+r=313; error=0.000112; exp_count=626000
+r=157; error=0.000302; exp_count=314000
+r=79; error=0.000680; exp_count=158000
+r=40; error=0.001426; exp_count=80000
+r=20; error=0.002948; exp_count=40000
+r=10; error=0.006043; exp_count=20000
+r=15; error=0.003972; exp_count=30000
+r=12; error=0.005004; exp_count=24000
+r=13; error=0.004606; exp_count=26000
+-------- binary search end --------
+standard: error=0.004943; exp_count=55000
+lightcone: error=0.004606; exp_count=702
+=========pf_type=lightcone, ob_type=single=========
+r=1250; error=0.000009; exp_count=2250499
+r=625; error=0.000031; exp_count=1000499
+r=313; error=0.000092; exp_count=376499
+r=157; error=0.000190; exp_count=98910
+r=79; error=0.000377; exp_count=25122
+r=40; error=0.000740; exp_count=6480
+r=20; error=0.001458; exp_count=1640
+r=10; error=0.002833; exp_count=420
+r=5; error=0.005333; exp_count=110
+r=7; error=0.003946; exp_count=210
+r=6; error=0.004537; exp_count=156
+-------- binary search end --------
+lightcone: error=0.004537; exp_count=156
+========== EMPIRICAL n=4==========
+=========pf_type=empirical, ob_type=multi=========
+r=10; error=0.000097; exp_count=160
+r=5; error=0.000389; exp_count=80
+r=3; error=0.001087; exp_count=48
+r=2; error=0.002476; exp_count=32
+-------- binary search end --------
+empirical: error=0.002476; exp_count=16
+=========pf_type=empirical, ob_type=single=========
+r=1, single observable error (jax):  0.002042648
+r=1; error=0.002043; exp_count=6
+========== EMPIRICAL n=5==========
+=========pf_type=empirical, ob_type=multi=========
+r=13; error=0.000070; exp_count=260
+r=7; error=0.000241; exp_count=140
+r=4; error=0.000739; exp_count=80
+r=2; error=0.003005; exp_count=40
+-------- binary search end --------
+empirical: error=0.003005; exp_count=20
+=========pf_type=empirical, ob_type=single=========
+r=1, single observable error (jax):  0.0020426675
+r=1; error=0.002043; exp_count=6
+========== EMPIRICAL n=6==========
+=========pf_type=empirical, ob_type=multi=========
+r=15; error=0.000050; exp_count=360
+r=8; error=0.000176; exp_count=192
+r=4; error=0.000707; exp_count=96
+r=2; error=0.002880; exp_count=48
+-------- binary search end --------
+empirical: error=0.002880; exp_count=24
+=========pf_type=empirical, ob_type=single=========
+r=1, single observable error (jax):  0.0020427618
+r=1; error=0.002043; exp_count=6
+========== EMPIRICAL n=7==========
+=========pf_type=empirical, ob_type=multi=========
+r=18; error=0.000039; exp_count=504
+r=9; error=0.000154; exp_count=252
+r=5; error=0.000501; exp_count=140
+r=3; error=0.001401; exp_count=84
+r=2; error=0.003193; exp_count=56
+-------- binary search end --------
+empirical: error=0.003193; exp_count=28
+=========pf_type=empirical, ob_type=single=========
+r=1, single observable error (jax):  0.002042913
+r=1; error=0.002043; exp_count=6
+========== EMPIRICAL n=8==========
+=========pf_type=empirical, ob_type=multi=========
+r=20; error=0.000030; exp_count=640
+r=10; error=0.000120; exp_count=320
+r=5; error=0.000483; exp_count=160
+r=3; error=0.001350; exp_count=96
+r=2; error=0.003079; exp_count=64
+-------- binary search end --------
+empirical: error=0.003079; exp_count=32
+=========pf_type=empirical, ob_type=single=========
+r=1, single observable error (jax):  0.0020429872
+r=1; error=0.002043; exp_count=6
+========== EMPIRICAL n=9==========
+=========pf_type=empirical, ob_type=multi=========
+r=23; error=0.000024; exp_count=828
+r=12; error=0.000090; exp_count=432
+r=6; error=0.000359; exp_count=216
+r=3; error=0.001446; exp_count=108
+r=2; error=0.003297; exp_count=72
+-------- binary search end --------
+empirical: error=0.003297; exp_count=36
+=========pf_type=empirical, ob_type=single=========
+r=1, single observable error (jax):  0.0020432747
+r=1; error=0.002043; exp_count=6
+========== EMPIRICAL n=10==========
+=========pf_type=empirical, ob_type=multi=========
+r=25; error=0.000020; exp_count=1000
+r=13; error=0.000074; exp_count=520
+r=7; error=0.000255; exp_count=280
+r=4; error=0.000784; exp_count=160
+r=2; error=0.003196; exp_count=80
+-------- binary search end --------
+empirical: error=0.003196; exp_count=40
+=========pf_type=empirical, ob_type=single=========
+r=1, single observable error (jax):  0.0020432167
+r=1; error=0.002043; exp_count=6
+70
+a_em: 0.9999999999999993; b_em: 2.079441541679837
+a_em: -1.0347540949016995e-08; b_em: 1.7917594909797467
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/matplotlib/cbook.py:1699: ComplexWarning: Casting complex values to real discards the imaginary part
+  return math.isfinite(val)
+/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/matplotlib/cbook.py:1345: ComplexWarning: Casting complex values to real discards the imaginary part
+  return np.asarray(x, float)
+/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:1010: OptimizeWarning: Covariance of the parameters could not be estimated
+  warnings.warn(&#39;Covariance of the parameters could not be estimated&#39;,
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/f9e0516560ff26fcd3a6814693a2a8d6353949634eb9946991b89e6a87a4ac99.png"><img alt="_images/f9e0516560ff26fcd3a6814693a2a8d6353949634eb9946991b89e6a87a4ac99.png" src="_images/f9e0516560ff26fcd3a6814693a2a8d6353949634eb9946991b89e6a87a4ac99.png" style="width: 874px; height: 575px;" /></a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analy_lc_bound</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">analy_lc_bound</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;J&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bounds-tight-loose">
+<h3>Bounds (tight, loose)<a class="headerlink" href="#bounds-tight-loose" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lattice_hamiltonians</span> <span class="kn">import</span> <span class="n">heisenberg_1d</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">is_pbc</span> <span class="o">=</span> <span class="kc">True</span><span class="p">;</span> <span class="n">J</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ising_bd</span> <span class="o">=</span> <span class="n">transverse_field_ising_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">4</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="n">is_pbc</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># ising_bd = heisenberg_1d(2, 1, 1, 1, 2, verbose=False)</span>
+<span class="n">ising_bd</span><span class="o">.</span><span class="n">H_parity</span>
+<span class="n">h_list</span> <span class="o">=</span> <span class="n">ising_bd</span><span class="o">.</span><span class="n">all_terms</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;all terms: &#39;</span><span class="p">,</span> <span class="n">h_list</span><span class="p">)</span>
+<span class="n">commutator_bound</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">commutator_bound</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;loose&#39;</span><span class="p">)</span>
+<span class="n">tight_err</span> <span class="o">=</span> <span class="n">tight_bound</span><span class="p">([</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;tight_err: &#39;</span><span class="p">,</span> <span class="n">tight_err</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;tight bound (parity): &#39;</span><span class="p">,</span> <span class="n">tight_bound</span><span class="p">(</span><span class="n">ising_bd</span><span class="o">.</span><span class="n">H_parity</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;analytic loose error:&#39;</span><span class="p">,</span> <span class="n">analytic_loose_commutator_bound</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="n">is_pbc</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;tight bound (parity) first: &#39;</span><span class="p">,</span> <span class="n">tight_bound</span><span class="p">(</span><span class="n">ising_bd</span><span class="o">.</span><span class="n">H_parity</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;tight bound (all) first: &#39;</span><span class="p">,</span> <span class="n">tight_bound</span><span class="p">([</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>---------------------initialization start---------------------
+----expm: exact U evaluated (t=4)----
+single local observabel: {&#39;X&#39;: [1]}
+observable:  SparsePauliOp([&#39;XIII&#39;],
+              coeffs=[1.+0.j])
+evaluation: standard error bound
+c1 (analy)=56, c2=24
+evaluation: lightcone decompose
+evalution: lightcone error bound
+c1 (analy)=36, c2=16
+c1 (analy)=56, c2=24
+[[&#39;IXII&#39;, &#39;IZZI&#39;, &#39;ZZII&#39;, &#39;IIIX&#39;], [&#39;IIXI&#39;, &#39;IIZZ&#39;, &#39;XIII&#39;, &#39;ZIIZ&#39;]]
+---------------------initialization done---------------------
+all terms:  [SparsePauliOp([&#39;ZZII&#39;],
+              coeffs=[1.+0.j]), SparsePauliOp([&#39;IZZI&#39;],
+              coeffs=[1.+0.j]), SparsePauliOp([&#39;IIZZ&#39;],
+              coeffs=[1.+0.j]), SparsePauliOp([&#39;ZIIZ&#39;],
+              coeffs=[1.+0.j]), SparsePauliOp([&#39;XIII&#39;],
+              coeffs=[1.+0.j]), SparsePauliOp([&#39;IXII&#39;],
+              coeffs=[1.+0.j]), SparsePauliOp([&#39;IIXI&#39;],
+              coeffs=[1.+0.j]), SparsePauliOp([&#39;IIIX&#39;],
+              coeffs=[1.+0.j])]
+c1 (tight)=69.20225231898308, c2=32.0
+tight bound: 7.10018769324859
+c1 (loose)=80.0, c2=32.0
+loose bound: 8.0
+c1 (tight bound by matrix)=69.20225231898308, c2=32.0
+tight_err:  7.10018769324859
+c1 (tight bound by matrix)=16.0, c2=16.0
+tight bound (parity):  2.0
+c1 (analy)=80, c2=32
+analytic error: 8.0
+tight bound (parity) first:  2.8284271247461903
+tight bound (all) first:  8.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print(h_list)</span>
+<span class="c1"># norm(commutator(ising_bd.H_parity[0], ising_bd.H_parity[1]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">commutator</span><span class="p">(</span><span class="n">ising_bd</span><span class="o">.</span><span class="n">even_op</span><span class="p">,</span> <span class="n">ising_bd</span><span class="o">.</span><span class="n">odd_op</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">commutator</span><span class="p">(</span><span class="n">ising_bd</span><span class="o">.</span><span class="n">even_op</span><span class="p">,</span> <span class="n">ising_bd</span><span class="o">.</span><span class="n">odd_op</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()))</span>
+<span class="n">norm</span><span class="p">(</span><span class="n">SparsePauliOp</span><span class="p">([</span><span class="s1">&#39;ZYII&#39;</span><span class="p">,</span> <span class="s1">&#39;IIZY&#39;</span><span class="p">,</span> <span class="s1">&#39;YIIZ&#39;</span><span class="p">,</span> <span class="s1">&#39;IZYI&#39;</span><span class="p">],</span> <span class="n">coeffs</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="n">j</span><span class="p">,</span> <span class="mi">4</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="n">j</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;ZYII&#39;, &#39;IIZY&#39;, &#39;YIIZ&#39;, &#39;IZYI&#39;],
+              coeffs=[0.+4.j, 0.+4.j, 0.-4.j, 0.-4.j])
+11.313708498984761
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.656854249492381
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lightcone_bound_simplified</span><span class="p">(</span><span class="n">ising1d</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">lightcone_bound_simplified</span><span class="p">(</span><span class="n">ising1d</span><span class="p">,</span> <span class="n">ising1d</span><span class="o">.</span><span class="n">r_saturate</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bound list:  [0.000177 0.000395 0.000618 0.000841]
+bound list:  [0.001031 0.002305 0.003602 0.004906]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.016750620270343665
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-transverse-field-ising-chain">1D Transverse Field Ising Chain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#different-groupings">Different groupings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main">Main</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bounds-tight-loose">Bounds (tight, loose)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jue Xu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

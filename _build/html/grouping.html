@@ -61,7 +61,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'grouping';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Ground state" href="ground.html" />
+    <link rel="next" title="Ordering" href="ordering.html" />
     <link rel="prev" title="Field" href="field.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,6 +181,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantities.html">Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -192,11 +193,21 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Grouping (commutation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_estimation.html">Phase estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
 </ul>
 
     </div>
@@ -392,10 +403,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parity-grouping">Parity grouping</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xyz-grouping">XYZ grouping</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parity-grouping">Parity grouping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xyz-grouping">XYZ grouping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#greedy-grouping-for-chemistry">Greedy grouping (for chemistry)</a></li>
 </ul>
             </nav>
         </div>
@@ -444,8 +454,9 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 <section id="xyz-grouping">
-<h3>XYZ grouping<a class="headerlink" href="#xyz-grouping" title="Link to this heading">#</a></h3>
+<h2>XYZ grouping<a class="headerlink" href="#xyz-grouping" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span><span class="o">.</span><span class="n">ham_xyz</span>
@@ -464,6 +475,8 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="greedy-grouping-for-chemistry">
+<h2>Greedy grouping (for chemistry)<a class="headerlink" href="#greedy-grouping-for-chemistry" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -507,11 +520,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="ground.html"
+       href="ordering.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Ground state</p>
+        <p class="prev-next-title">Ordering</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -531,10 +544,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parity-grouping">Parity grouping</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xyz-grouping">XYZ grouping</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parity-grouping">Parity grouping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xyz-grouping">XYZ grouping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#greedy-grouping-for-chemistry">Greedy grouping (for chemistry)</a></li>
 </ul>
   </nav></div>
 

@@ -181,6 +181,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantities.html">Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -192,11 +193,21 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_estimation.html">Phase estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
 </ul>
 
     </div>
@@ -410,64 +421,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/shutil.py:816,</span> in <span class="ni">move</span><span class="nt">(src, dst, copy_function)</span>
-<span class="g g-Whitespace">    </span><span class="mi">815</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">816</span>     <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">real_dst</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">817</span> <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;746451ff-0a76-4acc-b24e-00a75e4ba05c.hdf5&#39; -&gt; &#39;./data/hydrogen_2_1.hdf5&#39;
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">openfermion.linalg</span> <span class="kn">import</span> <span class="n">get_ground_state</span><span class="p">,</span> <span class="n">get_sparse_operator</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_unitary</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">test_H</span> <span class="o">=</span> <span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="nn">File ~/GitHub/Quantum-Simulation-Cookbook/fermion_ham.py:250,</span> in <span class="ni">hydrogen_chain_hamiltonian.__init__</span><span class="nt">(self, chain_length, bond_length, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="bp">self</span><span class="o">.</span><span class="n">hydrogen</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">249</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">250</span>     <span class="bp">self</span><span class="o">.</span><span class="n">hydrogen</span> <span class="o">=</span> <span class="n">run_pyscf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hydrogen</span><span class="p">,</span> <span class="n">run_scf</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_scf</span><span class="p">,</span> <span class="n">run_mp2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_mp2</span><span class="p">,</span> <span class="n">run_cisd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_cisd</span><span class="p">,</span> <span class="n">run_ccsd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_ccsd</span><span class="p">,</span> <span class="n">run_fci</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_fci</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">251</span>     <span class="c1">#two_body_integrals = hydrogen.two_body_integrals</span>
-<span class="g g-Whitespace">    </span><span class="mi">252</span>     <span class="bp">self</span><span class="o">.</span><span class="n">hydrogen</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/openfermionpyscf/_run_pyscf.py:205,</span> in <span class="ni">run_pyscf</span><span class="nt">(molecule, run_scf, run_mp2, run_cisd, run_ccsd, run_fci, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">203</span> <span class="n">pyscf_molecular_data</span> <span class="o">=</span> <span class="n">PyscfMolecularData</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">PyscfMolecularData</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">204</span> <span class="n">pyscf_molecular_data</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">205</span> <span class="n">pyscf_molecular_data</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">206</span> <span class="k">return</span> <span class="n">pyscf_molecular_data</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/openfermion/chem/molecular_data.py:717,</span> in <span class="ni">MolecularData.save</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">714</span> <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">715</span>     <span class="k">pass</span>
-<span class="ne">--&gt; </span><span class="mi">717</span> <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.hdf5&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tmp_name</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.hdf5&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/shutil.py:836,</span> in <span class="ni">move</span><span class="nt">(src, dst, copy_function)</span>
-<span class="g g-Whitespace">    </span><span class="mi">834</span>         <span class="n">rmtree</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">835</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">836</span>         <span class="n">copy_function</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">real_dst</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">837</span>         <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">838</span> <span class="k">return</span> <span class="n">real_dst</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/shutil.py:434,</span> in <span class="ni">copy2</span><span class="nt">(src, dst, follow_symlinks)</span>
-<span class="g g-Whitespace">    </span><span class="mi">432</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dst</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">433</span>     <span class="n">dst</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
-<span class="ne">--&gt; </span><span class="mi">434</span> <span class="n">copyfile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">follow_symlinks</span><span class="o">=</span><span class="n">follow_symlinks</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">435</span> <span class="n">copystat</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">follow_symlinks</span><span class="o">=</span><span class="n">follow_symlinks</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">436</span> <span class="k">return</span> <span class="n">dst</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/shutil.py:256,</span> in <span class="ni">copyfile</span><span class="nt">(src, dst, follow_symlinks)</span>
-<span class="g g-Whitespace">    </span><span class="mi">254</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fsrc</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">255</span>     <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">256</span>         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fdst</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span>             <span class="c1"># macOS</span>
-<span class="g g-Whitespace">    </span><span class="mi">258</span>             <span class="k">if</span> <span class="n">_HAS_FCOPYFILE</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">259</span>                 <span class="k">try</span><span class="p">:</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;./data/hydrogen_2_1.hdf5&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># pstr: 15, [&#39;IIII&#39;, &#39;ZIII&#39;, &#39;IZII&#39;, &#39;IIZI&#39;, &#39;IIIZ&#39;, &#39;ZZII&#39;, &#39;YXXY&#39;, &#39;YYXX&#39;, &#39;XXYY&#39;, &#39;XYYX&#39;, &#39;ZIZI&#39;, &#39;ZIIZ&#39;, &#39;IZZI&#39;, &#39;IZIZ&#39;, &#39;IIZZ&#39;]
+# groups: 2
+[[{&#39;IIII&#39;: (-0.3276081896748102+0j)}, {&#39;ZIII&#39;: (0.13716572937099497+0j)}, {&#39;IZII&#39;: (0.13716572937099497+0j)}, {&#39;IIZI&#39;: (-0.13036292057109025+0j)}, {&#39;IIIZ&#39;: (-0.13036292057109025+0j)}, {&#39;ZZII&#39;: (0.15660062488237947+0j)}], [{&#39;YXXY&#39;: (0.049197645871367546+0j)}, {&#39;YYXX&#39;: (-0.049197645871367546+0j)}, {&#39;XXYY&#39;: (-0.049197645871367546+0j)}, {&#39;XYYX&#39;: (0.049197645871367546+0j)}, {&#39;ZIZI&#39;: (0.10622904490856078+0j)}, {&#39;ZIIZ&#39;: (0.15542669077992832+0j)}, {&#39;IZZI&#39;: (0.15542669077992832+0j)}, {&#39;IZIZ&#39;: (0.10622904490856078+0j)}, {&#39;IIZZ&#39;: (0.16326768673564335+0j)}]]
 </pre></div>
 </div>
 </div>

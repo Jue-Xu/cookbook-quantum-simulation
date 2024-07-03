@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Spin" href="spin.html" />
-    <link rel="prev" title="Operators" href="operator.html" />
+    <link rel="prev" title="Quantities" href="quantities.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,6 +181,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantities.html">Quantities</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -192,11 +193,21 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_estimation.html">Phase estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
 </ul>
 
     </div>
@@ -409,7 +420,15 @@ document.write(`
 <h1>Channels<a class="headerlink" href="#channels" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">Statevector</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import from Qiskit Aer noise module</span>
+<span class="kn">from</span> <span class="nn">qiskit_aer.noise</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">NoiseModel</span><span class="p">,</span>
+    <span class="n">QuantumError</span><span class="p">,</span>
+    <span class="n">ReadoutError</span><span class="p">,</span>
+    <span class="n">depolarizing_error</span><span class="p">,</span>
+    <span class="n">pauli_error</span><span class="p">,</span>
+    <span class="n">thermal_relaxation_error</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -418,7 +437,34 @@ document.write(`
 <h2>Noise channel<a class="headerlink" href="#noise-channel" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span>  <span class="o">=</span> <span class="mi">4</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construct a 1-qubit bit-flip and phase-flip errors</span>
+<span class="n">p_error</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">bit_flip</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_error</span><span class="p">)])</span>
+<span class="n">phase_flip</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_error</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bit_flip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">phase_flip</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>QuantumError on 1 qubits. Noise circuits:
+  P(0) = 0.05, Circuit = 
+   ┌───┐
+q: ┤ X ├
+   └───┘
+  P(1) = 0.95, Circuit = 
+   ┌───┐
+q: ┤ I ├
+   └───┘
+QuantumError on 1 qubits. Noise circuits:
+  P(0) = 0.05, Circuit = 
+   ┌───┐
+q: ┤ Z ├
+   └───┘
+  P(1) = 0.95, Circuit = 
+   ┌───┐
+q: ┤ I ├
+   └───┘
 </pre></div>
 </div>
 </div>
@@ -460,12 +506,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="operator.html"
+       href="quantities.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Operators</p>
+        <p class="prev-next-title">Quantities</p>
       </div>
     </a>
     <a class="right-next"

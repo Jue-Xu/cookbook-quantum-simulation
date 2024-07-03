@@ -61,7 +61,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'operator';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Channels" href="channel.html" />
+    <link rel="next" title="Quantities" href="quantities.html" />
     <link rel="prev" title="States" href="state.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,6 +181,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantities.html">Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -192,11 +193,21 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_estimation.html">Phase estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
 </ul>
 
     </div>
@@ -393,11 +404,18 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observables">Observables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-pauli">random pauli</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-pauli-with-fixed-weight">random pauli with fixed weight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-hermitian">random Hermitian</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#energy">Energy</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-magnetization-correlation">Spin: magnetization, correlation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unitaries">Unitaries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unitaries">Unitaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-unitary">Random unitary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-gate">Random gate</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -413,13 +431,54 @@ document.write(`
 <h1>Operators<a class="headerlink" href="#operators" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">Statevector</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">random_pauli</span><span class="p">,</span> <span class="n">random_hermitian</span><span class="p">,</span> <span class="n">random_clifford</span><span class="p">,</span> <span class="n">random_unitary</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="observables">
 <h2>Observables<a class="headerlink" href="#observables" title="Link to this heading">#</a></h2>
+<section id="random-pauli">
+<h3>random pauli<a class="headerlink" href="#random-pauli" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_pauli</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pauli(&#39;XIY&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="random-pauli-with-fixed-weight">
+<h3>random pauli with fixed weight<a class="headerlink" href="#random-pauli-with-fixed-weight" title="Link to this heading">#</a></h3>
+</section>
+<section id="random-hermitian">
+<h3>random Hermitian<a class="headerlink" href="#random-hermitian" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_hermitian</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Operator([[ 1.08564342+0.j        , -0.52346111+0.11397996j,
+            0.99938064-0.69718842j,  0.73354693-0.41191359j],
+          [-0.52346111-0.11397996j, -0.50678695+0.j        ,
+           -0.2980072 +0.10726738j, -0.79537324+0.33221158j],
+          [ 0.99938064+0.69718842j, -0.2980072 -0.10726738j,
+           -1.99104482+0.j        , -0.93285401+0.37498539j],
+          [ 0.73354693+0.41191359j, -0.79537324-0.33221158j,
+           -0.93285401-0.37498539j, -0.04521382+0.j        ]],
+         input_dims=(2, 2), output_dims=(2, 2))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="energy">
 <h3>Energy<a class="headerlink" href="#energy" title="Link to this heading">#</a></h3>
 </section>
@@ -445,6 +504,51 @@ document.write(`
 </section>
 <section id="unitaries">
 <h2>Unitaries<a class="headerlink" href="#unitaries" title="Link to this heading">#</a></h2>
+<section id="random-unitary">
+<h3>Random unitary<a class="headerlink" href="#random-unitary" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_unitary</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Operator([[ 0.10000559-0.71830365j,  0.18379917-0.408031j  ,
+            0.31318423-0.39108731j,  0.14815192+0.02801216j],
+          [ 0.60001097+0.10953026j, -0.25978775-0.48103446j,
+           -0.49165482-0.15698406j, -0.23540379-0.08557292j],
+          [-0.0588361 -0.18416213j,  0.61316331-0.02295014j,
+           -0.65012978+0.23936479j,  0.32514956+0.02098103j],
+          [-0.21615928+0.13388986j,  0.12433786-0.32998315j,
+            0.00488492+0.05108621j, -0.30349771+0.84631871j]],
+         input_dims=(2, 2), output_dims=(2, 2))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="random-gate">
+<h3>Random gate<a class="headerlink" href="#random-gate" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_clifford</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clifford(array([[ True, False,  True,  True, False, False,  True, False,  True],
+       [False,  True, False,  True,  True, False,  True, False, False],
+       [False,  True,  True, False, False,  True,  True, False, False],
+       [ True,  True,  True,  True,  True,  True,  True,  True,  True],
+       [ True,  True,  True, False, False,  True,  True,  True, False],
+       [False, False, False,  True,  True,  True,  True, False, False],
+       [False, False, False, False,  True, False,  True, False,  True],
+       [False,  True, False,  True,  True,  True, False,  True, False]]))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -488,11 +592,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="channel.html"
+       href="quantities.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Channels</p>
+        <p class="prev-next-title">Quantities</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -513,11 +617,18 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observables">Observables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-pauli">random pauli</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-pauli-with-fixed-weight">random pauli with fixed weight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-hermitian">random Hermitian</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#energy">Energy</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-magnetization-correlation">Spin: magnetization, correlation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unitaries">Unitaries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unitaries">Unitaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-unitary">Random unitary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-gate">Random gate</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

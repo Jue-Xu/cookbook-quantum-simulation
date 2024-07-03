@@ -181,6 +181,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantities.html">Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -192,11 +193,21 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_estimation.html">Phase estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
 </ul>
 
     </div>
@@ -393,7 +404,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation">Jordan-Wigner transformation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemical-molecules">Chemical molecules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemical-molecules">Chemical molecules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ferimonic-operators">Ferimonic operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-operators">Pauli operators</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syk-model">SYK model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hubbard-model">Hubbard model</a></li>
 </ul>
@@ -412,7 +427,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quantum_simulation_recipe</span> <span class="k">as</span> <span class="nn">qsr</span>
-<span class="kn">from</span> <span class="nn">quantum_simulation_recipe</span> <span class="kn">import</span> <span class="n">spin_ham</span>
+<span class="kn">from</span> <span class="nn">quantum_simulation_recipe</span> <span class="kn">import</span> <span class="n">spin_ham</span><span class="p">,</span> <span class="n">fermion_ham</span>
 </pre></div>
 </div>
 </div>
@@ -422,6 +437,35 @@ document.write(`
 </section>
 <section id="chemical-molecules">
 <h2>Chemical molecules<a class="headerlink" href="#chemical-molecules" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">n_hydrogen</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n_hydrogen</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">h2_init</span> <span class="o">=</span> <span class="n">fermion_ham</span><span class="o">.</span><span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="n">n_hydrogen</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">h2_finl</span> <span class="o">=</span> <span class="n">fermion_ham</span><span class="o">.</span><span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="n">n_hydrogen</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># pstr: 15, [&#39;IIII&#39;, &#39;ZIII&#39;, &#39;IZII&#39;, &#39;IIZI&#39;, &#39;IIIZ&#39;, &#39;ZZII&#39;, &#39;YXXY&#39;, &#39;YYXX&#39;, &#39;XXYY&#39;, &#39;XYYX&#39;, &#39;ZIZI&#39;, &#39;ZIIZ&#39;, &#39;IZZI&#39;, &#39;IZIZ&#39;, &#39;IIZZ&#39;]
+# groups: 2
+[[{&#39;IIII&#39;: (-0.3276081896748102+0j)}, {&#39;ZIII&#39;: (0.13716572937099497+0j)}, {&#39;IZII&#39;: (0.13716572937099497+0j)}, {&#39;IIZI&#39;: (-0.13036292057109025+0j)}, {&#39;IIIZ&#39;: (-0.13036292057109025+0j)}, {&#39;ZZII&#39;: (0.15660062488237947+0j)}], [{&#39;YXXY&#39;: (0.049197645871367546+0j)}, {&#39;YYXX&#39;: (-0.049197645871367546+0j)}, {&#39;XXYY&#39;: (-0.049197645871367546+0j)}, {&#39;XYYX&#39;: (0.049197645871367546+0j)}, {&#39;ZIZI&#39;: (0.10622904490856078+0j)}, {&#39;ZIIZ&#39;: (0.15542669077992832+0j)}, {&#39;IZZI&#39;: (0.15542669077992832+0j)}, {&#39;IZIZ&#39;: (0.10622904490856078+0j)}, {&#39;IIZZ&#39;: (0.16326768673564335+0j)}]]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># pstr: 15, [&#39;IIII&#39;, &#39;ZIII&#39;, &#39;IZII&#39;, &#39;IIZI&#39;, &#39;IIIZ&#39;, &#39;ZZII&#39;, &#39;YXXY&#39;, &#39;YYXX&#39;, &#39;XXYY&#39;, &#39;XYYX&#39;, &#39;ZIZI&#39;, &#39;ZIIZ&#39;, &#39;IZZI&#39;, &#39;IZIZ&#39;, &#39;IIZZ&#39;]
+# groups: 2
+[[{&#39;IIII&#39;: (-0.5339363487727404+0j)}, {&#39;ZIII&#39;: (0.06727930458983424+0j)}, {&#39;IZII&#39;: (0.06727930458983425+0j)}, {&#39;IIZI&#39;: (0.006651295687574471+0j)}, {&#39;IIIZ&#39;: (0.006651295687574513+0j)}, {&#39;ZZII&#39;: (0.1273657031065746+0j)}], [{&#39;YXXY&#39;: (0.06478461872026418+0j)}, {&#39;YYXX&#39;: (-0.06478461872026418+0j)}, {&#39;XXYY&#39;: (-0.06478461872026418+0j)}, {&#39;XYYX&#39;: (0.06478461872026418+0j)}, {&#39;ZIZI&#39;: (0.06501569581211994+0j)}, {&#39;ZIIZ&#39;: (0.12980031453238414+0j)}, {&#39;IZZI&#39;: (0.12980031453238414+0j)}, {&#39;IZIZ&#39;: (0.06501569581211994+0j)}, {&#39;IIZZ&#39;: (0.13366602988233992+0j)}]]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="ferimonic-operators">
+<h3>Ferimonic operators<a class="headerlink" href="#ferimonic-operators" title="Link to this heading">#</a></h3>
+</section>
+<section id="pauli-operators">
+<h3>Pauli operators<a class="headerlink" href="#pauli-operators" title="Link to this heading">#</a></h3>
+</section>
 </section>
 <section id="syk-model">
 <h2>SYK model<a class="headerlink" href="#syk-model" title="Link to this heading">#</a></h2>
@@ -496,7 +540,11 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation">Jordan-Wigner transformation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemical-molecules">Chemical molecules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemical-molecules">Chemical molecules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ferimonic-operators">Ferimonic operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-operators">Pauli operators</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syk-model">SYK model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hubbard-model">Hubbard model</a></li>
 </ul>

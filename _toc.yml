@@ -10,6 +10,7 @@ parts:
     # - file: README
     - file: state
     - file: operator
+    - file: quantities
     - file: channel
 
   - caption: Hamiltonians
@@ -21,6 +22,10 @@ parts:
   - caption: Product Formula
     chapters:
     - file: grouping
+    - file: ordering
+    - file: interference
+    - file: localization
+    - file: average
     # - file: trotter_bound
     #   # sections:
     # - file: long_time
@@ -28,9 +33,15 @@ parts:
     #   # - file: random_input
     # - file: adaptive
 
+  - caption: LCU
+    chapters:
+    - file: anticommute
+
   - caption: Applications
     chapters:
   #   - file: misc
     - file: ground
-    - file: phase
+    - file: phase_transition
+    - file: phase_estimation
+    - file: open
  

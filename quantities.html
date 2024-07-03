@@ -202,6 +202,10 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor-network</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
@@ -405,6 +409,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entenglement-measures">Entenglement measures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-commutator">(Anti) commutator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-norms">Different norms</a></li>
 </ul>
             </nav>
         </div>
@@ -423,6 +428,33 @@ document.write(`
 </section>
 <section id="anti-commutator">
 <h2>(Anti) commutator<a class="headerlink" href="#anti-commutator" title="Link to this heading">#</a></h2>
+</section>
+<section id="different-norms">
+<h2>Different norms<a class="headerlink" href="#different-norms" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>  
+
+<span class="n">op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s2">&quot;XIIZI&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;IYIIY&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;op: &#39;</span><span class="p">,</span> <span class="n">op</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spectral norm: &#39;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Trace norm: &#39;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Frobenius norm: &#39;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;fro&#39;</span><span class="p">))</span>
+<span class="c1"># print(norm(SparsePauliOp.from_list([(&quot;XYZI&quot;, 1)]), ord=&#39;nuc&#39;))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>op:  SparsePauliOp([&#39;XIIZI&#39;, &#39;IYIIY&#39;],
+              coeffs=[1.+0.j, 2.+0.j])
+Spectral norm:  3.0000000000000004
+Trace norm:  63.999999999999986
+Frobenius norm:  12.649110640673518
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -492,6 +524,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entenglement-measures">Entenglement measures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-commutator">(Anti) commutator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-norms">Different norms</a></li>
 </ul>
   </nav></div>
 

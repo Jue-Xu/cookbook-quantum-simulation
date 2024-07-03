@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Quantum Simulation Cookbook &#8212; Quantum Simulation Cookbook</title>
+    <title>Localization &#8212; Quantum Simulation Cookbook</title>
   
   
   
@@ -58,12 +58,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'localization';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="States" href="state.html" />
+    <link rel="next" title="Random input (average-case)" href="average.html" />
+    <link rel="prev" title="Error interference" href="interference.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -125,8 +124,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -143,7 +140,7 @@
 
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -174,8 +171,8 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
                     Quantum Simulation Cookbook
                 </a>
             </li>
@@ -193,11 +190,11 @@
 <li class="toctree-l1"><a class="reference internal" href="field.html">Field</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Localization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
@@ -281,7 +278,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flocalization.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -311,7 +308,7 @@
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/localization.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -321,7 +318,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -382,7 +379,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -393,11 +392,19 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Quantum Simulation Cookbook</h1>
+    <h1>Localization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#long-time-average">Long-time average</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -407,55 +414,29 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <!-- # Welcome to my Jupyter Book - QIC Cookbook -->
-<section class="tex2jax_ignore mathjax_ignore" id="quantum-simulation-cookbook">
-<h1>Quantum Simulation Cookbook<a class="headerlink" href="#quantum-simulation-cookbook" title="Link to this heading">#</a></h1>
-<!-- This is a small sample book to give you a feel for how book content is structured. -->
-<!-- It shows off a few of the major file types, as well as some sample content. -->
-<!-- Check out the content pages bundled with this sample book to see more. -->
-<!-- Table of Content -->
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="localization">
+<h1>Localization<a class="headerlink" href="#localization" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quantum_simulation_recipe</span> <span class="k">as</span> <span class="nn">qsr</span>
+<span class="kn">from</span> <span class="nn">quantum_simulation_recipe</span> <span class="kn">import</span> <span class="n">spin_ham</span>
+
+<span class="n">H</span> <span class="o">=</span> <span class="n">spin_ham</span><span class="o">.</span><span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">H</span><span class="o">.</span><span class="n">ham</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Field</a></li>
-</ul>
 </div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
-</ul>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;IIXX&#39;, &#39;IXXI&#39;, &#39;XXII&#39;, &#39;IIYY&#39;, &#39;IYYI&#39;, &#39;YYII&#39;, &#39;IIZZ&#39;, &#39;IZZI&#39;, &#39;ZZII&#39;, &#39;IIIX&#39;, &#39;IIXI&#39;, &#39;IXII&#39;, &#39;XIII&#39;],
+              coeffs=[1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j,
+ 1. +0.j, 0.2+0.j, 0.2+0.j, 0.2+0.j, 0.2+0.j])
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
-</ul>
 </div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase_estimation.html">Phase estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
-</ul>
 </div>
-<!-- It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information. -->
+<section id="long-time-average">
+<h2>Long-time average<a class="headerlink" href="#long-time-average" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -488,12 +469,21 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="interference.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Error interference</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="state.html"
+       href="average.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">States</p>
+        <p class="prev-next-title">Random input (average-case)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -504,7 +494,20 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#long-time-average">Long-time average</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

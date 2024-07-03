@@ -34,7 +34,7 @@ File [0;32m/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/shutil.py:816[
 [0;32m--> 816[0m     [43mos[49m[38;5;241;43m.[39;49m[43mrename[49m[43m([49m[43msrc[49m[43m,[49m[43m [49m[43mreal_dst[49m[43m)[49m
 [1;32m    817[0m [38;5;28;01mexcept[39;00m [38;5;167;01mOSError[39;00m:
 
-[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: '746451ff-0a76-4acc-b24e-00a75e4ba05c.hdf5' -> './data/hydrogen_2_1.hdf5'
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: '38bbc1b4-360c-48ab-aebf-56e77e648545.hdf5' -> './data/hydrogen_2_1.hdf5'
 
 During handling of the above exception, another exception occurred:
 

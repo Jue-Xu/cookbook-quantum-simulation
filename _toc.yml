@@ -8,23 +8,29 @@ parts:
     chapters:
     # - file: intro
     # - file: README
-    - file: basics/state
-    - file: basics/operator
+    - file: state
+    - file: operator
+    - file: channel
 
   - caption: Hamiltonians
     chapters:
-    - file: Hamiltonians/spin
+    - file: spin
+    - file: fermion
+    - file: field
 
-  - caption: Trotter
+  - caption: Product Formula
     chapters:
-    - file: Trotter/adaptive
-      # sections:
-    - file: Trotter/long_time
-      # - file: short_time
-      # - file: random_input
-    - file: Trotter/trotter_bound
+    - file: grouping
+    # - file: trotter_bound
+    #   # sections:
+    # - file: long_time
+    #   # - file: short_time
+    #   # - file: random_input
+    # - file: adaptive
 
-  # - caption: Applications
-  #   chapters:
+  - caption: Applications
+    chapters:
   #   - file: misc
+    - file: ground
+    - file: phase
  

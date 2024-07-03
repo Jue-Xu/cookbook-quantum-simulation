@@ -179,18 +179,24 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="basics/state.html">Quantum states</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basics/operator.html">Quantum operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Hamiltonians/spin.html">Spin Hamiltonians</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="field.html">Field</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Trotter</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Trotter/adaptive.html">Adaptive</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Trotter/long_time.html">Localization of Trotter Error</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Trotter/trotter_bound.html">Trotter bounds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase.html">Phase transition</a></li>
 </ul>
 
     </div>
@@ -433,20 +439,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">14</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">---&gt; </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="c1"># from lightcone import *</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;utils&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <section id="nearest-neighbor-heisenberg">
 <h2>Nearest-neighbor Heisenberg<a class="headerlink" href="#nearest-neighbor-heisenberg" title="Link to this heading">#</a></h2>
@@ -500,23 +492,38 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;XXIIII&#39;],
+              coeffs=[1.+0.j])
+</pre></div>
+</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">h_test</span> <span class="o">=</span> <span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">Jy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hz</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">h_test_list</span> <span class="o">=</span> <span class="n">lc_group</span><span class="p">(</span><span class="n">h_test</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">new_even_lc_tuples</span><span class="p">,</span> <span class="n">new_odd_lc_tuples</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">h_test_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">h_test_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">7</span>     <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;even: &#39;</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>         <span class="n">new_even_lc_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
-<span class="nn">File ~/GitHub/Trotter-Error-with-Observable/bounds.py:408,</span> in <span class="ni">lc_group</span><span class="nt">(h, right, left, step, verbose, legacy)</span>
-<span class="g g-Whitespace">    </span><span class="mi">406</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">even_lc_tuples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">odd_lc_tuples</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">407</span>     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">408</span>     <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">409</span>         <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;even: &#39;</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">410</span>         <span class="n">new_even_lc_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/qiskit/quantum_info/operators/symplectic/sparse_pauli_op.py:268,</span> in <span class="ni">SparsePauliOp.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">)):</span>
+<span class="g g-Whitespace">    </span><span class="mi">267</span>     <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">268</span> <span class="k">return</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paulis</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
 
-<span class="ne">IndexError</span>: string index out of range
+<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/qiskit/quantum_info/operators/symplectic/pauli_list.py:324,</span> in <span class="ni">PauliList.__getitem__</span><span class="nt">(self, index)</span>
+<span class="g g-Whitespace">    </span><span class="mi">315</span>     <span class="k">return</span> <span class="n">Pauli</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">316</span>         <span class="n">BasePauli</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">index</span><span class="p">],</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="nb">slice</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span>     <span class="c1"># Sub-Table view</span>
+<span class="ne">--&gt; </span><span class="mi">324</span>     <span class="k">return</span> <span class="n">PauliList</span><span class="p">(</span><span class="n">BasePauli</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phase</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span> <span class="c1"># Row and Qubit indexing</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span> <span class="k">return</span> <span class="n">PauliList</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="ne">IndexError</span>: index 1 is out of bounds for axis 0 with size 1
 </pre></div>
 </div>
 </div>

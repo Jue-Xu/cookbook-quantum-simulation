@@ -15,14 +15,16 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-np.linalg.norm(SparsePauliOp.from_sparse_list([('Z', [i], 1) for i in range(0, n)], n), ord=2)
+print(trace4o)
+np.array(trace4o).mean(axis=1)
 ------------------
 
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
 Cell [0;32mIn[3], line 1[0m
-[0;32m----> 1[0m np[38;5;241m.[39mlinalg[38;5;241m.[39mnorm(SparsePauliOp[38;5;241m.[39mfrom_sparse_list([([38;5;124m'[39m[38;5;124mZ[39m[38;5;124m'[39m, [i], [38;5;241m1[39m) [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m [38;5;28mrange[39m([38;5;241m0[39m, [43mn[49m)], n), [38;5;28mord[39m[38;5;241m=[39m[38;5;241m2[39m)
+[0;32m----> 1[0m [38;5;28mprint[39m([43mtrace4o[49m)
+[1;32m      2[0m np[38;5;241m.[39marray(trace4o)[38;5;241m.[39mmean(axis[38;5;241m=[39m[38;5;241m1[39m)
 
-[0;31mNameError[0m: name 'n' is not defined
+[0;31mNameError[0m: name 'trace4o' is not defined
 

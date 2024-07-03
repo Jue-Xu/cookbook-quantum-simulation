@@ -15,37 +15,127 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from functools import partial
-from qiskit.quantum_info import SparsePauliOp, random_statevector
+# demo of the nearest-neighbor Hamiltonian
+hnn = Nearest_Neighbour_1d(3, Jx=2, Jy=2, Jz=2, hx=0, hy=0, hz=1, pbc=False, verbose=True)
+n = 8
+r = 100
+J, h = 1, 0.2
+t_list = np.linspace(1, 10, 20)
 
-import scipy.sparse.linalg as ssla
-from scipy import sparse
-import pandas as pd
-import scipy
-import jax
-
-import matplotlib.pyplot as plt
-import numpy as np
-
-from utils import *
-# from lightcone import *
-from spin_ham import *
-from trotter import *
-from bounds import *
-# from noise import *
-
-figs_dir, data_dir = './figs', './data'
+hnn = Nearest_Neighbour_1d(n, Jx=J, Jy=J, Jz=J, hx=0, hy=0, hz=h, pbc=False, verbose=False)
+singl_ob = SparsePauliOp.from_sparse_list([('Z', [0], 1)], n).to_matrix()
+multi_ob = SparsePauliOp.from_sparse_list([(random.choice(['X','Y','Z']), [i], 1) for i in range(0, n)], n).to_matrix()
+multi_ob = multi_ob / np.linalg.norm(multi_ob, ord=2)
+# multi_ob = SparsePauliOp.from_sparse_list([('Z', [i], 1/n) for i in range(0, n)], n).to_matrix()
+h_list = [h.to_matrix(True) for h in hnn.ham_par]
+for t in t_list:
+    exact_U = scipy.linalg.expm(-1j * t * sum([h.to_matrix() for h in hnn.ham_par]))
+    appro_U = pf_r(h_list, t, r, order=2)
+    exact_ob_s = exact_U.conj().T @ singl_ob @ exact_U 
+    appro_ob_s = appro_U.conj().T @ singl_ob @ appro_U
+    exact_ob_m = exact_U.conj().T @ multi_ob @ exact_U 
+    appro_ob_m = appro_U.conj().T @ multi_ob @ appro_U
+    ob_error_s = np.linalg.norm(exact_ob_s - appro_ob_s, ord=2)
+    ob_error_m = np.linalg.norm(exact_ob_m - appro_ob_m, ord=2)
+    print('single ob error (operator norm): ', ob_error_s)
+    print('multip ob error (operator norm): ', ob_error_m)
 ------------------
 
+----- stdout -----
+The Hamiltonian: 
+ SparsePauliOp(['IXX', 'XXI', 'IYY', 'YYI', 'IZZ', 'ZZI', 'IIZ', 'IZI', 'ZII'],
+              coeffs=[2.+0.j, 2.+0.j, 2.+0.j, 2.+0.j, 2.+0.j, 2.+0.j, 1.+0.j, 1.+0.j, 1.+0.j])
+The xyz grouping: 
+ [SparsePauliOp(['IXX', 'XXI'],
+              coeffs=[2.+0.j, 2.+0.j]), SparsePauliOp(['IYY', 'YYI'],
+              coeffs=[2.+0.j, 2.+0.j]), SparsePauliOp(['IZZ', 'ZZI', 'IIZ', 'IZI', 'ZII'],
+              coeffs=[2.+0.j, 2.+0.j, 1.+0.j, 1.+0.j, 1.+0.j])]
+The parity grouping: 
+ [SparsePauliOp(['IXX', 'IYY', 'IZZ', 'IIZ', 'ZII'],
+              coeffs=[2.+0.j, 2.+0.j, 2.+0.j, 1.+0.j, 1.+0.j]), SparsePauliOp(['XXI', 'YYI', 'ZZI', 'IZI'],
+              coeffs=[2.+0.j, 2.+0.j, 2.+0.j, 1.+0.j])]
+------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [0;32mIn[1], line 13[0m
-[1;32m     10[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
-[1;32m     11[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
-[0;32m---> 13[0m [38;5;28;01mfrom[39;00m [38;5;21;01mutils[39;00m [38;5;28;01mimport[39;00m [38;5;241m*[39m
-[1;32m     14[0m [38;5;66;03m# from lightcone import *[39;00m
-[1;32m     15[0m [38;5;28;01mfrom[39;00m [38;5;21;01mspin_ham[39;00m [38;5;28;01mimport[39;00m [38;5;241m*[39m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[2], line 16[0m
+[1;32m     14[0m [38;5;28;01mfor[39;00m t [38;5;129;01min[39;00m t_list:
+[1;32m     15[0m     exact_U [38;5;241m=[39m scipy[38;5;241m.[39mlinalg[38;5;241m.[39mexpm([38;5;241m-[39m[38;5;241m1[39mj [38;5;241m*[39m t [38;5;241m*[39m [38;5;28msum[39m([h[38;5;241m.[39mto_matrix() [38;5;28;01mfor[39;00m h [38;5;129;01min[39;00m hnn[38;5;241m.[39mham_par]))
+[0;32m---> 16[0m     appro_U [38;5;241m=[39m [43mpf_r[49m[43m([49m[43mh_list[49m[43m,[49m[43m [49m[43mt[49m[43m,[49m[43m [49m[43mr[49m[43m,[49m[43m [49m[43morder[49m[38;5;241;43m=[39;49m[38;5;241;43m2[39;49m[43m)[49m
+[1;32m     17[0m     exact_ob_s [38;5;241m=[39m exact_U[38;5;241m.[39mconj()[38;5;241m.[39mT [38;5;241m@[39m singl_ob [38;5;241m@[39m exact_U 
+[1;32m     18[0m     appro_ob_s [38;5;241m=[39m appro_U[38;5;241m.[39mconj()[38;5;241m.[39mT [38;5;241m@[39m singl_ob [38;5;241m@[39m appro_U
 
-[0;31mModuleNotFoundError[0m: No module named 'utils'
+File [0;32m~/GitHub/Quantum-Simulation-Cookbook/trotter.py:97[0m, in [0;36mpf_r[0;34m(h_list, t, r, order, verbose, use_jax)[0m
+[1;32m     95[0m [38;5;28;01mif[39;00m order [38;5;241m==[39m [38;5;241m2[39m:
+[1;32m     96[0m     [38;5;28;01mif[39;00m use_jax:
+[0;32m---> 97[0m         list_U [38;5;241m=[39m [jax[38;5;241m.[39mscipy[38;5;241m.[39mlinalg[38;5;241m.[39mexpm([38;5;241m-[39m[38;5;241m1[39mj [38;5;241m*[39m (t [38;5;241m/[39m ([38;5;241m2[39m[38;5;241m*[39mr)) [38;5;241m*[39m herm) [38;5;28;01mfor[39;00m herm [38;5;129;01min[39;00m h_list]
+[1;32m     98[0m     [38;5;28;01melse[39;00m:
+[1;32m     99[0m         [38;5;28;01mif[39;00m [38;5;28misinstance[39m(h_list[[38;5;241m0[39m], csr_matrix):
+
+File [0;32m~/GitHub/Quantum-Simulation-Cookbook/trotter.py:97[0m, in [0;36m<listcomp>[0;34m(.0)[0m
+[1;32m     95[0m [38;5;28;01mif[39;00m order [38;5;241m==[39m [38;5;241m2[39m:
+[1;32m     96[0m     [38;5;28;01mif[39;00m use_jax:
+[0;32m---> 97[0m         list_U [38;5;241m=[39m [[43mjax[49m[38;5;241;43m.[39;49m[43mscipy[49m[38;5;241;43m.[39;49m[43mlinalg[49m[38;5;241;43m.[39;49m[43mexpm[49m[43m([49m[38;5;241;43m-[39;49m[38;5;241;43m1[39;49m[43mj[49m[43m [49m[38;5;241;43m*[39;49m[43m [49m[43m([49m[43mt[49m[43m [49m[38;5;241;43m/[39;49m[43m [49m[43m([49m[38;5;241;43m2[39;49m[38;5;241;43m*[39;49m[43mr[49m[43m)[49m[43m)[49m[43m [49m[38;5;241;43m*[39;49m[43m [49m[43mherm[49m[43m)[49m [38;5;28;01mfor[39;00m herm [38;5;129;01min[39;00m h_list]
+[1;32m     98[0m     [38;5;28;01melse[39;00m:
+[1;32m     99[0m         [38;5;28;01mif[39;00m [38;5;28misinstance[39m(h_list[[38;5;241m0[39m], csr_matrix):
+
+    [0;31m[... skipping hidden 3 frame][0m
+
+File [0;32m/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/jax/_src/dispatch.py:402[0m, in [0;36mcheck_arg[0;34m(arg)[0m
+[1;32m    400[0m [38;5;28;01mdef[39;00m [38;5;21mcheck_arg[39m(arg):
+[1;32m    401[0m   [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m ([38;5;28misinstance[39m(arg, core[38;5;241m.[39mTracer) [38;5;129;01mor[39;00m _valid_jaxtype(arg)):
+[0;32m--> 402[0m     [38;5;28;01mraise[39;00m [38;5;167;01mTypeError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mArgument [39m[38;5;124m'[39m[38;5;132;01m{[39;00marg[38;5;132;01m}[39;00m[38;5;124m'[39m[38;5;124m of type [39m[38;5;132;01m{[39;00m[38;5;28mtype[39m(arg)[38;5;132;01m}[39;00m[38;5;124m is not a valid [39m[38;5;124m"[39m
+[1;32m    403[0m                     [38;5;124m"[39m[38;5;124mJAX type.[39m[38;5;124m"[39m)
+
+[0;31mTypeError[0m: Argument '  (0, 0)	-0.024000000000000004j
+  (1, 1)	-0.012000000000000002j
+  (1, 2)	-0.01j
+  (2, 1)	-0.01j
+  (2, 2)	-0.014000000000000004j
+  (3, 3)	-0.022000000000000002j
+  (4, 4)	-0.012000000000000002j
+  (4, 8)	-0.01j
+  (5, 6)	-0.01j
+  (5, 9)	-0.01j
+  (6, 5)	-0.01j
+  (6, 6)	-0.002j
+  (6, 10)	-0.01j
+  (7, 7)	-0.01j
+  (7, 11)	-0.01j
+  (8, 4)	-0.01j
+  (8, 8)	-0.014000000000000004j
+  (9, 5)	-0.01j
+  (9, 9)	-0.002j
+  (9, 10)	-0.01j
+  (10, 6)	-0.01j
+  (10, 9)	-0.01j
+  (10, 10)	-0.004j
+  (11, 7)	-0.01j
+  (11, 11)	-0.012000000000000002j
+  :	:
+  (244, 244)	-0.008j
+  (244, 248)	-0.01j
+  (245, 245)	0.004j
+  (245, 246)	-0.01j
+  (245, 249)	-0.01j
+  (246, 245)	-0.01j
+  (246, 246)	0.002j
+  (246, 250)	-0.01j
+  (247, 247)	-0.006000000000000001j
+  (247, 251)	-0.01j
+  (248, 244)	-0.01j
+  (248, 248)	-0.01j
+  (249, 245)	-0.01j
+  (249, 249)	0.002j
+  (249, 250)	-0.01j
+  (250, 246)	-0.01j
+  (250, 249)	-0.01j
+  (251, 247)	-0.01j
+  (251, 251)	-0.008j
+  (252, 252)	-0.018j
+  (253, 253)	-0.006000000000000001j
+  (253, 254)	-0.01j
+  (254, 253)	-0.01j
+  (254, 254)	-0.008j
+  (255, 255)	-0.015999999999999997j' of type <class 'scipy.sparse._csr.csr_matrix'> is not a valid JAX type.
 

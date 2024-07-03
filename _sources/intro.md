@@ -5,7 +5,7 @@
 <!-- It shows off a few of the major file types, as well as some sample content. -->
 
 <!-- Check out the content pages bundled with this sample book to see more. -->
-Table of Content
+<!-- Table of Content -->
 
 ```{tableofcontents}
 ```

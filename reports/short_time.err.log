@@ -15,38 +15,83 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from functools import partial
-from qiskit.quantum_info import SparsePauliOp, random_statevector
-import multiprocessing
+n = 6
+h_test = Nearest_Neighbour_1d(n, Jx=1, Jy=1, Jz=1, hx=1, hy=0, hz=0, pbc=False, verbose=False)
+h_test_list = lc_group(h_test, 5, 5, 3, False)
+new_even_lc_tuples, new_odd_lc_tuples = [], []
+for item in h_test_list[0] + h_test_list[1]:
+    print(item)
+    if item[1][0] % 2 == 0 and item[2] != 0:
+        print('even: ', item)
+        new_even_lc_tuples.append(item)
+    elif item[1][0] % 2 == 1 and item[2] != 0:
+        print('odd: ', item)
+        new_odd_lc_tuples.append(item)
 
-import scipy.sparse.linalg as ssla
-from scipy import sparse
-import pandas as pd
-import scipy
-import jax
+temp = []
+if len(new_even_lc_tuples) % 2 == 1:
+    for item in new_even_lc_tuples:
+        if len(item[0]) == 1:
+            temp.append(item)
+    print('single even: ', sorted(temp, key=lambda x: x[1][0]))
+    boundary_element = sorted(temp, key=lambda x: x[1][0])[-1]
+    new_even_lc_tuples.remove(boundary_element)
+    new_odd_lc_tuples.append(boundary_element)
+else:
+    for item in new_odd_lc_tuples:
+        if len(item[0]) == 1:
+            temp.append(item)
+    print('single odd: ', sorted(temp, key=lambda x: x[1][0]))
+    boundary_element = sorted(temp, key=lambda x: x[1][0])[-1]
+    new_odd_lc_tuples.remove(boundary_element)
+    new_even_lc_tuples.append(boundary_element)
 
-import matplotlib.pyplot as plt
-import numpy as np
+print("even: ", SparsePauliOp.from_sparse_list(new_even_lc_tuples, n))
+print("odd:  ", SparsePauliOp.from_sparse_list(new_odd_lc_tuples, n))
+print("tail: ", SparsePauliOp.from_sparse_list(h_test_list[2], n))
 
-from utils import *
-# from lightcone import *
-from spin_ham import *
-from trotter import *
-from bounds import *
-# from noise import *
+all_pauli = SparsePauliOp.from_sparse_list([*new_odd_lc_tuples, *new_even_lc_tuples, *h_test_list[2]], n).simplify() 
+lc_pauli = SparsePauliOp.from_sparse_list([*h_test_list[0], *h_test_list[1], *h_test_list[2]], n).simplify()
+difference = (all_pauli - lc_pauli).simplify()
 
-figs_dir, data_dir = './figs', './data'
+if len(difference.coeffs) == 1 and difference.coeffs[0] == 0:
+    print('Success!')
+    # if verbose: print('Success!')
+else:
+    print('Lightcone decomposition error!: ', difference)
 ------------------
 
+----- stdout -----
+SparsePauliOp(['XXIIII'],
+              coeffs=[1.+0.j])
+------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [0;32mIn[1], line 14[0m
-[1;32m     11[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
-[1;32m     12[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
-[0;32m---> 14[0m [38;5;28;01mfrom[39;00m [38;5;21;01mutils[39;00m [38;5;28;01mimport[39;00m [38;5;241m*[39m
-[1;32m     15[0m [38;5;66;03m# from lightcone import *[39;00m
-[1;32m     16[0m [38;5;28;01mfrom[39;00m [38;5;21;01mspin_ham[39;00m [38;5;28;01mimport[39;00m [38;5;241m*[39m
+[0;31mIndexError[0m                                Traceback (most recent call last)
+Cell [0;32mIn[2], line 7[0m
+[1;32m      5[0m [38;5;28;01mfor[39;00m item [38;5;129;01min[39;00m h_test_list[[38;5;241m0[39m] [38;5;241m+[39m h_test_list[[38;5;241m1[39m]:
+[1;32m      6[0m     [38;5;28mprint[39m(item)
+[0;32m----> 7[0m     [38;5;28;01mif[39;00m [43mitem[49m[43m[[49m[38;5;241;43m1[39;49m[43m][49m[[38;5;241m0[39m] [38;5;241m%[39m [38;5;241m2[39m [38;5;241m==[39m [38;5;241m0[39m [38;5;129;01mand[39;00m item[[38;5;241m2[39m] [38;5;241m!=[39m [38;5;241m0[39m:
+[1;32m      8[0m         [38;5;28mprint[39m([38;5;124m'[39m[38;5;124meven: [39m[38;5;124m'[39m, item)
+[1;32m      9[0m         new_even_lc_tuples[38;5;241m.[39mappend(item)
 
-[0;31mModuleNotFoundError[0m: No module named 'utils'
+File [0;32m/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/qiskit/quantum_info/operators/symplectic/sparse_pauli_op.py:268[0m, in [0;36mSparsePauliOp.__getitem__[0;34m(self, key)[0m
+[1;32m    266[0m [38;5;28;01mif[39;00m [38;5;28misinstance[39m(key, ([38;5;28mint[39m, np[38;5;241m.[39minteger)):
+[1;32m    267[0m     key [38;5;241m=[39m [key]
+[0;32m--> 268[0m [38;5;28;01mreturn[39;00m SparsePauliOp([38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mpaulis[49m[43m[[49m[43mkey[49m[43m][49m, [38;5;28mself[39m[38;5;241m.[39mcoeffs[key])
+
+File [0;32m/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/qiskit/quantum_info/operators/symplectic/pauli_list.py:324[0m, in [0;36mPauliList.__getitem__[0;34m(self, index)[0m
+[1;32m    315[0m     [38;5;28;01mreturn[39;00m Pauli(
+[1;32m    316[0m         BasePauli(
+[1;32m    317[0m             [38;5;28mself[39m[38;5;241m.[39m_z[np[38;5;241m.[39mnewaxis, index],
+[0;32m   (...)[0m
+[1;32m    320[0m         )
+[1;32m    321[0m     )
+[1;32m    322[0m [38;5;28;01melif[39;00m [38;5;28misinstance[39m(index, ([38;5;28mslice[39m, [38;5;28mlist[39m, np[38;5;241m.[39mndarray)):
+[1;32m    323[0m     [38;5;66;03m# Sub-Table view[39;00m
+[0;32m--> 324[0m     [38;5;28;01mreturn[39;00m PauliList(BasePauli([38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_z[49m[43m[[49m[43mindex[49m[43m][49m, [38;5;28mself[39m[38;5;241m.[39m_x[index], [38;5;28mself[39m[38;5;241m.[39m_phase[index]))
+[1;32m    326[0m [38;5;66;03m# Row and Qubit indexing[39;00m
+[1;32m    327[0m [38;5;28;01mreturn[39;00m PauliList(([38;5;28mself[39m[38;5;241m.[39m_z[index], [38;5;28mself[39m[38;5;241m.[39m_x[index], [38;5;241m0[39m))
+
+[0;31mIndexError[0m: index 1 is out of bounds for axis 0 with size 1
 

@@ -179,18 +179,24 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="basics/state.html">Quantum states</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basics/operator.html">Quantum operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Hamiltonians/spin.html">Spin Hamiltonians</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="field.html">Field</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Trotter</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Trotter/adaptive.html">Adaptive</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Trotter/long_time.html">Localization of Trotter Error</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Trotter/trotter_bound.html">Trotter bounds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase.html">Phase transition</a></li>
 </ul>
 
     </div>
@@ -430,20 +436,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">---&gt; </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># from lightcone import *</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;utils&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -471,6 +463,106 @@ document.write(`
     <span class="n">ob_error_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_ob_m</span> <span class="o">-</span> <span class="n">appro_ob_m</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;single ob error (operator norm): &#39;</span><span class="p">,</span> <span class="n">ob_error_s</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;multip ob error (operator norm): &#39;</span><span class="p">,</span> <span class="n">ob_error_m</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The Hamiltonian: 
+ SparsePauliOp([&#39;IXX&#39;, &#39;XXI&#39;, &#39;IYY&#39;, &#39;YYI&#39;, &#39;IZZ&#39;, &#39;ZZI&#39;, &#39;IIZ&#39;, &#39;IZI&#39;, &#39;ZII&#39;],
+              coeffs=[2.+0.j, 2.+0.j, 2.+0.j, 2.+0.j, 2.+0.j, 2.+0.j, 1.+0.j, 1.+0.j, 1.+0.j])
+The xyz grouping: 
+ [SparsePauliOp([&#39;IXX&#39;, &#39;XXI&#39;],
+              coeffs=[2.+0.j, 2.+0.j]), SparsePauliOp([&#39;IYY&#39;, &#39;YYI&#39;],
+              coeffs=[2.+0.j, 2.+0.j]), SparsePauliOp([&#39;IZZ&#39;, &#39;ZZI&#39;, &#39;IIZ&#39;, &#39;IZI&#39;, &#39;ZII&#39;],
+              coeffs=[2.+0.j, 2.+0.j, 1.+0.j, 1.+0.j, 1.+0.j])]
+The parity grouping: 
+ [SparsePauliOp([&#39;IXX&#39;, &#39;IYY&#39;, &#39;IZZ&#39;, &#39;IIZ&#39;, &#39;ZII&#39;],
+              coeffs=[2.+0.j, 2.+0.j, 2.+0.j, 1.+0.j, 1.+0.j]), SparsePauliOp([&#39;XXI&#39;, &#39;YYI&#39;, &#39;ZZI&#39;, &#39;IZI&#39;],
+              coeffs=[2.+0.j, 2.+0.j, 2.+0.j, 1.+0.j])]
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">16</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="n">exact_U</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hnn</span><span class="o">.</span><span class="n">ham_par</span><span class="p">]))</span>
+<span class="ne">---&gt; </span><span class="mi">16</span>     <span class="n">appro_U</span> <span class="o">=</span> <span class="n">pf_r</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">exact_ob_s</span> <span class="o">=</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">singl_ob</span> <span class="o">@</span> <span class="n">exact_U</span> 
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">appro_ob_s</span> <span class="o">=</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">singl_ob</span> <span class="o">@</span> <span class="n">appro_U</span>
+
+<span class="nn">File ~/GitHub/Quantum-Simulation-Cookbook/trotter.py:97,</span> in <span class="ni">pf_r</span><span class="nt">(h_list, t, r, order, verbose, use_jax)</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span> <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="k">if</span> <span class="n">use_jax</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">97</span>         <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">))</span> <span class="o">*</span> <span class="n">herm</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">csr_matrix</span><span class="p">):</span>
+
+<span class="nn">File ~/GitHub/Quantum-Simulation-Cookbook/trotter.py:97,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span> <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="k">if</span> <span class="n">use_jax</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">97</span>         <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">))</span> <span class="o">*</span> <span class="n">herm</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">csr_matrix</span><span class="p">):</span>
+
+    <span class="p">[</span><span class="o">...</span> <span class="n">skipping</span> <span class="n">hidden</span> <span class="mi">3</span> <span class="n">frame</span><span class="p">]</span>
+
+<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/jax/_src/dispatch.py:402,</span> in <span class="ni">check_arg</span><span class="nt">(arg)</span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span> <span class="k">def</span> <span class="nf">check_arg</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">401</span>   <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">core</span><span class="o">.</span><span class="n">Tracer</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_valid_jaxtype</span><span class="p">(</span><span class="n">arg</span><span class="p">)):</span>
+<span class="ne">--&gt; </span><span class="mi">402</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Argument &#39;</span><span class="si">{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&#39; of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="si">}</span><span class="s2"> is not a valid &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">403</span>                     <span class="s2">&quot;JAX type.&quot;</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: Argument &#39;  (0, 0)	-0.024000000000000004j
+  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.012000000000000002</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.014000000000000004</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.022000000000000002</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.012000000000000002</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.002</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.014000000000000004</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.002</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.004</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.012000000000000002</span><span class="n">j</span>
+  <span class="p">:</span>	<span class="p">:</span>
+  <span class="p">(</span><span class="mi">244</span><span class="p">,</span> <span class="mi">244</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.008</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">244</span><span class="p">,</span> <span class="mi">248</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">245</span><span class="p">)</span>	<span class="mf">0.004</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">246</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">249</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">246</span><span class="p">,</span> <span class="mi">245</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">246</span><span class="p">,</span> <span class="mi">246</span><span class="p">)</span>	<span class="mf">0.002</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">246</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">247</span><span class="p">,</span> <span class="mi">247</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.006000000000000001</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">247</span><span class="p">,</span> <span class="mi">251</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">248</span><span class="p">,</span> <span class="mi">244</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">248</span><span class="p">,</span> <span class="mi">248</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">249</span><span class="p">,</span> <span class="mi">245</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">249</span><span class="p">,</span> <span class="mi">249</span><span class="p">)</span>	<span class="mf">0.002</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">249</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">246</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">249</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">251</span><span class="p">,</span> <span class="mi">247</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">251</span><span class="p">,</span> <span class="mi">251</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.008</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">252</span><span class="p">,</span> <span class="mi">252</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.018</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">253</span><span class="p">,</span> <span class="mi">253</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.006000000000000001</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">253</span><span class="p">,</span> <span class="mi">254</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">254</span><span class="p">,</span> <span class="mi">253</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">254</span><span class="p">,</span> <span class="mi">254</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.008</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.015999999999999997</span><span class="n">j</span><span class="s1">&#39; of type &lt;class &#39;</span><span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">_csr</span><span class="o">.</span><span class="n">csr_matrix</span><span class="s1">&#39;&gt; is not a valid JAX type.</span>
 </pre></div>
 </div>
 </div>

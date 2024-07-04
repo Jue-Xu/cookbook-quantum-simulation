@@ -188,15 +188,15 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localization.html">Error Localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
 <ul class="nav bd-sidenav">
@@ -384,7 +384,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -400,6 +402,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamical-quantum-phase-transition">Dynamical quantum phase transition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equilibrium-quantum-phase-transition">Equilibrium quantum phase transition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-phase-transition">Statistical phase transition</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -431,39 +443,19 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="dynamical-quantum-phase-transition">
+<h2>Dynamical quantum phase transition<a class="headerlink" href="#dynamical-quantum-phase-transition" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
 <span class="n">r_pf</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">t_max</span><span class="p">,</span> <span class="n">t_n</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">200</span>
+<span class="n">t_max</span><span class="p">,</span> <span class="n">t_n</span> <span class="o">=</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mi">200</span>
 <span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">t_n</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">IQP_H</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">theta</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">pstr</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">([</span><span class="s1">&#39;I&#39;</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">n</span><span class="p">)),</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">n</span><span class="p">)]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">pstr</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">([</span><span class="s1">&#39;I&#39;</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">n</span><span class="p">)),</span> <span class="n">theta</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">n</span><span class="p">)]</span>
-    <span class="c1"># pstr = [(&#39;&#39;.join(random.choices([&#39;I&#39;,&#39;Z&#39;], k=n)), 2*random.random()-1) for _ in range(1*n)]</span>
-    <span class="c1"># pstr = [(random.choices([&#39;I&#39;,&#39;Z&#39;], k=n), list(range(0,n)), 2*random.random()-1) for _ in range(n)]</span>
-    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">pstr</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">pstr</span><span class="p">)</span>
-    <span class="c1"># return SparsePauliOp.from_sparse_list(pstr, n)</span>
-
-<span class="c1"># H_type, theta = 1, 0</span>
-<span class="n">H_type</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">8</span> <span class="o">*</span> <span class="mi">13</span>
-<span class="k">if</span> <span class="n">H_type</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="n">J</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">ising_str</span> <span class="o">=</span> <span class="s1">&#39;ZZ&#39;</span> <span class="o">+</span> <span class="s1">&#39;I&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">uni_ising</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ising_str</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span><span class="o">+</span><span class="n">ising_str</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">J</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-    <span class="k">del</span> <span class="n">uni_ising</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">uni_ising</span><span class="p">)</span>
-    <span class="n">H</span> <span class="o">=</span>  <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">uni_ising</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="c1"># H = get_hamiltonian(L=n, J=1.0, h=0.2, g=0.0, verbose=True)</span>
-    <span class="n">H</span> <span class="o">=</span> <span class="n">IQP_H</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
+<span class="n">H</span> <span class="o">=</span> <span class="n">Heisenberg_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Jy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">ham</span>
 <span class="n">init_state</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
 <span class="n">echo_list</span> <span class="o">=</span> <span class="p">[]</span>
+
 <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
     <span class="n">final_state</span> <span class="o">=</span> <span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">H</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">())</span> <span class="o">@</span> <span class="n">init_state</span><span class="o">.</span><span class="n">data</span>
     <span class="n">echo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">init_state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span> <span class="o">@</span> <span class="n">final_state</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
@@ -471,35 +463,39 @@ document.write(`
     <span class="n">echo_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">echo</span><span class="p">)</span>
 <span class="n">rate_list</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">echo</span><span class="p">)</span><span class="o">/</span><span class="n">n</span> <span class="k">for</span> <span class="n">echo</span> <span class="ow">in</span> <span class="n">echo_list</span><span class="p">]</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">plot_evo</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_list</span><span class="p">,</span> <span class="n">echo_list</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">echo_list</span><span class="p">),</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Percent&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Echo&#39;</span><span class="p">)</span>
-<span class="n">plot_evo</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_list</span><span class="p">,</span> <span class="n">normalize</span><span class="p">(</span><span class="n">rate_list</span><span class="p">),</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;Rate $r(t)$&#39;</span><span class="p">)</span>
+<span class="n">plot_evo</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">t_list</span><span class="p">,</span> <span class="n">echo_list</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">echo_list</span><span class="p">),</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Percent&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Echo&#39;</span><span class="p">)</span>
+<span class="n">plot_evo</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">t_list</span><span class="p">,</span> <span class="n">normalize</span><span class="p">(</span><span class="n">rate_list</span><span class="p">),</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;Rate $r(t)$&#39;</span><span class="p">)</span>
 <span class="n">t_c</span> <span class="o">=</span> <span class="n">t_list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">echo_list</span><span class="p">)]</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">t_c</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;$t_c = </span><span class="si">{</span><span class="n">t_c</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">t_c</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;$t_c = </span><span class="si">{</span><span class="n">t_c</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
 
-<span class="n">derivative_1st</span> <span class="o">=</span> <span class="n">ob_dt</span><span class="p">(</span><span class="n">rate_list</span><span class="p">,</span> <span class="n">t_list</span><span class="p">)</span>
-<span class="n">derivative_2nd</span> <span class="o">=</span> <span class="n">ob_dt</span><span class="p">(</span><span class="n">rate_list</span><span class="p">,</span> <span class="n">t_list</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plot_evo</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t_list</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">normalize</span><span class="p">(</span><span class="n">derivative_1st</span><span class="p">),</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;1st $\dot</span><span class="si">{r}</span><span class="s1">(t)$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_cycle</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">plot_evo</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">normalize</span><span class="p">(</span><span class="n">derivative_2nd</span><span class="p">),</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;2nd $\ddot</span><span class="si">{r}</span><span class="s1">(t)$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_cycle</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">.09</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;(a)&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">.09</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;(b)&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
-<span class="c1"># fig.savefig(f&#39;../figs/IQP_dqpt_echo_rate_n={n}_t={t_max}_tn={t_n}.pdf&#39;, bbox_inches=&#39;tight&#39;, transparent=True)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;ZIZZZZ&#39;, 5.105088062083414), (&#39;IIIZIZ&#39;, 5.105088062083414), (&#39;IIZIIZ&#39;, 5.105088062083414), (&#39;ZIZZZZ&#39;, 5.105088062083414), (&#39;ZIIIZI&#39;, 5.105088062083414), (&#39;IIZZZZ&#39;, 5.105088062083414)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The Hamiltonian: 
+ SparsePauliOp([&#39;IIIIXX&#39;, &#39;IIIXXI&#39;, &#39;IIXXII&#39;, &#39;IXXIII&#39;, &#39;XXIIII&#39;, &#39;IIIIYY&#39;, &#39;IIIYYI&#39;, &#39;IIYYII&#39;, &#39;IYYIII&#39;, &#39;YYIIII&#39;, &#39;IIIIZZ&#39;, &#39;IIIZZI&#39;, &#39;IIZZII&#39;, &#39;IZZIII&#39;, &#39;ZZIIII&#39;, &#39;IIIIIX&#39;, &#39;IIIIXI&#39;, &#39;IIIXII&#39;, &#39;IIXIII&#39;, &#39;IXIIII&#39;, &#39;XIIIII&#39;],
+              coeffs=[-0. +0.j, -0. +0.j, -0. +0.j, -0. +0.j, -0. +0.j, -0. +0.j, -0. +0.j,
+ -0. +0.j, -0. +0.j, -0. +0.j, -1. +0.j, -1. +0.j, -1. +0.j, -1. +0.j,
+ -1. +0.j, -0.2+0.j, -0.2+0.j, -0.2+0.j, -0.2+0.j, -0.2+0.j, -0.2+0.j])
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(-0.09, -0.25, &#39;(b)&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;Time&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/af9eeb82e0a5003c17226ce79576eb9ab182fa65f9ddb6f89960129406f89df3.png"><img alt="_images/af9eeb82e0a5003c17226ce79576eb9ab182fa65f9ddb6f89960129406f89df3.png" src="_images/af9eeb82e0a5003c17226ce79576eb9ab182fa65f9ddb6f89960129406f89df3.png" style="width: 775px; height: 475px;" /></a>
+<a class="reference internal image-reference" href="_images/a7213e0ad5a3dfd2edadf3ede9dbca1d72886963c2837144d783df15e65845b3.png"><img alt="_images/a7213e0ad5a3dfd2edadf3ede9dbca1d72886963c2837144d783df15e65845b3.png" src="_images/a7213e0ad5a3dfd2edadf3ede9dbca1d72886963c2837144d783df15e65845b3.png" style="width: 747px; height: 487px;" /></a>
 </div>
 </div>
+</section>
+<section id="equilibrium-quantum-phase-transition">
+<h2>Equilibrium quantum phase transition<a class="headerlink" href="#equilibrium-quantum-phase-transition" title="Link to this heading">#</a></h2>
+</section>
+<section id="statistical-phase-transition">
+<h2>Statistical phase transition<a class="headerlink" href="#statistical-phase-transition" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -557,7 +553,22 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamical-quantum-phase-transition">Dynamical quantum phase transition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equilibrium-quantum-phase-transition">Equilibrium quantum phase transition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-phase-transition">Statistical phase transition</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

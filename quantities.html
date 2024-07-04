@@ -188,15 +188,15 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localization.html">Error Localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
 <ul class="nav bd-sidenav">
@@ -423,20 +423,55 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="quantities">
 <h1>Quantities<a class="headerlink" href="#quantities" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">commutator</span><span class="p">,</span> <span class="n">anti_commutator</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">random_density_matrix</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>  
+</pre></div>
+</div>
+</div>
+</div>
 <section id="entenglement-measures">
 <h2>Entenglement measures<a class="headerlink" href="#entenglement-measures" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ket</span> <span class="o">=</span> <span class="n">random_statevector</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># ket = Statevector.from_label(&#39;+&#39;).data</span>
+<span class="n">dm</span> <span class="o">=</span> <span class="n">random_density_matrix</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+<span class="n">entropy</span><span class="p">(</span><span class="n">ket</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">entropy</span><span class="p">(</span><span class="n">dm</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.37509165142181
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="anti-commutator">
 <h2>(Anti) commutator<a class="headerlink" href="#anti-commutator" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commutator</span><span class="p">(</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s2">&quot;XIIZI&quot;</span><span class="p">),</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="s2">&quot;XXIZI&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">anti_commutator</span><span class="p">(</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s2">&quot;XIIZI&quot;</span><span class="p">),</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="s2">&quot;XXIZI&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;IXIII&#39;],
+              coeffs=[2.+0.j])
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="different-norms">
 <h2>Different norms<a class="headerlink" href="#different-norms" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span>
-<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>  
-
-<span class="n">op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s2">&quot;XIIZI&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;IYIIY&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s2">&quot;XIIZI&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;IYIIY&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;op: &#39;</span><span class="p">,</span> <span class="n">op</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spectral norm: &#39;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Trace norm: &#39;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">))</span>

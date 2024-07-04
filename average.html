@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Random input (average-case) &#8212; Quantum Simulation Cookbook</title>
+    <title>Average error &#8212; Quantum Simulation Cookbook</title>
   
   
   
@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Anti-commutation" href="anticommute.html" />
-    <link rel="prev" title="Localization" href="localization.html" />
+    <link rel="prev" title="Error Localization" href="localization.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -188,15 +188,15 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Random input (average-case)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localization.html">Error Localization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Average error</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
 <ul class="nav bd-sidenav">
@@ -397,7 +397,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Random input (average-case)</h1>
+    <h1>Average error</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -407,7 +407,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bound">Bound</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worst-case-vs-average-case-bound">Worst-case VS average-case Bound</a></li>
 </ul>
             </nav>
         </div>
@@ -419,8 +419,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="random-input-average-case">
-<h1>Random input (average-case)<a class="headerlink" href="#random-input-average-case" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="average-error">
+<h1>Average error<a class="headerlink" href="#average-error" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://arxiv.org/abs/2111.04773">arXiv</a>,
+<a class="reference external" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.129.270502">prl</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quantum_simulation_recipe</span> <span class="k">as</span> <span class="nn">qsr</span>
@@ -439,8 +441,8 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="bound">
-<h2>Bound<a class="headerlink" href="#bound" title="Link to this heading">#</a></h2>
+<section id="worst-case-vs-average-case-bound">
+<h2>Worst-case VS average-case Bound<a class="headerlink" href="#worst-case-vs-average-case-bound" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -480,7 +482,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Localization</p>
+        <p class="prev-next-title">Error Localization</p>
       </div>
     </a>
     <a class="right-next"
@@ -508,7 +510,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bound">Bound</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worst-case-vs-average-case-bound">Worst-case VS average-case Bound</a></li>
 </ul>
   </nav></div>
 

@@ -425,7 +425,7 @@ document.write(`
 <h1>Quantities<a class="headerlink" href="#quantities" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">commutator</span><span class="p">,</span> <span class="n">anti_commutator</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">random_density_matrix</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">commutator</span><span class="p">,</span> <span class="n">anti_commutator</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">random_density_matrix</span><span class="p">,</span> <span class="n">partial_trace</span>
 <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>  
 </pre></div>
 </div>
@@ -435,18 +435,37 @@ document.write(`
 <h2>Entenglement measures<a class="headerlink" href="#entenglement-measures" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ket</span> <span class="o">=</span> <span class="n">random_statevector</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">ket</span> <span class="o">=</span> <span class="n">random_statevector</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
 <span class="c1"># ket = Statevector.from_label(&#39;+&#39;).data</span>
-<span class="n">dm</span> <span class="o">=</span> <span class="n">random_density_matrix</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+<span class="n">dm</span> <span class="o">=</span> <span class="n">random_density_matrix</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
 <span class="n">entropy</span><span class="p">(</span><span class="n">ket</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">entropy</span><span class="p">(</span><span class="n">dm</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.37509165142181
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.224694437834266
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">entropy_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">entropy</span><span class="p">(</span><span class="n">partial_trace</span><span class="p">(</span><span class="n">random_density_matrix</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">entropy_list</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Entropy&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Frequency&#39;)
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/9fe048e7dfe0d8665810589d5e936e04c20984f8f58dd62ab7fce39553278a24.png"><img alt="_images/9fe048e7dfe0d8665810589d5e936e04c20984f8f58dd62ab7fce39553278a24.png" src="_images/9fe048e7dfe0d8665810589d5e936e04c20984f8f58dd62ab7fce39553278a24.png" style="width: 629px; height: 467px;" /></a>
 </div>
 </div>
 </section>

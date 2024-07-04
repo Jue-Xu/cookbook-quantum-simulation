@@ -460,8 +460,8 @@ document.write(`
 <span class="n">magn_op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">1.</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)],</span> <span class="n">num_qubits</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
 <span class="c1"># fig, [ax1, ax2] = plt.subplots(2, 1, figsize=(8, 6), sharex=True)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">inset_ax</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;45%&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">,</span> <span class="n">borderpad</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">inset_ax</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;50%&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">,</span> <span class="n">borderpad</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">r_list</span><span class="p">:</span>
     <span class="n">obpf</span> <span class="o">=</span> <span class="n">ObPF</span><span class="p">(</span><span class="n">H_list</span><span class="p">,</span> <span class="n">magn_op</span><span class="p">,</span> <span class="n">init_state</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
     <span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
@@ -493,10 +493,10 @@ document.write(`
   return np.asarray(x, float)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x1439fcaf0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x14f2f87c0&gt;
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/4ccb3b8b17bf3e1ffb51fbe3555bc3de72168d626792d4a27e6bae05b3323e5b.png"><img alt="_images/4ccb3b8b17bf3e1ffb51fbe3555bc3de72168d626792d4a27e6bae05b3323e5b.png" src="_images/4ccb3b8b17bf3e1ffb51fbe3555bc3de72168d626792d4a27e6bae05b3323e5b.png" style="width: 637px; height: 467px;" /></a>
+<a class="reference internal image-reference" href="_images/97f941586ee1e52b862e340b6722e481bf402a52d8ae2c43700895d5ad99b88b.png"><img alt="_images/97f941586ee1e52b862e340b6722e481bf402a52d8ae2c43700895d5ad99b88b.png" src="_images/97f941586ee1e52b862e340b6722e481bf402a52d8ae2c43700895d5ad99b88b.png" style="width: 929px; height: 707px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -538,10 +538,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x14451e290&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x14fd441f0&gt;
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/de9e8b455cb9e4625d6b1a9d4108743b0de9beea424399382c3e08e2fa28a8bd.png"><img alt="_images/de9e8b455cb9e4625d6b1a9d4108743b0de9beea424399382c3e08e2fa28a8bd.png" src="_images/de9e8b455cb9e4625d6b1a9d4108743b0de9beea424399382c3e08e2fa28a8bd.png" style="width: 720px; height: 544px;" /></a>
+<a class="reference internal image-reference" href="_images/e81d3958c33c8f5a03e37eb43eead8d0b92d35cbb2f5c238a408fa5bcf0bd37a.png"><img alt="_images/e81d3958c33c8f5a03e37eb43eead8d0b92d35cbb2f5c238a408fa5bcf0bd37a.png" src="_images/e81d3958c33c8f5a03e37eb43eead8d0b92d35cbb2f5c238a408fa5bcf0bd37a.png" style="width: 935px; height: 707px;" /></a>
 </div>
 </div>
 </section>

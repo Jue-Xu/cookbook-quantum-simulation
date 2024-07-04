@@ -411,7 +411,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-interaction">Nearest-neighbor interaction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-law-interaction">Power-law interaction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-dimension">Higher dimension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-dimension-lattice">Higher dimension lattice</a></li>
 </ul>
             </nav>
         </div>
@@ -458,9 +458,28 @@ document.write(`
 </section>
 <section id="power-law-interaction">
 <h2>Power-law interaction<a class="headerlink" href="#power-law-interaction" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">spin_ham</span><span class="o">.</span><span class="n">Power_law</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">H</span><span class="o">.</span><span class="n">ham</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;IIXX&#39;, &#39;IXIX&#39;, &#39;XIIX&#39;, &#39;IXXI&#39;, &#39;XIXI&#39;, &#39;XXII&#39;, &#39;IIYY&#39;, &#39;IYIY&#39;, &#39;YIIY&#39;, &#39;IYYI&#39;, &#39;YIYI&#39;, &#39;YYII&#39;, &#39;IIZZ&#39;, &#39;IZIZ&#39;, &#39;ZIIZ&#39;, &#39;IZZI&#39;, &#39;ZIZI&#39;, &#39;ZZII&#39;, &#39;IIIZ&#39;, &#39;IIZI&#39;, &#39;IZII&#39;, &#39;ZIII&#39;],
+              coeffs=[1.        +0.j, 0.0625    +0.j, 0.01234568+0.j, 1.        +0.j,
+ 0.0625    +0.j, 1.        +0.j, 1.        +0.j, 0.0625    +0.j,
+ 0.01234568+0.j, 1.        +0.j, 0.0625    +0.j, 1.        +0.j,
+ 1.        +0.j, 0.0625    +0.j, 0.01234568+0.j, 1.        +0.j,
+ 0.0625    +0.j, 1.        +0.j, 0.2       +0.j, 0.2       +0.j,
+ 0.2       +0.j, 0.2       +0.j])
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="higher-dimension">
-<h2>Higher dimension<a class="headerlink" href="#higher-dimension" title="Link to this heading">#</a></h2>
+<section id="higher-dimension-lattice">
+<h2>Higher dimension lattice<a class="headerlink" href="#higher-dimension-lattice" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -530,7 +549,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-interaction">Nearest-neighbor interaction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-law-interaction">Power-law interaction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-dimension">Higher dimension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-dimension-lattice">Higher dimension lattice</a></li>
 </ul>
   </nav></div>
 

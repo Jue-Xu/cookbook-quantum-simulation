@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Field &#8212; Quantum Simulation Cookbook</title>
+    <title>Gauge Field &#8212; Quantum Simulation Cookbook</title>
   
   
   
@@ -61,7 +61,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'field';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Grouping (commutation)" href="grouping.html" />
+    <link rel="next" title="Grouping" href="grouping.html" />
     <link rel="prev" title="Fermion" href="fermion.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -188,19 +188,23 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Field</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Gauge Field</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping (commutation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Random input (average-case)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor-network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
@@ -393,7 +397,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Field</h1>
+    <h1>Gauge Field</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -415,8 +419,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="field">
-<h1>Field<a class="headerlink" href="#field" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="gauge-field">
+<h1>Gauge Field<a class="headerlink" href="#gauge-field" title="Link to this heading">#</a></h1>
 <section id="qed-lattice-field">
 <h2>1+1 (QED) Lattice field<a class="headerlink" href="#qed-lattice-field" title="Link to this heading">#</a></h2>
 <p>Schwinger model</p>
@@ -467,7 +471,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Grouping (commutation)</p>
+        <p class="prev-next-title">Grouping</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

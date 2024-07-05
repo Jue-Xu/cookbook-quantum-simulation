@@ -70,7 +70,7 @@ mpl.rcParams['legend.frameon'] = False
 # plt.rcParams['lines.markeredgecolor'] = 'k'
 mpl.rcParams['lines.linewidth'] = 1.5
 mpl.rcParams['lines.markeredgewidth'] = 1.0
-mpl.rcParams['figure.dpi'] = 130
+mpl.rcParams['figure.dpi'] = 100  # 130
 
 SMALL_SIZE = 14
 MEDIUM_SIZE = 15  #default 10

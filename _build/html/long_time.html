@@ -188,7 +188,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
@@ -201,6 +201,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor-network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
@@ -418,8 +422,6 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="localization-of-trotter-error">
 <h1>Localization of Trotter Error<a class="headerlink" href="#localization-of-trotter-error" title="Link to this heading">#</a></h1>
 <p>Quantum localization bounds Trotter errors in digital quantum simulation (<a class="reference external" href="http://arxiv.org/abs/1806.11123">http://arxiv.org/abs/1806.11123</a>)</p>
-<section id="threshold-of-localization-observable-error">
-<h2>Threshold of localization (observable error)<a class="headerlink" href="#threshold-of-localization-observable-error" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">Operator</span><span class="p">,</span> <span class="n">partial_trace</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">DensityMatrix</span>
@@ -429,65 +431,24 @@ document.write(`
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="c1"># from mpl_toolkits.axes_grid1.inset_locator import inset_axes</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">inset_axes</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># from dqpt import *</span>
+<span class="kn">from</span> <span class="nn">dqpt</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">figs_dir</span> <span class="o">=</span> <span class="s1">&#39;./figs/&#39;</span>
-<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;./data/&#39;</span>
+<span class="n">fig_dir</span><span class="p">,</span> <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;../figs&#39;</span><span class="p">,</span> <span class="s1">&#39;../data&#39;</span>
 </pre></div>
 </div>
 </div>
 </div>
+<section id="threshold-of-localization-observable-error">
+<h2>Threshold of localization (observable error)<a class="headerlink" href="#threshold-of-localization-observable-error" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="c1"># r_pf = 50</span>
-<span class="n">r_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> 
-<span class="n">t_max</span><span class="p">,</span> <span class="n">t_n</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">100</span>
-<span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">t_n</span><span class="p">)</span>
-
-<span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span>
-<span class="c1"># H = get_hamiltonian(L=n, J=1.0, h=1., verbose=True)</span>
-<span class="n">H</span> <span class="o">=</span> <span class="n">get_hamiltonian</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">init_state</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
-<span class="n">magn_op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_sparse_list</span><span class="p">([(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">1.</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)],</span> <span class="n">num_qubits</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
-<span class="n">magn_err_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">r_list</span><span class="p">:</span>
-    <span class="n">echo</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">magn</span><span class="p">,</span> <span class="n">entr</span>  <span class="o">=</span> <span class="n">dynamics</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">init_state</span><span class="p">,</span> <span class="n">magn_op</span><span class="p">,</span> <span class="n">t_list</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
-    <span class="n">magn_err</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">magn</span><span class="p">[</span><span class="s1">&#39;exact&#39;</span><span class="p">],</span> <span class="n">magn</span><span class="p">[</span><span class="s1">&#39;trott&#39;</span><span class="p">]))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">magn_err</span><span class="p">)</span>
-    <span class="n">magn_err_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">magn_err</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">r_list</span><span class="p">],</span> <span class="n">magn_err_list</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;1/r&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># H = get_hamiltonian(L=n, J=1.0, h=1., verbose=True)</span>
-<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">H</span> <span class="o">=</span> <span class="n">get_hamiltonian</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">init_state</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
-<span class="nn">     11 magn_op = SparsePauliOp.from_sparse_list([(&#39;Y&#39;, [i], 1.) for i</span> in <span class="ni">range</span><span class="nt">(0, n)], num_qubits=n)</span>
-
-<span class="ne">NameError</span>: name &#39;get_hamiltonian&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span>
 <span class="n">r_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">]</span>
 
 <span class="c1"># J, h, g = 0.2, 1.0, 0.0</span>
@@ -521,14 +482,26 @@ document.write(`
 <span class="n">inset_ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\Delta M(t)/(h\tau)^2$&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="c1"># ax2.legend()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../figs/recover_ob_localization_n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">_T=</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="c1"># fig.savefig(f&#39;../figs/recover_ob_localization_n={n}_T={T}.pdf&#39;, dpi=300, bbox_inches=&#39;tight&#39;)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/matplotlib/cbook.py:1699: ComplexWarning: Casting complex values to real discards the imaginary part
+  return math.isfinite(val)
+/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/matplotlib/cbook.py:1345: ComplexWarning: Casting complex values to real discards the imaginary part
+  return np.asarray(x, float)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x13ed30520&gt;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/97f941586ee1e52b862e340b6722e481bf402a52d8ae2c43700895d5ad99b88b.png"><img alt="_images/97f941586ee1e52b862e340b6722e481bf402a52d8ae2c43700895d5ad99b88b.png" src="_images/97f941586ee1e52b862e340b6722e481bf402a52d8ae2c43700895d5ad99b88b.png" style="width: 929px; height: 707px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">50</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">50</span>
 <span class="n">r_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">]</span>
 
 <span class="n">J</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span>
@@ -560,9 +533,15 @@ document.write(`
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\Delta M(t)/(h\tau)^2$&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../figs/ob_localization_n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">_T=</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="c1"># fig.savefig(f&#39;../figs/ob_localization_n={n}_T={T}.pdf&#39;, dpi=300, bbox_inches=&#39;tight&#39;)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x13f33d240&gt;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/e81d3958c33c8f5a03e37eb43eead8d0b92d35cbb2f5c238a408fa5bcf0bd37a.png"><img alt="_images/e81d3958c33c8f5a03e37eb43eead8d0b92d35cbb2f5c238a408fa5bcf0bd37a.png" src="_images/e81d3958c33c8f5a03e37eb43eead8d0b92d35cbb2f5c238a408fa5bcf0bd37a.png" style="width: 935px; height: 707px;" /></a>
 </div>
 </div>
 </section>

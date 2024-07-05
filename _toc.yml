@@ -6,8 +6,8 @@ root: intro
 parts:
   - caption: Basics
     chapters:
-    # - file: intro
-    # - file: README
+    # - file: basic
+    #   sections:
     - file: state
     - file: operator
     - file: quantities
@@ -36,6 +36,10 @@ parts:
   - caption: LCU
     chapters:
     - file: anticommute
+
+  - caption: Classical simulation
+    chapters:
+    - file: tensor_network
 
   - caption: Applications
     chapters:

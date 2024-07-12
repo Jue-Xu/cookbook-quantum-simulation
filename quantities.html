@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Quantities &#8212; Quantum Simulation Cookbook</title>
+    <title>Physical Quantities &#8212; Quantum Simulation Cookbook</title>
   
   
   
@@ -181,7 +181,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Quantities</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Physical Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -198,19 +198,10 @@
 <li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor-network</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
 <li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase_estimation.html">Phase estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
 </ul>
 
@@ -397,7 +388,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Quantities</h1>
+    <h1>Physical Quantities</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -407,6 +398,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap">Overlap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-trace">Partial trace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value">Expectation value</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entenglement-measures">Entenglement measures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-commutator">(Anti) commutator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-norms">Different norms</a></li>
@@ -421,8 +415,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="quantities">
-<h1>Quantities<a class="headerlink" href="#quantities" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="physical-quantities">
+<h1>Physical Quantities<a class="headerlink" href="#physical-quantities" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">commutator</span><span class="p">,</span> <span class="n">anti_commutator</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">random_density_matrix</span><span class="p">,</span> <span class="n">partial_trace</span>
@@ -431,8 +425,45 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="overlap">
+<h2>Overlap<a class="headerlink" href="#overlap" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">psi0</span> <span class="o">=</span> <span class="n">random_statevector</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">psi1</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;psi0: &#39;</span><span class="p">,</span> <span class="n">psi0</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">psi1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>psi0:  Statevector([-0.01179574-0.25425253j, -0.58358119+0.55753606j,
+              0.11120251+0.37219366j, -0.09063601+0.35312042j],
+            dims=(2, 2))
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.011795743175358838+0.2542525339673197j)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="partial-trace">
+<h2>Partial trace<a class="headerlink" href="#partial-trace" title="Link to this heading">#</a></h2>
+</section>
+<section id="expectation-value">
+<h2>Expectation value<a class="headerlink" href="#expectation-value" title="Link to this heading">#</a></h2>
+</section>
 <section id="entenglement-measures">
 <h2>Entenglement measures<a class="headerlink" href="#entenglement-measures" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### purity</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
@@ -445,7 +476,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.224694437834266
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.3066656079076453
 </pre></div>
 </div>
 </div>
@@ -457,15 +488,15 @@ document.write(`
 <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">entropy_list</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Entropy&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Entropy&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Entropy distribution&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Frequency&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Entropy distribution&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/9fe048e7dfe0d8665810589d5e936e04c20984f8f58dd62ab7fce39553278a24.png"><img alt="_images/9fe048e7dfe0d8665810589d5e936e04c20984f8f58dd62ab7fce39553278a24.png" src="_images/9fe048e7dfe0d8665810589d5e936e04c20984f8f58dd62ab7fce39553278a24.png" style="width: 629px; height: 467px;" /></a>
+<a class="reference internal image-reference" href="_images/cbb267914796be96769ba8122967b0d59d541f17434133e25d2ef32be39c7e0f.png"><img alt="_images/cbb267914796be96769ba8122967b0d59d541f17434133e25d2ef32be39c7e0f.png" src="_images/cbb267914796be96769ba8122967b0d59d541f17434133e25d2ef32be39c7e0f.png" style="width: 629px; height: 497px;" /></a>
 </div>
 </div>
 </section>
@@ -576,6 +607,9 @@ Frobenius norm:  12.649110640673518
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap">Overlap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-trace">Partial trace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value">Expectation value</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entenglement-measures">Entenglement measures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-commutator">(Anti) commutator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-norms">Different norms</a></li>

@@ -58,10 +58,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'field';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Grouping" href="grouping.html" />
+    <link rel="next" title="Ordering" href="ordering.html" />
     <link rel="prev" title="Fermion" href="fermion.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -192,11 +194,16 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="path_integral.html">Pauli Path Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
@@ -399,6 +406,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qed-lattice-field">1+1 (QED) Lattice field</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qcd">QCD</a></li>
 </ul>
             </nav>
         </div>
@@ -414,7 +422,21 @@ document.write(`
 <h1>Gauge Field<a class="headerlink" href="#gauge-field" title="Link to this heading">#</a></h1>
 <section id="qed-lattice-field">
 <h2>1+1 (QED) Lattice field<a class="headerlink" href="#qed-lattice-field" title="Link to this heading">#</a></h2>
-<p>Schwinger model</p>
+<p>The lattice Schwinger model of 1+1D quantum electrodynamics (QED) can be described by the Hamiltonian (with spin system) <span class="math notranslate nohighlight">\(H_{sm}=H_{\pm}+H_Z\)</span> where</p>
+<div class="math notranslate nohighlight">
+\[
+H_{\pm} = \sum_{l=1}^{n-1} H_{\pm}^l, \; H_{\pm}^l = \frac{w}{2} [X_l X_{l+1}+ Y_l Y_{l+1}]
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+H_Z = \frac{m}{2} \sum_{l=1}^n (-1)^l Z_l + J \sum_{l=1}^n L_l^2, \; L_n = \frac{1}{2} [Z_l + (-1)^l]
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(m\)</span> is the rest mass of the fermionic particles and anti-particles, and <span class="math notranslate nohighlight">\(w\)</span> describes their kinetic energy. The term proportional to <span class="math notranslate nohighlight">\(J\)</span> is the energy of the U(1) gauge fields.</p>
+</section>
+<section id="qcd">
+<h2>QCD<a class="headerlink" href="#qcd" title="Link to this heading">#</a></h2>
+<p>todo</p>
 </section>
 </section>
 
@@ -458,11 +480,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="grouping.html"
+       href="ordering.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Grouping</p>
+        <p class="prev-next-title">Ordering</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -483,6 +505,7 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qed-lattice-field">1+1 (QED) Lattice field</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qcd">QCD</a></li>
 </ul>
   </nav></div>
 

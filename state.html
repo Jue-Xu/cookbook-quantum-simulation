@@ -192,11 +192,16 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="path_integral.html">Pauli Path Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
@@ -414,6 +419,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stabilizer-state">Stabilizer state</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Mixed state</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-representation">Pauli representation</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -533,12 +542,12 @@ document.write(`
 <span class="n">qc</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
  
 <span class="n">state</span> <span class="o">=</span> <span class="n">Statevector</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
-<span class="n">plot_state_city</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plot_state_city</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/de28cc0e5e9796f05ecb7a436b01acc712aee081ed5e09f3e56507dc0113b5f5.png"><img alt="_images/de28cc0e5e9796f05ecb7a436b01acc712aee081ed5e09f3e56507dc0113b5f5.png" src="_images/de28cc0e5e9796f05ecb7a436b01acc712aee081ed5e09f3e56507dc0113b5f5.png" style="width: 1539px; height: 770px;" /></a>
+<a class="reference internal image-reference" href="_images/7e7f0dedad7e60cc671dc11b449cc36e8ffd776db07313e4d2fca32c4c21405a.png"><img alt="_images/7e7f0dedad7e60cc671dc11b449cc36e8ffd776db07313e4d2fca32c4c21405a.png" src="_images/7e7f0dedad7e60cc671dc11b449cc36e8ffd776db07313e4d2fca32c4c21405a.png" style="width: 780px; height: 399px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -578,11 +587,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statevector([ 0.23121925+0.50399553j,  0.09766546-0.02592009j,
-             -0.43141922+0.34828291j, -0.40014999-0.46343525j],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statevector([ 0.46992559-0.30274682j, -0.07553022+0.06060324j,
+             -0.14882496-0.49808725j,  0.23819197+0.59258885j],
             dims=(2, 2))
-[ 0.23121925+0.50399553j  0.09766546-0.02592009j -0.43141922+0.34828291j
- -0.40014999-0.46343525j]
+[ 0.46992559-0.30274682j -0.07553022+0.06060324j -0.14882496-0.49808725j
+  0.23819197+0.59258885j]
 </pre></div>
 </div>
 </div>
@@ -612,13 +621,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.21194475-0.13361609j -0.28504458-0.15209762j -0.02845703+0.56974777j
-  0.29340651+0.21915894j  0.13839172+0.15214146j -0.38775344+0.00220961j
- -0.00806972-0.2798074j  -0.22099533+0.23118948j]
-{&#39;000&#39;: 6, &#39;001&#39;: 9, &#39;010&#39;: 41, &#39;011&#39;: 10, &#39;101&#39;: 18, &#39;110&#39;: 9, &#39;111&#39;: 7}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.12321696+0.27515625j -0.15982146+0.28910596j  0.04239601+0.02005673j
+  0.33794223+0.19777384j -0.42009068-0.28457963j -0.61202316-0.0441314j
+ -0.08515809-0.04011782j -0.01796738-0.03600677j]
+{&#39;000&#39;: 7, &#39;001&#39;: 12, &#39;011&#39;: 18, &#39;100&#39;: 21, &#39;101&#39;: 39, &#39;110&#39;: 2, &#39;111&#39;: 1}
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/d9d3878d4d2e6ac3e942638f0763c8739983ee25afe17447db0adf68c03279d3.png"><img alt="_images/d9d3878d4d2e6ac3e942638f0763c8739983ee25afe17447db0adf68c03279d3.png" src="_images/d9d3878d4d2e6ac3e942638f0763c8739983ee25afe17447db0adf68c03279d3.png" style="width: 621px; height: 456px;" /></a>
+<a class="reference internal image-reference" href="_images/d610adfb0a124031553c9581a0156ae82ff5412389285906a0725140d921e580.png"><img alt="_images/d610adfb0a124031553c9581a0156ae82ff5412389285906a0725140d921e580.png" src="_images/d610adfb0a124031553c9581a0156ae82ff5412389285906a0725140d921e580.png" style="width: 621px; height: 456px;" /></a>
 </div>
 </div>
 </section>
@@ -634,14 +643,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DensityMatrix([[ 0.18883123-4.75496128e-19j, -0.02225689+5.33447582e-02j,
-                -0.01778635-9.33318583e-02j,  0.00848642+2.10231435e-02j],
-               [-0.02225689-5.33447582e-02j,  0.3125066 -3.56522305e-18j,
-                -0.02864558+5.43079381e-02j,  0.19610898+1.67340751e-01j],
-               [-0.01778635+9.33318583e-02j, -0.02864558-5.43079381e-02j,
-                 0.13171362+1.32882657e-18j,  0.07219963-4.22981943e-03j],
-               [ 0.00848642-2.10231435e-02j,  0.19610898-1.67340751e-01j,
-                 0.07219963+4.22981943e-03j,  0.36694854+2.71189261e-18j]],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DensityMatrix([[ 0.24996385-1.73226242e-18j,  0.18540928+1.15202432e-01j,
+                 0.08168865+1.40170340e-01j, -0.0256276 -8.13954805e-02j],
+               [ 0.18540928-1.15202432e-01j,  0.25581955+6.50493340e-19j,
+                 0.17802871+2.74327951e-02j, -0.12227147-9.82097721e-02j],
+               [ 0.08168865-1.40170340e-01j,  0.17802871-2.74327951e-02j,
+                 0.29017228+3.77226012e-18j, -0.07508637-1.34293502e-01j],
+               [-0.0256276 +8.13954805e-02j, -0.12227147+9.82097721e-02j,
+                -0.07508637+1.34293502e-01j,  0.20404433-2.69049104e-18j]],
               dims=(2, 2))
 </pre></div>
 </div>
@@ -691,13 +700,19 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># GHZ state</span>
 <span class="n">ghz_state</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0000&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;1111&#39;</span><span class="p">)</span>
-<span class="n">ghz_state</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span>
+<span class="c1"># verify</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ghz_state</span><span class="o">.</span><span class="n">is_valid</span><span class="p">())</span>
 <span class="c1"># normalize</span>
+<span class="n">normalized_ghz</span> <span class="o">=</span> <span class="n">ghz_state</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ghz_state</span><span class="p">)</span>
+<span class="n">normalized_ghz</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
 </div>
@@ -723,6 +738,45 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="id1">
+<h2>Mixed state<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="pauli-representation">
+<h3>Pauli representation<a class="headerlink" href="#pauli-representation" title="Link to this heading">#</a></h3>
+<p>Plot the Pauli-vector representation of a quantum state as bar graph.</p>
+<p>The Pauli-vector of a density matrix ρ is defined by the expectation of each possible tensor product of single-qubit Pauli operators (including the identity), that is
+….
+This function plots the coefficients Tr(σρ) as bar graph.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If you introduce a list with less colors than bars, the color of the bars will</span>
+<span class="c1"># alternate following the sequence from the list.</span>
+ 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">DensityMatrix</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_state_paulivec</span>
+ 
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+ 
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+ 
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">DensityMatrix</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">plot_state_paulivec</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;crimson&#39;</span><span class="p">,</span> <span class="s1">&#39;midnightblue&#39;</span><span class="p">,</span> <span class="s1">&#39;seagreen&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/0350aa61b1b4faa48d28cf3353fc33b39a8d547338293feefbd5e4e24995e527.png"><img alt="_images/0350aa61b1b4faa48d28cf3353fc33b39a8d547338293feefbd5e4e24995e527.png" src="_images/0350aa61b1b4faa48d28cf3353fc33b39a8d547338293feefbd5e4e24995e527.png" style="width: 644px; height: 478px;" /></a>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -806,6 +860,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stabilizer-state">Stabilizer state</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Mixed state</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-representation">Pauli representation</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

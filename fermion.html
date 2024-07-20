@@ -194,11 +194,16 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="path_integral.html">Pauli Path Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
@@ -400,7 +405,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation">Jordan-Wigner transformation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics">Basics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fermion-anti-commutation-relation">Fermion anti-commutation relation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation-convert-between-fermion-and-spin-qubit">Jordan-Wigner transformation: convert between fermion and spin (qubit)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemical-molecules">Chemical molecules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ferimonic-operators">Ferimonic operators</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-operators">Pauli operators</a></li>
@@ -429,11 +438,19 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="jordan-wigner-transformation">
-<h2>Jordan-Wigner transformation<a class="headerlink" href="#jordan-wigner-transformation" title="Link to this heading">#</a></h2>
+<section id="basics">
+<h2>Basics<a class="headerlink" href="#basics" title="Link to this heading">#</a></h2>
+<section id="fermion-anti-commutation-relation">
+<h3>Fermion anti-commutation relation<a class="headerlink" href="#fermion-anti-commutation-relation" title="Link to this heading">#</a></h3>
+</section>
+<section id="jordan-wigner-transformation-convert-between-fermion-and-spin-qubit">
+<h3>Jordan-Wigner transformation: convert between fermion and spin (qubit)<a class="headerlink" href="#jordan-wigner-transformation-convert-between-fermion-and-spin-qubit" title="Link to this heading">#</a></h3>
+</section>
 </section>
 <section id="chemical-molecules">
 <h2>Chemical molecules<a class="headerlink" href="#chemical-molecules" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[H=H_0 + \sum_{pq}h_{pq} a_p^\dagger a_q + \frac{1}{2}\sum_{pqrs} h_{pqrs} a_p^\dagger a_q^\dagger a_r a_s,\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -460,6 +477,11 @@ document.write(`
 </section>
 <section id="syk-model">
 <h2>SYK model<a class="headerlink" href="#syk-model" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[
+H=\frac{1}{4\cdot 4!} \sum_{i,j,k,l=1}^n J_{ijkl}\; \chi_i \chi_j\chi_k \chi_l,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\chi_i\)</span> are majorana fermions with <span class="math notranslate nohighlight">\(\{\chi_i,\chi_j\}=2\delta_{ij}\)</span> and the coefficients <span class="math notranslate nohighlight">\(J_{ijkl}\)</span> are sampled from a Gaussian distribution <span class="math notranslate nohighlight">\(N(0,\frac{3!}{n^3}J^2)\)</span> with zero mean and variance..</p>
 </section>
 <section id="hubbard-model">
 <h2>Hubbard model<a class="headerlink" href="#hubbard-model" title="Link to this heading">#</a></h2>
@@ -629,7 +651,11 @@ H = - J \sum_{j = 1}^{L - 1} \sum_{\sigma \in \{ \uparrow, \downarrow \}} c_{j, 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation">Jordan-Wigner transformation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics">Basics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fermion-anti-commutation-relation">Fermion anti-commutation relation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation-convert-between-fermion-and-spin-qubit">Jordan-Wigner transformation: convert between fermion and spin (qubit)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemical-molecules">Chemical molecules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ferimonic-operators">Ferimonic operators</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-operators">Pauli operators</a></li>

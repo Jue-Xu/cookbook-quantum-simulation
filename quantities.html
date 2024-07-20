@@ -192,11 +192,16 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="path_integral.html">Pauli Path Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
@@ -403,7 +408,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value">Expectation value</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entenglement-measures">Entenglement measures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-commutator">(Anti) commutator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-norms">Different norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-norms">Different norms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-induced-norm">Vector induced norm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schatten-p-norm">Schatten p norm</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -420,6 +429,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">commutator</span><span class="p">,</span> <span class="n">anti_commutator</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">random_density_matrix</span><span class="p">,</span> <span class="n">partial_trace</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>  
 </pre></div>
 </div>
@@ -438,12 +448,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>psi0:  Statevector([-0.01179574-0.25425253j, -0.58358119+0.55753606j,
-              0.11120251+0.37219366j, -0.09063601+0.35312042j],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>psi0:  Statevector([ 0.16208873+0.59760282j, -0.6512552 -0.0354933j ,
+              0.20355678+0.24014435j, -0.29999861-0.04583848j],
             dims=(2, 2))
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.011795743175358838+0.2542525339673197j)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.16208872602715713-0.5976028190099179j)
 </pre></div>
 </div>
 </div>
@@ -476,7 +486,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.3066656079076453
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.320849553887819
 </pre></div>
 </div>
 </div>
@@ -496,7 +506,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Entropy distribution&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/cbb267914796be96769ba8122967b0d59d541f17434133e25d2ef32be39c7e0f.png"><img alt="_images/cbb267914796be96769ba8122967b0d59d541f17434133e25d2ef32be39c7e0f.png" src="_images/cbb267914796be96769ba8122967b0d59d541f17434133e25d2ef32be39c7e0f.png" style="width: 629px; height: 497px;" /></a>
+<a class="reference internal image-reference" href="_images/cee771cc32a11a9392b4bed906d4ac12564ad28026e8d94a001712c7eeb72e7e.png"><img alt="_images/cee771cc32a11a9392b4bed906d4ac12564ad28026e8d94a001712c7eeb72e7e.png" src="_images/cee771cc32a11a9392b4bed906d4ac12564ad28026e8d94a001712c7eeb72e7e.png" style="width: 629px; height: 497px;" /></a>
 </div>
 </div>
 </section>
@@ -519,6 +529,8 @@ document.write(`
 </section>
 <section id="different-norms">
 <h2>Different norms<a class="headerlink" href="#different-norms" title="Link to this heading">#</a></h2>
+<section id="vector-induced-norm">
+<h3>Vector induced norm<a class="headerlink" href="#vector-induced-norm" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s2">&quot;XIIZI&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;IYIIY&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
@@ -540,6 +552,24 @@ Frobenius norm:  12.649110640673518
 </div>
 </div>
 </div>
+</section>
+<section id="schatten-p-norm">
+<h3>Schatten p norm<a class="headerlink" href="#schatten-p-norm" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s1">&#39;XX&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;YX&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(),</span> <span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;nuc&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">(),</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.605551275463989
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -612,7 +642,11 @@ Frobenius norm:  12.649110640673518
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-value">Expectation value</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entenglement-measures">Entenglement measures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-commutator">(Anti) commutator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-norms">Different norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-norms">Different norms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-induced-norm">Vector induced norm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schatten-p-norm">Schatten p norm</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

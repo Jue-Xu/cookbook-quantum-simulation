@@ -58,6 +58,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'operator';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -403,7 +405,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-identity">Gate identity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotation-real-time-evolution-of-a-pauli-string">Rotation (real-time evolution) of a Pauli string</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observables">Observables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli">Pauli</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-pauli">random pauli</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-pauli-with-fixed-weight">random pauli with fixed weight</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-hermitian">random Hermitian</a></li>
@@ -416,6 +423,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-gate">Random gate</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-circuit">Quantum circuit</a></li>
 </ul>
             </nav>
         </div>
@@ -431,12 +439,123 @@ document.write(`
 <h1>Operators<a class="headerlink" href="#operators" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">random_pauli</span><span class="p">,</span> <span class="n">random_hermitian</span><span class="p">,</span> <span class="n">random_clifford</span><span class="p">,</span> <span class="n">random_unitary</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">random_pauli</span><span class="p">,</span> <span class="n">random_hermitian</span><span class="p">,</span> <span class="n">random_clifford</span><span class="p">,</span> <span class="n">random_unitary</span><span class="p">,</span> <span class="n">pauli_basis</span><span class="p">,</span> <span class="n">Pauli</span><span class="p">,</span> <span class="n">PauliList</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 </div>
 </div>
+<section id="gate-identity">
+<h2>Gate identity<a class="headerlink" href="#gate-identity" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## H = 1/sqrt(2) (X + Z)</span>
+<span class="n">hadamard</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span><span class="o">+</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">))</span>
+<span class="c1">## HZH = X</span>
+<span class="p">(</span><span class="n">hadamard</span> <span class="o">@</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span> <span class="o">@</span> <span class="n">hadamard</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span> <span class="o">==</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Clifford gate maps one Pauli to another Pauli</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">s_gate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">))</span>
+<span class="p">(</span><span class="n">s_gate</span><span class="o">.</span><span class="n">adjoint</span><span class="p">()</span> <span class="o">@</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span> <span class="o">@</span> <span class="n">s_gate</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;Y&#39;],
+              coeffs=[-1.+1.23259516e-32j])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## T gate transforms one Pauli to two Paulis</span>
+<span class="c1"># t_gate = np.array([[1, 0], [0, np.exp(1j*np.pi/4)]])</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">8</span>
+<span class="n">t_gate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">))</span>
+<span class="c1"># t_gate</span>
+<span class="c1"># t_gate == t_gate_p.to_matrix()</span>
+<span class="p">(</span><span class="n">t_gate</span><span class="o">.</span><span class="n">adjoint</span><span class="p">()</span> <span class="o">@</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span> <span class="o">@</span> <span class="n">t_gate</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;X&#39;, &#39;Y&#39;],
+              coeffs=[ 0.70710678+2.55564914e-17j, -0.70710678+1.21941298e-17j])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## CNOT gate</span>
+<span class="n">cnot</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)</span><span class="o">+</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)</span><span class="o">-</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">))</span>
+<span class="n">cnot</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j],
+       [0.+0.j, 1.+0.j, 0.+0.j, 0.+0.j],
+       [0.+0.j, 0.+0.j, 0.+0.j, 1.+0.j],
+       [0.+0.j, 0.+0.j, 1.+0.j, 0.+0.j]])
+</pre></div>
+</div>
+</div>
+</div>
+<section id="rotation-real-time-evolution-of-a-pauli-string">
+<h3>Rotation (real-time evolution) of a Pauli string<a class="headerlink" href="#rotation-real-time-evolution-of-a-pauli-string" title="Link to this heading">#</a></h3>
+<!-- https://github.com/DavitKhach/quantum-algorithms-tutorials/blob/master/Hamiltonian_simulation.ipynb -->
+<div class="math notranslate nohighlight">
+\[
+e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
+\]</div>
+<p>[1] J.D. Whitfield, J. Biamonte and A. Aspuru-Guzik, Molecular Physics, “Simulation of electronic structure Hamiltonians using quantum computers” (2011)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">expm</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expm</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;XX&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()))</span>
+<span class="n">cnot</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">expm</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()),</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">())</span> <span class="o">@</span> <span class="n">cnot</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.54030231+0.j         0.        +0.j         0.        +0.j
+  0.        +0.84147098j]
+ [0.        +0.j         0.54030231+0.j         0.        +0.84147098j
+  0.        +0.j        ]
+ [0.        +0.j         0.        +0.84147098j 0.54030231+0.j
+  0.        +0.j        ]
+ [0.        +0.84147098j 0.        +0.j         0.        +0.j
+  0.54030231+0.j        ]]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.54030231+0.j        , 0.        +0.j        ,
+        0.        +0.j        , 0.        +0.84147098j],
+       [0.        +0.j        , 0.54030231+0.j        ,
+        0.        +0.84147098j, 0.        +0.j        ],
+       [0.        +0.j        , 0.        +0.84147098j,
+        0.54030231+0.j        , 0.        +0.j        ],
+       [0.        +0.84147098j, 0.        +0.j        ,
+        0.        +0.j        , 0.54030231+0.j        ]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="observables">
 <h2>Observables<a class="headerlink" href="#observables" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -452,6 +571,57 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="pauli">
+<h3>Pauli<a class="headerlink" href="#pauli" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pauli_basis</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PauliList([&#39;III&#39;, &#39;IIX&#39;, &#39;IIY&#39;, &#39;IIZ&#39;, &#39;IXI&#39;, &#39;IYI&#39;, &#39;IZI&#39;, &#39;XII&#39;, &#39;YII&#39;,
+           &#39;ZII&#39;, &#39;IXX&#39;, &#39;IXY&#39;, &#39;IXZ&#39;, &#39;IYX&#39;, &#39;IYY&#39;, &#39;IYZ&#39;, &#39;IZX&#39;, &#39;IZY&#39;,
+           &#39;IZZ&#39;, &#39;XIX&#39;, &#39;XIY&#39;, &#39;XIZ&#39;, &#39;XXI&#39;, &#39;XYI&#39;, &#39;XZI&#39;, &#39;YIX&#39;, &#39;YIY&#39;,
+           &#39;YIZ&#39;, &#39;YXI&#39;, &#39;YYI&#39;, &#39;YZI&#39;, &#39;ZIX&#39;, &#39;ZIY&#39;, &#39;ZIZ&#39;, &#39;ZXI&#39;, &#39;ZYI&#39;,
+           &#39;ZZI&#39;, &#39;XXX&#39;, &#39;XXY&#39;, &#39;XXZ&#39;, &#39;XYX&#39;, &#39;XYY&#39;, &#39;XYZ&#39;, &#39;XZX&#39;, &#39;XZY&#39;,
+           &#39;XZZ&#39;, &#39;YXX&#39;, &#39;YXY&#39;, &#39;YXZ&#39;, &#39;YYX&#39;, &#39;YYY&#39;, &#39;YYZ&#39;, &#39;YZX&#39;, &#39;YZY&#39;,
+           &#39;YZZ&#39;, &#39;ZXX&#39;, &#39;ZXY&#39;, &#39;ZXZ&#39;, &#39;ZYX&#39;, &#39;ZYY&#39;, &#39;ZYZ&#39;, &#39;ZZX&#39;, &#39;ZZY&#39;,
+           &#39;ZZZ&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. init from list[str]</span>
+<span class="n">pauli_list</span> <span class="o">=</span> <span class="n">PauliList</span><span class="p">([</span><span class="s2">&quot;II&quot;</span><span class="p">,</span> <span class="s2">&quot;+ZI&quot;</span><span class="p">,</span> <span class="s2">&quot;-iYY&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. &quot;</span><span class="p">,</span> <span class="n">pauli_list</span><span class="p">)</span>
+<span class="n">pauli1</span> <span class="o">=</span> <span class="n">Pauli</span><span class="p">(</span><span class="s2">&quot;iXI&quot;</span><span class="p">)</span>
+<span class="n">pauli2</span> <span class="o">=</span> <span class="n">Pauli</span><span class="p">(</span><span class="s2">&quot;iZZ&quot;</span><span class="p">)</span>
+<span class="c1"># 2. init from Pauli</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. &quot;</span><span class="p">,</span> <span class="n">PauliList</span><span class="p">(</span><span class="n">pauli1</span><span class="p">))</span>
+<span class="c1"># 3. init from list[Pauli]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. &quot;</span><span class="p">,</span> <span class="n">PauliList</span><span class="p">([</span><span class="n">pauli1</span><span class="p">,</span> <span class="n">pauli2</span><span class="p">]))</span>
+<span class="c1"># 4. init from np.ndarray</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">]])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]])</span>
+<span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">pauli_list</span> <span class="o">=</span> <span class="n">PauliList</span><span class="o">.</span><span class="n">from_symplectic</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4. &quot;</span><span class="p">,</span> <span class="n">pauli_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.  [&#39;II&#39;, &#39;ZI&#39;, &#39;-iYY&#39;]
+2.  [&#39;iXI&#39;]
+3.  [&#39;iXI&#39;, &#39;iZZ&#39;]
+4.  [&#39;YZ&#39;, &#39;-iIX&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="random-pauli">
 <h3>random pauli<a class="headerlink" href="#random-pauli" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
@@ -461,7 +631,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pauli(&#39;YZY&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pauli(&#39;XZX&#39;)
 </pre></div>
 </div>
 </div>
@@ -479,14 +649,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Operator([[-1.8550156 +0.j        , -0.26622661-0.17704846j,
-            0.48839315-0.30701534j,  1.079291  +0.02128705j],
-          [-0.26622661+0.17704846j, -0.53330923+0.j        ,
-            0.47378414+0.27031332j,  0.61711374+0.12150274j],
-          [ 0.48839315+0.30701534j,  0.47378414-0.27031332j,
-            0.66178956+0.j        , -0.00843601+0.0492116j ],
-          [ 1.079291  -0.02128705j,  0.61711374-0.12150274j,
-           -0.00843601-0.0492116j , -1.07847716+0.j        ]],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Operator([[ 0.19563572+0.j        , -0.34949843+0.19857586j,
+            0.83280881+0.55313268j,  0.47493054+0.47886845j],
+          [-0.34949843-0.19857586j,  0.07492891+0.j        ,
+            0.4509892 +0.88952503j,  0.02230886+0.16787478j],
+          [ 0.83280881-0.55313268j,  0.4509892 -0.88952503j,
+           -1.16097892+0.j        ,  0.53451574+0.20025561j],
+          [ 0.47493054-0.47886845j,  0.02230886-0.16787478j,
+            0.53451574-0.20025561j,  0.96431441+0.j        ]],
          input_dims=(2, 2), output_dims=(2, 2))
 </pre></div>
 </div>
@@ -527,14 +697,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Operator([[ 0.20922794+0.76100997j, -0.12979659-0.07036268j,
-           -0.3368114 +0.43586815j,  0.21877873+0.06326406j],
-          [ 0.2007649 +0.15615808j,  0.70838851-0.27733802j,
-            0.01917754+0.07779561j, -0.57267054+0.14901668j],
-          [ 0.4019426 +0.14222869j,  0.21289994+0.38487587j,
-           -0.08271044-0.5873211j ,  0.28760409+0.43618128j],
-          [ 0.12795911+0.33798701j, -0.04617366-0.45153455j,
-            0.19430647-0.54828368j,  0.08387237-0.56388936j]],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Operator([[ 0.30339651-0.29378955j,  0.41812105+0.53345389j,
+            0.02996677+0.0477788j ,  0.50021341-0.32991775j],
+          [ 0.08627364+0.1147221j , -0.12798155+0.48938825j,
+           -0.45525061+0.21294825j, -0.60569578-0.32256488j],
+          [ 0.46101079-0.19616925j, -0.00931651+0.10441684j,
+            0.29393226-0.6990146j , -0.39535157+0.08171021j],
+          [-0.66744201-0.32332923j, -0.23960744+0.46510235j,
+            0.4071596 -0.05850279j, -0.07574714+0.03617038j]],
          input_dims=(2, 2), output_dims=(2, 2))
 </pre></div>
 </div>
@@ -550,19 +720,47 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clifford(array([[ True, False,  True,  True, False,  True, False, False, False],
-       [False, False, False,  True, False, False, False, False, False],
-       [ True,  True, False, False, False, False,  True, False,  True],
-       [False, False,  True, False,  True, False,  True, False, False],
-       [False, False, False, False,  True,  True, False, False,  True],
-       [False, False,  True, False, False,  True,  True,  True, False],
-       [ True,  True, False, False, False,  True,  True, False,  True],
-       [False, False,  True,  True, False,  True, False, False,  True]]))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clifford(array([[ True, False,  True,  True,  True, False,  True, False, False],
+       [False, False, False,  True, False, False, False, False,  True],
+       [False,  True, False, False,  True,  True,  True, False,  True],
+       [False,  True,  True, False, False, False,  True, False,  True],
+       [ True, False,  True, False, False, False,  True, False,  True],
+       [ True,  True,  True, False,  True,  True, False,  True, False],
+       [False,  True,  True,  True,  True,  True, False, False,  True],
+       [False, False,  True, False, False,  True,  True, False,  True]]))
 </pre></div>
 </div>
 </div>
 </div>
 </section>
+</section>
+<section id="quantum-circuit">
+<h2>Quantum circuit<a class="headerlink" href="#quantum-circuit" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+   <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+   <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">idx</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span>
+ 
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/04b4fb468a1fb19a23c1f644b5113c1f11e7b19b36289b8d3b116de024be9e8d.png"><img alt="_images/04b4fb468a1fb19a23c1f644b5113c1f11e7b19b36289b8d3b116de024be9e8d.png" src="_images/04b4fb468a1fb19a23c1f644b5113c1f11e7b19b36289b8d3b116de024be9e8d.png" style="width: 1027px; height: 818px;" /></a>
+</div>
+</div>
 </section>
 </section>
 
@@ -630,7 +828,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-identity">Gate identity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotation-real-time-evolution-of-a-pauli-string">Rotation (real-time evolution) of a Pauli string</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observables">Observables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli">Pauli</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-pauli">random pauli</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-pauli-with-fixed-weight">random pauli with fixed weight</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-hermitian">random Hermitian</a></li>
@@ -643,6 +846,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-gate">Random gate</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-circuit">Quantum circuit</a></li>
 </ul>
   </nav></div>
 

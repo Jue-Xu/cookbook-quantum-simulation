@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Trotterization with light-cone (short-time) &#8212; Quantum Simulation Cookbook</title>
   
@@ -18,46 +19,50 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'short_time';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -70,9 +75,10 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -113,16 +119,11 @@
 </form></div>
   </div>
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -156,18 +157,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -419,10 +409,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="trotterization-with-light-cone-short-time">
-<h1>Trotterization with light-cone (short-time)<a class="headerlink" href="#trotterization-with-light-cone-short-time" title="Link to this heading">#</a></h1>
+<h1>Trotterization with light-cone (short-time)<a class="headerlink" href="#trotterization-with-light-cone-short-time" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
@@ -449,9 +439,22 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">random_statevector</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">multiprocessing</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">scipy.sparse.linalg</span> <span class="k">as</span> <span class="nn">ssla</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <section id="nearest-neighbor-heisenberg">
-<h2>Nearest-neighbor Heisenberg<a class="headerlink" href="#nearest-neighbor-heisenberg" title="Link to this heading">#</a></h2>
+<h2>Nearest-neighbor Heisenberg<a class="headerlink" href="#nearest-neighbor-heisenberg" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
@@ -502,38 +505,23 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;XXIIII&#39;],
-              coeffs=[1.+0.j])
-</pre></div>
-</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">h_test</span> <span class="o">=</span> <span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">Jy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hz</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">h_test_list</span> <span class="o">=</span> <span class="n">lc_group</span><span class="p">(</span><span class="n">h_test</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">new_even_lc_tuples</span><span class="p">,</span> <span class="n">new_odd_lc_tuples</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">h_test_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">h_test_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">7</span>     <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;even: &#39;</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>         <span class="n">new_even_lc_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/qiskit/quantum_info/operators/symplectic/sparse_pauli_op.py:268,</span> in <span class="ni">SparsePauliOp.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">    </span><span class="mi">266</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">)):</span>
-<span class="g g-Whitespace">    </span><span class="mi">267</span>     <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span><span class="p">]</span>
-<span class="ne">--&gt; </span><span class="mi">268</span> <span class="k">return</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paulis</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+<span class="nn">File ~/GitHub/Trotter-Error-with-Observable/bounds.py:408,</span> in <span class="ni">lc_group</span><span class="nt">(h, right, left, step, verbose, legacy)</span>
+<span class="g g-Whitespace">    </span><span class="mi">406</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">even_lc_tuples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">odd_lc_tuples</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">407</span>     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">408</span>     <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">409</span>         <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;even: &#39;</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">410</span>         <span class="n">new_even_lc_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/qiskit/quantum_info/operators/symplectic/pauli_list.py:324,</span> in <span class="ni">PauliList.__getitem__</span><span class="nt">(self, index)</span>
-<span class="g g-Whitespace">    </span><span class="mi">315</span>     <span class="k">return</span> <span class="n">Pauli</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">316</span>         <span class="n">BasePauli</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">317</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">index</span><span class="p">],</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">320</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">321</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">322</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="nb">slice</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
-<span class="g g-Whitespace">    </span><span class="mi">323</span>     <span class="c1"># Sub-Table view</span>
-<span class="ne">--&gt; </span><span class="mi">324</span>     <span class="k">return</span> <span class="n">PauliList</span><span class="p">(</span><span class="n">BasePauli</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phase</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span>
-<span class="g g-Whitespace">    </span><span class="mi">326</span> <span class="c1"># Row and Qubit indexing</span>
-<span class="g g-Whitespace">    </span><span class="mi">327</span> <span class="k">return</span> <span class="n">PauliList</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="mi">0</span><span class="p">))</span>
-
-<span class="ne">IndexError</span>: index 1 is out of bounds for axis 0 with size 1
+<span class="ne">IndexError</span>: string index out of range
 </pre></div>
 </div>
 </div>
@@ -6017,7 +6005,7 @@ a_em: 1.0000000000000007; b_em: 3.4657359027997248
   warnings.warn(&#39;Covariance of the parameters could not be estimated&#39;,
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/62f74bce33d570198490ee53ecba782096e9bf5047dd92234c9060b22348d267.png"><img alt="_images/62f74bce33d570198490ee53ecba782096e9bf5047dd92234c9060b22348d267.png" src="_images/62f74bce33d570198490ee53ecba782096e9bf5047dd92234c9060b22348d267.png" style="width: 862px; height: 562px;" /></a>
+<img alt="_images/62f74bce33d570198490ee53ecba782096e9bf5047dd92234c9060b22348d267.png" src="_images/62f74bce33d570198490ee53ecba782096e9bf5047dd92234c9060b22348d267.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -6145,13 +6133,13 @@ a_em: 1.0000000000000007; b_em: 3.4657359027997248
 </div>
 </section>
 <section id="d-transverse-field-ising-chain">
-<h2>1D Transverse Field Ising Chain<a class="headerlink" href="#d-transverse-field-ising-chain" title="Link to this heading">#</a></h2>
+<h2>1D Transverse Field Ising Chain<a class="headerlink" href="#d-transverse-field-ising-chain" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Reduced product formula</p></li>
 <li><p>Chromatic product formula: multi-observable</p></li>
 </ul>
 <section id="fix-t-change-n">
-<h3>fix t, change n<a class="headerlink" href="#fix-t-change-n" title="Link to this heading">#</a></h3>
+<h3>fix t, change n<a class="headerlink" href="#fix-t-change-n" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">J</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.2</span><span class="p">;</span> <span class="n">t</span><span class="o">=</span><span class="mf">0.5</span>
@@ -6175,7 +6163,7 @@ SparsePauliOp([&#39;IIIX&#39;, &#39;IIXI&#39;],
 </div>
 </section>
 <section id="different-groupings">
-<h3>Different groupings<a class="headerlink" href="#different-groupings" title="Link to this heading">#</a></h3>
+<h3>Different groupings<a class="headerlink" href="#different-groupings" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spin_ham</span> <span class="kn">import</span> <span class="n">TF_Ising_1d</span>
@@ -6258,7 +6246,7 @@ ob error (operator norm, largest eigen):  0.0005171085685895365 ; r: 5 ; t: 0.5
 n=9, empirical error_xyz=0.000710, empirical error_parity=0.000517
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/054afbe1da3fafa5956043b8f8321d53f22093442f7f5c7a04c75f78495340e7.png"><img alt="_images/054afbe1da3fafa5956043b8f8321d53f22093442f7f5c7a04c75f78495340e7.png" src="_images/054afbe1da3fafa5956043b8f8321d53f22093442f7f5c7a04c75f78495340e7.png" style="width: 763px; height: 562px;" /></a>
+<img alt="_images/054afbe1da3fafa5956043b8f8321d53f22093442f7f5c7a04c75f78495340e7.png" src="_images/054afbe1da3fafa5956043b8f8321d53f22093442f7f5c7a04c75f78495340e7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -6337,12 +6325,12 @@ n=8, empirical error_xyz=0.003538, empirical error_parity=0.005204
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x3000fb190&gt;
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/8e4b2d45acb869a09c12229d9ebb10966d09c0125b8c768302dde9dd6add977d.png"><img alt="_images/8e4b2d45acb869a09c12229d9ebb10966d09c0125b8c768302dde9dd6add977d.png" src="_images/8e4b2d45acb869a09c12229d9ebb10966d09c0125b8c768302dde9dd6add977d.png" style="width: 675px; height: 474px;" /></a>
+<img alt="_images/8e4b2d45acb869a09c12229d9ebb10966d09c0125b8c768302dde9dd6add977d.png" src="_images/8e4b2d45acb869a09c12229d9ebb10966d09c0125b8c768302dde9dd6add977d.png" />
 </div>
 </div>
 </section>
 <section id="main">
-<h3>Main<a class="headerlink" href="#main" title="Link to this heading">#</a></h3>
+<h3>Main<a class="headerlink" href="#main" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lightcone</span> <span class="kn">import</span> <span class="o">*</span>
@@ -7269,7 +7257,7 @@ a_em: -5.936624156496654e-09; b_em: 2.9957322929473755
   return np.asarray(x, float)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/3df1553b94ce42ee51be7d48d5b006204e91d666e2f41704558e6408fb0a0aae.png"><img alt="_images/3df1553b94ce42ee51be7d48d5b006204e91d666e2f41704558e6408fb0a0aae.png" src="_images/3df1553b94ce42ee51be7d48d5b006204e91d666e2f41704558e6408fb0a0aae.png" style="width: 874px; height: 575px;" /></a>
+<img alt="_images/3df1553b94ce42ee51be7d48d5b006204e91d666e2f41704558e6408fb0a0aae.png" src="_images/3df1553b94ce42ee51be7d48d5b006204e91d666e2f41704558e6408fb0a0aae.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -7291,7 +7279,7 @@ a_em: -5.936624156496654e-09; b_em: 2.9957322929473755
 </div>
 </section>
 <section id="bounds-tight-loose">
-<h3>Bounds (tight, loose)<a class="headerlink" href="#bounds-tight-loose" title="Link to this heading">#</a></h3>
+<h3>Bounds (tight, loose)<a class="headerlink" href="#bounds-tight-loose" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lattice_hamiltonians</span> <span class="kn">import</span> <span class="n">heisenberg_1d</span>
@@ -7433,7 +7421,6 @@ bound list:  [0.001031 0.002305 0.003602 0.004906]
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -7472,7 +7459,7 @@ By Jue Xu
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
@@ -7496,8 +7483,8 @@ By Jue Xu
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -183,7 +183,6 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quantities.html">Physical Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -422,6 +421,7 @@ document.write(`
 <h1>Gauge Field<a class="headerlink" href="#gauge-field" title="Link to this heading">#</a></h1>
 <section id="qed-lattice-field">
 <h2>1+1 (QED) Lattice field<a class="headerlink" href="#qed-lattice-field" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="http://arxiv.org/abs/1806.11123">Quantum localization bounds Trotter errors in digital quantum simulation</a> appendix</p>
 <p>The lattice Schwinger model of 1+1D quantum electrodynamics (QED) can be described by the Hamiltonian (with spin system) <span class="math notranslate nohighlight">\(H_{sm}=H_{\pm}+H_Z\)</span> where</p>
 <div class="math notranslate nohighlight">
 \[
@@ -433,6 +433,31 @@ H_{\pm} = \sum_{l=1}^{n-1} H_{\pm}^l, \; H_{\pm}^l = \frac{w}{2} [X_l X_{l+1}+ Y
 H_Z = \frac{m}{2} \sum_{l=1}^n (-1)^l Z_l + J \sum_{l=1}^n L_l^2, \; L_n = \frac{1}{2} [Z_l + (-1)^l]
 \]</div>
 <p>Here, <span class="math notranslate nohighlight">\(m\)</span> is the rest mass of the fermionic particles and anti-particles, and <span class="math notranslate nohighlight">\(w\)</span> describes their kinetic energy. The term proportional to <span class="math notranslate nohighlight">\(J\)</span> is the energy of the U(1) gauge fields.</p>
+<p><a class="reference external" href="http://arxiv.org/abs/1605.04570">Real-time dynamics of lattice gauge theories with a few-qubit quantum computer</a></p>
+<p>The vacuum decay continuously produces entanglement, as particles and antiparticles are constantly generated and propagate away from each other, thus correlating distant parts of the system. Entanglement plays a crucial role in the characterization of dynamical processes in quantum many-body systems, and its analysis permits us to quantify the quantum character of the generated correlations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## heatmap with colorbar demo</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Fixing random state for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">cax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">((</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.075</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/6514999a95c43d661803d77c72115609bac274bde150f6a1af8a5f96af1b3233.png"><img alt="_images/6514999a95c43d661803d77c72115609bac274bde150f6a1af8a5f96af1b3233.png" src="_images/6514999a95c43d661803d77c72115609bac274bde150f6a1af8a5f96af1b3233.png" style="width: 567px; height: 431px;" /></a>
+</div>
+</div>
 </section>
 <section id="qcd">
 <h2>QCD<a class="headerlink" href="#qcd" title="Link to this heading">#</a></h2>

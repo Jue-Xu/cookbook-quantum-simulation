@@ -181,7 +181,6 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quantities.html">Physical Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -405,10 +404,13 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-states">Pure states</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#product-states">Product states</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap">Overlap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-states">Random states</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meausre">Meausre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution">Evolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measure">Measure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-a-pure-state-to-density-matrix">convert a pure state to density matrix</a></li>
 </ul>
@@ -423,6 +425,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-representation">Pauli representation</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-trace">Partial trace</a></li>
 </ul>
             </nav>
         </div>
@@ -443,7 +446,9 @@ document.write(`
 <span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
 <span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">DensityMatrix</span>
 <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_bloch_multivector</span><span class="p">,</span> <span class="n">plot_histogram</span><span class="p">,</span> <span class="n">plot_state_city</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">commutator</span><span class="p">,</span> <span class="n">anti_commutator</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">random_statevector</span><span class="p">,</span> <span class="n">random_density_matrix</span><span class="p">,</span> <span class="n">partial_trace</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>  
 </pre></div>
 </div>
 </div>
@@ -503,6 +508,33 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="overlap">
+<h3>Overlap<a class="headerlink" href="#overlap" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">psi0</span> <span class="o">=</span> <span class="n">random_statevector</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">psi1</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;psi0: &#39;</span><span class="p">,</span> <span class="n">psi0</span><span class="p">)</span>
+<span class="n">psi0</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">psi1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>psi0:  Statevector([ 0.23375753+0.4691517j ,  0.03260307-0.51794431j,
+             -0.11203482-0.54968101j,  0.37579582+0.00114618j],
+            dims=(2, 2))
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.23375753236495705-0.4691516973390573j)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualization">
+<h3>Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://docs.quantum.ibm.com/api/qiskit/qiskit.visualization.plot_bloch_multivector</span>
@@ -587,11 +619,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statevector([ 0.46992559-0.30274682j, -0.07553022+0.06060324j,
-             -0.14882496-0.49808725j,  0.23819197+0.59258885j],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statevector([ 0.24778619-0.48989869j,  0.46895694-0.11311712j,
+             -0.25344459-0.19602721j, -0.34544544+0.49385404j],
             dims=(2, 2))
-[ 0.46992559-0.30274682j -0.07553022+0.06060324j -0.14882496-0.49808725j
-  0.23819197+0.59258885j]
+[ 0.24778619-0.48989869j  0.46895694-0.11311712j -0.25344459-0.19602721j
+ -0.34544544+0.49385404j]
 </pre></div>
 </div>
 </div>
@@ -605,8 +637,11 @@ document.write(`
 </div>
 </section>
 </section>
-<section id="meausre">
-<h2>Meausre<a class="headerlink" href="#meausre" title="Link to this heading">#</a></h2>
+<section id="evolution">
+<h2>Evolution<a class="headerlink" href="#evolution" title="Link to this heading">#</a></h2>
+</section>
+<section id="measure">
+<h2>Measure<a class="headerlink" href="#measure" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
@@ -621,13 +656,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.12321696+0.27515625j -0.15982146+0.28910596j  0.04239601+0.02005673j
-  0.33794223+0.19777384j -0.42009068-0.28457963j -0.61202316-0.0441314j
- -0.08515809-0.04011782j -0.01796738-0.03600677j]
-{&#39;000&#39;: 7, &#39;001&#39;: 12, &#39;011&#39;: 18, &#39;100&#39;: 21, &#39;101&#39;: 39, &#39;110&#39;: 2, &#39;111&#39;: 1}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-0.5319058 +0.00528309j  0.02158467+0.18364417j  0.00233175-0.21135401j
+ -0.30351639+0.29485695j -0.24417915+0.26337673j -0.33461328-0.03912213j
+  0.45313257+0.09218969j -0.05277458+0.00422832j]
+{&#39;000&#39;: 34, &#39;001&#39;: 2, &#39;010&#39;: 3, &#39;011&#39;: 17, &#39;100&#39;: 15, &#39;101&#39;: 8, &#39;110&#39;: 21}
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/d610adfb0a124031553c9581a0156ae82ff5412389285906a0725140d921e580.png"><img alt="_images/d610adfb0a124031553c9581a0156ae82ff5412389285906a0725140d921e580.png" src="_images/d610adfb0a124031553c9581a0156ae82ff5412389285906a0725140d921e580.png" style="width: 621px; height: 456px;" /></a>
+<a class="reference internal image-reference" href="_images/07e7fb48d1c7853804f527b575dba49e1483e6877fc63c973bacbb30304ee32e.png"><img alt="_images/07e7fb48d1c7853804f527b575dba49e1483e6877fc63c973bacbb30304ee32e.png" src="_images/07e7fb48d1c7853804f527b575dba49e1483e6877fc63c973bacbb30304ee32e.png" style="width: 621px; height: 456px;" /></a>
 </div>
 </div>
 </section>
@@ -643,14 +678,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DensityMatrix([[ 0.24996385-1.73226242e-18j,  0.18540928+1.15202432e-01j,
-                 0.08168865+1.40170340e-01j, -0.0256276 -8.13954805e-02j],
-               [ 0.18540928-1.15202432e-01j,  0.25581955+6.50493340e-19j,
-                 0.17802871+2.74327951e-02j, -0.12227147-9.82097721e-02j],
-               [ 0.08168865-1.40170340e-01j,  0.17802871-2.74327951e-02j,
-                 0.29017228+3.77226012e-18j, -0.07508637-1.34293502e-01j],
-               [-0.0256276 +8.13954805e-02j, -0.12227147+9.82097721e-02j,
-                -0.07508637+1.34293502e-01j,  0.20404433-2.69049104e-18j]],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DensityMatrix([[ 0.23971471-4.67898495e-19j, -0.19296108+3.99067789e-02j,
+                -0.03724073-4.52703107e-02j,  0.03699196-8.29021942e-02j],
+               [-0.19296108-3.99067789e-02j,  0.36186041+1.51881941e-18j,
+                 0.05740503-2.58920252e-02j,  0.11288116+1.13062949e-01j],
+               [-0.03724073+4.52703107e-02j,  0.05740503+2.58920252e-02j,
+                 0.16477823-5.46562732e-19j, -0.05221929+1.00540399e-01j],
+               [ 0.03699196+8.29021942e-02j,  0.11288116-1.13062949e-01j,
+                -0.05221929-1.00540399e-01j,  0.23364665-5.04358186e-19j]],
               dims=(2, 2))
 </pre></div>
 </div>
@@ -778,6 +813,9 @@ This function plots the coefficients Tr(σρ) as bar graph.</p>
 </div>
 </section>
 </section>
+<section id="partial-trace">
+<h2>Partial trace<a class="headerlink" href="#partial-trace" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -846,10 +884,13 @@ This function plots the coefficients Tr(σρ) as bar graph.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-states">Pure states</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#product-states">Product states</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap">Overlap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-states">Random states</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meausre">Meausre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution">Evolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measure">Measure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-state">Mixed state</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-a-pure-state-to-density-matrix">convert a pure state to density matrix</a></li>
 </ul>
@@ -864,6 +905,7 @@ This function plots the coefficients Tr(σρ) as bar graph.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-representation">Pauli representation</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-trace">Partial trace</a></li>
 </ul>
   </nav></div>
 

@@ -9,6 +9,9 @@ on:
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
   build-and-deploy-book:
+    permissions:
+      contents: write
+
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -33,7 +36,10 @@ jobs:
 
     # Deploy the book's HTML to gh-pages branch
     - name: GitHub Pages action
-      uses: peaceiris/actions-gh-pages@v3.6.1
+      # https://github.com/peaceiris/actions-gh-pages?tab=readme-ov-file#%EF%B8%8F-first-deployment-with-github_token
+      uses: peaceiris/actions-gh-pages@v4
+      # uses: peaceiris/actions-gh-pages@v3.6.1
+      # uses: EdricChan03/action-build-deploy-ghpages@v3.1.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_build/html

@@ -183,7 +183,6 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quantities.html">Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -194,25 +193,21 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor-network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_integral.html">Pauli Path Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
 <li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase_estimation.html">Phase estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
 </ul>
 
@@ -409,7 +404,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-interaction">Nearest-neighbor interaction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-nearest-neighbor-interaction">1D Nearest-neighbor interaction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-law-interaction">Power-law interaction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-dimension-lattice">Higher dimension lattice</a></li>
 </ul>
@@ -435,11 +430,11 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="nearest-neighbor-interaction">
-<h2>Nearest-neighbor interaction<a class="headerlink" href="#nearest-neighbor-interaction" title="Link to this heading">#</a></h2>
+<section id="d-nearest-neighbor-interaction">
+<h2>1D Nearest-neighbor interaction<a class="headerlink" href="#d-nearest-neighbor-interaction" title="Link to this heading">#</a></h2>
 <div class="math notranslate nohighlight">
-\[H=\sum_{j=1}^{n-1} J_j Z_j Z_{j+1} + \sum_{j=1}^{n} h_j X_j,\]</div>
-<p>where <span class="math notranslate nohighlight">\(J\)</span> is the interaction strength and <span class="math notranslate nohighlight">\(h_j\)</span> is the strength of the external field.</p>
+\[H=\sum_{j=1}^{n-1} J_j^x X_j X_{j+1} + J_j^y Y_j Y_{j+1} + J_j^z Z_j Z_{j+1} + \sum_{j=1}^{n} h_j^x X_j + h_j^y Y_j + h_j^z Z_j,\]</div>
+<p>where <span class="math notranslate nohighlight">\(J\)</span> is the interaction strength and <span class="math notranslate nohighlight">\(h_j\)</span> is the strength of the external field (random disorder).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">spin_ham</span><span class="o">.</span><span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
@@ -458,6 +453,8 @@ document.write(`
 </section>
 <section id="power-law-interaction">
 <h2>Power-law interaction<a class="headerlink" href="#power-law-interaction" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[H=\sum_{j=1}^{n} \sum_{k=j+1}^n \frac{1}{(j-k)^\alpha} (J^x X_j X_{k} + J^y Y_j Y_{k} + J^z Z_j Z_{k}) + \sum_{j=1}^{n} h_j^x X_j + h_j^y Y_j + h_j^z Z_j,\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">spin_ham</span><span class="o">.</span><span class="n">Power_law</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
@@ -480,6 +477,7 @@ document.write(`
 </section>
 <section id="higher-dimension-lattice">
 <h2>Higher dimension lattice<a class="headerlink" href="#higher-dimension-lattice" title="Link to this heading">#</a></h2>
+<p>todo</p>
 </section>
 </section>
 
@@ -547,7 +545,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-interaction">Nearest-neighbor interaction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-nearest-neighbor-interaction">1D Nearest-neighbor interaction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-law-interaction">Power-law interaction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-dimension-lattice">Higher dimension lattice</a></li>
 </ul>

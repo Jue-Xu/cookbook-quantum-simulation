@@ -183,7 +183,6 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quantities.html">Quantities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
@@ -194,25 +193,21 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">LCU</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="anticommute.html">Anti-commutation</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor-network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_integral.html">Pauli Path Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
 <li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase_estimation.html">Phase estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
 </ul>
 
@@ -409,7 +404,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation">Jordan-Wigner transformation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics">Basics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fermion-anti-commutation-relation">Fermion anti-commutation relation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation-fermion-and-spin-qubit">Jordan-Wigner transformation: fermion and spin (qubit)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemical-molecules">Chemical molecules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ferimonic-operators">Ferimonic operators</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-operators">Pauli operators</a></li>
@@ -432,23 +431,34 @@ document.write(`
 <h1>Fermion<a class="headerlink" href="#fermion" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quantum_simulation_recipe</span> <span class="k">as</span> <span class="nn">qsr</span>
-<span class="kn">from</span> <span class="nn">quantum_simulation_recipe</span> <span class="kn">import</span> <span class="n">spin_ham</span><span class="p">,</span> <span class="n">fermion_ham</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># openfermion</span>
+<span class="kn">import</span> <span class="nn">quantum_simulation_recipe</span> <span class="k">as</span> <span class="nn">qsr</span>
+<span class="kn">from</span> <span class="nn">quantum_simulation_recipe.fermion</span> <span class="kn">import</span> <span class="n">Hydrogen_Chain</span>
 </pre></div>
 </div>
 </div>
 </div>
-<section id="jordan-wigner-transformation">
-<h2>Jordan-Wigner transformation<a class="headerlink" href="#jordan-wigner-transformation" title="Link to this heading">#</a></h2>
+<section id="basics">
+<h2>Basics<a class="headerlink" href="#basics" title="Link to this heading">#</a></h2>
+<section id="fermion-anti-commutation-relation">
+<h3>Fermion anti-commutation relation<a class="headerlink" href="#fermion-anti-commutation-relation" title="Link to this heading">#</a></h3>
+</section>
+<section id="jordan-wigner-transformation-fermion-and-spin-qubit">
+<h3>Jordan-Wigner transformation: fermion and spin (qubit)<a class="headerlink" href="#jordan-wigner-transformation-fermion-and-spin-qubit" title="Link to this heading">#</a></h3>
+</section>
 </section>
 <section id="chemical-molecules">
 <h2>Chemical molecules<a class="headerlink" href="#chemical-molecules" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[
+H=H_0 + \sum_{pq}h_{pq} a_p^\dagger a_q + \frac{1}{2}\sum_{pqrs} h_{pqrs} a_p^\dagger a_q^\dagger a_r a_s,
+\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">n_hydrogen</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">n_hydrogen</span> <span class="o">*</span> <span class="mi">2</span>
-<span class="n">h2</span> <span class="o">=</span> <span class="n">fermion_ham</span><span class="o">.</span><span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="n">n_hydrogen</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">h2</span> <span class="o">=</span> <span class="n">Hydrogen_Chain</span><span class="p">(</span><span class="n">n_hydrogen</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -469,6 +479,11 @@ document.write(`
 </section>
 <section id="syk-model">
 <h2>SYK model<a class="headerlink" href="#syk-model" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[
+H=\frac{1}{4\cdot 4!} \sum_{i,j,k,l=1}^n J_{ijkl}\; \chi_i \chi_j\chi_k \chi_l,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\chi_i\)</span> are majorana fermions with <span class="math notranslate nohighlight">\(\{\chi_i,\chi_j\}=2\delta_{ij}\)</span> and the coefficients <span class="math notranslate nohighlight">\(J_{ijkl}\)</span> are sampled from a Gaussian distribution <span class="math notranslate nohighlight">\(N(0,\frac{3!}{n^3}J^2)\)</span> with zero mean and variance..</p>
 </section>
 <section id="hubbard-model">
 <h2>Hubbard model<a class="headerlink" href="#hubbard-model" title="Link to this heading">#</a></h2>
@@ -565,7 +580,7 @@ H = - J \sum_{j = 1}^{L - 1} \sum_{\sigma \in \{ \uparrow, \downarrow \}} c_{j, 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x13073a920&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x16787e650&gt;
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/43e08045aa1501e3160eddd636eb7430247e76628628cf17274a805481c981a3.png"><img alt="_images/43e08045aa1501e3160eddd636eb7430247e76628628cf17274a805481c981a3.png" src="_images/43e08045aa1501e3160eddd636eb7430247e76628628cf17274a805481c981a3.png" style="width: 544px; height: 392px;" /></a>
@@ -638,7 +653,11 @@ H = - J \sum_{j = 1}^{L - 1} \sum_{\sigma \in \{ \uparrow, \downarrow \}} c_{j, 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation">Jordan-Wigner transformation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics">Basics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fermion-anti-commutation-relation">Fermion anti-commutation relation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jordan-wigner-transformation-fermion-and-spin-qubit">Jordan-Wigner transformation: fermion and spin (qubit)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chemical-molecules">Chemical molecules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ferimonic-operators">Ferimonic operators</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-operators">Pauli operators</a></li>

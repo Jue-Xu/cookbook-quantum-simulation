@@ -394,6 +394,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representation">Representation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stinespring">Stinespring</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-transfer-matrix-ptm">Pauli Transfer Matrix (PTM)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kraus">Kraus</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superop">SuperOp</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choi">Choi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi">Chi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measures">Measures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-channel">Noise channel</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-to-and-from-quantumchannel-operators">Converting to and from QuantumChannel operators</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#readout-error">Readout error</a></li>
@@ -403,10 +413,9 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-transfer-matrix-ptm">Pauli Transfer Matrix (PTM)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement">Measurement</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#povm">POVM</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kraus">Kraus</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Kraus</a></li>
 </ul>
 </li>
 </ul>
@@ -426,7 +435,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
 <span class="kn">from</span> <span class="nn">qiskit_aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
-<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Kraus</span><span class="p">,</span> <span class="n">SuperOp</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Kraus</span><span class="p">,</span> <span class="n">SuperOp</span><span class="p">,</span> <span class="n">random_quantum_channel</span><span class="p">,</span> <span class="n">PTM</span><span class="p">,</span> <span class="n">Choi</span><span class="p">,</span> <span class="n">Chi</span>
 <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
 <span class="kn">from</span> <span class="nn">qiskit.transpiler.preset_passmanagers</span> <span class="kn">import</span> <span class="n">generate_preset_pass_manager</span>
 
@@ -443,6 +452,258 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="representation">
+<h2>Representation<a class="headerlink" href="#representation" title="Permalink to this heading">#</a></h2>
+<section id="stinespring">
+<h3>Stinespring<a class="headerlink" href="#stinespring" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## random quantum channel in Stinespring form</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_quantum_channel</span>
+<span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stinespring([[ 0.06885476+0.3910152j ,  0.20438933+0.05910322j],
+             [ 0.31245599+0.02311884j,  0.16757821-0.21559717j],
+             [-0.05263711-0.00905652j, -0.1945255 +0.53793483j],
+             [ 0.02102957-0.49189433j,  0.16111173-0.21351109j],
+             [ 0.29642876+0.22348274j, -0.10087805-0.28069541j],
+             [-0.34187756-0.00845965j, -0.20053018-0.31480756j],
+             [ 0.03999834+0.42614222j, -0.13431833-0.1325844j ],
+             [-0.24527358+0.02872948j,  0.46028553-0.07512615j]],
+            input_dims=(2,), output_dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pauli-transfer-matrix-ptm">
+<h3>Pauli Transfer Matrix (PTM)<a class="headerlink" href="#pauli-transfer-matrix-ptm" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://docs.quantum.ibm.com/api/qiskit/qiskit.quantum_info.PTM">https://docs.quantum.ibm.com/api/qiskit/qiskit.quantum_info.PTM</a></p>
+<p>Pauli Transfer Matrix (PTM) representation of a Quantum Channel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rqc</span> <span class="o">=</span> <span class="n">PTM</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;num_qubits: &#39;</span><span class="p">,</span> <span class="n">rqc</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">)</span>
+<span class="n">rqc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>num_qubits:  1
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00+8.74076374e-18j,  5.89805982e-17-6.93889390e-18j,
+       3.46944695e-17+0.00000000e+00j, -1.11022302e-16-7.82562180e-18j],
+     [-2.86593783e-01+8.67361738e-19j,  1.47855987e-01+0.00000000e+00j,
+      -1.62431989e-01+0.00000000e+00j, -3.17758765e-01+8.67361738e-19j],
+     [ 1.47424935e-01+0.00000000e+00j, -1.62548064e-01+0.00000000e+00j,
+       1.31079590e-01+0.00000000e+00j, -1.30989106e-01+0.00000000e+00j],
+     [-6.63227365e-01-1.03564694e-17j,  2.69536560e-02+6.93889390e-18j,
+       1.06805607e-01+0.00000000e+00j, -4.01931013e-02+2.94093626e-18j]],
+    input_dims=(2,), output_dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rqc</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">rqc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00+2.46603379e-17j,  5.90692569e-17-8.17578003e-18j,
+       1.78040661e-17+2.91278054e-19j, -1.29846171e-16-5.30619143e-18j],
+     [-1.42168607e-01+1.20615869e-18j,  3.96996378e-02-1.92871932e-19j,
+      -7.92464783e-02+9.26390967e-20j, -1.29340044e-02+1.40164895e-18j],
+     [ 3.00210160e-01+2.50420322e-18j, -4.88710735e-02-1.93188549e-18j,
+       2.95944934e-02+0.00000000e+00j,  3.97459322e-02-1.67991037e-18j],
+     [-6.28549141e-01-1.96530991e-17j, -1.44591363e-02+5.42839465e-18j,
+       5.32905065e-03-8.12989857e-19j, -2.09396460e-02+2.77224004e-18j]],
+    input_dims=(2,), output_dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rqc</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">rqc</span><span class="o">.</span><span class="n">adjoint</span><span class="p">()</span>
+<span class="n">rqc</span><span class="o">.</span><span class="n">is_unitary</span><span class="p">()</span>
+<span class="n">rqc</span><span class="o">.</span><span class="n">is_cptp</span><span class="p">()</span> <span class="c1"># cp, tp, unitary</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="kraus">
+<h3>Kraus<a class="headerlink" href="#kraus" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Kraus</span>
+<span class="n">rqc_kraus</span> <span class="o">=</span> <span class="n">Kraus</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">rqc_kraus</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kraus([[[-0.43707631-0.14516188j, -0.034397  +0.27381402j],
+        [ 0.24785798-0.06810455j, -0.08515486-0.18925227j]],
+
+       [[ 0.0379263 -0.00665024j, -0.16190967+0.02613112j],
+        [-0.25128186+0.00193994j,  0.19069565+0.07950482j]],
+
+       [[ 0.13031368+0.247972j  ,  0.68426905+0.12155623j],
+        [ 0.10067869+0.53356301j, -0.28467422+0.14111131j]],
+
+       [[ 0.51606571+0.00561311j, -0.15976635+0.26480532j],
+        [ 0.06668372+0.11442053j, -0.30541943+0.19573325j]]],
+      input_dims=(2,), output_dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="superop">
+<h3>SuperOp<a class="headerlink" href="#superop" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SuperOp</span>
+<span class="n">rqc_superop</span> <span class="o">=</span> <span class="n">SuperOp</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">rqc_superop</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SuperOp([[ 0.52026977-9.66067536e-18j,  0.10063323-1.76811433e-01j,
+           0.10063323+1.76811433e-01j,  0.32567927+7.52895145e-19j],
+         [ 0.03864309-4.79708656e-02j,  0.31098596-5.40737904e-02j,
+           0.08899708-1.02966869e-01j,  0.34797041+2.02380933e-01j],
+         [ 0.03864309+4.79708656e-02j,  0.08899708+1.02966869e-01j,
+           0.31098596+5.40737904e-02j,  0.34797041-2.02380933e-01j],
+         [ 0.47973023+1.13154920e-21j, -0.10063323+1.76811433e-01j,
+          -0.10063323-1.76811433e-01j,  0.67432073-1.06008950e-17j]],
+        input_dims=(2,), output_dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="choi">
+<h3>Choi<a class="headerlink" href="#choi" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Choi</span>
+
+<span class="n">rqc_choi</span> <span class="o">=</span> <span class="n">Choi</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">rqc_choi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Choi([[ 0.62624433+1.58476117e-17j,  0.08534607-4.01810435e-02j,
+        0.23678685+3.01178015e-02j,  0.12303162-5.61603539e-02j],
+      [ 0.08534607+4.01810435e-02j,  0.37375567-6.10074507e-18j,
+        0.16896483-3.21122870e-02j, -0.23678685-3.01178015e-02j],
+      [ 0.23678685-3.01178015e-02j,  0.16896483+3.21122870e-02j,
+        0.54821592+2.32410142e-18j,  0.15737015-1.64499647e-01j],
+      [ 0.12303162+5.61603539e-02j, -0.23678685+3.01178015e-02j,
+        0.15737015+1.64499647e-01j,  0.45178408-3.47516213e-18j]],
+     input_dims=(2,), output_dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="chi">
+<h3>Chi<a class="headerlink" href="#chi" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Chi</span>
+<span class="n">rqc_chi</span> <span class="o">=</span> <span class="n">Chi</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">rqc_chi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chi([[ 0.79836415+6.93889390e-18j, -0.03488378-7.09711601e-02j,
+      -0.0518835 +4.87656411e-01j,  0.02820931-1.12935664e-01j],
+     [-0.03488378+7.09711601e-02j,  0.41181799-6.93889390e-18j,
+      -0.05601561-2.82093077e-02j, -0.01635159-5.18835015e-02j],
+     [-0.0518835 -4.87656411e-01j, -0.05601561+2.82093077e-02j,
+       0.5439036 +6.93889390e-18j,  0.09223869+3.48837838e-02j],
+     [ 0.02820931+1.12935664e-01j, -0.01635159+5.18835015e-02j,
+       0.09223869-3.48837838e-02j,  0.24591426-2.08166817e-17j]],
+    input_dims=(2,), output_dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="measures">
+<h2>Measures<a class="headerlink" href="#measures" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">average_gate_fidelity</span>
+<span class="n">average_gate_fidelity</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5675002373830127
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">process_fidelity</span>
+<span class="n">process_fidelity</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.40233711255718513
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">gate_error</span>
+<span class="n">gate_error</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5587452460410387
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">diamond_norm</span>
+<span class="n">diamond_norm</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.203391603312065
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="noise-channel">
 <h2>Noise channel<a class="headerlink" href="#noise-channel" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="https://docs.quantum.ibm.com/guides/build-noise-models#build-noise-models">https://docs.quantum.ibm.com/guides/build-noise-models#build-noise-models</a></p>
@@ -675,7 +936,7 @@ meas: 4/════════════════════════
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ae310a47b70948ff788d194b8aee7c25c940bf25b20c54f59de0fc5a902f4a06.png" src="_images/ae310a47b70948ff788d194b8aee7c25c940bf25b20c54f59de0fc5a902f4a06.png" />
+<img alt="_images/49a6274a9b9a0e1d2821e40efe1c9a2a36e0bcc40fc2048f6bd2200c75142567.png" src="_images/49a6274a9b9a0e1d2821e40efe1c9a2a36e0bcc40fc2048f6bd2200c75142567.png" />
 </div>
 </div>
 <section id="from-qiskit-aer-import-aersimulator">
@@ -707,7 +968,7 @@ meas: 4/════════════════════════
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NoiseModel:
   Basis gates: [&#39;cx&#39;, &#39;id&#39;, &#39;rz&#39;, &#39;sx&#39;, &#39;u1&#39;, &#39;u2&#39;, &#39;u3&#39;]
-  Instructions with noise: [&#39;reset&#39;, &#39;u3&#39;, &#39;u1&#39;, &#39;cx&#39;, &#39;measure&#39;, &#39;u2&#39;]
+  Instructions with noise: [&#39;measure&#39;, &#39;reset&#39;, &#39;u3&#39;, &#39;cx&#39;, &#39;u1&#39;, &#39;u2&#39;]
   All-qubits errors: [&#39;reset&#39;, &#39;measure&#39;, &#39;u1&#39;, &#39;u2&#39;, &#39;u3&#39;, &#39;cx&#39;]
 </pre></div>
 </div>
@@ -738,24 +999,19 @@ meas: 4/════════════════════════
   r = _umath_linalg.det(a, signature=signature)
 </pre></div>
 </div>
-<img alt="_images/59844ab3115aca3e6210653113827faec8bf38a4fe731016ea2b60b7eefb4f10.png" src="_images/59844ab3115aca3e6210653113827faec8bf38a4fe731016ea2b60b7eefb4f10.png" />
+<img alt="_images/8da3ff51fd54ba7622dc810fbe0e8cc07282c0e15f1564663f9a1b4ada4dbbb4.png" src="_images/8da3ff51fd54ba7622dc810fbe0e8cc07282c0e15f1564663f9a1b4ada4dbbb4.png" />
 </div>
 </div>
 </section>
 </section>
-</section>
-<section id="pauli-transfer-matrix-ptm">
-<h2>Pauli Transfer Matrix (PTM)<a class="headerlink" href="#pauli-transfer-matrix-ptm" title="Permalink to this heading">#</a></h2>
-<p><a class="reference external" href="https://docs.quantum.ibm.com/api/qiskit/qiskit.quantum_info.PTM">https://docs.quantum.ibm.com/api/qiskit/qiskit.quantum_info.PTM</a></p>
-<p>Pauli Transfer Matrix (PTM) representation of a Quantum Channel.</p>
 </section>
 <section id="measurement">
 <h2>Measurement<a class="headerlink" href="#measurement" title="Permalink to this heading">#</a></h2>
 <section id="povm">
 <h3>POVM<a class="headerlink" href="#povm" title="Permalink to this heading">#</a></h3>
 </section>
-<section id="kraus">
-<h3>Kraus<a class="headerlink" href="#kraus" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h3>Kraus<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -823,6 +1079,16 @@ meas: 4/════════════════════════
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representation">Representation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stinespring">Stinespring</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-transfer-matrix-ptm">Pauli Transfer Matrix (PTM)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kraus">Kraus</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superop">SuperOp</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choi">Choi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi">Chi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measures">Measures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-channel">Noise channel</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-to-and-from-quantumchannel-operators">Converting to and from QuantumChannel operators</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#readout-error">Readout error</a></li>
@@ -832,10 +1098,9 @@ meas: 4/════════════════════════
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-transfer-matrix-ptm">Pauli Transfer Matrix (PTM)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement">Measurement</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#povm">POVM</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kraus">Kraus</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Kraus</a></li>
 </ul>
 </li>
 </ul>

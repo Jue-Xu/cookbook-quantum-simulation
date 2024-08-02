@@ -1,3 +1,4 @@
+quantum-simulation-recipe
 jupyter-book
 matplotlib
 numpy

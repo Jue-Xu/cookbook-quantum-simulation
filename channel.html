@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Channels &#8212; Quantum Simulation Cookbook</title>
   
@@ -15,54 +14,50 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'channel';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -77,28 +72,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -120,12 +110,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -141,6 +139,8 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 
+  
+    
   
 
 <a class="navbar-brand logo" href="intro.html">
@@ -159,7 +159,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -214,7 +225,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -223,14 +234,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -355,10 +366,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -366,14 +377,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -427,10 +438,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="channels">
-<h1>Channels<a class="headerlink" href="#channels" title="Permalink to this heading">#</a></h1>
+<h1>Channels<a class="headerlink" href="#channels" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
@@ -451,11 +462,24 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">qiskit_aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Kraus</span><span class="p">,</span> <span class="n">SuperOp</span><span class="p">,</span> <span class="n">random_quantum_channel</span><span class="p">,</span> <span class="n">PTM</span><span class="p">,</span> <span class="n">Choi</span><span class="p">,</span> <span class="n">Chi</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit_aer&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <section id="representation">
-<h2>Representation<a class="headerlink" href="#representation" title="Permalink to this heading">#</a></h2>
+<h2>Representation<a class="headerlink" href="#representation" title="Link to this heading">#</a></h2>
 <section id="stinespring">
-<h3>Stinespring<a class="headerlink" href="#stinespring" title="Permalink to this heading">#</a></h3>
+<h3>Stinespring<a class="headerlink" href="#stinespring" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## random quantum channel in Stinespring form</span>
@@ -465,14 +489,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stinespring([[ 0.06885476+0.3910152j ,  0.20438933+0.05910322j],
-             [ 0.31245599+0.02311884j,  0.16757821-0.21559717j],
-             [-0.05263711-0.00905652j, -0.1945255 +0.53793483j],
-             [ 0.02102957-0.49189433j,  0.16111173-0.21351109j],
-             [ 0.29642876+0.22348274j, -0.10087805-0.28069541j],
-             [-0.34187756-0.00845965j, -0.20053018-0.31480756j],
-             [ 0.03999834+0.42614222j, -0.13431833-0.1325844j ],
-             [-0.24527358+0.02872948j,  0.46028553-0.07512615j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stinespring([[ 0.03849769+0.02036647j, -0.698461  -0.09797363j],
+             [-0.0819251 +0.11373122j, -0.05175353+0.46665556j],
+             [-0.15717588+0.11410124j,  0.07142001+0.09756838j],
+             [ 0.00692667+0.03544208j,  0.00834859+0.31888786j],
+             [ 0.14203522-0.13634234j, -0.09643058+0.12861438j],
+             [-0.09117948-0.34925634j,  0.02034073+0.10721822j],
+             [-0.56400128+0.6295895j , -0.09551063-0.09133277j],
+             [-0.0836914 -0.22110541j, -0.33102433-0.030609j  ]],
             input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -480,7 +504,7 @@ document.write(`
 </div>
 </section>
 <section id="pauli-transfer-matrix-ptm">
-<h3>Pauli Transfer Matrix (PTM)<a class="headerlink" href="#pauli-transfer-matrix-ptm" title="Permalink to this heading">#</a></h3>
+<h3>Pauli Transfer Matrix (PTM)<a class="headerlink" href="#pauli-transfer-matrix-ptm" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://docs.quantum.ibm.com/api/qiskit/qiskit.quantum_info.PTM">https://docs.quantum.ibm.com/api/qiskit/qiskit.quantum_info.PTM</a></p>
 <p>Pauli Transfer Matrix (PTM) representation of a Quantum Channel.</p>
 <div class="cell docutils container">
@@ -495,14 +519,14 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>num_qubits:  1
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00+8.74076374e-18j,  5.89805982e-17-6.93889390e-18j,
-       3.46944695e-17+0.00000000e+00j, -1.11022302e-16-7.82562180e-18j],
-     [-2.86593783e-01+8.67361738e-19j,  1.47855987e-01+0.00000000e+00j,
-      -1.62431989e-01+0.00000000e+00j, -3.17758765e-01+8.67361738e-19j],
-     [ 1.47424935e-01+0.00000000e+00j, -1.62548064e-01+0.00000000e+00j,
-       1.31079590e-01+0.00000000e+00j, -1.30989106e-01+0.00000000e+00j],
-     [-6.63227365e-01-1.03564694e-17j,  2.69536560e-02+6.93889390e-18j,
-       1.06805607e-01+0.00000000e+00j, -4.01931013e-02+2.94093626e-18j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00-9.52787305e-18j, -2.08166817e-17+0.00000000e+00j,
+       2.77555756e-17+0.00000000e+00j, -3.33066907e-16-6.88837700e-18j],
+     [-9.09489194e-02+0.00000000e+00j, -3.72195758e-01+0.00000000e+00j,
+       2.01356134e-02+0.00000000e+00j, -1.88193128e-01+0.00000000e+00j],
+     [ 1.07371749e-01+0.00000000e+00j,  3.69139869e-01+0.00000000e+00j,
+      -1.20645755e-01+0.00000000e+00j, -4.81331497e-01+0.00000000e+00j],
+     [-1.56748013e-01+8.54415943e-18j,  1.14009043e-01+0.00000000e+00j,
+      -4.85784633e-01+0.00000000e+00j, -1.72685021e-01+4.62303219e-19j]],
     input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -515,14 +539,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00+2.46603379e-17j,  5.90692569e-17-8.17578003e-18j,
-       1.78040661e-17+2.91278054e-19j, -1.29846171e-16-5.30619143e-18j],
-     [-1.42168607e-01+1.20615869e-18j,  3.96996378e-02-1.92871932e-19j,
-      -7.92464783e-02+9.26390967e-20j, -1.29340044e-02+1.40164895e-18j],
-     [ 3.00210160e-01+2.50420322e-18j, -4.88710735e-02-1.93188549e-18j,
-       2.95944934e-02+0.00000000e+00j,  3.97459322e-02-1.67991037e-18j],
-     [-6.28549141e-01-1.96530991e-17j, -1.44591363e-02+5.42839465e-18j,
-       5.32905065e-03-8.12989857e-19j, -2.09396460e-02+2.77224004e-18j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00-2.40259894e-18j, -3.65286159e-17+1.06400890e-17j,
+      -3.25381917e-17-3.48337848e-19j,  8.10475729e-17-2.95275781e-18j],
+     [-5.03863959e-01-3.97212202e-18j,  8.72077238e-02+7.41407448e-18j,
+      -4.36095725e-02-9.82187287e-18j, -2.73736239e-02+4.42821287e-18j],
+     [ 3.66501244e-01+1.11459993e-17j, -5.33738689e-02-5.89698216e-18j,
+       8.10998407e-02-1.25503009e-17j, -9.32187871e-02+2.08189613e-18j],
+     [-2.18558871e-01-7.45593673e-18j,  5.86923694e-02-9.37442687e-18j,
+       2.00888015e-01-1.19893761e-17j, -7.11955275e-03-7.38513938e-19j]],
     input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -545,7 +569,7 @@ document.write(`
 </div>
 </section>
 <section id="kraus">
-<h3>Kraus<a class="headerlink" href="#kraus" title="Permalink to this heading">#</a></h3>
+<h3>Kraus<a class="headerlink" href="#kraus" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Kraus</span>
@@ -555,17 +579,17 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kraus([[[-0.43707631-0.14516188j, -0.034397  +0.27381402j],
-        [ 0.24785798-0.06810455j, -0.08515486-0.18925227j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kraus([[[ 0.40797192-0.21907435j, -0.04302789-0.46760563j],
+        [-0.02762658-0.30734793j, -0.02968974+0.05646335j]],
 
-       [[ 0.0379263 -0.00665024j, -0.16190967+0.02613112j],
-        [-0.25128186+0.00193994j,  0.19069565+0.07950482j]],
+       [[-0.31594324-0.24582982j,  0.22465833-0.25842112j],
+        [-0.29698492+0.15016866j,  0.33448024-0.03782379j]],
 
-       [[ 0.13031368+0.247972j  ,  0.68426905+0.12155623j],
-        [ 0.10067869+0.53356301j, -0.28467422+0.14111131j]],
+       [[ 0.29609313-0.1089395j ,  0.17119268-0.49213072j],
+        [-0.19383795-0.15392175j,  0.30024441-0.14315255j]],
 
-       [[ 0.51606571+0.00561311j, -0.15976635+0.26480532j],
-        [ 0.06668372+0.11442053j, -0.30541943+0.19573325j]]],
+       [[ 0.15164906-0.06327016j,  0.22433035+0.00823283j],
+        [ 0.47619079-0.06909437j, -0.07334134+0.32703776j]]],
       input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -573,7 +597,7 @@ document.write(`
 </div>
 </section>
 <section id="superop">
-<h3>SuperOp<a class="headerlink" href="#superop" title="Permalink to this heading">#</a></h3>
+<h3>SuperOp<a class="headerlink" href="#superop" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SuperOp</span>
@@ -583,14 +607,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SuperOp([[ 0.52026977-9.66067536e-18j,  0.10063323-1.76811433e-01j,
-           0.10063323+1.76811433e-01j,  0.32567927+7.52895145e-19j],
-         [ 0.03864309-4.79708656e-02j,  0.31098596-5.40737904e-02j,
-           0.08899708-1.02966869e-01j,  0.34797041+2.02380933e-01j],
-         [ 0.03864309+4.79708656e-02j,  0.08899708+1.02966869e-01j,
-           0.31098596+5.40737904e-02j,  0.34797041-2.02380933e-01j],
-         [ 0.47973023+1.13154920e-21j, -0.10063323+1.76811433e-01j,
-          -0.10063323-1.76811433e-01j,  0.67432073-1.06008950e-17j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SuperOp([[ 0.35072481-2.86610956e-18j, -0.14007719-7.01581293e-02j,
+          -0.14007719+7.01581293e-02j,  0.31865109-3.53173471e-18j],
+         [ 0.30439855+2.40310794e-01j, -0.10928561+8.78976417e-03j,
+          -0.03296743-5.41481067e-03j,  0.20376672+2.19722547e-01j],
+         [ 0.30439855-2.40310794e-01j, -0.03296743+5.41481067e-03j,
+          -0.10928561-8.78976417e-03j,  0.20376672-2.19722547e-01j],
+         [ 0.64927519+1.59760684e-19j,  0.14007719+7.01581293e-02j,
+           0.14007719-7.01581293e-02j,  0.68134891-2.87830609e-18j]],
         input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -598,7 +622,7 @@ document.write(`
 </div>
 </section>
 <section id="choi">
-<h3>Choi<a class="headerlink" href="#choi" title="Permalink to this heading">#</a></h3>
+<h3>Choi<a class="headerlink" href="#choi" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Choi</span>
@@ -609,14 +633,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Choi([[ 0.62624433+1.58476117e-17j,  0.08534607-4.01810435e-02j,
-        0.23678685+3.01178015e-02j,  0.12303162-5.61603539e-02j],
-      [ 0.08534607+4.01810435e-02j,  0.37375567-6.10074507e-18j,
-        0.16896483-3.21122870e-02j, -0.23678685-3.01178015e-02j],
-      [ 0.23678685-3.01178015e-02j,  0.16896483+3.21122870e-02j,
-        0.54821592+2.32410142e-18j,  0.15737015-1.64499647e-01j],
-      [ 0.12303162+5.61603539e-02j, -0.23678685+3.01178015e-02j,
-        0.15737015+1.64499647e-01j,  0.45178408-3.47516213e-18j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Choi([[ 5.79887972e-01-1.35042435e-17j, -3.83764342e-01+8.14399434e-02j,
+       -3.70265417e-04+8.17702963e-02j,  2.46990613e-01+4.54470675e-02j],
+      [-3.83764342e-01-8.14399434e-02j,  4.20112028e-01+1.10093054e-17j,
+       -9.87365214e-02-2.68883634e-01j,  3.70265417e-04-8.17702963e-02j],
+      [-3.70265417e-04-8.17702963e-02j, -9.87365214e-02+2.68883634e-01j,
+        4.72549646e-01+1.03334622e-18j, -1.67075303e-01+1.19816900e-01j],
+      [ 2.46990613e-01-4.54470675e-02j,  3.70265417e-04+8.17702963e-02j,
+       -1.67075303e-01-1.19816900e-01j,  5.27450354e-01-4.91109101e-18j]],
      input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -624,7 +648,7 @@ document.write(`
 </div>
 </section>
 <section id="chi">
-<h3>Chi<a class="headerlink" href="#chi" title="Permalink to this heading">#</a></h3>
+<h3>Chi<a class="headerlink" href="#chi" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Chi</span>
@@ -634,14 +658,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chi([[ 0.79836415+6.93889390e-18j, -0.03488378-7.09711601e-02j,
-      -0.0518835 +4.87656411e-01j,  0.02820931-1.12935664e-01j],
-     [-0.03488378+7.09711601e-02j,  0.41181799-6.93889390e-18j,
-      -0.05601561-2.82093077e-02j, -0.01635159-5.18835015e-02j],
-     [-0.0518835 -4.87656411e-01j, -0.05601561+2.82093077e-02j,
-       0.5439036 +6.93889390e-18j,  0.09223869+3.48837838e-02j],
-     [ 0.02820931+1.12935664e-01j, -0.01635159+5.18835015e-02j,
-       0.09223869-3.48837838e-02j,  0.24591426-2.08166817e-17j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chi([[ 0.11737619-3.46944695e-18j, -0.06467212+2.71818885e-02j,
+      -0.00854459+2.51498699e-01j, -0.02205206+4.17213701e-02j],
+     [-0.06467212-2.71818885e-02j,  0.39124272+6.93889390e-18j,
+       0.09044332+2.20520604e-02j,  0.05584356-8.54458617e-03j],
+     [-0.00854459-2.51498699e-01j,  0.09044332-2.20520604e-02j,
+       1.3812895 +6.93889390e-18j,  0.13840778+6.46721240e-02j],
+     [-0.02205206-4.17213701e-02j,  0.05584356+8.54458617e-03j,
+       0.13840778-6.46721240e-02j,  0.11009159-3.46944695e-18j]],
     input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -650,7 +674,7 @@ document.write(`
 </section>
 </section>
 <section id="measures">
-<h2>Measures<a class="headerlink" href="#measures" title="Permalink to this heading">#</a></h2>
+<h2>Measures<a class="headerlink" href="#measures" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">average_gate_fidelity</span>
@@ -659,7 +683,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5675002373830127
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5734653416497364
 </pre></div>
 </div>
 </div>
@@ -672,7 +696,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.40233711255718513
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5232190682672958
 </pre></div>
 </div>
 </div>
@@ -685,27 +709,60 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5587452460410387
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4836283339885725
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">diamond_norm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">diamond_norm</span><span class="p">,</span> <span class="n">random_quantum_channel</span>
 <span class="n">diamond_norm</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">diamond_norm</span><span class="p">,</span> <span class="n">random_quantum_channel</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Kraus</span><span class="p">,</span> <span class="n">SuperOp</span><span class="p">,</span> <span class="n">PTM</span>
+
+<span class="c1"># diamond_norm(random_quantum_channel(2, 2)-random_quantum_channel(2, 2))</span>
+<span class="c1">## single qubit depolarizing channel</span>
+<span class="kn">from</span> <span class="nn">qiskit_aer.noise</span> <span class="kn">import</span> <span class="p">(</span><span class="n">pauli_error</span><span class="p">)</span>
+<span class="c1"># error = depolarizing_error(0.05, 1)</span>
+<span class="c1"># error</span>
+<span class="n">p_error</span> <span class="o">=</span> <span class="mf">0.03</span>
+<span class="n">ic</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="n">dep_err</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_error</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dep_err</span><span class="p">)</span>
+<span class="n">dep_ptm</span> <span class="o">=</span> <span class="n">PTM</span><span class="p">(</span><span class="n">dep_err</span><span class="p">)</span>
+<span class="n">dep_ptm</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;diamond distance: </span><span class="si">{</span><span class="n">diamond_norm</span><span class="p">(</span><span class="n">dep_ptm</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ic</span><span class="p">)</span><span class="si">}</span><span class="s1"> with noise rate </span><span class="si">{</span><span class="n">p_error</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.203391603312065
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>QuantumError on 1 qubits. Noise circuits:
+  P(0) = 0.01, Circuit = 
+   ┌───┐
+q: ┤ X ├
+   └───┘
+  P(1) = 0.01, Circuit = 
+   ┌───┐
+q: ┤ Y ├
+   └───┘
+  P(2) = 0.01, Circuit = 
+   ┌───┐
+q: ┤ Z ├
+   └───┘
+  P(3) = 0.97, Circuit = 
+   ┌───┐
+q: ┤ I ├
+   └───┘
+diamond distance: 0.06000010519101877 with noise rate 0.03
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="noise-channel">
-<h2>Noise channel<a class="headerlink" href="#noise-channel" title="Permalink to this heading">#</a></h2>
+<h2>Noise channel<a class="headerlink" href="#noise-channel" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://docs.quantum.ibm.com/guides/build-noise-models#build-noise-models">https://docs.quantum.ibm.com/guides/build-noise-models#build-noise-models</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -811,7 +868,7 @@ q_1: ┤ I ├
 </div>
 </div>
 <section id="converting-to-and-from-quantumchannel-operators">
-<h3>Converting to and from QuantumChannel operators<a class="headerlink" href="#converting-to-and-from-quantumchannel-operators" title="Permalink to this heading">#</a></h3>
+<h3>Converting to and from QuantumChannel operators<a class="headerlink" href="#converting-to-and-from-quantumchannel-operators" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to Kraus operator</span>
@@ -874,7 +931,7 @@ q: ┤ kraus ├
 </div>
 </section>
 <section id="readout-error">
-<h3>Readout error<a class="headerlink" href="#readout-error" title="Permalink to this heading">#</a></h3>
+<h3>Readout error<a class="headerlink" href="#readout-error" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Measurement misassignment probabilities</span>
@@ -894,7 +951,7 @@ q: ┤ kraus ├
 </div>
 </section>
 <section id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h3>
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># System Specification</span>
@@ -936,11 +993,11 @@ meas: 4/════════════════════════
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/49a6274a9b9a0e1d2821e40efe1c9a2a36e0bcc40fc2048f6bd2200c75142567.png" src="_images/49a6274a9b9a0e1d2821e40efe1c9a2a36e0bcc40fc2048f6bd2200c75142567.png" />
+<a class="reference internal image-reference" href="_images/1cafd7e284e37ff2bf2fe470fbaf2b7b35110c319c629e22666e238916030162.png"><img alt="_images/1cafd7e284e37ff2bf2fe470fbaf2b7b35110c319c629e22666e238916030162.png" src="_images/1cafd7e284e37ff2bf2fe470fbaf2b7b35110c319c629e22666e238916030162.png" style="width: 633px; height: 467px;" /></a>
 </div>
 </div>
 <section id="from-qiskit-aer-import-aersimulator">
-<h4>from qiskit_aer import AerSimulator<a class="headerlink" href="#from-qiskit-aer-import-aersimulator" title="Permalink to this heading">#</a></h4>
+<h4>from qiskit_aer import AerSimulator<a class="headerlink" href="#from-qiskit-aer-import-aersimulator" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example error probabilities</span>
@@ -968,7 +1025,7 @@ meas: 4/════════════════════════
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NoiseModel:
   Basis gates: [&#39;cx&#39;, &#39;id&#39;, &#39;rz&#39;, &#39;sx&#39;, &#39;u1&#39;, &#39;u2&#39;, &#39;u3&#39;]
-  Instructions with noise: [&#39;measure&#39;, &#39;reset&#39;, &#39;u3&#39;, &#39;cx&#39;, &#39;u1&#39;, &#39;u2&#39;]
+  Instructions with noise: [&#39;u1&#39;, &#39;u2&#39;, &#39;cx&#39;, &#39;u3&#39;, &#39;reset&#39;, &#39;measure&#39;]
   All-qubits errors: [&#39;reset&#39;, &#39;measure&#39;, &#39;u1&#39;, &#39;u2&#39;, &#39;u3&#39;, &#39;cx&#39;]
 </pre></div>
 </div>
@@ -993,25 +1050,30 @@ meas: 4/════════════════════════
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/numpy/linalg/linalg.py:2154: RuntimeWarning: divide by zero encountered in det
-  r = _umath_linalg.det(a, signature=signature)
-/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/numpy/linalg/linalg.py:2154: RuntimeWarning: invalid value encountered in det
-  r = _umath_linalg.det(a, signature=signature)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">32</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sim_noise</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">(</span><span class="n">noise_model</span><span class="o">=</span><span class="n">noise_bit_flip</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Transpile circuit for noisy basis gates</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">passmanager</span> <span class="o">=</span> <span class="n">generate_preset_pass_manager</span><span class="p">(</span><span class="n">optimization_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">sim_noise</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">circ_tnoise</span> <span class="o">=</span> <span class="n">passmanager</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Run and get counts</span>
+
+<span class="ne">NameError</span>: name &#39;generate_preset_pass_manager&#39; is not defined
 </pre></div>
 </div>
-<img alt="_images/8da3ff51fd54ba7622dc810fbe0e8cc07282c0e15f1564663f9a1b4ada4dbbb4.png" src="_images/8da3ff51fd54ba7622dc810fbe0e8cc07282c0e15f1564663f9a1b4ada4dbbb4.png" />
 </div>
 </div>
 </section>
 </section>
 </section>
 <section id="measurement">
-<h2>Measurement<a class="headerlink" href="#measurement" title="Permalink to this heading">#</a></h2>
+<h2>Measurement<a class="headerlink" href="#measurement" title="Link to this heading">#</a></h2>
 <section id="povm">
-<h3>POVM<a class="headerlink" href="#povm" title="Permalink to this heading">#</a></h3>
+<h3>POVM<a class="headerlink" href="#povm" title="Link to this heading">#</a></h3>
 </section>
 <section id="id1">
-<h3>Kraus<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>Kraus<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -1043,7 +1105,7 @@ meas: 4/════════════════════════
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1072,6 +1134,7 @@ meas: 4/════════════════════════
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1127,7 +1190,7 @@ By Jue Xu
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1151,8 +1214,8 @@ By Jue Xu
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

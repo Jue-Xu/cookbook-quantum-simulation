@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Operators &#8212; Quantum Simulation Cookbook</title>
   
@@ -15,54 +14,50 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'operator';</script>
@@ -79,28 +74,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -122,12 +112,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -143,6 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 
+  
+    
   
 
 <a class="navbar-brand logo" href="intro.html">
@@ -161,7 +161,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -216,7 +227,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -225,14 +236,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -357,10 +368,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -368,14 +379,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -435,10 +446,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="operators">
-<h1>Operators<a class="headerlink" href="#operators" title="Permalink to this heading">#</a></h1>
+<h1>Operators<a class="headerlink" href="#operators" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">random_pauli</span><span class="p">,</span> <span class="n">random_hermitian</span><span class="p">,</span> <span class="n">random_clifford</span><span class="p">,</span> <span class="n">random_unitary</span><span class="p">,</span> <span class="n">pauli_basis</span><span class="p">,</span> <span class="n">Pauli</span><span class="p">,</span> <span class="n">PauliList</span><span class="p">,</span> <span class="n">random_density_matrix</span>
@@ -446,20 +457,9 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">random_pauli</span><span class="p">,</span> <span class="n">random_hermitian</span><span class="p">,</span> <span class="n">random_clifford</span><span class="p">,</span> <span class="n">random_unitary</span><span class="p">,</span> <span class="n">pauli_basis</span><span class="p">,</span> <span class="n">Pauli</span><span class="p">,</span> <span class="n">PauliList</span><span class="p">,</span> <span class="n">random_density_matrix</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <section id="gate-identity">
-<h2>Gate identity<a class="headerlink" href="#gate-identity" title="Permalink to this heading">#</a></h2>
+<h2>Gate identity<a class="headerlink" href="#gate-identity" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## H = 1/sqrt(2) (X + Z)</span>
@@ -534,9 +534,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Operator([[1.+0.j, 0.+0.j],
-          [0.+0.j, 0.+0.j]],
-         input_dims=(2,), output_dims=(2,))
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_operator</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;Statevector&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -559,7 +562,7 @@ document.write(`
 </div>
 </div>
 <section id="rotation-real-time-evolution-of-a-pauli-string">
-<h3>Rotation (real-time evolution) of a Pauli string<a class="headerlink" href="#rotation-real-time-evolution-of-a-pauli-string" title="Permalink to this heading">#</a></h3>
+<h3>Rotation (real-time evolution) of a Pauli string<a class="headerlink" href="#rotation-real-time-evolution-of-a-pauli-string" title="Link to this heading">#</a></h3>
 <p><a class="github reference external" href="https://github.com/DavitKhach/quantum-algorithms-tutorials/blob/master/Hamiltonian_simulation.ipynb">DavitKhach/quantum-algorithms-tutorials</a>
 $<span class="math notranslate nohighlight">\(
 e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
@@ -600,7 +603,7 @@ e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
 </section>
 </section>
 <section id="observables">
-<h2>Observables<a class="headerlink" href="#observables" title="Permalink to this heading">#</a></h2>
+<h2>Observables<a class="headerlink" href="#observables" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">multi_dot</span><span class="p">([</span><span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">),</span> <span class="n">SparsePauliOp</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)])</span>
@@ -628,7 +631,7 @@ e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
 </div>
 </div>
 <section id="pauli">
-<h3>Pauli<a class="headerlink" href="#pauli" title="Permalink to this heading">#</a></h3>
+<h3>Pauli<a class="headerlink" href="#pauli" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pauli_basis</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -679,7 +682,7 @@ e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
 </div>
 </section>
 <section id="random-pauli">
-<h3>random pauli<a class="headerlink" href="#random-pauli" title="Permalink to this heading">#</a></h3>
+<h3>random pauli<a class="headerlink" href="#random-pauli" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_pauli</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -694,10 +697,10 @@ e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
 </div>
 </section>
 <section id="random-pauli-with-fixed-weight">
-<h3>random pauli with fixed weight<a class="headerlink" href="#random-pauli-with-fixed-weight" title="Permalink to this heading">#</a></h3>
+<h3>random pauli with fixed weight<a class="headerlink" href="#random-pauli-with-fixed-weight" title="Link to this heading">#</a></h3>
 </section>
 <section id="random-hermitian">
-<h3>random Hermitian<a class="headerlink" href="#random-hermitian" title="Permalink to this heading">#</a></h3>
+<h3>random Hermitian<a class="headerlink" href="#random-hermitian" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_hermitian</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
@@ -720,10 +723,10 @@ e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
 </div>
 </section>
 <section id="energy">
-<h3>Energy<a class="headerlink" href="#energy" title="Permalink to this heading">#</a></h3>
+<h3>Energy<a class="headerlink" href="#energy" title="Link to this heading">#</a></h3>
 </section>
 <section id="spin-magnetization-correlation-otoc">
-<h3>Spin: magnetization, correlation, OTOC<a class="headerlink" href="#spin-magnetization-correlation-otoc" title="Permalink to this heading">#</a></h3>
+<h3>Spin: magnetization, correlation, OTOC<a class="headerlink" href="#spin-magnetization-correlation-otoc" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span>  <span class="o">=</span> <span class="mi">4</span>
@@ -742,7 +745,7 @@ e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
 </div>
 </section>
 <section id="expectation-value">
-<h3>Expectation value<a class="headerlink" href="#expectation-value" title="Permalink to this heading">#</a></h3>
+<h3>Expectation value<a class="headerlink" href="#expectation-value" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">DensityMatrix</span>
@@ -762,9 +765,9 @@ e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
 </section>
 </section>
 <section id="unitaries">
-<h2>Unitaries<a class="headerlink" href="#unitaries" title="Permalink to this heading">#</a></h2>
+<h2>Unitaries<a class="headerlink" href="#unitaries" title="Link to this heading">#</a></h2>
 <section id="random-unitary">
-<h3>Random unitary<a class="headerlink" href="#random-unitary" title="Permalink to this heading">#</a></h3>
+<h3>Random unitary<a class="headerlink" href="#random-unitary" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_unitary</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
@@ -787,7 +790,7 @@ e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
 </div>
 </section>
 <section id="random-gate">
-<h3>Random gate<a class="headerlink" href="#random-gate" title="Permalink to this heading">#</a></h3>
+<h3>Random gate<a class="headerlink" href="#random-gate" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_clifford</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
@@ -810,15 +813,15 @@ e^{-i XX t} = \text{CNOT} (I\otimes e^{-i X t}) \text{CNOT}
 </section>
 </section>
 <section id="measures">
-<h2>Measures<a class="headerlink" href="#measures" title="Permalink to this heading">#</a></h2>
+<h2>Measures<a class="headerlink" href="#measures" title="Link to this heading">#</a></h2>
 <section id="anti-commutator">
-<h3>(Anti) commutator<a class="headerlink" href="#anti-commutator" title="Permalink to this heading">#</a></h3>
+<h3>(Anti) commutator<a class="headerlink" href="#anti-commutator" title="Link to this heading">#</a></h3>
 </section>
 </section>
 <section id="norms">
-<h2>Norms<a class="headerlink" href="#norms" title="Permalink to this heading">#</a></h2>
+<h2>Norms<a class="headerlink" href="#norms" title="Link to this heading">#</a></h2>
 <section id="vector-induced-norm">
-<h3>Vector induced norm<a class="headerlink" href="#vector-induced-norm" title="Permalink to this heading">#</a></h3>
+<h3>Vector induced norm<a class="headerlink" href="#vector-induced-norm" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s2">&quot;XIIZI&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;IYIIY&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
@@ -842,7 +845,7 @@ Frobenius norm:  12.649110640673518
 </div>
 </section>
 <section id="schatten-p-norm">
-<h3>Schatten p norm<a class="headerlink" href="#schatten-p-norm" title="Permalink to this heading">#</a></h3>
+<h3>Schatten p norm<a class="headerlink" href="#schatten-p-norm" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([(</span><span class="s1">&#39;XX&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;YX&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
@@ -860,7 +863,7 @@ Frobenius norm:  12.649110640673518
 </section>
 </section>
 <section id="entenglement">
-<h2>Entenglement<a class="headerlink" href="#entenglement" title="Permalink to this heading">#</a></h2>
+<h2>Entenglement<a class="headerlink" href="#entenglement" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### purity</span>
@@ -904,7 +907,7 @@ Frobenius norm:  12.649110640673518
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Entropy distribution&#39;)
 </pre></div>
 </div>
-<img alt="_images/dbc27221b173bfb889aaab8c583411f0aa50cb5a75897713c6cd7c5c36693e69.png" src="_images/dbc27221b173bfb889aaab8c583411f0aa50cb5a75897713c6cd7c5c36693e69.png" />
+<a class="reference internal image-reference" href="_images/dbc27221b173bfb889aaab8c583411f0aa50cb5a75897713c6cd7c5c36693e69.png"><img alt="_images/dbc27221b173bfb889aaab8c583411f0aa50cb5a75897713c6cd7c5c36693e69.png" src="_images/dbc27221b173bfb889aaab8c583411f0aa50cb5a75897713c6cd7c5c36693e69.png" style="width: 629px; height: 497px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -923,7 +926,7 @@ Frobenius norm:  12.649110640673518
 </div>
 </section>
 <section id="quantum-circuit">
-<h2>Quantum circuit<a class="headerlink" href="#quantum-circuit" title="Permalink to this heading">#</a></h2>
+<h2>Quantum circuit<a class="headerlink" href="#quantum-circuit" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
@@ -941,7 +944,7 @@ Frobenius norm:  12.649110640673518
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f97e47242efd256f7b13b2dd160f43242f73d46121dca54ebf44c1ef27460acf.png" src="_images/f97e47242efd256f7b13b2dd160f43242f73d46121dca54ebf44c1ef27460acf.png" />
+<a class="reference internal image-reference" href="_images/f97e47242efd256f7b13b2dd160f43242f73d46121dca54ebf44c1ef27460acf.png"><img alt="_images/f97e47242efd256f7b13b2dd160f43242f73d46121dca54ebf44c1ef27460acf.png" src="_images/f97e47242efd256f7b13b2dd160f43242f73d46121dca54ebf44c1ef27460acf.png" style="width: 563px; height: 625px;" /></a>
 </div>
 </div>
 </section>
@@ -974,7 +977,7 @@ Frobenius norm:  12.649110640673518
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1003,6 +1006,7 @@ Frobenius norm:  12.649110640673518
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1064,7 +1068,7 @@ By Jue Xu
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1088,8 +1092,8 @@ By Jue Xu
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

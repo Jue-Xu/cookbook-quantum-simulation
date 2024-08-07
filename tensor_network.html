@@ -58,6 +58,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tensor_network';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -182,23 +184,33 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field.html">Gauge Field</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="current nav bd-sidenav">
@@ -382,7 +394,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -398,6 +412,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-tebd-example">A first TEBD Example</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -414,6 +436,212 @@ document.write(`
 <li><p><a class="reference external" href="https://itensor.github.io/ITensors.jl/dev/examples/MPSandMPO.html">ITensors</a></p></li>
 <li><p><a class="reference external" href="https://quantumkithub.github.io/MPSKit.jl/dev/examples/quantum1d/3.ising-dqpt/#DQPT-in-the-Ising-model(&#64;id-demo_dqpt)">MPSKit</a></p></li>
 </ul>
+<section id="a-first-tebd-example">
+<h2>A first TEBD Example<a class="headerlink" href="#a-first-tebd-example" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">physics-tenpy</span></code></p>
+<p>Like <code class="docutils literal notranslate"><span class="pre">examples/c_tebd.py</span></code>, this notebook shows the basic interface for TEBD.
+It initalized the transverse field Ising model <span class="math notranslate nohighlight">\(H = J XX + g Z\)</span> at the critical point <span class="math notranslate nohighlight">\(J=g=1\)</span>,
+and an MPS in the all-up state <span class="math notranslate nohighlight">\(|\uparrow\cdots \uparrow\rangle\)</span>.
+It then performs a real-time evolution with TEBD and measures a few observables.
+This setup correspond to a global quench from <span class="math notranslate nohighlight">\(g =\infty\)</span> to <span class="math notranslate nohighlight">\(g=1\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tenpy</span>
+<span class="kn">import</span> <span class="nn">tenpy.linalg.np_conserved</span> <span class="k">as</span> <span class="nn">npc</span>
+<span class="kn">from</span> <span class="nn">tenpy.linalg</span> <span class="kn">import</span> <span class="n">np_conserved</span> <span class="k">as</span> <span class="n">npc</span>
+<span class="kn">from</span> <span class="nn">tenpy.algorithms</span> <span class="kn">import</span> <span class="n">tebd</span>
+<span class="kn">from</span> <span class="nn">tenpy.networks.mps</span> <span class="kn">import</span> <span class="n">MPS</span>
+<span class="kn">from</span> <span class="nn">tenpy.models.tf_ising</span> <span class="kn">import</span> <span class="n">TFIChain</span>
+
+<span class="c1"># tenpy.tools.misc.setup_logging(to_stdout=&quot;INFO&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">tenpy</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">tenpy.linalg.np_conserved</span> <span class="k">as</span> <span class="nn">npc</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">tenpy.linalg</span> <span class="kn">import</span> <span class="n">np_conserved</span> <span class="k">as</span> <span class="n">npc</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;tenpy&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">L</span> <span class="o">=</span> <span class="mi">20</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;J&#39;</span><span class="p">:</span> <span class="mf">1.</span> <span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">:</span> <span class="mf">1.</span><span class="p">,</span>  <span class="c1"># critical</span>
+    <span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="n">L</span><span class="p">,</span>
+    <span class="s1">&#39;bc_MPS&#39;</span><span class="p">:</span> <span class="s1">&#39;finite&#39;</span><span class="p">,</span>    
+<span class="p">}</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">TFIChain</span><span class="p">(</span><span class="n">model_params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/networks/site.py:1227: FutureWarning: LegCharge of physical leg in site SpinHalfSite(&#39;parity&#39;) is not sorted. You should explicitly set `sort_charge`. Set it to False, if you already have saved data for your model and want to be able to load it/keep backwards compatibility. For new projects, if you don&#39;t have data yet, set it to `True`. We will switch the default from False to True in version 1.0, which breaks compatibility of existing data with code/models that don&#39;t explicitly set sort_legcharge.
+  Site.__init__(self, leg, [&#39;up&#39;, &#39;down&#39;], sort_charge=sort_charge, **ops)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psi</span> <span class="o">=</span> <span class="n">MPS</span><span class="o">.</span><span class="n">from_lat_product_state</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="p">[[</span><span class="s1">&#39;up&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tebd_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;N_steps&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;dt&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s1">&#39;trunc_params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;chi_max&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;svd_min&#39;</span><span class="p">:</span> <span class="mf">1.e-12</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="n">eng</span> <span class="o">=</span> <span class="n">tebd</span><span class="o">.</span><span class="n">TEBDEngine</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">tebd_params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">measurement</span><span class="p">(</span><span class="n">eng</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="s1">&#39;Sx&#39;</span><span class="p">,</span> <span class="s1">&#39;Sz&#39;</span><span class="p">,</span> <span class="s1">&#39;corr_XX&#39;</span><span class="p">,</span> <span class="s1">&#39;corr_ZZ&#39;</span><span class="p">,</span> <span class="s1">&#39;trunc_err&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">])</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eng</span><span class="o">.</span><span class="n">evolved_time</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;entropy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eng</span><span class="o">.</span><span class="n">psi</span><span class="o">.</span><span class="n">entanglement_entropy</span><span class="p">())</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eng</span><span class="o">.</span><span class="n">psi</span><span class="o">.</span><span class="n">expectation_value</span><span class="p">(</span><span class="s1">&#39;Sigmax&#39;</span><span class="p">))</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sz&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eng</span><span class="o">.</span><span class="n">psi</span><span class="o">.</span><span class="n">expectation_value</span><span class="p">(</span><span class="s1">&#39;Sigmaz&#39;</span><span class="p">))</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;corr_XX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eng</span><span class="o">.</span><span class="n">psi</span><span class="o">.</span><span class="n">correlation_function</span><span class="p">(</span><span class="s1">&#39;Sigmax&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigmax&#39;</span><span class="p">))</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;trunc_err&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eng</span><span class="o">.</span><span class="n">trunc_err</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">measurement</span><span class="p">(</span><span class="n">eng</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">eng</span><span class="o">.</span><span class="n">evolved_time</span> <span class="o">&lt;</span> <span class="mf">5.</span><span class="p">:</span>
+    <span class="n">eng</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">measurement</span><span class="p">(</span><span class="n">eng</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;entropy&#39;</span><span class="p">])[:,</span> <span class="n">L</span><span class="o">//</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time $t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;entropy $S$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;entropy $S$&#39;)
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/26c1ecce2f125a183c1ede81be804c1803aa5e1f3d527a9a4f31f02913f8d3ef.png"><img alt="_images/26c1ecce2f125a183c1ede81be804c1803aa5e1f3d527a9a4f31f02913f8d3ef.png" src="_images/26c1ecce2f125a183c1ede81be804c1803aa5e1f3d527a9a4f31f02913f8d3ef.png" style="width: 568px; height: 432px;" /></a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sx&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sz&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Z&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time $t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;magnetization&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x137e333d0&gt;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/cb5f1a0cb9ffdf8c3c11e782ca21637a0c447274480f0d7740aa90597ea36a48.png"><img alt="_images/cb5f1a0cb9ffdf8c3c11e782ca21637a0c447274480f0d7740aa90597ea36a48.png" src="_images/cb5f1a0cb9ffdf8c3c11e782ca21637a0c447274480f0d7740aa90597ea36a48.png" style="width: 576px; height: 432px;" /></a>
+</div>
+</div>
+<p>The strict conservation of <code class="docutils literal notranslate"><span class="pre">X</span></code> being zero is ensured by charge conservation, because <code class="docutils literal notranslate"><span class="pre">X</span></code> changes the parity sector.</p>
+<p>Nevertheless, the <code class="docutils literal notranslate"><span class="pre">XX</span></code> correlation function can be nontrivial:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;corr_XX&#39;</span><span class="p">])</span>
+<span class="n">tmax</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{t:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">corrs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">L</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">tmax</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;time $t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;correlations $\langle X_i X_</span><span class="si">{j:d}</span><span class="s1">\rangle$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">L</span><span class="o">//</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">1.e-4</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/207dc095a65667a72100a04bfc54dd5bb34e0d0fdf0f10a82a1878934c0fd8cc.png"><img alt="_images/207dc095a65667a72100a04bfc54dd5bb34e0d0fdf0f10a82a1878934c0fd8cc.png" src="_images/207dc095a65667a72100a04bfc54dd5bb34e0d0fdf0f10a82a1878934c0fd8cc.png" style="width: 579px; height: 438px;" /></a>
+</div>
+</div>
+<p>The output of the run showed that we gradually increased the bond dimension and only reached the maximum chi around <span class="math notranslate nohighlight">\(t=2.5\)</span>. At this point we start to truncate significantly, because we cut off the tail whatever the singular values are. This is clearly visible if we plot the truncation error vs. time below. Note the log-scale, though: if you are fine with an error of say 1 permille for expectation values, you can still go on for a bit more!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;trunc_err&#39;</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="c1">#plt.ylim(1.e-15, 1.)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time $t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;truncation error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;truncation error&#39;)
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/85cd99658c2c14ba16555a726514da876a0d07ed9b6d0d4329687d0adf612dc5.png"><img alt="_images/85cd99658c2c14ba16555a726514da876a0d07ed9b6d0d4329687d0adf612dc5.png" src="_images/85cd99658c2c14ba16555a726514da876a0d07ed9b6d0d4329687d0adf612dc5.png" style="width: 583px; height: 432px;" /></a>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -470,6 +698,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-tebd-example">A first TEBD Example</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

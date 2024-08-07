@@ -61,7 +61,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'channel';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Spin" href="spin.html" />
+    <link rel="next" title="Quantum simulation" href="simulation.html" />
     <link rel="prev" title="Operators" href="operator.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -182,23 +182,33 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Channels</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="basic.html">Quantum computation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Channels</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field.html">Gauge Field</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -462,19 +472,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">qiskit_aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Kraus</span><span class="p">,</span> <span class="n">SuperOp</span><span class="p">,</span> <span class="n">random_quantum_channel</span><span class="p">,</span> <span class="n">PTM</span><span class="p">,</span> <span class="n">Choi</span><span class="p">,</span> <span class="n">Chi</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit_aer&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <section id="representation">
 <h2>Representation<a class="headerlink" href="#representation" title="Link to this heading">#</a></h2>
@@ -489,14 +486,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stinespring([[ 0.03849769+0.02036647j, -0.698461  -0.09797363j],
-             [-0.0819251 +0.11373122j, -0.05175353+0.46665556j],
-             [-0.15717588+0.11410124j,  0.07142001+0.09756838j],
-             [ 0.00692667+0.03544208j,  0.00834859+0.31888786j],
-             [ 0.14203522-0.13634234j, -0.09643058+0.12861438j],
-             [-0.09117948-0.34925634j,  0.02034073+0.10721822j],
-             [-0.56400128+0.6295895j , -0.09551063-0.09133277j],
-             [-0.0836914 -0.22110541j, -0.33102433-0.030609j  ]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stinespring([[-0.05760772+0.00106509j, -0.19350963-0.0401619j ],
+             [ 0.24365713-0.09010473j, -0.08502675+0.15826805j],
+             [ 0.23490127-0.15828181j,  0.24164486-0.63383471j],
+             [-0.49953996-0.40729664j,  0.33613988-0.13725047j],
+             [-0.23165985-0.1400763j , -0.241295  +0.13371234j],
+             [-0.1796485 +0.50822143j,  0.19129119-0.13145751j],
+             [-0.04028069+0.14143228j,  0.25705094+0.259912j  ],
+             [-0.12779897+0.17810568j, -0.25469481-0.0906741j ]],
             input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -519,14 +516,14 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>num_qubits:  1
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00-9.52787305e-18j, -2.08166817e-17+0.00000000e+00j,
-       2.77555756e-17+0.00000000e+00j, -3.33066907e-16-6.88837700e-18j],
-     [-9.09489194e-02+0.00000000e+00j, -3.72195758e-01+0.00000000e+00j,
-       2.01356134e-02+0.00000000e+00j, -1.88193128e-01+0.00000000e+00j],
-     [ 1.07371749e-01+0.00000000e+00j,  3.69139869e-01+0.00000000e+00j,
-      -1.20645755e-01+0.00000000e+00j, -4.81331497e-01+0.00000000e+00j],
-     [-1.56748013e-01+8.54415943e-18j,  1.14009043e-01+0.00000000e+00j,
-      -4.85784633e-01+0.00000000e+00j, -1.72685021e-01+4.62303219e-19j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00-4.01384889e-18j,  0.00000000e+00-1.38777878e-17j,
+      -1.38777878e-17+0.00000000e+00j, -1.11022302e-16-5.44312317e-18j],
+     [-1.53725014e-01+0.00000000e+00j, -4.46499899e-01+0.00000000e+00j,
+      -4.70591410e-01+0.00000000e+00j,  3.05936384e-01+0.00000000e+00j],
+     [-1.27485259e-01+0.00000000e+00j,  2.56194680e-01+0.00000000e+00j,
+      -7.99948838e-02+0.00000000e+00j,  6.13231363e-01+0.00000000e+00j],
+     [ 1.09430915e-01-3.90780595e-18j, -4.06349554e-01+2.77555756e-17j,
+       3.85837626e-01+0.00000000e+00j,  3.55899224e-01-6.57271250e-18j]],
     input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -539,14 +536,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00-2.40259894e-18j, -3.65286159e-17+1.06400890e-17j,
-      -3.25381917e-17-3.48337848e-19j,  8.10475729e-17-2.95275781e-18j],
-     [-5.03863959e-01-3.97212202e-18j,  8.72077238e-02+7.41407448e-18j,
-      -4.36095725e-02-9.82187287e-18j, -2.73736239e-02+4.42821287e-18j],
-     [ 3.66501244e-01+1.11459993e-17j, -5.33738689e-02-5.89698216e-18j,
-       8.10998407e-02-1.25503009e-17j, -9.32187871e-02+2.08189613e-18j],
-     [-2.18558871e-01-7.45593673e-18j,  5.86923694e-02-9.37442687e-18j,
-       2.00888015e-01-1.19893761e-17j, -7.11955275e-03-7.38513938e-19j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00-6.48998061e-18j,  4.15584477e-17-5.46954628e-18j,
+      -5.56042174e-17+4.43060601e-18j, -1.59045349e-16-1.16260467e-17j],
+     [ 8.38555556e-03-5.78511045e-19j, -4.55179698e-02+1.06248036e-17j,
+       3.65805691e-01+0.00000000e+00j, -3.16299455e-01-1.17408771e-18j],
+     [-8.95641523e-02-1.88468260e-18j, -3.84071454e-01+1.87898029e-17j,
+       1.22443899e-01+0.00000000e+00j,  2.47572469e-01-3.33667548e-18j],
+     [ 1.61654774e-01-1.07238144e-17j,  1.35665091e-01-1.36251410e-18j,
+       2.97678886e-01-1.55975353e-17j,  2.38954878e-01+3.21734794e-18j]],
     input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -579,17 +576,17 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kraus([[[ 0.40797192-0.21907435j, -0.04302789-0.46760563j],
-        [-0.02762658-0.30734793j, -0.02968974+0.05646335j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kraus([[[-0.17941934-0.19947241j,  0.56582495-0.07551515j],
+        [ 0.07241651-0.02233852j, -0.01348322+0.16554775j]],
 
-       [[-0.31594324-0.24582982j,  0.22465833-0.25842112j],
-        [-0.29698492+0.15016866j,  0.33448024-0.03782379j]],
+       [[ 0.4246768 +0.17407772j,  0.22289218+0.26345085j],
+        [-0.2122798 -0.22752199j, -0.07116099-0.13966675j]],
 
-       [[ 0.29609313-0.1089395j ,  0.17119268-0.49213072j],
-        [-0.19383795-0.15392175j,  0.30024441-0.14315255j]],
+       [[-0.04528953+0.60580496j,  0.06824045+0.07371949j],
+        [ 0.2525324 -0.04565637j,  0.02473258+0.10779692j]],
 
-       [[ 0.15164906-0.06327016j,  0.22433035+0.00823283j],
-        [ 0.47619079-0.06909437j, -0.07334134+0.32703776j]]],
+       [[ 0.09352321-0.39500915j, -0.4359677 +0.1497757j ],
+        [ 0.11908917+0.03041284j, -0.20835034-0.47398324j]]],
       input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -607,14 +604,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SuperOp([[ 0.35072481-2.86610956e-18j, -0.14007719-7.01581293e-02j,
-          -0.14007719+7.01581293e-02j,  0.31865109-3.53173471e-18j],
-         [ 0.30439855+2.40310794e-01j, -0.10928561+8.78976417e-03j,
-          -0.03296743-5.41481067e-03j,  0.20376672+2.19722547e-01j],
-         [ 0.30439855-2.40310794e-01j, -0.03296743+5.41481067e-03j,
-          -0.10928561-8.78976417e-03j,  0.20376672-2.19722547e-01j],
-         [ 0.64927519+1.59760684e-19j,  0.14007719+7.01581293e-02j,
-           0.14007719-7.01581293e-02j,  0.68134891-2.87830609e-18j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SuperOp([[ 0.64214034+9.27527515e-18j,  0.16489422-8.84075857e-02j,
+           0.16489422+8.84075857e-02j,  0.51461971+3.86907564e-18j],
+         [-0.03290193-2.89094323e-02j, -0.22882478+1.82662407e-01j,
+           0.07532535-2.32493105e-01j, -0.21609686+5.06825265e-02j],
+         [-0.03290193+2.89094323e-02j,  0.07532535+2.32493105e-01j,
+          -0.22882478-1.82662407e-01j, -0.21609686-5.06825265e-02j],
+         [ 0.35785966-5.76426351e-18j, -0.16489422+8.84075857e-02j,
+          -0.16489422-8.84075857e-02j,  0.48538029-1.77327844e-18j]],
         input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -633,14 +630,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Choi([[ 5.79887972e-01-1.35042435e-17j, -3.83764342e-01+8.14399434e-02j,
-       -3.70265417e-04+8.17702963e-02j,  2.46990613e-01+4.54470675e-02j],
-      [-3.83764342e-01-8.14399434e-02j,  4.20112028e-01+1.10093054e-17j,
-       -9.87365214e-02-2.68883634e-01j,  3.70265417e-04-8.17702963e-02j],
-      [-3.70265417e-04-8.17702963e-02j, -9.87365214e-02+2.68883634e-01j,
-        4.72549646e-01+1.03334622e-18j, -1.67075303e-01+1.19816900e-01j],
-      [ 2.46990613e-01-4.54470675e-02j,  3.70265417e-04+8.17702963e-02j,
-       -1.67075303e-01-1.19816900e-01j,  5.27450354e-01-4.91109101e-18j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Choi([[ 0.72262348+1.00484506e-18j, -0.17478786-2.34800356e-01j,
+        0.00209029-3.71371876e-02j, -0.01886255-3.08231704e-01j],
+      [-0.17478786+2.34800356e-01j,  0.27737652-8.22472202e-19j,
+        0.11520672+1.31236789e-01j, -0.00209029+3.71371876e-02j],
+      [ 0.00209029+3.71371876e-02j,  0.11520672-1.31236789e-01j,
+        0.56322081-1.01601546e-17j, -0.21951808+2.04505367e-02j],
+      [-0.01886255+3.08231704e-01j, -0.00209029-3.71371876e-02j,
+       -0.21951808-2.04505367e-02j,  0.43677919+7.00393374e-19j]],
      input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -658,14 +655,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chi([[ 0.11737619-3.46944695e-18j, -0.06467212+2.71818885e-02j,
-      -0.00854459+2.51498699e-01j, -0.02205206+4.17213701e-02j],
-     [-0.06467212-2.71818885e-02j,  0.39124272+6.93889390e-18j,
-       0.09044332+2.20520604e-02j,  0.05584356-8.54458617e-03j],
-     [-0.00854459-2.51498699e-01j,  0.09044332-2.20520604e-02j,
-       1.3812895 +6.93889390e-18j,  0.13840778+6.46721240e-02j],
-     [-0.02205206-4.17213701e-02j,  0.05584356+8.54458617e-03j,
-       0.13840778-6.46721240e-02j,  0.11009159-3.46944695e-18j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chi([[ 0.23488927+0.00000000e+00j, -0.10118734-1.76615153e-01j,
+      -0.22077932-1.13171400e-01j, -0.13785354+1.07178903e-01j],
+     [-0.10118734+1.76615153e-01j,  0.55362796-6.93889390e-18j,
+      -0.09052323+1.37853541e-01j, -0.17748885-2.20779316e-01j],
+     [-0.22077932+1.13171400e-01j, -0.09052323-1.37853541e-01j,
+       0.80167029-6.93889390e-18j, -0.00108296+1.01187340e-01j],
+     [-0.13785354-1.07178903e-01j, -0.17748885+2.20779316e-01j,
+      -0.00108296-1.01187340e-01j,  0.40981248+0.00000000e+00j]],
     input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -683,7 +680,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5734653416497364
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3758783814644344
 </pre></div>
 </div>
 </div>
@@ -696,7 +693,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5232190682672958
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.628338852898806
 </pre></div>
 </div>
 </div>
@@ -709,7 +706,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4836283339885725
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5242513260008301
 </pre></div>
 </div>
 </div>
@@ -993,7 +990,7 @@ meas: 4/════════════════════════
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/1cafd7e284e37ff2bf2fe470fbaf2b7b35110c319c629e22666e238916030162.png"><img alt="_images/1cafd7e284e37ff2bf2fe470fbaf2b7b35110c319c629e22666e238916030162.png" src="_images/1cafd7e284e37ff2bf2fe470fbaf2b7b35110c319c629e22666e238916030162.png" style="width: 633px; height: 467px;" /></a>
+<a class="reference internal image-reference" href="_images/9c915a08b3071d091c89f9abf12bb96066361cc5df118e9c6772cfc977df1b68.png"><img alt="_images/9c915a08b3071d091c89f9abf12bb96066361cc5df118e9c6772cfc977df1b68.png" src="_images/9c915a08b3071d091c89f9abf12bb96066361cc5df118e9c6772cfc977df1b68.png" style="width: 633px; height: 467px;" /></a>
 </div>
 </div>
 <section id="from-qiskit-aer-import-aersimulator">
@@ -1025,7 +1022,7 @@ meas: 4/════════════════════════
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NoiseModel:
   Basis gates: [&#39;cx&#39;, &#39;id&#39;, &#39;rz&#39;, &#39;sx&#39;, &#39;u1&#39;, &#39;u2&#39;, &#39;u3&#39;]
-  Instructions with noise: [&#39;u1&#39;, &#39;u2&#39;, &#39;cx&#39;, &#39;u3&#39;, &#39;reset&#39;, &#39;measure&#39;]
+  Instructions with noise: [&#39;u3&#39;, &#39;u2&#39;, &#39;measure&#39;, &#39;cx&#39;, &#39;reset&#39;, &#39;u1&#39;]
   All-qubits errors: [&#39;reset&#39;, &#39;measure&#39;, &#39;u1&#39;, &#39;u2&#39;, &#39;u3&#39;, &#39;cx&#39;]
 </pre></div>
 </div>
@@ -1050,18 +1047,13 @@ meas: 4/════════════════════════
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">32</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sim_noise</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">(</span><span class="n">noise_model</span><span class="o">=</span><span class="n">noise_bit_flip</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Transpile circuit for noisy basis gates</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">passmanager</span> <span class="o">=</span> <span class="n">generate_preset_pass_manager</span><span class="p">(</span><span class="n">optimization_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">sim_noise</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">circ_tnoise</span> <span class="o">=</span> <span class="n">passmanager</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Run and get counts</span>
-
-<span class="ne">NameError</span>: name &#39;generate_preset_pass_manager&#39; is not defined
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/numpy/linalg/linalg.py:2154: RuntimeWarning: divide by zero encountered in det
+  r = _umath_linalg.det(a, signature=signature)
+/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/numpy/linalg/linalg.py:2154: RuntimeWarning: invalid value encountered in det
+  r = _umath_linalg.det(a, signature=signature)
 </pre></div>
 </div>
+<a class="reference internal image-reference" href="_images/a2a76f484e8817f70fe4e322b187af6828e9c89b730f636e653b8261c726c2f4.png"><img alt="_images/a2a76f484e8817f70fe4e322b187af6828e9c89b730f636e653b8261c726c2f4.png" src="_images/a2a76f484e8817f70fe4e322b187af6828e9c89b730f636e653b8261c726c2f4.png" style="width: 633px; height: 467px;" /></a>
 </div>
 </div>
 </section>
@@ -1118,11 +1110,11 @@ meas: 4/════════════════════════
       </div>
     </a>
     <a class="right-next"
-       href="spin.html"
+       href="simulation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Spin</p>
+        <p class="prev-next-title">Quantum simulation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

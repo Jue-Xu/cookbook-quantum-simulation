@@ -7,6 +7,8 @@
 <!-- Check out the content pages bundled with this sample book to see more. -->
 <!-- Table of Content -->
 
+This is a pedagogic tutorial on quantum simulation with code.
+
 ```{tableofcontents}
 ```
 

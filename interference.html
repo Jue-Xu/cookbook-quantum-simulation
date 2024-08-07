@@ -182,23 +182,33 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field.html">Gauge Field</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="trotter.html">Product formula</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Error interference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -485,87 +495,49 @@ XYZ grouping:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
-+++++++++++++
+++++++++++++++++++
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++++++++
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++50
-++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++100
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++++50
+++++++
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++++++
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++++++++150
-+++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++++
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++++++
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
+++++++++++++++
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++++++
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++150
++++++++
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++++
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++++++
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++
 </pre></div>
 </div>
 </div>
@@ -599,15 +571,13 @@ XYZ grouping:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope (a): 1.0153374948094782 ; Intercept (b): -8.731478941375851
-Slope (a): 2.867061838705048 ; Intercept (b): -20.065041336116394
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope (a): 1.0153374796010513 ; Intercept (b): -8.731478879450819
+Slope (a): 2.8670618374102497 ; Intercept (b): -20.065041327877893
 Slope (a): 2.0 ; Intercept (b): -9.433483923290392
+title: &lt;&lt;PF1, TFI (J=1, h=0.2), r=10000&gt;&gt;
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>title: &lt;&lt;PF1, TFI (J=1, h=0.2), r=10000&gt;&gt;
-</pre></div>
-</div>
-<img alt="_images/4349b10419baa516d482d334aad2df2579733191305cca9169e5c784a0824749.png" src="_images/4349b10419baa516d482d334aad2df2579733191305cca9169e5c784a0824749.png" />
+<img alt="_images/f2e4fd14ac72fe9208e65e3abd9a5a4188a282637cfdbcced350f20b1b6570a5.png" src="_images/f2e4fd14ac72fe9208e65e3abd9a5a4188a282637cfdbcced350f20b1b6570a5.png" />
 </div>
 </div>
 </section>

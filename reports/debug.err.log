@@ -92,13 +92,13 @@ File [0;32m/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages
   (0, 12)	0j
   (0, 48)	0j
   (0, 192)	0j
-  (1, 1)	-0.012000000000000002j
+  (1, 1)	-0.012j
   (1, 2)	-0.01j
   (1, 13)	0j
   (1, 49)	0j
   (1, 193)	0j
   (2, 1)	-0.01j
-  (2, 2)	-0.014000000000000002j
+  (2, 2)	-0.013999999999999999j
   (2, 14)	0j
   (2, 50)	0j
   (2, 194)	0j
@@ -137,5 +137,5 @@ File [0;32m/opt/hostedtoolcache/Python/3.10.14/x64/lib/python3.10/site-packages
   (255, 207)	0j
   (255, 243)	0j
   (255, 252)	0j
-  (255, 255)	-0.016j' of type <class 'scipy.sparse._csr.csr_matrix'> is not a valid JAX type.
+  (255, 255)	-0.015999999999999997j' of type <class 'scipy.sparse._csr.csr_matrix'> is not a valid JAX type.
 

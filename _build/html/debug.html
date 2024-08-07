@@ -179,23 +179,33 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field.html">Gauge Field</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -500,14 +510,14 @@ The parity grouping:
 <span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">exact_ob_s</span> <span class="o">=</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">singl_ob</span> <span class="o">@</span> <span class="n">exact_U</span> 
 <span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">appro_ob_s</span> <span class="o">=</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">singl_ob</span> <span class="o">@</span> <span class="n">appro_U</span>
 
-<span class="nn">File ~/GitHub/Quantum-Simulation-Cookbook/trotter.py:97,</span> in <span class="ni">pf_r</span><span class="nt">(h_list, t, r, order, verbose, use_jax)</span>
+<span class="nn">File ~/GitHub/Cookbook-Quantum-Simulation/trotter.py:97,</span> in <span class="ni">pf_r</span><span class="nt">(h_list, t, r, order, verbose, use_jax)</span>
 <span class="g g-Whitespace">     </span><span class="mi">95</span> <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
 <span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="k">if</span> <span class="n">use_jax</span><span class="p">:</span>
 <span class="ne">---&gt; </span><span class="mi">97</span>         <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">))</span> <span class="o">*</span> <span class="n">herm</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
 <span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="k">else</span><span class="p">:</span>
 <span class="g g-Whitespace">     </span><span class="mi">99</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">csr_matrix</span><span class="p">):</span>
 
-<span class="nn">File ~/GitHub/Quantum-Simulation-Cookbook/trotter.py:97,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="nn">File ~/GitHub/Cookbook-Quantum-Simulation/trotter.py:97,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
 <span class="g g-Whitespace">     </span><span class="mi">95</span> <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
 <span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="k">if</span> <span class="n">use_jax</span><span class="p">:</span>
 <span class="ne">---&gt; </span><span class="mi">97</span>         <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">))</span> <span class="o">*</span> <span class="n">herm</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>

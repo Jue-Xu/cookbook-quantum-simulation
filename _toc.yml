@@ -6,36 +6,36 @@ root: intro
 parts:
   - caption: Basics
     chapters:
-    # - file: basic
-    #   sections:
-    - file: state
-    - file: operator
-    # - file: quantities
-    - file: channel
+    - file: basic
+      sections:
+        - file: state
+        - file: operator
+        # - file: quantities
+        - file: channel
+    - file: simulation
+    - file: hamiltonian
+      sections:
+        - file: spin
+        - file: fermion
+        - file: field
 
-  - caption: Hamiltonians
+  - caption: Algorithms
     chapters:
-    - file: spin
-    - file: fermion
-    - file: field
-
-  - caption: Product Formula
-    chapters:
-    - file: ordering
-    - file: grouping
-    - file: interference
-    - file: localization
-    - file: average
+    - file: trotter
+      sections:
+        - file: ordering
+        - file: grouping
+        - file: interference
+        - file: localization
+        - file: average
     # - file: trotter_bound
     #   # sections:
     # - file: long_time
     #   # - file: short_time
     #   # - file: random_input
     # - file: adaptive
-
-  # - caption: LCU
-  #   chapters:
-  #   - file: anticommute
+    - file: lcu
+    - file: qsp
 
   - caption: Classical simulation
     chapters:

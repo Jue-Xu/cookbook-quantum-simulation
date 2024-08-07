@@ -1,0 +1,2173 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Quantum Chemistry Systems &#8212; Quantum Simulation Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ordering_chem';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Quantum Simulation Cookbook - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Quantum Simulation Cookbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Quantum Simulation Cookbook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field.html">Gauge Field</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="path_integral.html">Pauli path integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor network</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fordering_chem.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/ordering_chem.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Quantum Chemistry Systems</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h2o">H2O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hydrogen-chain">Hydrogen chain</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openfermion-simulate-trotter">Openfermion simulate_trotter</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="quantum-chemistry-systems">
+<h1>Quantum Chemistry Systems<a class="headerlink" href="#quantum-chemistry-systems" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## import necessary packages</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">cmath</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">matrix_power</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">expm</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># import utils as utils</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">fermion_ham</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
+<span class="kn">from</span> <span class="nn">openfermion</span> <span class="kn">import</span> <span class="n">MolecularData</span>
+<span class="kn">from</span> <span class="nn">openfermion.transforms</span> <span class="kn">import</span> <span class="n">get_fermion_operator</span><span class="p">,</span> <span class="n">jordan_wigner</span>
+<span class="kn">from</span> <span class="nn">openfermion.linalg</span> <span class="kn">import</span> <span class="n">get_ground_state</span><span class="p">,</span> <span class="n">get_sparse_operator</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="h2o">
+<h2>H2O<a class="headerlink" href="#h2o" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h2o</span> <span class="o">=</span> <span class="n">h2o_hamiltonian</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;====start Trotter====&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">n_perm</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">error_list_pf1</span><span class="p">,</span> <span class="n">error_list_pf2</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sparse_trotter_error</span><span class="p">(</span><span class="n">h2o</span><span class="o">.</span><span class="n">qubit_terms</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">),</span> <span class="n">sparse_trotter_error</span><span class="p">(</span><span class="n">h2o</span><span class="o">.</span><span class="n">qubit_terms</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=====Using active space=====
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>====start Trotter====
+-------sparse_trotter_error--------
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf1</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF1&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf2</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF2&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Error $\epsilon$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;H2O (Chemistry), n=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">, t=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">, L=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">h2o</span><span class="o">.</span><span class="n">qubit_terms</span><span class="p">)</span><span class="si">}</span><span class="s1">, n_perm=</span><span class="si">{</span><span class="n">n_perm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../figs/h2o_sparse_</span><span class="si">{</span><span class="n">n_perm</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">h2o</span><span class="o">.</span><span class="n">qubit_terms</span><span class="p">)</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/ef0838b2f608a7b2bda79f1db7b1c774aef2463488a44661270b8b1db886e953.png"><img alt="_images/ef0838b2f608a7b2bda79f1db7b1c774aef2463488a44661270b8b1db886e953.png" src="_images/ef0838b2f608a7b2bda79f1db7b1c774aef2463488a44661270b8b1db886e953.png" style="width: 688px; height: 488px;" /></a>
+</div>
+</div>
+</section>
+<section id="hydrogen-chain">
+<h2>Hydrogen chain<a class="headerlink" href="#hydrogen-chain" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">n_hydrogen</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">h2</span> <span class="o">=</span> <span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="n">n_hydrogen</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># h2o = h2o_hamiltonian(verbose=False)</span>
+<span class="c1"># encode_method = &#39;fm&#39; # &#39;fm&#39; or &#39;jw&#39;</span>
+<span class="n">encode_method</span> <span class="o">=</span> <span class="s1">&#39;jw&#39;</span> <span class="c1"># &#39;fm&#39; or &#39;jw&#39;</span>
+<span class="n">Enable_random</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="n">encode_method</span> <span class="o">==</span> <span class="s1">&#39;jw&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">h2</span><span class="o">.</span><span class="n">jw</span><span class="p">)</span>
+    <span class="n">h_list</span> <span class="o">=</span> <span class="n">h2</span><span class="o">.</span><span class="n">qubit_terms</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">h2</span><span class="o">.</span><span class="n">fermion_hamiltonian</span><span class="p">)</span>
+    <span class="n">h_list</span> <span class="o">=</span> <span class="n">op2mat</span><span class="p">(</span><span class="n">h2</span><span class="o">.</span><span class="n">fermion_hamiltonian</span><span class="p">,</span> <span class="n">h2</span><span class="o">.</span><span class="n">n_qubits</span><span class="p">)</span>
+
+<span class="c1"># if encode_method == &#39;jw&#39;:</span>
+<span class="c1">#     print(h2o.jw)</span>
+<span class="c1">#     h_list = h2o.qubit_terms</span>
+<span class="c1"># elif encode_method == &#39;fm&#39;:</span>
+<span class="c1">#     print(h2o.fermion_hamiltonian)</span>
+<span class="c1">#     h_list = op2mat(h2o.fermion_hamiltonian, h2o.n_qubits)</span>
+
+<span class="k">if</span> <span class="n">Enable_random</span><span class="p">:</span>
+    <span class="n">seed_value</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">)</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed_value</span><span class="p">)</span>  
+    <span class="n">h_list</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">h_list</span><span class="p">))</span>
+
+<span class="n">new_hlist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+    <span class="n">new_hlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+        <span class="n">new_hlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+
+<span class="n">t</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">error_list_pf1</span><span class="p">,</span> <span class="n">error_list_pf2</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sparse_trotter_error</span><span class="p">(</span><span class="n">new_hlist</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">),</span> <span class="n">sparse_trotter_error</span><span class="p">(</span><span class="n">new_hlist</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">))</span>
+<span class="n">r_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf1</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF1&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf2</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF2&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Error $\epsilon$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># commutator_table = []</span>
+<span class="c1"># for term in h_list:</span>
+<span class="c1">#     temp_table = []</span>
+<span class="c1">#     # print(term)</span>
+<span class="c1">#     for term2 in h_list:</span>
+<span class="c1">#         temp_table.append(np.linalg.norm(commutator(term, term2).toarray(), ord=2))</span>
+<span class="c1">#     commutator_table.append(temp_table)</span>
+
+<span class="n">commutator_table</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">new_hlist</span><span class="p">:</span>
+    <span class="n">temp_table</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># print(term)</span>
+    <span class="k">for</span> <span class="n">term2</span> <span class="ow">in</span> <span class="n">new_hlist</span><span class="p">:</span>
+        <span class="n">temp_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">commutator</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">term2</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">commutator_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_table</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">commutator_table</span><span class="p">)</span>
+<span class="c1"># plot the commutator table </span>
+<span class="c1"># plt.imshow(commutator_table, cmap=&#39;hot&#39;, interpolation=&#39;nearest&#39;)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">comm_plot</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">commutator_table</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># for i in range(15):</span>
+<span class="c1">#     for j in range(15):</span>
+<span class="c1">#         c = np.array(commutator_table)[j,i]</span>
+<span class="c1">#         ax.text(i, j, str(c), va=&#39;center&#39;, ha=&#39;center&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">comm_plot</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">Enable_random</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../figs/commu_h</span><span class="si">{</span><span class="n">n_hydrogen</span><span class="si">}</span><span class="s1">_d=</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">encode_method</span><span class="si">}</span><span class="s1">_L=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">h_list</span><span class="p">)</span><span class="si">}</span><span class="s1">_rand.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../figs/commu_h</span><span class="si">{</span><span class="n">n_hydrogen</span><span class="si">}</span><span class="s1">_d=</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">encode_method</span><span class="si">}</span><span class="s1">_L=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">h_list</span><span class="p">)</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># pstr: 15, [&#39;IIII&#39;, &#39;ZIII&#39;, &#39;IZII&#39;, &#39;IIZI&#39;, &#39;IIIZ&#39;, &#39;ZZII&#39;, &#39;YXXY&#39;, &#39;YYXX&#39;, &#39;XXYY&#39;, &#39;XYYX&#39;, &#39;ZIZI&#39;, &#39;ZIIZ&#39;, &#39;IZZI&#39;, &#39;IZIZ&#39;, &#39;IIZZ&#39;]
+# groups: 2
+[[{&#39;IIII&#39;: (-0.3276081896748102+0j)}, {&#39;ZIII&#39;: (0.13716572937099497+0j)}, {&#39;IZII&#39;: (0.13716572937099497+0j)}, {&#39;IIZI&#39;: (-0.13036292057109025+0j)}, {&#39;IIIZ&#39;: (-0.13036292057109025+0j)}, {&#39;ZZII&#39;: (0.15660062488237947+0j)}], [{&#39;YXXY&#39;: (0.049197645871367546+0j)}, {&#39;YYXX&#39;: (-0.049197645871367546+0j)}, {&#39;XXYY&#39;: (-0.049197645871367546+0j)}, {&#39;XYYX&#39;: (0.049197645871367546+0j)}, {&#39;ZIZI&#39;: (0.10622904490856078+0j)}, {&#39;ZIIZ&#39;: (0.15542669077992832+0j)}, {&#39;IZZI&#39;: (0.15542669077992832+0j)}, {&#39;IZIZ&#39;: (0.10622904490856078+0j)}, {&#39;IIZZ&#39;: (0.16326768673564335+0j)}]]
+(-0.3276081896748102+0j) [] +
+(-0.049197645871367546+0j) [X0 X1 Y2 Y3] +
+(0.049197645871367546+0j) [X0 Y1 Y2 X3] +
+(0.049197645871367546+0j) [Y0 X1 X2 Y3] +
+(-0.049197645871367546+0j) [Y0 Y1 X2 X3] +
+(0.13716572937099497+0j) [Z0] +
+(0.15660062488237947+0j) [Z0 Z1] +
+(0.10622904490856078+0j) [Z0 Z2] +
+(0.15542669077992832+0j) [Z0 Z3] +
+(0.13716572937099497+0j) [Z1] +
+(0.15542669077992832+0j) [Z1 Z2] +
+(0.10622904490856078+0j) [Z1 Z3] +
+(-0.13036292057109025+0j) [Z2] +
+(0.16326768673564335+0j) [Z2 Z3] +
+(-0.13036292057109025+0j) [Z3]
+-------sparse_trotter_error--------
+-------sparse_trotter_error--------
+[[0.0, 0.0, 0.0, 0.0, 0.013496461958564097, 0.013496461958564097, 0.013496461958564097, 0.013496461958564097, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.013496461958564097, 0.013496461958564097, 0.013496461958564097, 0.013496461958564097, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.012827097602027427, 0.012827097602027427, 0.012827097602027427, 0.012827097602027427, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.012827097602027427, 0.012827097602027427, 0.012827097602027427, 0.012827097602027427, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.013496461958564097, 0.013496461958564097, 0.012827097602027427, 0.012827097602027427, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.013496461958564097, 0.013496461958564097, 0.012827097602027427, 0.012827097602027427, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.013496461958564097, 0.013496461958564097, 0.012827097602027427, 0.012827097602027427, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.013496461958564097, 0.013496461958564097, 0.012827097602027427, 0.012827097602027427, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/c217cc1aa18181386040179ad65326f21352799d298bffdf6c08bfc9e5d9de18.png"><img alt="_images/c217cc1aa18181386040179ad65326f21352799d298bffdf6c08bfc9e5d9de18.png" src="_images/c217cc1aa18181386040179ad65326f21352799d298bffdf6c08bfc9e5d9de18.png" style="width: 610px; height: 457px;" /></a>
+<a class="reference internal image-reference" href="_images/0428f8ebf80f043e1b62f617424b236d63835b157e43eb53dd88ee780a034b3f.png"><img alt="_images/0428f8ebf80f043e1b62f617424b236d63835b157e43eb53dd88ee780a034b3f.png" src="_images/0428f8ebf80f043e1b62f617424b236d63835b157e43eb53dd88ee780a034b3f.png" style="width: 568px; height: 441px;" /></a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">h2</span> <span class="o">=</span> <span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># print(h2.hamiltonian_list.shape)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">h2</span><span class="o">.</span><span class="n">jw</span><span class="p">)</span>
+<span class="n">ham_spec</span><span class="p">(</span><span class="n">h2</span><span class="o">.</span><span class="n">hamiltonian_list</span><span class="p">)</span>
+
+<span class="n">r_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">h2</span><span class="o">.</span><span class="n">n_qubits</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">n_perm</span> <span class="o">=</span> <span class="mi">200</span>
+
+<span class="n">error_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sparse_trotter_error</span><span class="p">(</span><span class="n">h2</span><span class="o">.</span><span class="n">qubit_terms</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">r_list</span><span class="p">])</span>
+<span class="n">error_list_pf1</span> <span class="o">=</span> <span class="n">error_list</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">error_list_pf2</span> <span class="o">=</span> <span class="n">error_list</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf1</span><span class="p">,</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF1&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf2</span><span class="p">,</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF2&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;error $\epsilon$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;H2 (Fermionic chemical), n=</span><span class="si">{</span><span class="n">h2</span><span class="o">.</span><span class="n">n_qubits</span><span class="si">}</span><span class="s1">, t=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">, L=</span><span class="si">{</span><span class="n">h2</span><span class="o">.</span><span class="n">l_terms</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (-0.3314778134168136+0j) [] +
+(-0.03934551356040755+0j) [X0 X1 Y2 Y3] +
+(0.010770994389681786+0j) [X0 X1 Y2 Z3 Z4 Z5 Z6 Y7] +
+(0.010770994389681786+0j) [X0 X1 X3 Z4 Z5 X6] +
+(-0.02695803027101892+0j) [X0 X1 Y4 Y5] +
+(-0.0242673742498309+0j) [X0 X1 Y6 Y7] +
+(0.03934551356040755+0j) [X0 Y1 Y2 X3] +
+(-0.010770994389681786+0j) [X0 Y1 Y2 Z3 Z4 Z5 Z6 X7] +
+(0.010770994389681786+0j) [X0 Y1 Y3 Z4 Z5 X6] +
+(0.02695803027101892+0j) [X0 Y1 Y4 X5] +
+(0.0242673742498309+0j) [X0 Y1 Y6 X7] +
+(0.02450023853287261+0j) [X0 Z1 X2 X3 Z4 X5] +
+(0.02450023853287261+0j) [X0 Z1 X2 Y3 Z4 Y5] +
+(0.02441822802586469+0j) [X0 Z1 X2 X4 Z5 X6] +
+(0.013030122213395726+0j) [X0 Z1 X2 Y4 Z5 Y6] +
+(0.03765836794307973+0j) [X0 Z1 X2 X5 Z6 X7] +
+(0.03765836794307973+0j) [X0 Z1 X2 Y5 Z6 Y7] +
+(0.01138810581246896+0j) [X0 Z1 Y2 Y4 Z5 X6] +
+(-0.024628245729684008+0j) [X0 Z1 Z2 X3 Y4 Z5 Z6 Y7] +
+(-0.013240139917215047+0j) [X0 Z1 Z2 X3 X5 X6] +
+(0.024628245729684008+0j) [X0 Z1 Z2 Y3 Y4 Z5 Z6 X7] +
+(-0.013240139917215047+0j) [X0 Z1 Z2 Y3 Y5 X6] +
+(0.00556213199751111+0j) [X0 Z1 Z2 Z3 X4] +
+(0.0017156570386366063+0j) [X0 Z1 Z2 Z3 X4 Z5] +
+(0.011234473400252836+0j) [X0 Z1 Z2 Z3 X4 Z6] +
+(0.02147682576283433+0j) [X0 Z1 Z2 Z3 X4 Z7] +
+(0.01024235236258149+0j) [X0 Z1 Z2 Z3 Z4 X5 Y6 Y7] +
+(-0.01024235236258149+0j) [X0 Z1 Z2 Z3 Z4 Y5 Y6 X7] +
+(-0.0024512883013735175+0j) [X0 Z1 Z2 X4] +
+(0.022048950231499092+0j) [X0 Z1 Z3 X4] +
+(0.02039129829189841+0j) [X0 Z2 Z3 X4] +
+(0.03934551356040755+0j) [Y0 X1 X2 Y3] +
+(-0.010770994389681786+0j) [Y0 X1 X2 Z3 Z4 Z5 Z6 Y7] +
+(0.010770994389681786+0j) [Y0 X1 X3 Z4 Z5 Y6] +
+(0.02695803027101892+0j) [Y0 X1 X4 Y5] +
+(0.0242673742498309+0j) [Y0 X1 X6 Y7] +
+(-0.03934551356040755+0j) [Y0 Y1 X2 X3] +
+(0.010770994389681786+0j) [Y0 Y1 X2 Z3 Z4 Z5 Z6 X7] +
+(0.010770994389681786+0j) [Y0 Y1 Y3 Z4 Z5 Y6] +
+(-0.02695803027101892+0j) [Y0 Y1 X4 X5] +
+(-0.0242673742498309+0j) [Y0 Y1 X6 X7] +
+(0.01138810581246896+0j) [Y0 Z1 X2 X4 Z5 Y6] +
+(0.02450023853287261+0j) [Y0 Z1 Y2 X3 Z4 X5] +
+(0.02450023853287261+0j) [Y0 Z1 Y2 Y3 Z4 Y5] +
+(0.013030122213395726+0j) [Y0 Z1 Y2 X4 Z5 X6] +
+(0.02441822802586469+0j) [Y0 Z1 Y2 Y4 Z5 Y6] +
+(0.03765836794307973+0j) [Y0 Z1 Y2 X5 Z6 X7] +
+(0.03765836794307973+0j) [Y0 Z1 Y2 Y5 Z6 Y7] +
+(0.024628245729684008+0j) [Y0 Z1 Z2 X3 X4 Z5 Z6 Y7] +
+(-0.013240139917215047+0j) [Y0 Z1 Z2 X3 X5 Y6] +
+(-0.024628245729684008+0j) [Y0 Z1 Z2 Y3 X4 Z5 Z6 X7] +
+(-0.013240139917215047+0j) [Y0 Z1 Z2 Y3 Y5 Y6] +
+(0.00556213199751111+0j) [Y0 Z1 Z2 Z3 Y4] +
+(0.0017156570386366063+0j) [Y0 Z1 Z2 Z3 Y4 Z5] +
+(0.011234473400252836+0j) [Y0 Z1 Z2 Z3 Y4 Z6] +
+(0.02147682576283433+0j) [Y0 Z1 Z2 Z3 Y4 Z7] +
+(-0.01024235236258149+0j) [Y0 Z1 Z2 Z3 Z4 X5 X6 Y7] +
+(0.01024235236258149+0j) [Y0 Z1 Z2 Z3 Z4 Y5 X6 X7] +
+(-0.0024512883013735175+0j) [Y0 Z1 Z2 Y4] +
+(0.022048950231499092+0j) [Y0 Z1 Z3 Y4] +
+(0.02039129829189841+0j) [Y0 Z2 Z3 Y4] +
+(0.18136485128990854+0j) [Z0] +
+(0.02039129829189841+0j) [Z0 X1 Z2 Z3 Z4 X5] +
+(0.02039129829189841+0j) [Z0 Y1 Z2 Z3 Z4 Y5] +
+(0.12432120849362707+0j) [Z0 Z1] +
+(0.01029090297090764+0j) [Z0 X2 Z3 Z4 Z5 X6] +
+(0.01029090297090764+0j) [Z0 Y2 Z3 Z4 Z5 Y6] +
+(0.06963750845631891+0j) [Z0 Z2] +
+(0.021061897360589426+0j) [Z0 X3 Z4 Z5 Z6 X7] +
+(0.021061897360589426+0j) [Z0 Y3 Z4 Z5 Z6 Y7] +
+(0.10898302201672647+0j) [Z0 Z3] +
+(0.08454049215503273+0j) [Z0 Z4] +
+(0.11149852242605165+0j) [Z0 Z5] +
+(0.10647068453545319+0j) [Z0 Z6] +
+(0.1307380587852841+0j) [Z0 Z7] +
+(-0.02450023853287261+0j) [X1 X2 Y3 Y4] +
+(-0.013240139917215047+0j) [X1 X2 X4 Z5 Z6 X7] +
+(-0.024628245729684008+0j) [X1 X2 Y5 Y6] +
+(0.02450023853287261+0j) [X1 Y2 Y3 X4] +
+(-0.013240139917215047+0j) [X1 Y2 Y4 Z5 Z6 X7] +
+(0.024628245729684008+0j) [X1 Y2 Y5 X6] +
+(0.03765836794307973+0j) [X1 Z2 X3 X4 Z5 X6] +
+(0.03765836794307973+0j) [X1 Z2 X3 Y4 Z5 Y6] +
+(0.02441822802586469+0j) [X1 Z2 X3 X5 Z6 X7] +
+(0.013030122213395726+0j) [X1 Z2 X3 Y5 Z6 Y7] +
+(0.01138810581246896+0j) [X1 Z2 Y3 Y5 Z6 X7] +
+(0.01024235236258149+0j) [X1 Z2 Z3 X4 X6 X7] +
+(0.01024235236258149+0j) [X1 Z2 Z3 Y4 Y6 X7] +
+(0.005562131997511102+0j) [X1 Z2 Z3 Z4 X5] +
+(0.02147682576283433+0j) [X1 Z2 Z3 Z4 X5 Z6] +
+(0.011234473400252836+0j) [X1 Z2 Z3 Z4 X5 Z7] +
+(0.0017156570386366063+0j) [X1 Z2 Z3 X5] +
+(0.022048950231499092+0j) [X1 Z2 Z4 X5] +
+(-0.0024512883013735175+0j) [X1 Z3 Z4 X5] +
+(0.02450023853287261+0j) [Y1 X2 X3 Y4] +
+(-0.013240139917215047+0j) [Y1 X2 X4 Z5 Z6 Y7] +
+(0.024628245729684008+0j) [Y1 X2 X5 Y6] +
+(-0.02450023853287261+0j) [Y1 Y2 X3 X4] +
+(-0.013240139917215047+0j) [Y1 Y2 Y4 Z5 Z6 Y7] +
+(-0.024628245729684008+0j) [Y1 Y2 X5 X6] +
+(0.01138810581246896+0j) [Y1 Z2 X3 X5 Z6 Y7] +
+(0.03765836794307973+0j) [Y1 Z2 Y3 X4 Z5 X6] +
+(0.03765836794307973+0j) [Y1 Z2 Y3 Y4 Z5 Y6] +
+(0.013030122213395726+0j) [Y1 Z2 Y3 X5 Z6 X7] +
+(0.02441822802586469+0j) [Y1 Z2 Y3 Y5 Z6 Y7] +
+(0.01024235236258149+0j) [Y1 Z2 Z3 X4 X6 Y7] +
+(0.01024235236258149+0j) [Y1 Z2 Z3 Y4 Y6 Y7] +
+(0.005562131997511102+0j) [Y1 Z2 Z3 Z4 Y5] +
+(0.02147682576283433+0j) [Y1 Z2 Z3 Z4 Y5 Z6] +
+(0.011234473400252836+0j) [Y1 Z2 Z3 Z4 Y5 Z7] +
+(0.0017156570386366063+0j) [Y1 Z2 Z3 Y5] +
+(0.022048950231499092+0j) [Y1 Z2 Z4 Y5] +
+(-0.0024512883013735175+0j) [Y1 Z3 Z4 Y5] +
+(0.18136485128990845+0j) [Z1] +
+(0.021061897360589426+0j) [Z1 X2 Z3 Z4 Z5 X6] +
+(0.021061897360589426+0j) [Z1 Y2 Z3 Z4 Z5 Y6] +
+(0.10898302201672647+0j) [Z1 Z2] +
+(0.01029090297090764+0j) [Z1 X3 Z4 Z5 Z6 X7] +
+(0.01029090297090764+0j) [Z1 Y3 Z4 Z5 Z6 Y7] +
+(0.06963750845631891+0j) [Z1 Z3] +
+(0.11149852242605165+0j) [Z1 Z4] +
+(0.08454049215503273+0j) [Z1 Z5] +
+(0.1307380587852841+0j) [Z1 Z6] +
+(0.10647068453545319+0j) [Z1 Z7] +
+(-0.034320677680535455+0j) [X2 X3 Y4 Y5] +
+(-0.026161331757792998+0j) [X2 X3 Y6 Y7] +
+(0.034320677680535455+0j) [X2 Y3 Y4 X5] +
+(0.026161331757792998+0j) [X2 Y3 Y6 X7] +
+(0.02484161375440213+0j) [X2 Z3 X4 X5 Z6 X7] +
+(0.02484161375440213+0j) [X2 Z3 X4 Y5 Z6 Y7] +
+(-0.01726656072492455+0j) [X2 Z3 Z4 Z5 X6] +
+(0.023384504139548193+0j) [X2 Z3 Z4 Z5 X6 Z7] +
+(0.0007036277600324811+0j) [X2 Z3 Z4 X6] +
+(0.02554524151443461+0j) [X2 Z3 Z5 X6] +
+(0.0010141239253516027+0j) [X2 Z4 Z5 X6] +
+(0.034320677680535455+0j) [Y2 X3 X4 Y5] +
+(0.026161331757792998+0j) [Y2 X3 X6 Y7] +
+(-0.034320677680535455+0j) [Y2 Y3 X4 X5] +
+(-0.026161331757792998+0j) [Y2 Y3 X6 X7] +
+(0.02484161375440213+0j) [Y2 Z3 Y4 X5 Z6 X7] +
+(0.02484161375440213+0j) [Y2 Z3 Y4 Y5 Z6 Y7] +
+(-0.01726656072492455+0j) [Y2 Z3 Z4 Z5 Y6] +
+(0.023384504139548193+0j) [Y2 Z3 Z4 Z5 Y6 Z7] +
+(0.0007036277600324811+0j) [Y2 Z3 Z4 Y6] +
+(0.02554524151443461+0j) [Y2 Z3 Z5 Y6] +
+(0.0010141239253516027+0j) [Y2 Z4 Z5 Y6] +
+(0.0879264465310854+0j) [Z2] +
+(0.0010141239253516027+0j) [Z2 X3 Z4 Z5 Z6 X7] +
+(0.0010141239253516027+0j) [Z2 Y3 Z4 Z5 Z6 Y7] +
+(0.11340654161438077+0j) [Z2 Z3] +
+(0.07762037309982332+0j) [Z2 Z4] +
+(0.11194105078035878+0j) [Z2 Z5] +
+(0.08982499235931946+0j) [Z2 Z6] +
+(0.11598632411711246+0j) [Z2 Z7] +
+(-0.02484161375440213+0j) [X3 X4 Y5 Y6] +
+(0.02484161375440213+0j) [X3 Y4 Y5 X6] +
+(-0.017266560724924565+0j) [X3 Z4 Z5 Z6 X7] +
+(0.02338450413954819+0j) [X3 Z4 Z5 X7] +
+(0.02554524151443461+0j) [X3 Z4 Z6 X7] +
+(0.0007036277600324811+0j) [X3 Z5 Z6 X7] +
+(0.02484161375440213+0j) [Y3 X4 X5 Y6] +
+(-0.02484161375440213+0j) [Y3 Y4 X5 X6] +
+(-0.017266560724924565+0j) [Y3 Z4 Z5 Z6 Y7] +
+(0.02338450413954819+0j) [Y3 Z4 Z5 Y7] +
+(0.02554524151443461+0j) [Y3 Z4 Z6 Y7] +
+(0.0007036277600324811+0j) [Y3 Z5 Z6 Y7] +
+(0.0879264465310854+0j) [Z3] +
+(0.11194105078035878+0j) [Z3 Z4] +
+(0.07762037309982332+0j) [Z3 Z5] +
+(0.11598632411711246+0j) [Z3 Z6] +
+(0.08982499235931946+0j) [Z3 Z7] +
+(-0.04061611948384262+0j) [X4 X5 Y6 Y7] +
+(0.04061611948384262+0j) [X4 Y5 Y6 X7] +
+(0.04061611948384262+0j) [Y4 X5 X6 Y7] +
+(-0.04061611948384262+0j) [Y4 Y5 X6 X7] +
+(-0.07904409226124144+0j) [Z4] +
+(0.11685143854472027+0j) [Z4 Z5] +
+(0.07943848632286903+0j) [Z4 Z6] +
+(0.12005460580671164+0j) [Z4 Z7] +
+(-0.07904409226124139+0j) [Z5] +
+(0.12005460580671164+0j) [Z5 Z6] +
+(0.07943848632286903+0j) [Z5 Z7] +
+(-0.33461213003281043+0j) [Z6] +
+(0.14526147930807753+0j) [Z6 Z7] +
+(-0.33461213003281043+0j) [Z7]
+norms:  [0.3314778134168136, 0.18136485128990854, 0.00556213199751111, 0.00556213199751111, 0.18136485128990845, 0.005562131997511102, 0.005562131997511102, 0.0879264465310854, 0.01726656072492455, 0.01726656072492455, 0.0879264465310854, 0.017266560724924565, 0.017266560724924565, 0.07904409226124144, 0.07904409226124139, 0.33461213003281043, 0.33461213003281043, 0.12432120849362707, 0.02039129829189841, 0.02039129829189841, 0.03934551356040755, 0.03934551356040755, 0.03934551356040755, 0.03934551356040755, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.02039129829189841, 0.02039129829189841, 0.02695803027101892, 0.02695803027101892, 0.02695803027101892, 0.02695803027101892, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.0242673742498309, 0.0242673742498309, 0.0242673742498309, 0.0242673742498309, 0.06963750845631891, 0.01029090297090764, 0.01029090297090764, 0.022048950231499092, 0.022048950231499092, 0.01138810581246896, 0.02441822802586469, 0.013030122213395726, 0.013030122213395726, 0.02441822802586469, 0.01138810581246896, 0.10898302201672647, 0.0024512883013735175, 0.0024512883013735175, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.021061897360589426, 0.021061897360589426, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.08454049215503273, 0.11149852242605165, 0.0017156570386366063, 0.0017156570386366063, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.10647068453545319, 0.011234473400252836, 0.011234473400252836, 0.1307380587852841, 0.02147682576283433, 0.02147682576283433, 0.10898302201672647, 0.0024512883013735175, 0.0024512883013735175, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.021061897360589426, 0.021061897360589426, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.06963750845631891, 0.01029090297090764, 0.01029090297090764, 0.022048950231499092, 0.022048950231499092, 0.01138810581246896, 0.02441822802586469, 0.013030122213395726, 0.013030122213395726, 0.02441822802586469, 0.01138810581246896, 0.11149852242605165, 0.0017156570386366063, 0.0017156570386366063, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.08454049215503273, 0.1307380587852841, 0.02147682576283433, 0.02147682576283433, 0.10647068453545319, 0.011234473400252836, 0.011234473400252836, 0.11340654161438077, 0.0010141239253516027, 0.0010141239253516027, 0.034320677680535455, 0.034320677680535455, 0.034320677680535455, 0.034320677680535455, 0.0010141239253516027, 0.0010141239253516027, 0.026161331757792998, 0.026161331757792998, 0.026161331757792998, 0.026161331757792998, 0.07762037309982332, 0.02554524151443461, 0.02554524151443461, 0.11194105078035878, 0.0007036277600324811, 0.0007036277600324811, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.08982499235931946, 0.11598632411711246, 0.023384504139548193, 0.023384504139548193, 0.11194105078035878, 0.0007036277600324811, 0.0007036277600324811, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.07762037309982332, 0.02554524151443461, 0.02554524151443461, 0.11598632411711246, 0.02338450413954819, 0.02338450413954819, 0.08982499235931946, 0.11685143854472027, 0.04061611948384262, 0.04061611948384262, 0.04061611948384262, 0.04061611948384262, 0.07943848632286903, 0.12005460580671164, 0.12005460580671164, 0.07943848632286903, 0.14526147930807753]
+sorted norms:  [0.0007036277600324811, 0.0007036277600324811, 0.0007036277600324811, 0.0007036277600324811, 0.0010141239253516027, 0.0010141239253516027, 0.0010141239253516027, 0.0010141239253516027, 0.0017156570386366063, 0.0017156570386366063, 0.0017156570386366063, 0.0017156570386366063, 0.0024512883013735175, 0.0024512883013735175, 0.0024512883013735175, 0.0024512883013735175, 0.005562131997511102, 0.005562131997511102, 0.00556213199751111, 0.00556213199751111, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.01024235236258149, 0.01029090297090764, 0.01029090297090764, 0.01029090297090764, 0.01029090297090764, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.010770994389681786, 0.011234473400252836, 0.011234473400252836, 0.011234473400252836, 0.011234473400252836, 0.01138810581246896, 0.01138810581246896, 0.01138810581246896, 0.01138810581246896, 0.013030122213395726, 0.013030122213395726, 0.013030122213395726, 0.013030122213395726, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.013240139917215047, 0.01726656072492455, 0.01726656072492455, 0.017266560724924565, 0.017266560724924565, 0.02039129829189841, 0.02039129829189841, 0.02039129829189841, 0.02039129829189841, 0.021061897360589426, 0.021061897360589426, 0.021061897360589426, 0.021061897360589426, 0.02147682576283433, 0.02147682576283433, 0.02147682576283433, 0.02147682576283433, 0.022048950231499092, 0.022048950231499092, 0.022048950231499092, 0.022048950231499092, 0.02338450413954819, 0.02338450413954819, 0.023384504139548193, 0.023384504139548193, 0.0242673742498309, 0.0242673742498309, 0.0242673742498309, 0.0242673742498309, 0.02441822802586469, 0.02441822802586469, 0.02441822802586469, 0.02441822802586469, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.02450023853287261, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.024628245729684008, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.02484161375440213, 0.02554524151443461, 0.02554524151443461, 0.02554524151443461, 0.02554524151443461, 0.026161331757792998, 0.026161331757792998, 0.026161331757792998, 0.026161331757792998, 0.02695803027101892, 0.02695803027101892, 0.02695803027101892, 0.02695803027101892, 0.034320677680535455, 0.034320677680535455, 0.034320677680535455, 0.034320677680535455, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.03765836794307973, 0.03934551356040755, 0.03934551356040755, 0.03934551356040755, 0.03934551356040755, 0.04061611948384262, 0.04061611948384262, 0.04061611948384262, 0.04061611948384262, 0.06963750845631891, 0.06963750845631891, 0.07762037309982332, 0.07762037309982332, 0.07904409226124139, 0.07904409226124144, 0.07943848632286903, 0.07943848632286903, 0.08454049215503273, 0.08454049215503273, 0.0879264465310854, 0.0879264465310854, 0.08982499235931946, 0.08982499235931946, 0.10647068453545319, 0.10647068453545319, 0.10898302201672647, 0.10898302201672647, 0.11149852242605165, 0.11149852242605165, 0.11194105078035878, 0.11194105078035878, 0.11340654161438077, 0.11598632411711246, 0.11598632411711246, 0.11685143854472027, 0.12005460580671164, 0.12005460580671164, 0.12432120849362707, 0.1307380587852841, 0.1307380587852841, 0.14526147930807753, 0.18136485128990845, 0.18136485128990854, 0.3314778134168136, 0.33461213003281043, 0.33461213003281043]
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/00f90f7e89376a9f5c392907892fe139b6107edc43a86e2fcd66c010df99f47e.png"><img alt="_images/00f90f7e89376a9f5c392907892fe139b6107edc43a86e2fcd66c010df99f47e.png" src="_images/00f90f7e89376a9f5c392907892fe139b6107edc43a86e2fcd66c010df99f47e.png" style="width: 596px; height: 451px;" /></a>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 0 terms with 0 spectral norm
+-------sparse_trotter_error--------
+-------sparse_trotter_error--------
+-------sparse_trotter_error--------
+-------sparse_trotter_error--------
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;H2 (Fermionic chemical), n=8, t=8, L=185&#39;)
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/eda24c58df77ce844590086c98da8f571793edf10fb1842141676c0169b79027.png"><img alt="_images/eda24c58df77ce844590086c98da8f571793edf10fb1842141676c0169b79027.png" src="_images/eda24c58df77ce844590086c98da8f571793edf10fb1842141676c0169b79027.png" style="width: 597px; height: 471px;" /></a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openfermion_hamiltonians</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
+<span class="c1"># obtain the Hamiltonian of H2</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">h2</span> <span class="o">=</span> <span class="n">hydrogen_chain_hamiltonian</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># print(h2.hamiltonian_list.shape)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">h2</span><span class="o">.</span><span class="n">qubit_hamiltonian</span><span class="p">)</span>
+<span class="n">ham_spec</span><span class="p">(</span><span class="n">h2</span><span class="o">.</span><span class="n">hamiltonian_list</span><span class="p">)</span>
+
+<span class="n">r_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">h2</span><span class="o">.</span><span class="n">n_qubit</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">n_perm</span> <span class="o">=</span> <span class="mi">200</span>
+
+<span class="n">error_list_pf1</span><span class="p">,</span> <span class="n">error_list_pf2</span> <span class="o">=</span> <span class="n">trotter_error</span><span class="p">(</span><span class="n">h2</span><span class="o">.</span><span class="n">hamiltonian_list</span><span class="p">,</span> <span class="n">r_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
+
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF1&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF2&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">error_list_pf1</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+    <span class="c1"># if i % 10 == 0: print(i)</span>
+    <span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf1</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;.:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (PF1)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf2</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;.:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (PF2)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;error $\epsilon$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;H2 (Fermionic chemical), n=</span><span class="si">{</span><span class="n">h2</span><span class="o">.</span><span class="n">n_qubit</span><span class="si">}</span><span class="s1">, t=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">, L=</span><span class="si">{</span><span class="n">h2</span><span class="o">.</span><span class="n">l_terms</span><span class="si">}</span><span class="s1">, n_perm=</span><span class="si">{</span><span class="n">n_perm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../figs/h2_jw_</span><span class="si">{</span><span class="n">n_perm</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (-0.3276081896748102+0j) [] +
+(-0.049197645871367546+0j) [X0 X1 Y2 Y3] +
+(0.049197645871367546+0j) [X0 Y1 Y2 X3] +
+(0.049197645871367546+0j) [Y0 X1 X2 Y3] +
+(-0.049197645871367546+0j) [Y0 Y1 X2 X3] +
+(0.13716572937099492+0j) [Z0] +
+(0.15660062488237944+0j) [Z0 Z1] +
+(0.10622904490856078+0j) [Z0 Z2] +
+(0.15542669077992832+0j) [Z0 Z3] +
+(0.13716572937099497+0j) [Z1] +
+(0.15542669077992832+0j) [Z1 Z2] +
+(0.10622904490856078+0j) [Z1 Z3] +
+(-0.13036292057109028+0j) [Z2] +
+(0.1632676867356434+0j) [Z2 Z3] +
+(-0.13036292057109028+0j) [Z3]
+norms:  [0.3276081896748102, 0.13716572937099492, 0.13716572937099497, 0.13036292057109028, 0.13036292057109028, 0.15660062488237944, 0.049197645871367546, 0.049197645871367546, 0.049197645871367546, 0.049197645871367546, 0.10622904490856078, 0.15542669077992832, 0.15542669077992832, 0.10622904490856078, 0.1632676867356434]
+sorted norms:  [0.049197645871367546, 0.049197645871367546, 0.049197645871367546, 0.049197645871367546, 0.10622904490856078, 0.10622904490856078, 0.13036292057109028, 0.13036292057109028, 0.13716572937099492, 0.13716572937099497, 0.15542669077992832, 0.15542669077992832, 0.15660062488237944, 0.1632676867356434, 0.3276081896748102]
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/29c5fa23c3edb338c9e8e0103a4379941cc438f3ecf627b9b3fdaa3bc0aa63fe.png"><img alt="_images/29c5fa23c3edb338c9e8e0103a4379941cc438f3ecf627b9b3fdaa3bc0aa63fe.png" src="_images/29c5fa23c3edb338c9e8e0103a4379941cc438f3ecf627b9b3fdaa3bc0aa63fe.png" style="width: 596px; height: 445px;" /></a>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 0 terms with 0 spectral norm
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">jue</span><span class="o">/</span><span class="n">GitHub</span><span class="o">/</span><span class="n">Optimize</span><span class="o">-</span><span class="n">Product</span><span class="o">-</span><span class="n">Formula</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">chem</span><span class="o">.</span><span class="n">ipynb</span> <span class="n">Cell</span> <span class="mi">3</span> <span class="n">line</span> <span class="mi">1</span>
+     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Optimize-Product-Formula/code/chem.ipynb#W2sZmlsZQ%3D%3D?line=13&#39;</span><span class="o">&gt;</span><span class="mi">14</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-3</span>
+     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Optimize-Product-Formula/code/chem.ipynb#W2sZmlsZQ%3D%3D?line=14&#39;</span><span class="o">&gt;</span><span class="mi">15</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="o">---&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Optimize-Product-Formula/code/chem.ipynb#W2sZmlsZQ%3D%3D?line=16&#39;</span><span class="o">&gt;</span><span class="mi">17</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">error_list_pf1</span><span class="p">,</span> <span class="n">error_list_pf2</span> <span class="o">=</span> <span class="n">cal_trotter_error</span><span class="p">(</span><span class="n">h2</span><span class="o">.</span><span class="n">hamiltonian_list</span><span class="p">,</span> <span class="n">r_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
+     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Optimize-Product-Formula/code/chem.ipynb#W2sZmlsZQ%3D%3D?line=17&#39;</span><span class="o">&gt;</span><span class="mi">18</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="c1"># error_list_pf1, error_list_pf2 = trotter_error(h2.hamiltonian_list, r_list, t, n_perm=n_perm)</span>
+     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Optimize-Product-Formula/code/chem.ipynb#W2sZmlsZQ%3D%3D?line=19&#39;</span><span class="o">&gt;</span><span class="mi">20</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF1&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: cal_trotter_error() got an unexpected keyword argument &#39;n_perm&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print(&#39;--------------OpenFermionPySCF--------------&#39;)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">geometry</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">]]]</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;sto-3g&#39;</span><span class="p">;</span> <span class="n">multiplicity</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">charge</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">molecule</span> <span class="o">=</span> <span class="n">MolecularData</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">charge</span><span class="p">)</span>
+
+<span class="n">molecule</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">molecular_hamiltonian</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">get_molecular_hamiltonian</span><span class="p">()</span> <span class="c1"># no constant (nuclear repulsion)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;molecular_hamiltonian: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">molecular_hamiltonian</span><span class="p">)</span>
+<span class="n">hamiltonian_ferm_op</span> <span class="o">=</span> <span class="n">get_fermion_operator</span><span class="p">(</span><span class="n">molecular_hamiltonian</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hamiltonian_ferm_op: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">hamiltonian_ferm_op</span><span class="p">)</span>
+<span class="c1"># for i, (k, v) in enumerate(molecular_hamiltonian.items()):</span>
+<span class="c1">#     print(i, k, v)</span>
+
+<span class="k">def</span> <span class="nf">tuples_to_lists</span><span class="p">(</span><span class="n">tuples</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tuples</span><span class="p">]</span>
+
+<span class="n">lex_fop_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">one_fop_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">two_fop_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">h_pp</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">h_pqqp</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">h_pq</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">h_prrq</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">h_pqrs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">hamiltonian_ferm_op</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;term: </span><span class="si">{</span><span class="n">term</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># print(term.terms)</span>
+    <span class="n">sparse_temp</span> <span class="o">=</span> <span class="n">get_sparse_operator</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">n_qubits</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">terms</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="c1"># print(i, k, v)</span>
+        <span class="n">temp_list</span> <span class="o">=</span> <span class="n">tuples_to_lists</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">temp_list</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_list</span><span class="p">)</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">h_pp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+            <span class="n">one_fop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sparse_temp</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">one_fop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sparse_temp</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">temp_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">temp_list</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">h_pp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">h_pq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+            <span class="c1"># print(temp_list[0][0], temp_list[1][0])</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">two_fop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sparse_temp</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">temp_list</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">temp_list</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">temp_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">temp_list</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">h_pqqp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">h_prrq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">h_pqrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;term length not 0, 2, or 4&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sparse term: </span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">sparse_temp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">lex_fop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sparse_temp</span><span class="p">)</span>
+    <span class="c1"># print(temp.shape[0])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">h_pp</span> <span class="o">+</span> <span class="n">h_pqqp</span> <span class="o">+</span> <span class="n">h_pq</span> <span class="o">+</span> <span class="n">h_prrq</span> <span class="o">+</span> <span class="n">h_pqrs</span><span class="p">)</span>
+<span class="n">int_fop_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_sparse_operator</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">n_qubits</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">h_pp</span> <span class="o">+</span> <span class="n">h_pqqp</span> <span class="o">+</span> <span class="n">h_pq</span> <span class="o">+</span> <span class="n">h_prrq</span> <span class="o">+</span> <span class="n">h_pqrs</span><span class="p">]</span>
+<span class="n">default_fop_list</span> <span class="o">=</span> <span class="n">one_fop_list</span> <span class="o">+</span> <span class="n">two_fop_list</span>
+
+<span class="k">try</span><span class="p">:</span> 
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">hamiltonian_ferm_op</span><span class="o">.</span><span class="n">terms</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">h_pp</span> <span class="o">+</span> <span class="n">h_pqqp</span> <span class="o">+</span> <span class="n">h_pq</span> <span class="o">+</span> <span class="n">h_prrq</span> <span class="o">+</span> <span class="n">h_pqrs</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">default_fop_list</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;len(hamiltonian_ferm_op.terms): &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">hamiltonian_ferm_op</span><span class="o">.</span><span class="n">terms</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;len(h_pp + h_pqqp + h_pq + h_prrq + h_pqrs): &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">h_pp</span> <span class="o">+</span> <span class="n">h_pqqp</span> <span class="o">+</span> <span class="n">h_pq</span> <span class="o">+</span> <span class="n">h_prrq</span> <span class="o">+</span> <span class="n">h_pqrs</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;len(default_fop_list): &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">default_fop_list</span><span class="p">))</span>
+    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;len(hamiltonian_ferm_op.terms) != len(h_pp + h_pqqp + h_pq + h_prrq + h_pqrs) != len(default_fop_list)&#39;</span><span class="p">)</span>
+<span class="c1"># print(hamiltonian_ferm_op)</span>
+<span class="c1"># print(h_pp + h_pqqp + h_pq + h_prrq + h_pqrs)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>molecular_hamiltonian: 
+ () 0.66147151365
+((0, 1), (0, 0)) -1.2178260299951063
+((1, 1), (1, 0)) -1.2178260299951063
+((2, 1), (2, 0)) -0.5096378744364837
+((3, 1), (3, 0)) -0.5096378744364837
+((0, 1), (0, 1), (0, 0), (0, 0)) 0.33166507443180837
+((0, 1), (0, 1), (2, 0), (2, 0)) 0.0923133917780305
+((0, 1), (1, 1), (1, 0), (0, 0)) 0.33166507443180837
+((0, 1), (1, 1), (3, 0), (2, 0)) 0.0923133917780305
+((0, 1), (2, 1), (0, 0), (2, 0)) 0.0923133917780305
+((0, 1), (2, 1), (2, 0), (0, 0)) 0.3267206861819478
+((0, 1), (3, 1), (1, 0), (2, 0)) 0.0923133917780305
+((0, 1), (3, 1), (3, 0), (0, 0)) 0.3267206861819478
+((1, 1), (0, 1), (0, 0), (1, 0)) 0.33166507443180837
+((1, 1), (0, 1), (2, 0), (3, 0)) 0.0923133917780305
+((1, 1), (1, 1), (1, 0), (1, 0)) 0.33166507443180837
+((1, 1), (1, 1), (3, 0), (3, 0)) 0.0923133917780305
+((1, 1), (2, 1), (0, 0), (3, 0)) 0.0923133917780305
+((1, 1), (2, 1), (2, 0), (1, 0)) 0.3267206861819478
+((1, 1), (3, 1), (1, 0), (3, 0)) 0.0923133917780305
+((1, 1), (3, 1), (3, 0), (1, 0)) 0.3267206861819478
+((2, 1), (0, 1), (0, 0), (2, 0)) 0.32672068618194805
+((2, 1), (0, 1), (2, 0), (0, 0)) 0.0923133917780305
+((2, 1), (1, 1), (1, 0), (2, 0)) 0.32672068618194805
+((2, 1), (1, 1), (3, 0), (0, 0)) 0.0923133917780305
+((2, 1), (2, 1), (0, 0), (0, 0)) 0.0923133917780305
+((2, 1), (2, 1), (2, 0), (2, 0)) 0.3433957678457352
+((2, 1), (3, 1), (1, 0), (0, 0)) 0.0923133917780305
+((2, 1), (3, 1), (3, 0), (2, 0)) 0.3433957678457352
+((3, 1), (0, 1), (0, 0), (3, 0)) 0.32672068618194805
+((3, 1), (0, 1), (2, 0), (1, 0)) 0.0923133917780305
+((3, 1), (1, 1), (1, 0), (3, 0)) 0.32672068618194805
+((3, 1), (1, 1), (3, 0), (1, 0)) 0.0923133917780305
+((3, 1), (2, 1), (0, 0), (1, 0)) 0.0923133917780305
+((3, 1), (2, 1), (2, 0), (3, 0)) 0.3433957678457352
+((3, 1), (3, 1), (1, 0), (1, 0)) 0.0923133917780305
+((3, 1), (3, 1), (3, 0), (3, 0)) 0.3433957678457352
+
+hamiltonian_ferm_op: 
+ 0.66147151365 [] +
+-1.2178260299951063 [0^ 0] +
+0.33166507443180837 [0^ 0^ 0 0] +
+0.0923133917780305 [0^ 0^ 2 2] +
+0.33166507443180837 [0^ 1^ 1 0] +
+0.0923133917780305 [0^ 1^ 3 2] +
+0.0923133917780305 [0^ 2^ 0 2] +
+0.3267206861819478 [0^ 2^ 2 0] +
+0.0923133917780305 [0^ 3^ 1 2] +
+0.3267206861819478 [0^ 3^ 3 0] +
+0.33166507443180837 [1^ 0^ 0 1] +
+0.0923133917780305 [1^ 0^ 2 3] +
+-1.2178260299951063 [1^ 1] +
+0.33166507443180837 [1^ 1^ 1 1] +
+0.0923133917780305 [1^ 1^ 3 3] +
+0.0923133917780305 [1^ 2^ 0 3] +
+0.3267206861819478 [1^ 2^ 2 1] +
+0.0923133917780305 [1^ 3^ 1 3] +
+0.3267206861819478 [1^ 3^ 3 1] +
+0.32672068618194805 [2^ 0^ 0 2] +
+0.0923133917780305 [2^ 0^ 2 0] +
+0.32672068618194805 [2^ 1^ 1 2] +
+0.0923133917780305 [2^ 1^ 3 0] +
+-0.5096378744364837 [2^ 2] +
+0.0923133917780305 [2^ 2^ 0 0] +
+0.3433957678457352 [2^ 2^ 2 2] +
+0.0923133917780305 [2^ 3^ 1 0] +
+0.3433957678457352 [2^ 3^ 3 2] +
+0.32672068618194805 [3^ 0^ 0 3] +
+0.0923133917780305 [3^ 0^ 2 1] +
+0.32672068618194805 [3^ 1^ 1 3] +
+0.0923133917780305 [3^ 1^ 3 1] +
+0.0923133917780305 [3^ 2^ 0 1] +
+0.3433957678457352 [3^ 2^ 2 3] +
+-0.5096378744364837 [3^ 3] +
+0.0923133917780305 [3^ 3^ 1 1] +
+0.3433957678457352 [3^ 3^ 3 3]
+term: 0.66147151365 []
+[]
+sparse term: 
+   (0, 0)	(0.66147151365+0j)
+  (1, 1)	(0.66147151365+0j)
+  (2, 2)	(0.66147151365+0j)
+  (3, 3)	(0.66147151365+0j)
+  (4, 4)	(0.66147151365+0j)
+  (5, 5)	(0.66147151365+0j)
+  (6, 6)	(0.66147151365+0j)
+  (7, 7)	(0.66147151365+0j)
+  (8, 8)	(0.66147151365+0j)
+  (9, 9)	(0.66147151365+0j)
+  (10, 10)	(0.66147151365+0j)
+  (11, 11)	(0.66147151365+0j)
+  (12, 12)	(0.66147151365+0j)
+  (13, 13)	(0.66147151365+0j)
+  (14, 14)	(0.66147151365+0j)
+  (15, 15)	(0.66147151365+0j)
+term: -1.2178260299951063 [0^ 0]
+[[0, 1], [0, 0]]
+sparse term: 
+   (8, 8)	(-1.2178260299951063+0j)
+  (9, 9)	(-1.2178260299951063+0j)
+  (10, 10)	(-1.2178260299951063+0j)
+  (11, 11)	(-1.2178260299951063+0j)
+  (12, 12)	(-1.2178260299951063+0j)
+  (13, 13)	(-1.2178260299951063+0j)
+  (14, 14)	(-1.2178260299951063+0j)
+  (15, 15)	(-1.2178260299951063+0j)
+term: -1.2178260299951063 [1^ 1]
+[[1, 1], [1, 0]]
+sparse term: 
+   (4, 4)	(-1.2178260299951063+0j)
+  (5, 5)	(-1.2178260299951063+0j)
+  (6, 6)	(-1.2178260299951063+0j)
+  (7, 7)	(-1.2178260299951063+0j)
+  (12, 12)	(-1.2178260299951063+0j)
+  (13, 13)	(-1.2178260299951063+0j)
+  (14, 14)	(-1.2178260299951063+0j)
+  (15, 15)	(-1.2178260299951063+0j)
+term: -0.5096378744364837 [2^ 2]
+[[2, 1], [2, 0]]
+sparse term: 
+   (2, 2)	(-0.5096378744364837+0j)
+  (3, 3)	(-0.5096378744364837+0j)
+  (6, 6)	(-0.5096378744364837+0j)
+  (7, 7)	(-0.5096378744364837+0j)
+  (10, 10)	(-0.5096378744364837+0j)
+  (11, 11)	(-0.5096378744364837+0j)
+  (14, 14)	(-0.5096378744364837+0j)
+  (15, 15)	(-0.5096378744364837+0j)
+term: -0.5096378744364837 [3^ 3]
+[[3, 1], [3, 0]]
+sparse term: 
+   (1, 1)	(-0.5096378744364837+0j)
+  (3, 3)	(-0.5096378744364837+0j)
+  (5, 5)	(-0.5096378744364837+0j)
+  (7, 7)	(-0.5096378744364837+0j)
+  (9, 9)	(-0.5096378744364837+0j)
+  (11, 11)	(-0.5096378744364837+0j)
+  (13, 13)	(-0.5096378744364837+0j)
+  (15, 15)	(-0.5096378744364837+0j)
+term: 0.33166507443180837 [0^ 0^ 0 0]
+[[0, 1], [0, 1], [0, 0], [0, 0]]
+sparse term: 
+ 
+term: 0.0923133917780305 [0^ 0^ 2 2]
+[[0, 1], [0, 1], [2, 0], [2, 0]]
+sparse term: 
+ 
+term: 0.33166507443180837 [0^ 1^ 1 0]
+[[0, 1], [1, 1], [1, 0], [0, 0]]
+sparse term: 
+   (12, 12)	(0.33166507443180837+0j)
+  (13, 13)	(0.33166507443180837+0j)
+  (14, 14)	(0.33166507443180837+0j)
+  (15, 15)	(0.33166507443180837+0j)
+term: 0.0923133917780305 [0^ 1^ 3 2]
+[[0, 1], [1, 1], [3, 0], [2, 0]]
+sparse term: 
+   (12, 3)	(0.0923133917780305+0j)
+term: 0.0923133917780305 [0^ 2^ 0 2]
+[[0, 1], [2, 1], [0, 0], [2, 0]]
+sparse term: 
+   (10, 10)	(-0.0923133917780305+0j)
+  (11, 11)	(-0.0923133917780305+0j)
+  (14, 14)	(-0.0923133917780305+0j)
+  (15, 15)	(-0.0923133917780305+0j)
+term: 0.3267206861819478 [0^ 2^ 2 0]
+[[0, 1], [2, 1], [2, 0], [0, 0]]
+sparse term: 
+   (10, 10)	(0.3267206861819478+0j)
+  (11, 11)	(0.3267206861819478+0j)
+  (14, 14)	(0.3267206861819478+0j)
+  (15, 15)	(0.3267206861819478+0j)
+term: 0.0923133917780305 [0^ 3^ 1 2]
+[[0, 1], [3, 1], [1, 0], [2, 0]]
+sparse term: 
+   (9, 6)	(-0.0923133917780305+0j)
+term: 0.3267206861819478 [0^ 3^ 3 0]
+[[0, 1], [3, 1], [3, 0], [0, 0]]
+sparse term: 
+   (9, 9)	(0.3267206861819478+0j)
+  (11, 11)	(0.3267206861819478+0j)
+  (13, 13)	(0.3267206861819478+0j)
+  (15, 15)	(0.3267206861819478+0j)
+term: 0.33166507443180837 [1^ 0^ 0 1]
+[[1, 1], [0, 1], [0, 0], [1, 0]]
+sparse term: 
+   (12, 12)	(0.33166507443180837+0j)
+  (13, 13)	(0.33166507443180837+0j)
+  (14, 14)	(0.33166507443180837+0j)
+  (15, 15)	(0.33166507443180837+0j)
+term: 0.0923133917780305 [1^ 0^ 2 3]
+[[1, 1], [0, 1], [2, 0], [3, 0]]
+sparse term: 
+   (12, 3)	(0.0923133917780305+0j)
+term: 0.33166507443180837 [1^ 1^ 1 1]
+[[1, 1], [1, 1], [1, 0], [1, 0]]
+sparse term: 
+ 
+term: 0.0923133917780305 [1^ 1^ 3 3]
+[[1, 1], [1, 1], [3, 0], [3, 0]]
+sparse term: 
+ 
+term: 0.0923133917780305 [1^ 2^ 0 3]
+[[1, 1], [2, 1], [0, 0], [3, 0]]
+sparse term: 
+   (6, 9)	(-0.0923133917780305+0j)
+term: 0.3267206861819478 [1^ 2^ 2 1]
+[[1, 1], [2, 1], [2, 0], [1, 0]]
+sparse term: 
+   (6, 6)	(0.3267206861819478+0j)
+  (7, 7)	(0.3267206861819478+0j)
+  (14, 14)	(0.3267206861819478+0j)
+  (15, 15)	(0.3267206861819478+0j)
+term: 0.0923133917780305 [1^ 3^ 1 3]
+[[1, 1], [3, 1], [1, 0], [3, 0]]
+sparse term: 
+   (5, 5)	(-0.0923133917780305+0j)
+  (7, 7)	(-0.0923133917780305+0j)
+  (13, 13)	(-0.0923133917780305+0j)
+  (15, 15)	(-0.0923133917780305+0j)
+term: 0.3267206861819478 [1^ 3^ 3 1]
+[[1, 1], [3, 1], [3, 0], [1, 0]]
+sparse term: 
+   (5, 5)	(0.3267206861819478+0j)
+  (7, 7)	(0.3267206861819478+0j)
+  (13, 13)	(0.3267206861819478+0j)
+  (15, 15)	(0.3267206861819478+0j)
+term: 0.32672068618194805 [2^ 0^ 0 2]
+[[2, 1], [0, 1], [0, 0], [2, 0]]
+sparse term: 
+   (10, 10)	(0.32672068618194805+0j)
+  (11, 11)	(0.32672068618194805+0j)
+  (14, 14)	(0.32672068618194805+0j)
+  (15, 15)	(0.32672068618194805+0j)
+term: 0.0923133917780305 [2^ 0^ 2 0]
+[[2, 1], [0, 1], [2, 0], [0, 0]]
+sparse term: 
+   (10, 10)	(-0.0923133917780305+0j)
+  (11, 11)	(-0.0923133917780305+0j)
+  (14, 14)	(-0.0923133917780305+0j)
+  (15, 15)	(-0.0923133917780305+0j)
+term: 0.32672068618194805 [2^ 1^ 1 2]
+[[2, 1], [1, 1], [1, 0], [2, 0]]
+sparse term: 
+   (6, 6)	(0.32672068618194805+0j)
+  (7, 7)	(0.32672068618194805+0j)
+  (14, 14)	(0.32672068618194805+0j)
+  (15, 15)	(0.32672068618194805+0j)
+term: 0.0923133917780305 [2^ 1^ 3 0]
+[[2, 1], [1, 1], [3, 0], [0, 0]]
+sparse term: 
+   (6, 9)	(-0.0923133917780305+0j)
+term: 0.0923133917780305 [2^ 2^ 0 0]
+[[2, 1], [2, 1], [0, 0], [0, 0]]
+sparse term: 
+ 
+term: 0.3433957678457352 [2^ 2^ 2 2]
+[[2, 1], [2, 1], [2, 0], [2, 0]]
+sparse term: 
+ 
+term: 0.0923133917780305 [2^ 3^ 1 0]
+[[2, 1], [3, 1], [1, 0], [0, 0]]
+sparse term: 
+   (3, 12)	(0.0923133917780305+0j)
+term: 0.3433957678457352 [2^ 3^ 3 2]
+[[2, 1], [3, 1], [3, 0], [2, 0]]
+sparse term: 
+   (3, 3)	(0.3433957678457352+0j)
+  (7, 7)	(0.3433957678457352+0j)
+  (11, 11)	(0.3433957678457352+0j)
+  (15, 15)	(0.3433957678457352+0j)
+term: 0.32672068618194805 [3^ 0^ 0 3]
+[[3, 1], [0, 1], [0, 0], [3, 0]]
+sparse term: 
+   (9, 9)	(0.32672068618194805+0j)
+  (11, 11)	(0.32672068618194805+0j)
+  (13, 13)	(0.32672068618194805+0j)
+  (15, 15)	(0.32672068618194805+0j)
+term: 0.0923133917780305 [3^ 0^ 2 1]
+[[3, 1], [0, 1], [2, 0], [1, 0]]
+sparse term: 
+   (9, 6)	(-0.0923133917780305+0j)
+term: 0.32672068618194805 [3^ 1^ 1 3]
+[[3, 1], [1, 1], [1, 0], [3, 0]]
+sparse term: 
+   (5, 5)	(0.32672068618194805+0j)
+  (7, 7)	(0.32672068618194805+0j)
+  (13, 13)	(0.32672068618194805+0j)
+  (15, 15)	(0.32672068618194805+0j)
+term: 0.0923133917780305 [3^ 1^ 3 1]
+[[3, 1], [1, 1], [3, 0], [1, 0]]
+sparse term: 
+   (5, 5)	(-0.0923133917780305+0j)
+  (7, 7)	(-0.0923133917780305+0j)
+  (13, 13)	(-0.0923133917780305+0j)
+  (15, 15)	(-0.0923133917780305+0j)
+term: 0.0923133917780305 [3^ 2^ 0 1]
+[[3, 1], [2, 1], [0, 0], [1, 0]]
+sparse term: 
+   (3, 12)	(0.0923133917780305+0j)
+term: 0.3433957678457352 [3^ 2^ 2 3]
+[[3, 1], [2, 1], [2, 0], [3, 0]]
+sparse term: 
+   (3, 3)	(0.3433957678457352+0j)
+  (7, 7)	(0.3433957678457352+0j)
+  (11, 11)	(0.3433957678457352+0j)
+  (15, 15)	(0.3433957678457352+0j)
+term: 0.0923133917780305 [3^ 3^ 1 1]
+[[3, 1], [3, 1], [1, 0], [1, 0]]
+sparse term: 
+ 
+term: 0.3433957678457352 [3^ 3^ 3 3]
+[[3, 1], [3, 1], [3, 0], [3, 0]]
+sparse term: 
+ 
+[0.66147151365 [], -1.2178260299951063 [0^ 0], -1.2178260299951063 [1^ 1], -0.5096378744364837 [2^ 2], -0.5096378744364837 [3^ 3], 0.33166507443180837 [0^ 0^ 0 0], 0.33166507443180837 [0^ 1^ 1 0], 0.3267206861819478 [0^ 2^ 2 0], 0.3267206861819478 [0^ 3^ 3 0], 0.33166507443180837 [1^ 0^ 0 1], 0.33166507443180837 [1^ 1^ 1 1], 0.3267206861819478 [1^ 2^ 2 1], 0.3267206861819478 [1^ 3^ 3 1], 0.32672068618194805 [2^ 0^ 0 2], 0.32672068618194805 [2^ 1^ 1 2], 0.3433957678457352 [2^ 2^ 2 2], 0.3433957678457352 [2^ 3^ 3 2], 0.32672068618194805 [3^ 0^ 0 3], 0.32672068618194805 [3^ 1^ 1 3], 0.3433957678457352 [3^ 2^ 2 3], 0.3433957678457352 [3^ 3^ 3 3], 0.0923133917780305 [0^ 0^ 2 2], 0.0923133917780305 [0^ 1^ 3 2], 0.0923133917780305 [0^ 2^ 0 2], 0.0923133917780305 [0^ 3^ 1 2], 0.0923133917780305 [1^ 0^ 2 3], 0.0923133917780305 [1^ 1^ 3 3], 0.0923133917780305 [1^ 2^ 0 3], 0.0923133917780305 [1^ 3^ 1 3], 0.0923133917780305 [2^ 0^ 2 0], 0.0923133917780305 [2^ 1^ 3 0], 0.0923133917780305 [2^ 2^ 0 0], 0.0923133917780305 [2^ 3^ 1 0], 0.0923133917780305 [3^ 0^ 2 1], 0.0923133917780305 [3^ 1^ 3 1], 0.0923133917780305 [3^ 2^ 0 1], 0.0923133917780305 [3^ 3^ 1 1]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test_fop_list = [FermionOperator(&#39;0^ 7^ 1 2&#39;, -0.02070), FermionOperator(&#39;2^ 1^ 7 4&#39;, 0.02929), FermionOperator(&#39;3^ 1^ 5 7&#39;, 0.05063), FermionOperator(&#39;4^ 0^ 6 2&#39;, 0.02929)]</span>
+<span class="n">n_qubit</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">n_qubit</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="c1"># ham_list = [get_sparse_operator(item, n_qubits=n_qubit).toarray() for item in test_fop_list]</span>
+<span class="n">lex_ham_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lex_fop_list</span><span class="p">]</span>
+<span class="n">int_ham_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">int_fop_list</span><span class="p">]</span>
+<span class="n">def_ham_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">default_fop_list</span><span class="p">]</span>
+<span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lex_fop_list</span><span class="p">)</span>
+<span class="c1"># for item in test_fop_list:</span>
+<span class="c1">#     print(&#39;H: \n&#39;, get_sparse_operator(item, n_qubits=8))</span>
+<span class="n">r_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">n_qubit</span>
+
+<span class="n">lex_trotter_error_list</span><span class="p">,</span> <span class="n">lex_trotter_error_list_2nd</span> <span class="o">=</span> <span class="n">trotter_error</span><span class="p">(</span><span class="n">lex_ham_list</span><span class="p">,</span> <span class="n">r_list</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">int_trotter_error_list</span><span class="p">,</span> <span class="n">int_trotter_error_list_2nd</span> <span class="o">=</span> <span class="n">trotter_error</span><span class="p">(</span><span class="n">int_ham_list</span><span class="p">,</span> <span class="n">r_list</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">def_trotter_error_list</span><span class="p">,</span> <span class="n">def_trotter_error_list_2nd</span> <span class="o">=</span> <span class="n">trotter_error</span><span class="p">(</span><span class="n">def_ham_list</span><span class="p">,</span> <span class="n">r_list</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="c1"># print(len(perm_list))</span>
+<span class="c1"># print(trotter_error_list)</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">lex_trotter_error_list</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (PF1)&#39;</span><span class="p">)</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">lex_trotter_error_list_2nd</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (PF2)&#39;</span><span class="p">)</span>
+
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">int_trotter_error_list</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (PF1)&#39;</span><span class="p">)</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">int_trotter_error_list_2nd</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (PF2)&#39;</span><span class="p">)</span>
+
+<span class="c1"># utils.data_plot(r_list, def_trotter_error_list[:,0], &#39;g-&#39;, label=&#39; (PF1)&#39;)</span>
+<span class="c1"># utils.data_plot(r_list, def_trotter_error_list_2nd[:,0], &#39;g-&#39;, label=&#39; (PF2)&#39;)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lex_trotter_error_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+    <span class="c1"># if i % 10 == 0: print(i)</span>
+    <span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">lex_trotter_error_list</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;.:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (1st)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lex_trotter_error_list_2nd</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+    <span class="c1"># if i % 10 == 0: print(i)</span>
+    <span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">lex_trotter_error_list_2nd</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;^:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (1st)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\epsilon$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;H2 (Fermionic chemical), n=</span><span class="si">{</span><span class="n">n_qubit</span><span class="si">}</span><span class="s1">, t=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">, L=</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../figs/h2_fermion.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>number of terms:  37
+# randomly selected perm:  50
+number of terms:  37
+# randomly selected perm:  50
+number of terms:  37
+# randomly selected perm:  50
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/044faee3b7ac6e2bd912c00006233953eb4097e6a4f30fb98583cce28e8e74fd.png"><img alt="_images/044faee3b7ac6e2bd912c00006233953eb4097e6a4f30fb98583cce28e8e74fd.png" src="_images/044faee3b7ac6e2bd912c00006233953eb4097e6a4f30fb98583cce28e8e74fd.png" style="width: 597px; height: 471px;" /></a>
+</div>
+</div>
+</section>
+<section id="openfermion-simulate-trotter">
+<h2>Openfermion simulate_trotter<a class="headerlink" href="#openfermion-simulate-trotter" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openfermionpyscf</span> <span class="k">as</span> <span class="nn">ofpyscf</span>
+<span class="kn">import</span> <span class="nn">openfermion</span> <span class="k">as</span> <span class="nn">of</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">linalg</span>
+<span class="kn">import</span> <span class="nn">cirq</span>
+
+<span class="kn">from</span> <span class="nn">openfermion_hamiltonians</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Set molecule parameters</span>
+<span class="n">use_ActiveSpace</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="mf">104.5</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">d</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">angle</span><span class="o">/</span><span class="mi">360</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="o">-</span><span class="n">d</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">angle</span><span class="o">/</span><span class="mi">360</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">d</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">angle</span><span class="o">/</span><span class="mi">360</span><span class="p">)</span>
+<span class="n">geometry</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="p">)),</span> <span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="p">))]</span>
+<span class="n">occupied_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">active_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="s2">&quot;sto-3g&quot;</span>
+<span class="n">multiplicity</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">charge</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Perform electronic structure calculations and</span>
+<span class="c1"># obtain Hamiltonian as an InteractionOperator</span>
+<span class="n">molecule</span> <span class="o">=</span> <span class="n">MolecularData</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">charge</span><span class="p">)</span>
+<span class="n">molecule</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">use_ActiveSpace</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=====Using active space=====&#39;</span><span class="p">)</span>
+    <span class="n">molecular_hamiltonian</span> <span class="o">=</span> <span class="n">molecule</span><span class="o">.</span><span class="n">get_molecular_hamiltonian</span><span class="p">(</span>
+        <span class="n">occupied_indices</span><span class="o">=</span><span class="n">occupied_indices</span><span class="p">,</span>
+        <span class="n">active_indices</span><span class="o">=</span><span class="n">active_indices</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">molecular_hamiltonian</span> <span class="o">=</span> <span class="n">ofpyscf</span><span class="o">.</span><span class="n">generate_molecular_hamiltonian</span><span class="p">(</span>
+        <span class="n">geometry</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">charge</span>
+    <span class="p">)</span>
+
+<span class="c1"># Convert to a FermionOperator</span>
+<span class="n">fermion_hamiltonian</span> <span class="o">=</span> <span class="n">of</span><span class="o">.</span><span class="n">get_fermion_operator</span><span class="p">(</span><span class="n">molecular_hamiltonian</span><span class="p">)</span>
+<span class="c1"># print(fermion_hamiltonian)</span>
+
+<span class="c1"># Convert to a QubitOperator</span>
+<span class="n">qubit_hamiltonian</span> <span class="o">=</span> <span class="n">jordan_wigner</span><span class="p">(</span><span class="n">fermion_hamiltonian</span><span class="p">)</span>
+<span class="n">qubit_hamiltonian</span><span class="o">.</span><span class="n">compress</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;number of terms: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">qubit_hamiltonian</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The Jordan-Wigner Hamiltonian in canonical basis follows:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">qubit_hamiltonian</span><span class="p">))</span>
+
+<span class="n">r_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">h2o_hamiltonian</span> <span class="o">=</span> <span class="n">openfermion_matrix_list</span><span class="p">(</span><span class="n">qubit_hamiltonian</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">n_perm</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">error_list_pf1</span><span class="p">,</span> <span class="n">error_list_pf2</span> <span class="o">=</span> <span class="n">trotter_error</span><span class="p">(</span><span class="n">h2o_hamiltonian</span><span class="p">,</span> <span class="n">r_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
+
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF1&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF2&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">error_list_pf1</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+    <span class="c1"># if i % 10 == 0: print(i)</span>
+    <span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf1</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;.:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (PF1)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf2</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;.:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39; (PF2)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;error $\epsilon$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;H2 (Fermionic chemical), n=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">, t=</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">, L=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">h2o_hamiltonian</span><span class="p">)</span><span class="si">}</span><span class="s1">, n_perm=</span><span class="si">{</span><span class="n">n_perm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../figs/h2o_jw_</span><span class="si">{</span><span class="n">n_perm</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=====Using active space=====
+number of terms: 252
+The Jordan-Wigner Hamiltonian in canonical basis follows:
+-72.34512654398662 [] +
+-0.012340477602697771 [X0 X1 Y2 Y3] +
+0.007860524644432708 [X0 X1 Y2 Z3 Z4 Z5 Z6 Y7] +
+0.007860524644432708 [X0 X1 X3 Z4 Z5 X6] +
+-0.007003017393163209 [X0 X1 Y4 Y5] +
+-0.018110462919472717 [X0 X1 Y6 Y7] +
+-0.03860855905511192 [X0 X1 Y8 Y9] +
+0.012340477602697771 [X0 Y1 Y2 X3] +
+-0.007860524644432708 [X0 Y1 Y2 Z3 Z4 Z5 Z6 X7] +
+0.007860524644432708 [X0 Y1 Y3 Z4 Z5 X6] +
+0.007003017393163209 [X0 Y1 Y4 X5] +
+0.018110462919472717 [X0 Y1 Y6 X7] +
+0.03860855905511192 [X0 Y1 Y8 X9] +
+-0.0005595190232045993 [X0 Z1 X2 X3 Z4 Z5 Z6 Z7 Z8 X9] +
+-0.0005595190232045993 [X0 Z1 X2 Y3 Z4 Z5 Z6 Z7 Z8 Y9] +
+-0.008207023828702502 [X0 Z1 X2 X6 Z7 X8] +
+0.0011576598990098337 [X0 Z1 X2 Y6 Z7 Y8] +
+0.013037222105537684 [X0 Z1 X2 X7 Z8 X9] +
+0.013037222105537684 [X0 Z1 X2 Y7 Z8 Y9] +
+-0.009364683727712335 [X0 Z1 Y2 Y6 Z7 X8] +
+-0.01187956220652785 [X0 Z1 Z2 X3 Y6 Z7 Z8 Y9] +
+-0.02124424593424019 [X0 Z1 Z2 X3 X7 X8] +
+0.01187956220652785 [X0 Z1 Z2 Y3 Y6 Z7 Z8 X9] +
+-0.02124424593424019 [X0 Z1 Z2 Y3 Y7 X8] +
+0.005943916389897821 [X0 Z1 Z2 Z3 X4 X5 Z6 Z7 Z8 X9] +
+0.005943916389897821 [X0 Z1 Z2 Z3 X4 Y5 Z6 Z7 Z8 Y9] +
+-0.01635870023197333 [X0 Z1 Z2 Z3 Z4 Z5 X6 X7 Z8 X9] +
+-0.01635870023197333 [X0 Z1 Z2 Z3 Z4 Z5 X6 Y7 Z8 Y9] +
+-0.13179922150371948 [X0 Z1 Z2 Z3 Z4 Z5 Z6 Z7 X8] +
+-0.023534549588018268 [X0 Z1 Z2 Z3 Z4 Z5 Z6 Z7 X8 Z9] +
+-0.009926320025655749 [X0 Z1 Z2 Z3 Z4 Z5 Z6 X8] +
+-0.026285020257629077 [X0 Z1 Z2 Z3 Z4 Z5 Z7 X8] +
+-0.04838116963157628 [X0 Z1 Z2 Z3 Z4 Z6 Z7 X8] +
+-0.04243725324167845 [X0 Z1 Z2 Z3 Z5 Z6 Z7 X8] +
+-0.038872898277710524 [X0 Z1 Z2 Z4 Z5 Z6 Z7 X8] +
+-0.039432417300915124 [X0 Z1 Z3 Z4 Z5 Z6 Z7 X8] +
+-0.02242124266103429 [X0 Z2 Z3 Z4 Z5 Z6 Z7 X8] +
+0.012340477602697771 [Y0 X1 X2 Y3] +
+-0.007860524644432708 [Y0 X1 X2 Z3 Z4 Z5 Z6 Y7] +
+0.007860524644432708 [Y0 X1 X3 Z4 Z5 Y6] +
+0.007003017393163209 [Y0 X1 X4 Y5] +
+0.018110462919472717 [Y0 X1 X6 Y7] +
+0.03860855905511192 [Y0 X1 X8 Y9] +
+-0.012340477602697771 [Y0 Y1 X2 X3] +
+0.007860524644432708 [Y0 Y1 X2 Z3 Z4 Z5 Z6 X7] +
+0.007860524644432708 [Y0 Y1 Y3 Z4 Z5 Y6] +
+-0.007003017393163209 [Y0 Y1 X4 X5] +
+-0.018110462919472717 [Y0 Y1 X6 X7] +
+-0.03860855905511192 [Y0 Y1 X8 X9] +
+-0.009364683727712335 [Y0 Z1 X2 X6 Z7 Y8] +
+-0.0005595190232045993 [Y0 Z1 Y2 X3 Z4 Z5 Z6 Z7 Z8 X9] +
+-0.0005595190232045993 [Y0 Z1 Y2 Y3 Z4 Z5 Z6 Z7 Z8 Y9] +
+0.0011576598990098337 [Y0 Z1 Y2 X6 Z7 X8] +
+-0.008207023828702502 [Y0 Z1 Y2 Y6 Z7 Y8] +
+0.013037222105537684 [Y0 Z1 Y2 X7 Z8 X9] +
+0.013037222105537684 [Y0 Z1 Y2 Y7 Z8 Y9] +
+0.01187956220652785 [Y0 Z1 Z2 X3 X6 Z7 Z8 Y9] +
+-0.02124424593424019 [Y0 Z1 Z2 X3 X7 Y8] +
+-0.01187956220652785 [Y0 Z1 Z2 Y3 X6 Z7 Z8 X9] +
+-0.02124424593424019 [Y0 Z1 Z2 Y3 Y7 Y8] +
+0.005943916389897821 [Y0 Z1 Z2 Z3 Y4 X5 Z6 Z7 Z8 X9] +
+0.005943916389897821 [Y0 Z1 Z2 Z3 Y4 Y5 Z6 Z7 Z8 Y9] +
+-0.01635870023197333 [Y0 Z1 Z2 Z3 Z4 Z5 Y6 X7 Z8 X9] +
+-0.01635870023197333 [Y0 Z1 Z2 Z3 Z4 Z5 Y6 Y7 Z8 Y9] +
+-0.13179922150371948 [Y0 Z1 Z2 Z3 Z4 Z5 Z6 Z7 Y8] +
+-0.023534549588018268 [Y0 Z1 Z2 Z3 Z4 Z5 Z6 Z7 Y8 Z9] +
+-0.009926320025655749 [Y0 Z1 Z2 Z3 Z4 Z5 Z6 Y8] +
+-0.026285020257629077 [Y0 Z1 Z2 Z3 Z4 Z5 Z7 Y8] +
+-0.04838116963157628 [Y0 Z1 Z2 Z3 Z4 Z6 Z7 Y8] +
+-0.04243725324167845 [Y0 Z1 Z2 Z3 Z5 Z6 Z7 Y8] +
+-0.038872898277710524 [Y0 Z1 Z2 Z4 Z5 Z6 Z7 Y8] +
+-0.039432417300915124 [Y0 Z1 Z3 Z4 Z5 Z6 Z7 Y8] +
+-0.02242124266103429 [Y0 Z2 Z3 Z4 Z5 Z6 Z7 Y8] +
+0.5114766791645132 [Z0] +
+-0.02242124266103429 [Z0 X1 Z2 Z3 Z4 Z5 Z6 Z7 Z8 X9] +
+-0.02242124266103429 [Z0 Y1 Z2 Z3 Z4 Z5 Z6 Z7 Z8 Y9] +
+0.15523682392253893 [Z0 Z1] +
+-0.019030651408850758 [Z0 X2 Z3 Z4 Z5 X6] +
+-0.019030651408850758 [Z0 Y2 Z3 Z4 Z5 Y6] +
+0.13484372622211924 [Z0 Z2] +
+-0.011170126764418049 [Z0 X3 Z4 Z5 Z6 X7] +
+-0.011170126764418049 [Z0 Y3 Z4 Z5 Z6 Y7] +
+0.147184203824817 [Z0 Z3] +
+0.14812201932631391 [Z0 Z4] +
+0.15512503671947714 [Z0 Z5] +
+0.12315743240727106 [Z0 Z6] +
+0.14126789532674378 [Z0 Z7] +
+0.11196336951840531 [Z0 Z8] +
+0.15057192857351726 [Z0 Z9] +
+0.0005595190232045993 [X1 X2 Y3 Z4 Z5 Z6 Z7 Y8] +
+-0.02124424593424019 [X1 X2 X6 Z7 Z8 X9] +
+-0.01187956220652785 [X1 X2 Y7 Y8] +
+-0.0005595190232045993 [X1 Y2 Y3 Z4 Z5 Z6 Z7 X8] +
+-0.02124424593424019 [X1 Y2 Y6 Z7 Z8 X9] +
+0.01187956220652785 [X1 Y2 Y7 X8] +
+0.013037222105537684 [X1 Z2 X3 X6 Z7 X8] +
+0.013037222105537684 [X1 Z2 X3 Y6 Z7 Y8] +
+-0.008207023828702502 [X1 Z2 X3 X7 Z8 X9] +
+0.0011576598990098337 [X1 Z2 X3 Y7 Z8 Y9] +
+-0.009364683727712335 [X1 Z2 Y3 Y7 Z8 X9] +
+-0.005943916389897821 [X1 Z2 Z3 X4 Y5 Z6 Z7 Y8] +
+0.005943916389897821 [X1 Z2 Z3 Y4 Y5 Z6 Z7 X8] +
+0.01635870023197333 [X1 Z2 Z3 Z4 Z5 X6 Y7 Y8] +
+-0.01635870023197333 [X1 Z2 Z3 Z4 Z5 Y6 Y7 X8] +
+-0.13179922150371948 [X1 Z2 Z3 Z4 Z5 Z6 Z7 Z8 X9] +
+-0.023534549588018268 [X1 Z2 Z3 Z4 Z5 Z6 Z7 X9] +
+-0.026285020257629077 [X1 Z2 Z3 Z4 Z5 Z6 Z8 X9] +
+-0.009926320025655749 [X1 Z2 Z3 Z4 Z5 Z7 Z8 X9] +
+-0.04243725324167845 [X1 Z2 Z3 Z4 Z6 Z7 Z8 X9] +
+-0.04838116963157628 [X1 Z2 Z3 Z5 Z6 Z7 Z8 X9] +
+-0.039432417300915124 [X1 Z2 Z4 Z5 Z6 Z7 Z8 X9] +
+-0.038872898277710524 [X1 Z3 Z4 Z5 Z6 Z7 Z8 X9] +
+-0.0005595190232045993 [Y1 X2 X3 Z4 Z5 Z6 Z7 Y8] +
+-0.02124424593424019 [Y1 X2 X6 Z7 Z8 Y9] +
+0.01187956220652785 [Y1 X2 X7 Y8] +
+0.0005595190232045993 [Y1 Y2 X3 Z4 Z5 Z6 Z7 X8] +
+-0.02124424593424019 [Y1 Y2 Y6 Z7 Z8 Y9] +
+-0.01187956220652785 [Y1 Y2 X7 X8] +
+-0.009364683727712335 [Y1 Z2 X3 X7 Z8 Y9] +
+0.013037222105537684 [Y1 Z2 Y3 X6 Z7 X8] +
+0.013037222105537684 [Y1 Z2 Y3 Y6 Z7 Y8] +
+0.0011576598990098337 [Y1 Z2 Y3 X7 Z8 X9] +
+-0.008207023828702502 [Y1 Z2 Y3 Y7 Z8 Y9] +
+0.005943916389897821 [Y1 Z2 Z3 X4 X5 Z6 Z7 Y8] +
+-0.005943916389897821 [Y1 Z2 Z3 Y4 X5 Z6 Z7 X8] +
+-0.01635870023197333 [Y1 Z2 Z3 Z4 Z5 X6 X7 Y8] +
+0.01635870023197333 [Y1 Z2 Z3 Z4 Z5 Y6 X7 X8] +
+-0.13179922150371948 [Y1 Z2 Z3 Z4 Z5 Z6 Z7 Z8 Y9] +
+-0.023534549588018268 [Y1 Z2 Z3 Z4 Z5 Z6 Z7 Y9] +
+-0.026285020257629077 [Y1 Z2 Z3 Z4 Z5 Z6 Z8 Y9] +
+-0.009926320025655749 [Y1 Z2 Z3 Z4 Z5 Z7 Z8 Y9] +
+-0.04243725324167845 [Y1 Z2 Z3 Z4 Z6 Z7 Z8 Y9] +
+-0.04838116963157628 [Y1 Z2 Z3 Z5 Z6 Z7 Z8 Y9] +
+-0.039432417300915124 [Y1 Z2 Z4 Z5 Z6 Z7 Z8 Y9] +
+-0.038872898277710524 [Y1 Z3 Z4 Z5 Z6 Z7 Z8 Y9] +
+0.5114766791645133 [Z1] +
+-0.011170126764418049 [Z1 X2 Z3 Z4 Z5 X6] +
+-0.011170126764418049 [Z1 Y2 Z3 Z4 Z5 Y6] +
+0.147184203824817 [Z1 Z2] +
+-0.019030651408850758 [Z1 X3 Z4 Z5 Z6 X7] +
+-0.019030651408850758 [Z1 Y3 Z4 Z5 Z6 Y7] +
+0.13484372622211924 [Z1 Z3] +
+0.15512503671947714 [Z1 Z4] +
+0.14812201932631391 [Z1 Z5] +
+0.14126789532674378 [Z1 Z6] +
+0.12315743240727106 [Z1 Z7] +
+0.15057192857351726 [Z1 Z8] +
+0.11196336951840531 [Z1 Z9] +
+-0.013466907599946992 [X2 X3 Y4 Y5] +
+-0.019117814040258616 [X2 X3 Y6 Y7] +
+-0.01738387169308137 [X2 X3 Y8 Y9] +
+0.013466907599946992 [X2 Y3 Y4 X5] +
+0.019117814040258616 [X2 Y3 Y6 X7] +
+0.01738387169308137 [X2 Y3 Y8 X9] +
+9.15468625415141e-05 [X2 Z3 X4 X5 Z6 X7] +
+9.15468625415141e-05 [X2 Z3 X4 Y5 Z6 Y7] +
+-0.07584874561585878 [X2 Z3 Z4 Z5 X6] +
+-0.011673743974625627 [X2 Z3 Z4 Z5 X6 Z7] +
+-0.02580054074948911 [X2 Z3 Z4 Z5 X6 Z8] +
+-0.011117249750469783 [X2 Z3 Z4 Z5 X6 Z9] +
+0.014683290999019329 [X2 Z3 Z4 Z5 Z6 X7 Y8 Y9] +
+-0.014683290999019329 [X2 Z3 Z4 Z5 Z6 Y7 Y8 X9] +
+-0.03144540774164624 [X2 Z3 Z4 X6] +
+-0.031353860879104724 [X2 Z3 Z5 X6] +
+-0.03144039982660396 [X2 Z4 Z5 X6] +
+0.013466907599946992 [Y2 X3 X4 Y5] +
+0.019117814040258616 [Y2 X3 X6 Y7] +
+0.01738387169308137 [Y2 X3 X8 Y9] +
+-0.013466907599946992 [Y2 Y3 X4 X5] +
+-0.019117814040258616 [Y2 Y3 X6 X7] +
+-0.01738387169308137 [Y2 Y3 X8 X9] +
+9.15468625415141e-05 [Y2 Z3 Y4 X5 Z6 X7] +
+9.15468625415141e-05 [Y2 Z3 Y4 Y5 Z6 Y7] +
+-0.07584874561585878 [Y2 Z3 Z4 Z5 Y6] +
+-0.011673743974625627 [Y2 Z3 Z4 Z5 Y6 Z7] +
+-0.02580054074948911 [Y2 Z3 Z4 Z5 Y6 Z8] +
+-0.011117249750469783 [Y2 Z3 Z4 Z5 Y6 Z9] +
+-0.014683290999019329 [Y2 Z3 Z4 Z5 Z6 X7 X8 Y9] +
+0.014683290999019329 [Y2 Z3 Z4 Z5 Z6 Y7 X8 X9] +
+-0.03144540774164624 [Y2 Z3 Z4 Y6] +
+-0.031353860879104724 [Y2 Z3 Z5 Y6] +
+-0.03144039982660396 [Y2 Z4 Z5 Y6] +
+0.5045740361839433 [Z2] +
+-0.03144039982660396 [Z2 X3 Z4 Z5 Z6 X7] +
+-0.03144039982660396 [Z2 Y3 Z4 Z5 Z6 Y7] +
+0.19006279561515682 [Z2 Z3] +
+0.1662585030733378 [Z2 Z4] +
+0.1797254106732848 [Z2 Z5] +
+0.11781746821100313 [Z2 Z6] +
+0.13693528225126173 [Z2 Z7] +
+0.13265310912110886 [Z2 Z8] +
+0.15003698081419026 [Z2 Z9] +
+-9.15468625415141e-05 [X3 X4 Y5 Y6] +
+9.15468625415141e-05 [X3 Y4 Y5 X6] +
+0.014683290999019329 [X3 Z4 Z5 X6 X8 X9] +
+0.014683290999019329 [X3 Z4 Z5 Y6 Y8 X9] +
+-0.07584874561585878 [X3 Z4 Z5 Z6 X7] +
+-0.011117249750469783 [X3 Z4 Z5 Z6 X7 Z8] +
+-0.02580054074948911 [X3 Z4 Z5 Z6 X7 Z9] +
+-0.011673743974625627 [X3 Z4 Z5 X7] +
+-0.031353860879104724 [X3 Z4 Z6 X7] +
+-0.03144540774164624 [X3 Z5 Z6 X7] +
+9.15468625415141e-05 [Y3 X4 X5 Y6] +
+-9.15468625415141e-05 [Y3 Y4 X5 X6] +
+0.014683290999019329 [Y3 Z4 Z5 X6 X8 Y9] +
+0.014683290999019329 [Y3 Z4 Z5 Y6 Y8 Y9] +
+-0.07584874561585878 [Y3 Z4 Z5 Z6 Y7] +
+-0.011117249750469783 [Y3 Z4 Z5 Z6 Y7 Z8] +
+-0.02580054074948911 [Y3 Z4 Z5 Z6 Y7 Z9] +
+-0.011673743974625627 [Y3 Z4 Z5 Y7] +
+-0.031353860879104724 [Y3 Z4 Z6 Y7] +
+-0.03144540774164624 [Y3 Z5 Z6 Y7] +
+0.504574036183943 [Z3] +
+0.1797254106732848 [Z3 Z4] +
+0.1662585030733378 [Z3 Z5] +
+0.13693528225126173 [Z3 Z6] +
+0.11781746821100313 [Z3 Z7] +
+0.15003698081419026 [Z3 Z8] +
+0.13265310912110886 [Z3 Z9] +
+-0.009334194295335567 [X4 X5 Y6 Y7] +
+-0.006152782586606216 [X4 X5 Y8 Y9] +
+0.009334194295335567 [X4 Y5 Y6 X7] +
+0.006152782586606216 [X4 Y5 Y8 X9] +
+0.009334194295335567 [Y4 X5 X6 Y7] +
+0.006152782586606216 [Y4 X5 X8 Y9] +
+-0.009334194295335567 [Y4 Y5 X6 X7] +
+-0.006152782586606216 [Y4 Y5 X8 X9] +
+0.4761571134937926 [Z4] +
+0.22003977334376154 [Z4 Z5] +
+0.1370605842347638 [Z4 Z6] +
+0.14639477853009938 [Z4 Z7] +
+0.14899185049749036 [Z4 Z8] +
+0.15514463308409657 [Z4 Z9] +
+0.4761571134937923 [Z5] +
+0.14639477853009938 [Z5 Z6] +
+0.1370605842347638 [Z5 Z7] +
+0.15514463308409657 [Z5 Z8] +
+0.14899185049749036 [Z5 Z9] +
+-0.02868574414108552 [X6 X7 Y8 Y9] +
+0.02868574414108552 [X6 Y7 Y8 X9] +
+0.02868574414108552 [Y6 X7 X8 Y9] +
+-0.02868574414108552 [Y6 Y7 X8 X9] +
+0.12011787468422046 [Z6] +
+0.14828257162461078 [Z6 Z7] +
+0.11173557205097294 [Z6 Z8] +
+0.14042131619205844 [Z6 Z9] +
+0.1201178746842205 [Z7] +
+0.14042131619205844 [Z7 Z8] +
+0.11173557205097294 [Z7 Z9] +
+0.09747970477861645 [Z8] +
+0.1532215880834908 [Z8 Z9] +
+0.0974797047786164 [Z9]
+len(op_list):  252
+number of terms:  252
+# randomly selected perm:  2
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">jue</span><span class="o">/</span><span class="n">GitHub</span><span class="o">/</span><span class="n">Reinforcement</span><span class="o">-</span><span class="n">learning</span><span class="o">-</span><span class="n">quantum</span><span class="o">-</span><span class="n">simulation</span><span class="o">/</span><span class="n">Code</span><span class="o">/</span><span class="n">chem</span><span class="o">.</span><span class="n">ipynb</span> <span class="n">Cell</span> <span class="mi">7</span> <span class="n">line</span> <span class="mi">5</span>
+     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Reinforcement-learning-quantum-simulation/Code/chem.ipynb#W6sZmlsZQ%3D%3D?line=51&#39;</span><span class="o">&gt;</span><span class="mi">52</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-3</span>
+     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Reinforcement-learning-quantum-simulation/Code/chem.ipynb#W6sZmlsZQ%3D%3D?line=52&#39;</span><span class="o">&gt;</span><span class="mi">53</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="o">---&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Reinforcement-learning-quantum-simulation/Code/chem.ipynb#W6sZmlsZQ%3D%3D?line=54&#39;</span><span class="o">&gt;</span><span class="mi">55</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">error_list_pf1</span><span class="p">,</span> <span class="n">error_list_pf2</span> <span class="o">=</span> <span class="n">trotter_error</span><span class="p">(</span><span class="n">h2o_hamiltonian</span><span class="p">,</span> <span class="n">r_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
+     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Reinforcement-learning-quantum-simulation/Code/chem.ipynb#W6sZmlsZQ%3D%3D?line=56&#39;</span><span class="o">&gt;</span><span class="mi">57</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF1&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/jue/GitHub/Reinforcement-learning-quantum-simulation/Code/chem.ipynb#W6sZmlsZQ%3D%3D?line=57&#39;</span><span class="o">&gt;</span><span class="mi">58</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">data_plot</span><span class="p">(</span><span class="n">r_list</span><span class="p">,</span> <span class="n">error_list_pf2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PF2&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+
+<span class="nn">File ~/GitHub/Reinforcement-learning-quantum-simulation/Code/utils.py:153,</span> in <span class="ni">trotter_error</span><span class="nt">(list_herm, r_list, t, norm, n_perm, verbose)</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;# all perm: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">perm_list</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span> <span class="c1"># perm_list = list(itertools.permutations(list_herm))[:5]</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span> <span class="c1"># for r in r_list:</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span> <span class="c1"># first-order trotter</span>
+<span class="ne">--&gt; </span><span class="mi">153</span> <span class="n">trotter_error_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">op_error</span><span class="p">(</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">matrix_product</span><span class="p">(</span><span class="n">perm</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">r</span><span class="p">)),</span> <span class="n">r</span><span class="p">),</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">norm</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">r_list</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">perm_list</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span> <span class="c1"># trotter_error_list = [op_error(matrix_power(unitary_matrix_product(perm, t=t/r), r), exact_U, norm) for r in r_list for perm in perm_list]</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span> <span class="c1"># second-order trotter</span>
+<span class="g g-Whitespace">    </span><span class="mi">156</span> <span class="n">trotter_error_list_2nd</span> <span class="o">=</span> <span class="p">[</span><span class="n">op_error</span><span class="p">(</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">matrix_product</span><span class="p">(</span><span class="n">perm</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">r</span><span class="p">))</span> <span class="o">@</span> <span class="n">matrix_product</span><span class="p">(</span><span class="n">perm</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">r</span><span class="p">)),</span> <span class="n">r</span><span class="p">),</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">norm</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">r_list</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">perm_list</span><span class="p">]</span>
+
+<span class="nn">File ~/GitHub/Reinforcement-learning-quantum-simulation/Code/utils.py:153,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;# all perm: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">perm_list</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span> <span class="c1"># perm_list = list(itertools.permutations(list_herm))[:5]</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span> <span class="c1"># for r in r_list:</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span> <span class="c1"># first-order trotter</span>
+<span class="ne">--&gt; </span><span class="mi">153</span> <span class="n">trotter_error_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">op_error</span><span class="p">(</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">matrix_product</span><span class="p">(</span><span class="n">perm</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">r</span><span class="p">)),</span> <span class="n">r</span><span class="p">),</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">norm</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">r_list</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">perm_list</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span> <span class="c1"># trotter_error_list = [op_error(matrix_power(unitary_matrix_product(perm, t=t/r), r), exact_U, norm) for r in r_list for perm in perm_list]</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span> <span class="c1"># second-order trotter</span>
+<span class="g g-Whitespace">    </span><span class="mi">156</span> <span class="n">trotter_error_list_2nd</span> <span class="o">=</span> <span class="p">[</span><span class="n">op_error</span><span class="p">(</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">matrix_product</span><span class="p">(</span><span class="n">perm</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">r</span><span class="p">))</span> <span class="o">@</span> <span class="n">matrix_product</span><span class="p">(</span><span class="n">perm</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">r</span><span class="p">)),</span> <span class="n">r</span><span class="p">),</span> <span class="n">exact_U</span><span class="p">,</span> <span class="n">norm</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">r_list</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">perm_list</span><span class="p">]</span>
+
+<span class="nn">File ~/GitHub/Reinforcement-learning-quantum-simulation/Code/utils.py:59,</span> in <span class="ni">matrix_product</span><span class="nt">(list_U, t)</span>
+<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="k">def</span> <span class="nf">matrix_product</span><span class="p">(</span><span class="n">list_U</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="c1"># product = matrix_power(list_U[0], t)</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="c1"># for i in range(1, len(list_U)):</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="c1">#     product = matrix_power(list_U[i], t) @ product</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span>     <span class="c1">#     # product = product @ matrix_power(list_U[i], t)</span>
+<span class="ne">---&gt; </span><span class="mi">59</span>     <span class="n">product</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">multi_dot</span><span class="p">([</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">U</span> <span class="ow">in</span> <span class="n">list_U</span><span class="p">])</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span>     <span class="k">return</span> <span class="n">product</span>
+
+<span class="nn">File ~/GitHub/Reinforcement-learning-quantum-simulation/Code/utils.py:59,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="k">def</span> <span class="nf">matrix_product</span><span class="p">(</span><span class="n">list_U</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="c1"># product = matrix_power(list_U[0], t)</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="c1"># for i in range(1, len(list_U)):</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="c1">#     product = matrix_power(list_U[i], t) @ product</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span>     <span class="c1">#     # product = product @ matrix_power(list_U[i], t)</span>
+<span class="ne">---&gt; </span><span class="mi">59</span>     <span class="n">product</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">multi_dot</span><span class="p">([</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">U</span> <span class="ow">in</span> <span class="n">list_U</span><span class="p">])</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span>     <span class="k">return</span> <span class="n">product</span>
+
+<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/numpy/linalg/linalg.py:680,</span> in <span class="ni">matrix_power</span><span class="nt">(a, n)</span>
+<span class="g g-Whitespace">    </span><span class="mi">678</span>     <span class="n">n</span><span class="p">,</span> <span class="n">bit</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">679</span>     <span class="k">if</span> <span class="n">bit</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">680</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">z</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fmatmul</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">682</span> <span class="k">return</span> <span class="n">result</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openfermionpyscf</span> <span class="k">as</span> <span class="nn">ofpyscf</span>
+<span class="kn">import</span> <span class="nn">openfermion</span> <span class="k">as</span> <span class="nn">of</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">linalg</span>
+<span class="kn">import</span> <span class="nn">cirq</span>
+
+<span class="c1"># Set molecule parameters</span>
+<span class="n">geometry</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))]</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="s2">&quot;sto-3g&quot;</span>
+<span class="n">multiplicity</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">charge</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Perform electronic structure calculations and</span>
+<span class="c1"># obtain Hamiltonian as an InteractionOperator</span>
+<span class="n">hamiltonian</span> <span class="o">=</span> <span class="n">ofpyscf</span><span class="o">.</span><span class="n">generate_molecular_hamiltonian</span><span class="p">(</span>
+    <span class="n">geometry</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">charge</span>
+<span class="p">)</span>
+<span class="c1"># for term in hamiltonian:</span>
+<span class="c1">#     print(term, hamiltonian[term])</span>
+<span class="c1"># print(hamiltonian)</span>
+<span class="c1"># print(hamiltonian.terms)</span>
+
+<span class="c1"># Convert to a FermionOperator</span>
+<span class="n">hamiltonian_ferm_op</span> <span class="o">=</span> <span class="n">of</span><span class="o">.</span><span class="n">get_fermion_operator</span><span class="p">(</span><span class="n">hamiltonian</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hamiltonian_ferm_op</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">hamiltonian_ferm_op</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;term: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">of</span><span class="o">.</span><span class="n">get_sparse_operator</span><span class="p">(</span><span class="n">term</span><span class="p">))</span>
+<span class="c1"># print(hamiltonian_ferm_op)</span>
+
+<span class="c1"># Map to QubitOperator using the JWT</span>
+<span class="n">hamiltonian_jw</span> <span class="o">=</span> <span class="n">of</span><span class="o">.</span><span class="n">jordan_wigner</span><span class="p">(</span><span class="n">hamiltonian_ferm_op</span><span class="p">)</span>
+
+<span class="c1"># Convert to Scipy sparse matrix</span>
+<span class="n">hamiltonian_jw_sparse</span> <span class="o">=</span> <span class="n">of</span><span class="o">.</span><span class="n">get_sparse_operator</span><span class="p">(</span><span class="n">hamiltonian_jw</span><span class="p">)</span>
+
+<span class="c1"># Compute ground energy</span>
+<span class="n">eigs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">eigsh</span><span class="p">(</span><span class="n">hamiltonian_jw_sparse</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;SA&quot;</span><span class="p">)</span>
+<span class="n">ground_energy</span> <span class="o">=</span> <span class="n">eigs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ground_energy: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ground_energy</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;JWT transformed Hamiltonian:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hamiltonian_jw</span><span class="p">)</span>
+
+<span class="c1"># Map to QubitOperator using the JWT</span>
+<span class="n">hamiltonian_bk</span> <span class="o">=</span> <span class="n">of</span><span class="o">.</span><span class="n">bravyi_kitaev</span><span class="p">(</span><span class="n">hamiltonian_ferm_op</span><span class="p">)</span>
+
+<span class="c1"># Convert to Scipy sparse matrix</span>
+<span class="n">hamiltonian_bk_sparse</span> <span class="o">=</span> <span class="n">of</span><span class="o">.</span><span class="n">get_sparse_operator</span><span class="p">(</span><span class="n">hamiltonian_bk</span><span class="p">)</span>
+
+<span class="c1"># Compute ground energy</span>
+<span class="n">eigs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">eigsh</span><span class="p">(</span><span class="n">hamiltonian_bk_sparse</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;SA&quot;</span><span class="p">)</span>
+<span class="n">ground_energy</span> <span class="o">=</span> <span class="n">eigs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># print(&quot;Ground_energy: {}&quot;.format(ground_energy))</span>
+<span class="c1"># print(&quot;BK transformed Hamiltonian:&quot;)</span>
+<span class="c1"># print(hamiltonian_bk)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.66147151365 [] +
+-1.2178260299951063 [0^ 0] +
+0.33166507443180837 [0^ 0^ 0 0] +
+0.0923133917780305 [0^ 0^ 2 2] +
+0.33166507443180837 [0^ 1^ 1 0] +
+0.0923133917780305 [0^ 1^ 3 2] +
+0.0923133917780305 [0^ 2^ 0 2] +
+0.3267206861819478 [0^ 2^ 2 0] +
+0.0923133917780305 [0^ 3^ 1 2] +
+0.3267206861819478 [0^ 3^ 3 0] +
+0.33166507443180837 [1^ 0^ 0 1] +
+0.0923133917780305 [1^ 0^ 2 3] +
+-1.2178260299951063 [1^ 1] +
+0.33166507443180837 [1^ 1^ 1 1] +
+0.0923133917780305 [1^ 1^ 3 3] +
+0.0923133917780305 [1^ 2^ 0 3] +
+0.3267206861819478 [1^ 2^ 2 1] +
+0.0923133917780305 [1^ 3^ 1 3] +
+0.3267206861819478 [1^ 3^ 3 1] +
+0.32672068618194805 [2^ 0^ 0 2] +
+0.0923133917780305 [2^ 0^ 2 0] +
+0.32672068618194805 [2^ 1^ 1 2] +
+0.0923133917780305 [2^ 1^ 3 0] +
+-0.5096378744364837 [2^ 2] +
+0.0923133917780305 [2^ 2^ 0 0] +
+0.3433957678457352 [2^ 2^ 2 2] +
+0.0923133917780305 [2^ 3^ 1 0] +
+0.3433957678457352 [2^ 3^ 3 2] +
+0.32672068618194805 [3^ 0^ 0 3] +
+0.0923133917780305 [3^ 0^ 2 1] +
+0.32672068618194805 [3^ 1^ 1 3] +
+0.0923133917780305 [3^ 1^ 3 1] +
+0.0923133917780305 [3^ 2^ 0 1] +
+0.3433957678457352 [3^ 2^ 2 3] +
+-0.5096378744364837 [3^ 3] +
+0.0923133917780305 [3^ 3^ 1 1] +
+0.3433957678457352 [3^ 3^ 3 3]
+term: 
+   (0, 0)	(0.66147151365+0j)
+term: 
+   (1, 1)	(-1.2178260299951063+0j)
+term: 
+   (1, 1)	(-1.2178260299951063+0j)
+  (3, 3)	(-1.2178260299951063+0j)
+term: 
+   (1, 1)	(-0.5096378744364837+0j)
+  (3, 3)	(-0.5096378744364837+0j)
+  (5, 5)	(-0.5096378744364837+0j)
+  (7, 7)	(-0.5096378744364837+0j)
+term: 
+   (1, 1)	(-0.5096378744364837+0j)
+  (3, 3)	(-0.5096378744364837+0j)
+  (5, 5)	(-0.5096378744364837+0j)
+  (7, 7)	(-0.5096378744364837+0j)
+  (9, 9)	(-0.5096378744364837+0j)
+  (11, 11)	(-0.5096378744364837+0j)
+  (13, 13)	(-0.5096378744364837+0j)
+  (15, 15)	(-0.5096378744364837+0j)
+term: 
+ 
+term: 
+ 
+term: 
+   (3, 3)	(0.33166507443180837+0j)
+term: 
+   (12, 3)	(0.0923133917780305+0j)
+term: 
+   (5, 5)	(-0.0923133917780305+0j)
+  (7, 7)	(-0.0923133917780305+0j)
+term: 
+   (5, 5)	(0.3267206861819478+0j)
+  (7, 7)	(0.3267206861819478+0j)
+term: 
+   (9, 6)	(-0.0923133917780305+0j)
+term: 
+   (9, 9)	(0.3267206861819478+0j)
+  (11, 11)	(0.3267206861819478+0j)
+  (13, 13)	(0.3267206861819478+0j)
+  (15, 15)	(0.3267206861819478+0j)
+term: 
+   (3, 3)	(0.33166507443180837+0j)
+term: 
+   (12, 3)	(0.0923133917780305+0j)
+term: 
+ 
+term: 
+ 
+term: 
+   (6, 9)	(-0.0923133917780305+0j)
+term: 
+   (3, 3)	(0.3267206861819478+0j)
+  (7, 7)	(0.3267206861819478+0j)
+term: 
+   (5, 5)	(-0.0923133917780305+0j)
+  (7, 7)	(-0.0923133917780305+0j)
+  (13, 13)	(-0.0923133917780305+0j)
+  (15, 15)	(-0.0923133917780305+0j)
+term: 
+   (5, 5)	(0.3267206861819478+0j)
+  (7, 7)	(0.3267206861819478+0j)
+  (13, 13)	(0.3267206861819478+0j)
+  (15, 15)	(0.3267206861819478+0j)
+term: 
+   (5, 5)	(0.32672068618194805+0j)
+  (7, 7)	(0.32672068618194805+0j)
+term: 
+   (5, 5)	(-0.0923133917780305+0j)
+  (7, 7)	(-0.0923133917780305+0j)
+term: 
+   (3, 3)	(0.32672068618194805+0j)
+  (7, 7)	(0.32672068618194805+0j)
+term: 
+   (6, 9)	(-0.0923133917780305+0j)
+term: 
+ 
+term: 
+ 
+term: 
+   (3, 12)	(0.0923133917780305+0j)
+term: 
+   (3, 3)	(0.3433957678457352+0j)
+  (7, 7)	(0.3433957678457352+0j)
+  (11, 11)	(0.3433957678457352+0j)
+  (15, 15)	(0.3433957678457352+0j)
+term: 
+   (9, 9)	(0.32672068618194805+0j)
+  (11, 11)	(0.32672068618194805+0j)
+  (13, 13)	(0.32672068618194805+0j)
+  (15, 15)	(0.32672068618194805+0j)
+term: 
+   (9, 6)	(-0.0923133917780305+0j)
+term: 
+   (5, 5)	(0.32672068618194805+0j)
+  (7, 7)	(0.32672068618194805+0j)
+  (13, 13)	(0.32672068618194805+0j)
+  (15, 15)	(0.32672068618194805+0j)
+term: 
+   (5, 5)	(-0.0923133917780305+0j)
+  (7, 7)	(-0.0923133917780305+0j)
+  (13, 13)	(-0.0923133917780305+0j)
+  (15, 15)	(-0.0923133917780305+0j)
+term: 
+   (3, 12)	(0.0923133917780305+0j)
+term: 
+   (3, 3)	(0.3433957678457352+0j)
+  (7, 7)	(0.3433957678457352+0j)
+  (11, 11)	(0.3433957678457352+0j)
+  (15, 15)	(0.3433957678457352+0j)
+term: 
+ 
+term: 
+ 
+Ground_energy: -1.1341476666770989
+JWT transformed Hamiltonian:
+(-0.167333989056953+0j) [] +
+(-0.04615669588901525+0j) [X0 X1 Y2 Y3] +
+(0.04615669588901525+0j) [X0 Y1 Y2 X3] +
+(0.04615669588901525+0j) [Y0 X1 X2 Y3] +
+(-0.04615669588901525+0j) [Y0 Y1 X2 X3] +
+(0.16251648748871622+0j) [Z0] +
+(0.16583253721590419+0j) [Z0 Z1] +
+(0.11720364720195871+0j) [Z0 Z2] +
+(0.16336034309097397+0j) [Z0 Z3] +
+(0.16251648748871628+0j) [Z1] +
+(0.16336034309097397+0j) [Z1 Z2] +
+(0.11720364720195871+0j) [Z1 Z3] +
+(-0.19744293699755844+0j) [Z2] +
+(0.1716978839228676+0j) [Z2 Z3] +
+(-0.19744293699755844+0j) [Z3]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://quantumai.google/openfermion/tutorials/intro_workshop_exercises</span>
+
+<span class="c1"># Create a random initial state</span>
+<span class="n">n_qubits</span> <span class="o">=</span> <span class="n">of</span><span class="o">.</span><span class="n">count_qubits</span><span class="p">(</span><span class="n">hamiltonian</span><span class="p">)</span>
+<span class="n">initial_state</span> <span class="o">=</span> <span class="n">of</span><span class="o">.</span><span class="n">haar_random_vector</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">n_qubits</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="c1"># Set evolution time</span>
+<span class="n">time</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="c1"># Apply exp(-i H t) to the state</span>
+<span class="n">exact_state</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">expm_multiply</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">hamiltonian_jw_sparse</span> <span class="o">*</span> <span class="n">time</span><span class="p">,</span> <span class="n">initial_state</span><span class="p">)</span>
+
+<span class="c1"># Initialize qubits</span>
+<span class="n">qubits</span> <span class="o">=</span> <span class="n">cirq</span><span class="o">.</span><span class="n">LineQubit</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">)</span>
+
+<span class="c1"># Create circuit</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">cirq</span><span class="o">.</span><span class="n">Circuit</span><span class="p">(</span>
+    <span class="n">of</span><span class="o">.</span><span class="n">simulate_trotter</span><span class="p">(</span>
+        <span class="n">qubits</span><span class="p">,</span> <span class="n">hamiltonian</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">of</span><span class="o">.</span><span class="n">LOW_RANK</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Apply the circuit to the initial state</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">final_state_vector</span><span class="p">(</span><span class="n">initial_state</span><span class="p">)</span>
+
+<span class="c1"># Compute the fidelity with the final state from exact evolution</span>
+<span class="n">fidelity</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">exact_state</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">conj</span><span class="p">()))</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">fidelity</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">to_text_diagram</span><span class="p">(</span><span class="n">transpose</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">36</span><span class="p">],</span> <span class="n">line</span> <span class="mi">24</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">circuit</span> <span class="o">=</span> <span class="n">cirq</span><span class="o">.</span><span class="n">Circuit</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">of</span><span class="o">.</span><span class="n">simulate_trotter</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>         <span class="n">qubits</span><span class="p">,</span> <span class="n">hamiltonian</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">of</span><span class="o">.</span><span class="n">LOW_RANK</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="c1"># Apply the circuit to the initial state</span>
+<span class="ne">---&gt; </span><span class="mi">24</span> <span class="n">result</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">final_state_vector</span><span class="p">(</span><span class="n">initial_state</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="c1"># Compute the fidelity with the final state from exact evolution</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="n">fidelity</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">exact_state</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">conj</span><span class="p">()))</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="ne">TypeError</span>: AbstractCircuit.final_state_vector() takes 1 positional argument but 2 were given
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h2o">H2O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hydrogen-chain">Hydrogen chain</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openfermion-simulate-trotter">Openfermion simulate_trotter</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jue Xu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Operators" href="operator.html" />
-    <link rel="prev" title="Quantum Simulation Cookbook" href="intro.html" />
+    <link rel="prev" title="Quantum computation" href="basic.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,23 +179,33 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">States</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="basic.html">Quantum computation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="spin.html">Spin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field.html">Gauge Field</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -522,12 +532,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>psi0:  Statevector([ 0.23375753+0.4691517j ,  0.03260307-0.51794431j,
-             -0.11203482-0.54968101j,  0.37579582+0.00114618j],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>psi0:  Statevector([ 0.02120132-0.50484099j,  0.01234635+0.53922564j,
+             -0.02967976-0.14109851j,  0.2214518 +0.61962793j],
             dims=(2, 2))
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.23375753236495705-0.4691516973390573j)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.021201320936225176+0.5048409940612847j)
 </pre></div>
 </div>
 </div>
@@ -619,11 +629,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statevector([ 0.24778619-0.48989869j,  0.46895694-0.11311712j,
-             -0.25344459-0.19602721j, -0.34544544+0.49385404j],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statevector([0.04456401+0.39882685j, 0.25309841-0.13167366j,
+             0.21567479-0.50270452j, 0.46928325-0.48795514j],
             dims=(2, 2))
-[ 0.24778619-0.48989869j  0.46895694-0.11311712j -0.25344459-0.19602721j
- -0.34544544+0.49385404j]
+[0.04456401+0.39882685j 0.25309841-0.13167366j 0.21567479-0.50270452j
+ 0.46928325-0.48795514j]
 </pre></div>
 </div>
 </div>
@@ -656,13 +666,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-0.5319058 +0.00528309j  0.02158467+0.18364417j  0.00233175-0.21135401j
- -0.30351639+0.29485695j -0.24417915+0.26337673j -0.33461328-0.03912213j
-  0.45313257+0.09218969j -0.05277458+0.00422832j]
-{&#39;000&#39;: 34, &#39;001&#39;: 2, &#39;010&#39;: 3, &#39;011&#39;: 17, &#39;100&#39;: 15, &#39;101&#39;: 8, &#39;110&#39;: 21}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-0.08372771+0.17592403j -0.02240382+0.07408365j  0.160813  +0.48099221j
+ -0.29317719+0.15591017j -0.09413789-0.32087854j -0.22193219-0.18056579j
+  0.2865955 +0.38491589j  0.34919513+0.20653709j]
+{&#39;000&#39;: 4, &#39;010&#39;: 24, &#39;011&#39;: 10, &#39;100&#39;: 13, &#39;101&#39;: 8, &#39;110&#39;: 21, &#39;111&#39;: 20}
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/07e7fb48d1c7853804f527b575dba49e1483e6877fc63c973bacbb30304ee32e.png"><img alt="_images/07e7fb48d1c7853804f527b575dba49e1483e6877fc63c973bacbb30304ee32e.png" src="_images/07e7fb48d1c7853804f527b575dba49e1483e6877fc63c973bacbb30304ee32e.png" style="width: 621px; height: 456px;" /></a>
+<a class="reference internal image-reference" href="_images/d369f1e4241ebb98f128315ddd660d84930dfca53c739b379594869db1bf7898.png"><img alt="_images/d369f1e4241ebb98f128315ddd660d84930dfca53c739b379594869db1bf7898.png" src="_images/d369f1e4241ebb98f128315ddd660d84930dfca53c739b379594869db1bf7898.png" style="width: 621px; height: 456px;" /></a>
 </div>
 </div>
 </section>
@@ -678,14 +688,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DensityMatrix([[ 0.23971471-4.67898495e-19j, -0.19296108+3.99067789e-02j,
-                -0.03724073-4.52703107e-02j,  0.03699196-8.29021942e-02j],
-               [-0.19296108-3.99067789e-02j,  0.36186041+1.51881941e-18j,
-                 0.05740503-2.58920252e-02j,  0.11288116+1.13062949e-01j],
-               [-0.03724073+4.52703107e-02j,  0.05740503+2.58920252e-02j,
-                 0.16477823-5.46562732e-19j, -0.05221929+1.00540399e-01j],
-               [ 0.03699196+8.29021942e-02j,  0.11288116-1.13062949e-01j,
-                -0.05221929-1.00540399e-01j,  0.23364665-5.04358186e-19j]],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DensityMatrix([[ 0.29250297+3.38937999e-18j,  0.09265335-1.04047237e-01j,
+                 0.00121964-6.82243368e-02j,  0.04494919-4.66065393e-02j],
+               [ 0.09265335+1.04047237e-01j,  0.2522893 -1.43198385e-18j,
+                -0.1682177 +2.23956500e-02j,  0.13369778+8.38932539e-02j],
+               [ 0.00121964+6.82243368e-02j, -0.1682177 -2.23956500e-02j,
+                 0.28978814-1.34177443e-18j, -0.11845716-8.31402272e-02j],
+               [ 0.04494919+4.66065393e-02j,  0.13369778-8.38932539e-02j,
+                -0.11845716+8.31402272e-02j,  0.16541959-6.15621706e-19j]],
               dims=(2, 2))
 </pre></div>
 </div>
@@ -773,6 +783,20 @@ document.write(`
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">stab</span><span class="o">.</span><span class="n">clifford</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;purity: &#39;</span><span class="p">,</span> <span class="n">stab</span><span class="o">.</span><span class="n">purity</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clifford: Stabilizer = [&#39;+ZXX&#39;, &#39;-XYX&#39;, &#39;+ZYY&#39;], Destabilizer = [&#39;+IXZ&#39;, &#39;-XIZ&#39;, &#39;-XXZ&#39;]
+purity:  1.0
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id1">
 <h2>Mixed state<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
@@ -849,12 +873,12 @@ This function plots the coefficients Tr(σρ) as bar graph.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="basic.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Quantum Simulation Cookbook</p>
+        <p class="prev-next-title">Quantum computation</p>
       </div>
     </a>
     <a class="right-next"

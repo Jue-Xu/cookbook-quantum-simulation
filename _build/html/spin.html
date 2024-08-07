@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Fermion" href="fermion.html" />
-    <link rel="prev" title="Channels" href="channel.html" />
+    <link rel="prev" title="Gallery of toy models" href="hamiltonian.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,24 +180,34 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="state.html">States</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hamiltonians</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Spin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fermion.html">Fermion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field.html">Gauge Field</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Product Formula</span></p>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Spin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field.html">Gauge Field</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="grouping.html">Grouping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interference.html">Error interference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="localization.html">Error localization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="average.html">Average error</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -425,7 +435,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">Statevector</span>
 
 <span class="kn">import</span> <span class="nn">quantum_simulation_recipe</span> <span class="k">as</span> <span class="nn">qsr</span>
-<span class="kn">from</span> <span class="nn">quantum_simulation_recipe</span> <span class="kn">import</span> <span class="n">spin_ham</span>
+<span class="kn">from</span> <span class="nn">quantum_simulation_recipe</span> <span class="kn">import</span> <span class="n">spin</span>
 </pre></div>
 </div>
 </div>
@@ -437,15 +447,14 @@ document.write(`
 <p>where <span class="math notranslate nohighlight">\(J\)</span> is the interaction strength and <span class="math notranslate nohighlight">\(h_j\)</span> is the strength of the external field (random disorder).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">spin_ham</span><span class="o">.</span><span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">spin</span><span class="o">.</span><span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hz</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="n">H</span><span class="o">.</span><span class="n">ham</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;IIXX&#39;, &#39;IXXI&#39;, &#39;XXII&#39;, &#39;IIYY&#39;, &#39;IYYI&#39;, &#39;YYII&#39;, &#39;IIZZ&#39;, &#39;IZZI&#39;, &#39;ZZII&#39;, &#39;IIIX&#39;, &#39;IIXI&#39;, &#39;IXII&#39;, &#39;XIII&#39;],
-              coeffs=[1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j, 1. +0.j,
- 1. +0.j, 0.2+0.j, 0.2+0.j, 0.2+0.j, 0.2+0.j])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;IIXX&#39;, &#39;IXXI&#39;, &#39;XXII&#39;, &#39;IIIZ&#39;, &#39;IIZI&#39;, &#39;IZII&#39;, &#39;ZIII&#39;],
+              coeffs=[1. +0.j, 1. +0.j, 1. +0.j, 0.2+0.j, 0.2+0.j, 0.2+0.j, 0.2+0.j])
 </pre></div>
 </div>
 </div>
@@ -457,19 +466,15 @@ document.write(`
 \[H=\sum_{j=1}^{n} \sum_{k=j+1}^n \frac{1}{(j-k)^\alpha} (J^x X_j X_{k} + J^y Y_j Y_{k} + J^z Z_j Z_{k}) + \sum_{j=1}^{n} h_j^x X_j + h_j^y Y_j + h_j^z Z_j,\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">spin_ham</span><span class="o">.</span><span class="n">Power_law</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">spin</span><span class="o">.</span><span class="n">Power_Law</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hz</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="n">H</span><span class="o">.</span><span class="n">ham</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;IIXX&#39;, &#39;IXIX&#39;, &#39;XIIX&#39;, &#39;IXXI&#39;, &#39;XIXI&#39;, &#39;XXII&#39;, &#39;IIYY&#39;, &#39;IYIY&#39;, &#39;YIIY&#39;, &#39;IYYI&#39;, &#39;YIYI&#39;, &#39;YYII&#39;, &#39;IIZZ&#39;, &#39;IZIZ&#39;, &#39;ZIIZ&#39;, &#39;IZZI&#39;, &#39;ZIZI&#39;, &#39;ZZII&#39;, &#39;IIIZ&#39;, &#39;IIZI&#39;, &#39;IZII&#39;, &#39;ZIII&#39;],
-              coeffs=[1.        +0.j, 0.0625    +0.j, 0.01234568+0.j, 1.        +0.j,
- 0.0625    +0.j, 1.        +0.j, 1.        +0.j, 0.0625    +0.j,
- 0.01234568+0.j, 1.        +0.j, 0.0625    +0.j, 1.        +0.j,
- 1.        +0.j, 0.0625    +0.j, 0.01234568+0.j, 1.        +0.j,
- 0.0625    +0.j, 1.        +0.j, 0.2       +0.j, 0.2       +0.j,
- 0.2       +0.j, 0.2       +0.j])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparsePauliOp([&#39;IIXX&#39;, &#39;IXIX&#39;, &#39;XIIX&#39;, &#39;IXXI&#39;, &#39;XIXI&#39;, &#39;XXII&#39;, &#39;IIIZ&#39;, &#39;IIZI&#39;, &#39;IZII&#39;, &#39;ZIII&#39;],
+              coeffs=[1.      +0.j, 0.0625  +0.j, 0.012346+0.j, 1.      +0.j, 0.0625  +0.j,
+ 1.      +0.j, 0.2     +0.j, 0.2     +0.j, 0.2     +0.j, 0.2     +0.j])
 </pre></div>
 </div>
 </div>
@@ -512,12 +517,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="channel.html"
+       href="hamiltonian.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Channels</p>
+        <p class="prev-next-title">Gallery of toy models</p>
       </div>
     </a>
     <a class="right-next"

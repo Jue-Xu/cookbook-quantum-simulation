@@ -32,7 +32,7 @@ Cell [0;32mIn[2], line 1[0m
 [1;32m      3[0m [38;5;28mprint[39m([38;5;124m'[39m[38;5;124m====start Trotter====[39m[38;5;124m'[39m)
 [1;32m      4[0m t [38;5;241m=[39m [38;5;241m10[39m
 
-File [0;32m~/work/Cookbook-Quantum-Simulation/Cookbook-Quantum-Simulation/fermion_ham.py:118[0m, in [0;36mh2o_hamiltonian.__init__[0;34m(self, verbose)[0m
+File [0;32m~/work/cookbook-quantum-simulation/cookbook-quantum-simulation/fermion_ham.py:118[0m, in [0;36mh2o_hamiltonian.__init__[0;34m(self, verbose)[0m
 [1;32m    115[0m [38;5;66;03m# Perform electronic structure calculations and[39;00m
 [1;32m    116[0m [38;5;66;03m# obtain Hamiltonian as an InteractionOperator[39;00m
 [1;32m    117[0m [38;5;28mself[39m[38;5;241m.[39mmolecule [38;5;241m=[39m MolecularData([38;5;28mself[39m[38;5;241m.[39mgeometry, [38;5;28mself[39m[38;5;241m.[39mbasis, [38;5;28mself[39m[38;5;241m.[39mmultiplicity, [38;5;28mself[39m[38;5;241m.[39mcharge)

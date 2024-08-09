@@ -207,7 +207,6 @@
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
@@ -513,14 +512,14 @@ The parity grouping:
 <span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">exact_ob_s</span> <span class="o">=</span> <span class="n">exact_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">singl_ob</span> <span class="o">@</span> <span class="n">exact_U</span> 
 <span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">appro_ob_s</span> <span class="o">=</span> <span class="n">appro_U</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">singl_ob</span> <span class="o">@</span> <span class="n">appro_U</span>
 
-<span class="nn">File ~/work/Cookbook-Quantum-Simulation/Cookbook-Quantum-Simulation/trotter.py:97,</span> in <span class="ni">pf_r</span><span class="nt">(h_list, t, r, order, verbose, use_jax)</span>
+<span class="nn">File ~/work/cookbook-quantum-simulation/cookbook-quantum-simulation/trotter.py:97,</span> in <span class="ni">pf_r</span><span class="nt">(h_list, t, r, order, verbose, use_jax)</span>
 <span class="g g-Whitespace">     </span><span class="mi">95</span> <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
 <span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="k">if</span> <span class="n">use_jax</span><span class="p">:</span>
 <span class="ne">---&gt; </span><span class="mi">97</span>         <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">))</span> <span class="o">*</span> <span class="n">herm</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
 <span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="k">else</span><span class="p">:</span>
 <span class="g g-Whitespace">     </span><span class="mi">99</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">csr_matrix</span><span class="p">):</span>
 
-<span class="nn">File ~/work/Cookbook-Quantum-Simulation/Cookbook-Quantum-Simulation/trotter.py:97,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="nn">File ~/work/cookbook-quantum-simulation/cookbook-quantum-simulation/trotter.py:97,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
 <span class="g g-Whitespace">     </span><span class="mi">95</span> <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
 <span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="k">if</span> <span class="n">use_jax</span><span class="p">:</span>
 <span class="ne">---&gt; </span><span class="mi">97</span>         <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">jax</span><span class="o">.</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">))</span> <span class="o">*</span> <span class="n">herm</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
@@ -546,7 +545,7 @@ The parity grouping:
   <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">49</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">193</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
-  <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.014000000000000004</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.013999999999999999</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">194</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
@@ -555,7 +554,7 @@ The parity grouping:
   <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">51</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">195</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
-  <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.012000000000000002</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.012</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">52</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
@@ -569,12 +568,12 @@ The parity grouping:
   <span class="p">(</span><span class="mi">252</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">252</span><span class="p">,</span> <span class="mi">204</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">252</span><span class="p">,</span> <span class="mi">240</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
-  <span class="p">(</span><span class="mi">252</span><span class="p">,</span> <span class="mi">252</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.018</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">252</span><span class="p">,</span> <span class="mi">252</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.018000000000000002</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">253</span><span class="p">,</span> <span class="mi">61</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">253</span><span class="p">,</span> <span class="mi">205</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">253</span><span class="p">,</span> <span class="mi">241</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
-  <span class="p">(</span><span class="mi">253</span><span class="p">,</span> <span class="mi">253</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.006000000000000001</span><span class="n">j</span>
+  <span class="p">(</span><span class="mi">253</span><span class="p">,</span> <span class="mi">253</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.006</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">253</span><span class="p">,</span> <span class="mi">254</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.01</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">254</span><span class="p">,</span> <span class="mi">62</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">254</span><span class="p">,</span> <span class="mi">206</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
@@ -585,7 +584,7 @@ The parity grouping:
   <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">207</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">243</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
   <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">252</span><span class="p">)</span>	<span class="mi">0</span><span class="n">j</span>
-  <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.015999999999999997</span><span class="n">j</span><span class="s1">&#39; of type &lt;class &#39;</span><span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">_csr</span><span class="o">.</span><span class="n">csr_matrix</span><span class="s1">&#39;&gt; is not a valid JAX type.</span>
+  <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>	<span class="o">-</span><span class="mf">0.016</span><span class="n">j</span><span class="s1">&#39; of type &lt;class &#39;</span><span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">_csr</span><span class="o">.</span><span class="n">csr_matrix</span><span class="s1">&#39;&gt; is not a valid JAX type.</span>
 </pre></div>
 </div>
 </div>

@@ -181,13 +181,12 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="simulation.html">Quantum simulation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
@@ -195,19 +194,20 @@
 </ul>
 </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Quantum algorithms</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="post_trotter.html">Post Trotter algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="lcu.html">LCU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="current nav bd-sidenav">
@@ -273,7 +273,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -290,7 +290,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftensor_network.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation/issues/new?title=Issue%20on%20page%20%2Ftensor_network.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -545,109 +545,6 @@ This setup correspond to a global quench from <span class="math notranslate nohi
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="k">while</span> <span class="n">eng</span><span class="o">.</span><span class="n">evolved_time</span> <span class="o">&lt;</span> <span class="mf">5.</span><span class="p">:</span>
-<span class="ne">----&gt; </span><span class="mi">2</span>     <span class="n">eng</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">measurement</span><span class="p">(</span><span class="n">eng</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/algorithms/algorithm.py:378,</span> in <span class="ni">TimeEvolutionAlgorithm.run</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">375</span> <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">376</span> <span class="n">Sold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">psi</span><span class="o">.</span><span class="n">entanglement_entropy</span><span class="p">())</span>
-<span class="ne">--&gt; </span><span class="mi">378</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_evolution</span><span class="p">(</span><span class="n">N_steps</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">380</span> <span class="n">S</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">psi</span><span class="o">.</span><span class="n">entanglement_entropy</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">381</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">382</span>     <span class="s2">&quot;--&gt; time=</span><span class="si">%(t)3.3f</span><span class="s2">, max(chi)=</span><span class="si">%(chi)d</span><span class="s2">, max(S)=</span><span class="si">%(S).5f</span><span class="s2">, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">383</span>     <span class="s2">&quot;avg DeltaS=</span><span class="si">%(dS).4e</span><span class="s2">, since last update: </span><span class="si">%(wall_time).1f</span><span class="s2">s&quot;</span><span class="p">,</span> <span class="p">{</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">388</span>         <span class="s1">&#39;wall_time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">389</span>     <span class="p">})</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/algorithms/algorithm.py:405,</span> in <span class="ni">TimeEvolutionAlgorithm.run_evolution</span><span class="nt">(self, N_steps, dt)</span>
-<span class="g g-Whitespace">    </span><span class="mi">402</span>     <span class="n">old_norm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">psi</span><span class="o">.</span><span class="n">norm</span>
-<span class="g g-Whitespace">    </span><span class="mi">404</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_evolve</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">405</span> <span class="n">trunc_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">N_steps</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">407</span> <span class="bp">self</span><span class="o">.</span><span class="n">trunc_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trunc_err</span> <span class="o">+</span> <span class="n">trunc_err</span>  <span class="c1"># not += : make a copy!</span>
-<span class="g g-Whitespace">    </span><span class="mi">408</span> <span class="k">if</span> <span class="n">preserve_norm</span><span class="p">:</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/algorithms/tebd.py:354,</span> in <span class="ni">TEBDEngine.evolve</span><span class="nt">(self, N_steps, dt)</span>
-<span class="g g-Whitespace">    </span><span class="mi">352</span> <span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_U_param</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">353</span> <span class="k">for</span> <span class="n">U_idx_dt</span><span class="p">,</span> <span class="n">odd</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">suzuki_trotter_decomposition</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">N_steps</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">354</span>     <span class="n">trunc_err</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolve_step</span><span class="p">(</span><span class="n">U_idx_dt</span><span class="p">,</span> <span class="n">odd</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">355</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_time</span> <span class="o">+</span> <span class="n">N_steps</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_U_param</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">356</span> <span class="bp">self</span><span class="o">.</span><span class="n">trunc_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trunc_err</span> <span class="o">+</span> <span class="n">trunc_err</span>  <span class="c1"># not += : make a copy!</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/algorithms/tebd.py:397,</span> in <span class="ni">TEBDEngine.evolve_step</span><span class="nt">(self, U_idx_dt, odd)</span>
-<span class="g g-Whitespace">    </span><span class="mi">395</span>         <span class="k">continue</span>  <span class="c1"># handles finite vs. infinite boundary conditions</span>
-<span class="g g-Whitespace">    </span><span class="mi">396</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_update_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">U_idx_dt</span><span class="p">,</span> <span class="n">i_bond</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">397</span>     <span class="n">trunc_err</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_bond</span><span class="p">(</span><span class="n">i_bond</span><span class="p">,</span> <span class="n">Us</span><span class="p">[</span><span class="n">i_bond</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">398</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_index</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">399</span> <span class="k">return</span> <span class="n">trunc_err</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/algorithms/tebd.py:441,</span> in <span class="ni">TEBDEngine.update_bond</span><span class="nt">(self, i, U_bond)</span>
-<span class="g g-Whitespace">    </span><span class="mi">439</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">combine_legs</span><span class="p">([(</span><span class="s1">&#39;vL&#39;</span><span class="p">,</span> <span class="s1">&#39;p0&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;p1&#39;</span><span class="p">,</span> <span class="s1">&#39;vR&#39;</span><span class="p">)],</span> <span class="n">qconj</span><span class="o">=</span><span class="p">[</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">440</span> <span class="c1"># Perform the SVD and truncate the wavefunction</span>
-<span class="ne">--&gt; </span><span class="mi">441</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">trunc_err</span><span class="p">,</span> <span class="n">renormalize</span> <span class="o">=</span> <span class="n">svd_theta</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">442</span>                                             <span class="bp">self</span><span class="o">.</span><span class="n">trunc_params</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">443</span>                                             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">psi</span><span class="o">.</span><span class="n">get_B</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">qtotal</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
-<span class="g g-Whitespace">    </span><span class="mi">444</span>                                             <span class="n">inner_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vR&#39;</span><span class="p">,</span> <span class="s1">&#39;vL&#39;</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">446</span> <span class="c1"># Split tensor and update matrices</span>
-<span class="g g-Whitespace">    </span><span class="mi">447</span> <span class="n">B_R</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">split_legs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">ireplace_label</span><span class="p">(</span><span class="s1">&#39;p1&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">)</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/algorithms/truncation.py:293,</span> in <span class="ni">svd_theta</span><span class="nt">(theta, trunc_par, qtotal_LR, inner_labels)</span>
-<span class="g g-Whitespace">    </span><span class="mi">256</span> <span class="k">def</span> <span class="nf">svd_theta</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">trunc_par</span><span class="p">,</span> <span class="n">qtotal_LR</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">inner_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vR&#39;</span><span class="p">,</span> <span class="s1">&#39;vL&#39;</span><span class="p">]):</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Performs SVD of a matrix `theta` (= the wavefunction) and truncates it.</span>
-<span class="g g-Whitespace">    </span><span class="mi">258</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">259</span><span class="sd">     Perform a singular value decomposition (SVD) with :func:`~tenpy.linalg.np_conserved.svd`</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">291</span><span class="sd">         Factor, by which S was renormalized.</span>
-<span class="g g-Whitespace">    </span><span class="mi">292</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">293</span>     <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VH</span> <span class="o">=</span> <span class="n">npc</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">294</span>                        <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">295</span>                        <span class="n">compute_uv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">296</span>                        <span class="n">qtotal_LR</span><span class="o">=</span><span class="n">qtotal_LR</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">297</span>                        <span class="n">inner_labels</span><span class="o">=</span><span class="n">inner_labels</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">298</span>     <span class="n">renormalization</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">299</span>     <span class="n">S</span> <span class="o">=</span> <span class="n">S</span> <span class="o">/</span> <span class="n">renormalization</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/linalg/np_conserved.py:3609,</span> in <span class="ni">svd</span><span class="nt">(a, full_matrices, compute_uv, cutoff, qtotal_LR, inner_labels, inner_qconj)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3607</span> <span class="c1"># the main work</span>
-<span class="g g-Whitespace">   </span><span class="mi">3608</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">piped_axes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3609</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VH</span> <span class="o">=</span> <span class="n">_svd_worker</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">full_matrices</span><span class="p">,</span> <span class="n">compute_uv</span><span class="p">,</span> <span class="n">overwrite_a</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">qtotal_LR</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3610</span>                        <span class="n">inner_qconj</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3611</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">compute_uv</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3612</span>     <span class="k">return</span> <span class="n">S</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/linalg/np_conserved.py:4740,</span> in <span class="ni">_svd_worker</span><span class="nt">(a, full_matrices, compute_uv, overwrite_a, cutoff, qtotal_LR, inner_qconj)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4738</span> <span class="n">block</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<span class="g g-Whitespace">   </span><span class="mi">4739</span> <span class="k">if</span> <span class="n">compute_uv</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">4740</span>     <span class="n">U_b</span><span class="p">,</span> <span class="n">S_b</span><span class="p">,</span> <span class="n">VH_b</span> <span class="o">=</span> <span class="n">svd_flat</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">full_matrices</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite_a</span><span class="p">,</span> <span class="n">check_finite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4741</span>     <span class="k">if</span> <span class="n">anynan</span><span class="p">(</span><span class="n">U_b</span><span class="p">)</span> <span class="ow">or</span> <span class="n">anynan</span><span class="p">(</span><span class="n">VH_b</span><span class="p">)</span> <span class="ow">or</span> <span class="n">anynan</span><span class="p">(</span><span class="n">S_b</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">4742</span>         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Svd (gesdd) gave NaNs. Try again with gesvd&quot;</span><span class="p">)</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/tenpy/linalg/svd_robust.py:115,</span> in <span class="ni">svd</span><span class="nt">(a, full_matrices, compute_uv, overwrite_a, check_finite, lapack_driver, warn)</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="k">if</span> <span class="n">lapack_driver</span> <span class="o">==</span> <span class="s1">&#39;gesdd&#39;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">115</span>         <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">full_matrices</span><span class="p">,</span> <span class="n">compute_uv</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">check_finite</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span>         <span class="c1"># &#39;gesdd&#39; failed to converge, so we continue with the backup plan</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span>         <span class="k">if</span> <span class="n">warn</span><span class="p">:</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/scipy/linalg/_decomp_svd.py:127,</span> in <span class="ni">svd</span><span class="nt">(a, full_matrices, compute_uv, overwrite_a, check_finite, lapack_driver)</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span> <span class="n">lwork</span> <span class="o">=</span> <span class="n">_compute_lwork</span><span class="p">(</span><span class="n">gesXd_lwork</span><span class="p">,</span> <span class="n">a1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-<span class="g g-Whitespace">    </span><span class="mi">124</span>                        <span class="n">compute_uv</span><span class="o">=</span><span class="n">compute_uv</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="n">full_matrices</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span> <span class="c1"># perform decomposition</span>
-<span class="ne">--&gt; </span><span class="mi">127</span> <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">gesXd</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">compute_uv</span><span class="o">=</span><span class="n">compute_uv</span><span class="p">,</span> <span class="n">lwork</span><span class="o">=</span><span class="n">lwork</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">128</span>                       <span class="n">full_matrices</span><span class="o">=</span><span class="n">full_matrices</span><span class="p">,</span> <span class="n">overwrite_a</span><span class="o">=</span><span class="n">overwrite_a</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">130</span> <span class="k">if</span> <span class="n">info</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">131</span>     <span class="k">raise</span> <span class="n">LinAlgError</span><span class="p">(</span><span class="s2">&quot;SVD did not converge&quot;</span><span class="p">)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -661,7 +558,7 @@ This setup correspond to a global quench from <span class="math notranslate nohi
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;entropy $S$&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/3234d0a53318817407e4c78d6f8d61a4cae1da48a18d27cea1df5b6ddea732a7.png"><img alt="_images/3234d0a53318817407e4c78d6f8d61a4cae1da48a18d27cea1df5b6ddea732a7.png" src="_images/3234d0a53318817407e4c78d6f8d61a4cae1da48a18d27cea1df5b6ddea732a7.png" style="width: 568px; height: 437px;" /></a>
+<a class="reference internal image-reference" href="_images/26c1ecce2f125a183c1ede81be804c1803aa5e1f3d527a9a4f31f02913f8d3ef.png"><img alt="_images/26c1ecce2f125a183c1ede81be804c1803aa5e1f3d527a9a4f31f02913f8d3ef.png" src="_images/26c1ecce2f125a183c1ede81be804c1803aa5e1f3d527a9a4f31f02913f8d3ef.png" style="width: 568px; height: 432px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -676,10 +573,10 @@ This setup correspond to a global quench from <span class="math notranslate nohi
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x14f0ae830&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x15bd539d0&gt;
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/fb7c8ee2f15bb7c015a03e3239f93993a1687ad4f3dcbadcacd75cc438bfc0c2.png"><img alt="_images/fb7c8ee2f15bb7c015a03e3239f93993a1687ad4f3dcbadcacd75cc438bfc0c2.png" src="_images/fb7c8ee2f15bb7c015a03e3239f93993a1687ad4f3dcbadcacd75cc438bfc0c2.png" style="width: 562px; height: 432px;" /></a>
+<a class="reference internal image-reference" href="_images/cb5f1a0cb9ffdf8c3c11e782ca21637a0c447274480f0d7740aa90597ea36a48.png"><img alt="_images/cb5f1a0cb9ffdf8c3c11e782ca21637a0c447274480f0d7740aa90597ea36a48.png" src="_images/cb5f1a0cb9ffdf8c3c11e782ca21637a0c447274480f0d7740aa90597ea36a48.png" style="width: 576px; height: 432px;" /></a>
 </div>
 </div>
 <p>The strict conservation of <code class="docutils literal notranslate"><span class="pre">X</span></code> being zero is ensured by charge conservation, because <code class="docutils literal notranslate"><span class="pre">X</span></code> changes the parity sector.</p>
@@ -707,7 +604,7 @@ This setup correspond to a global quench from <span class="math notranslate nohi
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/5f3e72b9da505ae92a4270f5816535263020bc26649b2f540fa807d6f4d35544.png"><img alt="_images/5f3e72b9da505ae92a4270f5816535263020bc26649b2f540fa807d6f4d35544.png" src="_images/5f3e72b9da505ae92a4270f5816535263020bc26649b2f540fa807d6f4d35544.png" style="width: 581px; height: 438px;" /></a>
+<a class="reference internal image-reference" href="_images/207dc095a65667a72100a04bfc54dd5bb34e0d0fdf0f10a82a1878934c0fd8cc.png"><img alt="_images/207dc095a65667a72100a04bfc54dd5bb34e0d0fdf0f10a82a1878934c0fd8cc.png" src="_images/207dc095a65667a72100a04bfc54dd5bb34e0d0fdf0f10a82a1878934c0fd8cc.png" style="width: 579px; height: 438px;" /></a>
 </div>
 </div>
 <p>The output of the run showed that we gradually increased the bond dimension and only reached the maximum chi around <span class="math notranslate nohighlight">\(t=2.5\)</span>. At this point we start to truncate significantly, because we cut off the tail whatever the singular values are. This is clearly visible if we plot the truncation error vs. time below. Note the log-scale, though: if you are fine with an error of say 1 permille for expectation values, you can still go on for a bit more!</p>
@@ -726,7 +623,7 @@ This setup correspond to a global quench from <span class="math notranslate nohi
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;truncation error&#39;)
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/4019671639074a43532848a6d0cd9e9e105c2ae7c8611614a96f8c7da98bf3b1.png"><img alt="_images/4019671639074a43532848a6d0cd9e9e105c2ae7c8611614a96f8c7da98bf3b1.png" src="_images/4019671639074a43532848a6d0cd9e9e105c2ae7c8611614a96f8c7da98bf3b1.png" style="width: 583px; height: 432px;" /></a>
+<a class="reference internal image-reference" href="_images/85cd99658c2c14ba16555a726514da876a0d07ed9b6d0d4329687d0adf612dc5.png"><img alt="_images/85cd99658c2c14ba16555a726514da876a0d07ed9b6d0d4329687d0adf612dc5.png" src="_images/85cd99658c2c14ba16555a726514da876a0d07ed9b6d0d4329687d0adf612dc5.png" style="width: 583px; height: 432px;" /></a>
 </div>
 </div>
 </section>
@@ -821,7 +718,7 @@ By Jue Xu
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2024.
       <br/>
     
   </p>

@@ -6,25 +6,25 @@ root: intro
 parts:
   - caption: Basics
     chapters:
-    - file: basic
+    # - file: basic
+    - file: simulation
       sections:
         - file: state
         - file: operator
         # - file: quantities
         - file: channel
-    - file: simulation
     - file: hamiltonian
       sections:
         - file: spin
         - file: fermion
         - file: field
 
-  - caption: Algorithms
+  - caption: Quantum algorithms
     chapters:
     - file: trotter
       sections:
         - file: ordering
-        - file: grouping
+        # - file: grouping
         - file: interference
         - file: localization
         - file: average
@@ -34,8 +34,10 @@ parts:
     #   # - file: short_time
     #   # - file: random_input
     # - file: adaptive
-    - file: lcu
-    - file: qsp
+    - file: post_trotter
+      sections:
+        - file: lcu
+        - file: qsp
 
   - caption: Classical simulation
     chapters:

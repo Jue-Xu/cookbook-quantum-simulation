@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Spin" href="spin.html" />
-    <link rel="prev" title="Quantum simulation" href="simulation.html" />
+    <link rel="prev" title="Channels" href="channel.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,13 +181,12 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="simulation.html">Quantum simulation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Gallery of toy models</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
@@ -195,19 +194,20 @@
 </ul>
 </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Quantum algorithms</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="post_trotter.html">Post Trotter algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="lcu.html">LCU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -273,7 +273,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -290,7 +290,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fhamiltonian.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation/issues/new?title=Issue%20on%20page%20%2Fhamiltonian.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -453,12 +453,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="simulation.html"
+       href="channel.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Quantum simulation</p>
+        <p class="prev-next-title">Channels</p>
       </div>
     </a>
     <a class="right-next"
@@ -498,7 +498,7 @@ By Jue Xu
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2024.
       <br/>
     
   </p>

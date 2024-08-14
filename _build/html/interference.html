@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Error localization" href="localization.html" />
-    <link rel="prev" title="Grouping" href="grouping.html" />
+    <link rel="prev" title="Ordering" href="ordering.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,13 +179,12 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="simulation.html">Quantum simulation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
@@ -193,19 +192,20 @@
 </ul>
 </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Quantum algorithms</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="trotter.html">Product formula</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Error interference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="post_trotter.html">Post Trotter algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="lcu.html">LCU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -271,7 +271,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -288,7 +288,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Finterference.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation/issues/new?title=Issue%20on%20page%20%2Finterference.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -426,6 +426,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="error-interference">
 <h1>Error interference<a class="headerlink" href="#error-interference" title="Link to this heading">#</a></h1>
+<p>Reference:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://arxiv.org/abs/1912.11047">Destructive Error Interference in Product-Formula Lattice Simulation</a></p></li>
 <li><p><a class="reference external" href="http://arxiv.org/abs/2107.08032">First-Order Trotter Error from a Second-Order Perspective</a></p></li>
@@ -470,23 +471,23 @@ XYZ grouping:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="n">emp_err_list_xz</span><span class="p">,</span> <span class="n">bnd_err_list_xz</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 <span class="n">emp_err_list_eo</span><span class="p">,</span> <span class="n">bnd_err_list_eo</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 
+<span class="n">h_list_eo</span> <span class="o">=</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_par</span>
+<span class="n">h_list_xz</span> <span class="o">=</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_xyz</span>
 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t_list</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">index</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t_list</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> 
     <span class="k">else</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="n">exact_U</span> <span class="o">=</span> <span class="n">expH</span><span class="p">(</span><span class="n">tfI</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-    <span class="n">h_list_eo</span> <span class="o">=</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_par</span>
     <span class="n">appro_U_par</span> <span class="o">=</span> <span class="n">pf</span><span class="p">(</span><span class="n">h_list_eo</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">emp_err_list_eo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U_par</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">bnd_err_list_eo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tight_bound</span><span class="p">([</span><span class="n">term</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">h_list_eo</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+    <span class="c1"># bnd_err_list_eo.append(tight_bound([term.to_matrix() for term in h_list_eo], 1, t, r))</span>
 
-    <span class="n">h_list_xz</span> <span class="o">=</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_xyz</span>
     <span class="n">appro_U_xyz</span> <span class="o">=</span> <span class="n">pf</span><span class="p">(</span><span class="n">h_list_xz</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">emp_err_list_xz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U_xyz</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">bnd_err_list_xz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tight_bound</span><span class="p">([</span><span class="n">term</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">h_list_xz</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+    <span class="c1"># bnd_err_list_xz.append(tight_bound([term.to_matrix() for term in h_list_xz], 1, t, r))</span>
 </pre></div>
 </div>
 </div>
@@ -527,46 +528,111 @@ XYZ grouping:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>24
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>36
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
 </pre></div>
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">exact_U</span> <span class="o">=</span> <span class="n">expH</span><span class="p">(</span><span class="n">tfI</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">h_list_eo</span> <span class="o">=</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_par</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">appro_U_par</span> <span class="o">=</span> <span class="n">pf</span><span class="p">(</span><span class="n">h_list_eo</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">emp_err_list_eo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U_par</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">bnd_err_list_eo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tight_bound</span><span class="p">([</span><span class="n">term</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">h_list_eo</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">15</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">emp_err_list_eo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U_par</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="c1"># bnd_err_list_eo.append(tight_bound([term.to_matrix() for term in h_list_eo], 1, t, r))</span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">appro_U_xyz</span> <span class="o">=</span> <span class="n">pf</span><span class="p">(</span><span class="n">h_list_xz</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">emp_err_list_xz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U_xyz</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="c1"># bnd_err_list_xz.append(tight_bound([term.to_matrix() for term in h_list_xz], 1, t, r))</span>
 
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/quantum_simulation_recipe/trotter.py:44,</span> in <span class="ni">pf</span><span class="nt">(h_list, t, r, order, use_jax, return_exact, verbose)</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="k">def</span> <span class="nf">pf</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">use_jax</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_exact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span> <span class="c1"># def pf_r(h_list, t, r: int, order: int=2, use_jax=False, return_exact=False, verbose=False):</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span>     <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">44</span>         <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">expH</span><span class="p">(</span><span class="n">herm</span><span class="p">,</span> <span class="n">t</span><span class="o">/</span><span class="n">r</span><span class="p">,</span> <span class="n">use_jax</span><span class="o">=</span><span class="n">use_jax</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span>         <span class="c1"># appro_U_dt = np.linalg.multi_dot(list_U)</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span>         <span class="n">appro_U_dt</span> <span class="o">=</span> <span class="n">sparse_multi_dot</span><span class="p">(</span><span class="n">list_U</span><span class="p">)</span>
+<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/quantum_simulation_recipe/trotter.py:50,</span> in <span class="ni">pf</span><span class="nt">(h_list, t, r, order, use_jax, return_exact, verbose)</span>
+<span class="g g-Whitespace">     </span><span class="mi">48</span>         <span class="n">appro_U</span> <span class="o">=</span> <span class="n">appro_U_dt</span><span class="o">**</span><span class="n">r</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">50</span>         <span class="n">appro_U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">appro_U_dt</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="k">elif</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">52</span>     <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">expH</span><span class="p">(</span><span class="n">herm</span><span class="p">,</span> <span class="n">t</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">),</span> <span class="n">use_jax</span><span class="o">=</span><span class="n">use_jax</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
 
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/quantum_simulation_recipe/trotter.py:44,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="k">def</span> <span class="nf">pf</span><span class="p">(</span><span class="n">h_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">use_jax</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_exact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span> <span class="c1"># def pf_r(h_list, t, r: int, order: int=2, use_jax=False, return_exact=False, verbose=False):</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span>     <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">44</span>         <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">expH</span><span class="p">(</span><span class="n">herm</span><span class="p">,</span> <span class="n">t</span><span class="o">/</span><span class="n">r</span><span class="p">,</span> <span class="n">use_jax</span><span class="o">=</span><span class="n">use_jax</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span>         <span class="c1"># appro_U_dt = np.linalg.multi_dot(list_U)</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span>         <span class="n">appro_U_dt</span> <span class="o">=</span> <span class="n">sparse_multi_dot</span><span class="p">(</span><span class="n">list_U</span><span class="p">)</span>
+<span class="nn">File &lt;__array_function__ internals&gt;:180,</span> in <span class="ni">matrix_power</span><span class="nt">(*args, **kwargs)</span>
 
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/quantum_simulation_recipe/trotter.py:38,</span> in <span class="ni">expH</span><span class="nt">(H, t, use_jax)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>     <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">H</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">38</span>     <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="n">H</span><span class="p">)</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/scipy/linalg/_matfuncs.py:348,</span> in <span class="ni">expm</span><span class="nt">(A)</span>
-<span class="g g-Whitespace">    </span><span class="mi">345</span> <span class="c1"># Generic/triangular case; copy the slice into scratch and send.</span>
-<span class="g g-Whitespace">    </span><span class="mi">346</span> <span class="c1"># Am will be mutated by pick_pade_structure</span>
-<span class="g g-Whitespace">    </span><span class="mi">347</span> <span class="n">Am</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">aw</span>
-<span class="ne">--&gt; </span><span class="mi">348</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">pick_pade_structure</span><span class="p">(</span><span class="n">Am</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">350</span> <span class="k">if</span> <span class="n">s</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># scaling needed</span>
-<span class="g g-Whitespace">    </span><span class="mi">351</span>     <span class="n">Am</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">*=</span> <span class="p">[[[</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">)]],</span> <span class="p">[[</span><span class="mi">4</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">)]],</span> <span class="p">[[</span><span class="mi">16</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">)]],</span> <span class="p">[[</span><span class="mi">64</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">)]]]</span>
+<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/numpy/linalg/linalg.py:668,</span> in <span class="ni">matrix_power</span><span class="nt">(a, n)</span>
+<span class="g g-Whitespace">    </span><span class="mi">666</span> <span class="n">z</span> <span class="o">=</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">667</span> <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">668</span>     <span class="n">z</span> <span class="o">=</span> <span class="n">a</span> <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fmatmul</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">669</span>     <span class="n">n</span><span class="p">,</span> <span class="n">bit</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">670</span>     <span class="k">if</span> <span class="n">bit</span><span class="p">:</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
@@ -583,16 +649,17 @@ XYZ grouping:
 <span class="n">start2</span><span class="p">,</span> <span class="n">end2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">7</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">t_list</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mi">9</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">t_list</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">a_1</span><span class="p">,</span> <span class="n">b_1</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">t_list</span><span class="p">[</span><span class="n">start1</span><span class="p">:</span><span class="n">end1</span><span class="p">],</span> <span class="n">emp_err_list_eo</span><span class="p">[</span><span class="n">start1</span><span class="p">:</span><span class="n">end1</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">a_2</span><span class="p">,</span> <span class="n">b_2</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">t_list</span><span class="p">[</span><span class="n">start2</span><span class="p">:</span><span class="n">end2</span><span class="p">],</span> <span class="n">emp_err_list_xz</span><span class="p">[</span><span class="n">start2</span><span class="p">:</span><span class="n">end2</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">a_bnd</span><span class="p">,</span> <span class="n">b_bnd</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">bnd_err_list_eo</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">bnd_err_list_eo</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bound (EO)&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#C87A8AFF&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">bnd_err_list_xz</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bound (XZ)&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#2A9EB5FF&#39;</span><span class="p">)</span>
+<span class="c1"># _, a_bnd, b_bnd = linear_loglog_fit(t_list, bnd_err_list_eo, verbose=True)</span>
+<span class="c1"># ax.plot(t_list, bnd_err_list_eo, &#39;*&#39;, label=&#39;Bound (EO)&#39;, markeredgewidth=0.0, c=&#39;#C87A8AFF&#39;)</span>
+<span class="c1"># ax.plot(t_list, bnd_err_list_xz, &#39;*&#39;, label=&#39;Bound (XZ)&#39;, markeredgewidth=0.0, c=&#39;#2A9EB5FF&#39;)</span>
+<span class="c1"># ax.plot(t_list, [t**2*exp(b_bnd+1) for t in t_list], &#39;k--&#39;, linewidth=2, alpha=0.3, label=fr&#39;$\propto t^2$&#39;)</span>
+<span class="c1"># ax.plot(t_list, [t**2*exp(b_bnd-.5) for t in t_list], &#39;k--&#39;, linewidth=2, alpha=0.3)</span>
+
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">emp_err_list_eo</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Empirical (EO)&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#C87A8AFF&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">emp_err_list_xz</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Empirical (XZ)&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#2A9EB5FF&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_1</span><span class="o">+</span><span class="mf">0.8</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k-.&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s1">&#39;$\propto t$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_1</span><span class="o">-</span><span class="mf">1.7</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k-.&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_bnd</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s1">&#39;$\propto t^2$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_bnd</span><span class="o">-</span><span class="mf">.5</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_2</span><span class="o">-</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s1">&#39;$\propto t^3$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_2</span><span class="o">-</span><span class="mf">1.8</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="n">ax_set_text</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Total simulation time $t$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Trotter error $\epsilon$&#39;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">emp_err_list_xz</span><span class="p">)</span><span class="o">*</span><span class="mf">0.8</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">emp_err_list_xz</span><span class="p">)</span><span class="o">*</span><span class="mf">1.2</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
@@ -602,13 +669,12 @@ XYZ grouping:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope (a): 1.0153374843575032 ; Intercept (b): -8.731478898819361
-Slope (a): 2.867061839017634 ; Intercept (b): -20.065041338105104
-Slope (a): 2.0 ; Intercept (b): -9.433483923290392
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope (a): 1.0381845365409454 ; Intercept (b): -8.840227825336614
+Slope (a): 2.8657357359903104 ; Intercept (b): -20.05670200851677
 title: &lt;&lt;PF1, TFI (J=1, h=0.2), r=10000&gt;&gt;
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/7e3879d8c1d13d650ffc9825993411b5920a5d4d3e7d4f764743242b27a9bbd1.png"><img alt="_images/7e3879d8c1d13d650ffc9825993411b5920a5d4d3e7d4f764743242b27a9bbd1.png" src="_images/7e3879d8c1d13d650ffc9825993411b5920a5d4d3e7d4f764743242b27a9bbd1.png" style="width: 759px; height: 559px;" /></a>
+<a class="reference internal image-reference" href="_images/e6c8c6a60378e7858f5c681cbf830485699a43c6417141a9f9c2b59bebe2b553.png"><img alt="_images/e6c8c6a60378e7858f5c681cbf830485699a43c6417141a9f9c2b59bebe2b553.png" src="_images/e6c8c6a60378e7858f5c681cbf830485699a43c6417141a9f9c2b59bebe2b553.png" style="width: 760px; height: 559px;" /></a>
 </div>
 </div>
 </section>
@@ -645,12 +711,12 @@ title: &lt;&lt;PF1, TFI (J=1, h=0.2), r=10000&gt;&gt;
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="grouping.html"
+       href="ordering.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Grouping</p>
+        <p class="prev-next-title">Ordering</p>
       </div>
     </a>
     <a class="right-next"
@@ -703,7 +769,7 @@ By Jue Xu
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2024.
       <br/>
     
   </p>

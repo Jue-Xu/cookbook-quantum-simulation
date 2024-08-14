@@ -184,13 +184,12 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="simulation.html">Quantum simulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
@@ -198,18 +197,20 @@
 </ul>
 </details></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Quantum algorithms</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="post_trotter.html">Post Trotter algorithms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lcu.html">LCU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="current nav bd-sidenav">
@@ -468,18 +469,6 @@ This setup correspond to a global quench from <span class="math notranslate nohi
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">tenpy</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">tenpy.linalg.np_conserved</span> <span class="k">as</span> <span class="nn">npc</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">tenpy.linalg</span> <span class="kn">import</span> <span class="n">np_conserved</span> <span class="k">as</span> <span class="n">npc</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;tenpy&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -587,7 +576,7 @@ This setup correspond to a global quench from <span class="math notranslate nohi
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x137e333d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x15bd539d0&gt;
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/cb5f1a0cb9ffdf8c3c11e782ca21637a0c447274480f0d7740aa90597ea36a48.png"><img alt="_images/cb5f1a0cb9ffdf8c3c11e782ca21637a0c447274480f0d7740aa90597ea36a48.png" src="_images/cb5f1a0cb9ffdf8c3c11e782ca21637a0c447274480f0d7740aa90597ea36a48.png" style="width: 576px; height: 432px;" /></a>

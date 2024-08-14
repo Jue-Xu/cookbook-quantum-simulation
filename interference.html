@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Error localization" href="localization.html" />
-    <link rel="prev" title="Grouping" href="grouping.html" />
+    <link rel="prev" title="Ordering" href="ordering.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,13 +182,12 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="basic.html">Quantum computation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="simulation.html">Quantum simulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="simulation.html">Quantum simulation</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="spin.html">Spin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fermion.html">Fermion</a></li>
@@ -196,18 +195,20 @@
 </ul>
 </details></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithms</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Quantum algorithms</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="trotter.html">Product formula</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grouping.html">Grouping</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Error interference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="localization.html">Error localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="average.html">Average error</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="lcu.html">LCU</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="post_trotter.html">Post Trotter algorithms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lcu.html">LCU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -428,6 +429,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="error-interference">
 <h1>Error interference<a class="headerlink" href="#error-interference" title="Link to this heading">#</a></h1>
+<p>Reference:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://arxiv.org/abs/1912.11047">Destructive Error Interference in Product-Formula Lattice Simulation</a></p></li>
 <li><p><a class="reference external" href="http://arxiv.org/abs/2107.08032">First-Order Trotter Error from a Second-Order Perspective</a></p></li>
@@ -472,71 +474,43 @@ XYZ grouping:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="n">emp_err_list_xz</span><span class="p">,</span> <span class="n">bnd_err_list_xz</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 <span class="n">emp_err_list_eo</span><span class="p">,</span> <span class="n">bnd_err_list_eo</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 
+<span class="n">h_list_eo</span> <span class="o">=</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_par</span>
+<span class="n">h_list_xz</span> <span class="o">=</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_xyz</span>
 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t_list</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">index</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t_list</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> 
     <span class="k">else</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="n">exact_U</span> <span class="o">=</span> <span class="n">expH</span><span class="p">(</span><span class="n">tfI</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-    <span class="n">h_list_eo</span> <span class="o">=</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_par</span>
     <span class="n">appro_U_par</span> <span class="o">=</span> <span class="n">pf</span><span class="p">(</span><span class="n">h_list_eo</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">emp_err_list_eo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U_par</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">bnd_err_list_eo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tight_bound</span><span class="p">([</span><span class="n">term</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">h_list_eo</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+    <span class="c1"># bnd_err_list_eo.append(tight_bound([term.to_matrix() for term in h_list_eo], 1, t, r))</span>
 
-    <span class="n">h_list_xz</span> <span class="o">=</span> <span class="n">tfI</span><span class="o">.</span><span class="n">ham_xyz</span>
     <span class="n">appro_U_xyz</span> <span class="o">=</span> <span class="n">pf</span><span class="p">(</span><span class="n">h_list_xz</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">emp_err_list_xz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U_xyz</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">bnd_err_list_xz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tight_bound</span><span class="p">([</span><span class="n">term</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">h_list_xz</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+    <span class="c1"># bnd_err_list_xz.append(tight_bound([term.to_matrix() for term in h_list_xz], 1, t, r))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
-++++++++++++++++++
++++++++++++12
++++++++++++24
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++++
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++36
++++++++++++
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++50
-++
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>48
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
-++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++150
-+++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++++
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+
 </pre></div>
 </div>
 </div>
@@ -551,16 +525,17 @@ XYZ grouping:
 <span class="n">start2</span><span class="p">,</span> <span class="n">end2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">7</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">t_list</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mi">9</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">t_list</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">a_1</span><span class="p">,</span> <span class="n">b_1</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">t_list</span><span class="p">[</span><span class="n">start1</span><span class="p">:</span><span class="n">end1</span><span class="p">],</span> <span class="n">emp_err_list_eo</span><span class="p">[</span><span class="n">start1</span><span class="p">:</span><span class="n">end1</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">a_2</span><span class="p">,</span> <span class="n">b_2</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">t_list</span><span class="p">[</span><span class="n">start2</span><span class="p">:</span><span class="n">end2</span><span class="p">],</span> <span class="n">emp_err_list_xz</span><span class="p">[</span><span class="n">start2</span><span class="p">:</span><span class="n">end2</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">a_bnd</span><span class="p">,</span> <span class="n">b_bnd</span> <span class="o">=</span> <span class="n">linear_loglog_fit</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">bnd_err_list_eo</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">bnd_err_list_eo</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bound (EO)&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#C87A8AFF&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">bnd_err_list_xz</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bound (XZ)&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#2A9EB5FF&#39;</span><span class="p">)</span>
+<span class="c1"># _, a_bnd, b_bnd = linear_loglog_fit(t_list, bnd_err_list_eo, verbose=True)</span>
+<span class="c1"># ax.plot(t_list, bnd_err_list_eo, &#39;*&#39;, label=&#39;Bound (EO)&#39;, markeredgewidth=0.0, c=&#39;#C87A8AFF&#39;)</span>
+<span class="c1"># ax.plot(t_list, bnd_err_list_xz, &#39;*&#39;, label=&#39;Bound (XZ)&#39;, markeredgewidth=0.0, c=&#39;#2A9EB5FF&#39;)</span>
+<span class="c1"># ax.plot(t_list, [t**2*exp(b_bnd+1) for t in t_list], &#39;k--&#39;, linewidth=2, alpha=0.3, label=fr&#39;$\propto t^2$&#39;)</span>
+<span class="c1"># ax.plot(t_list, [t**2*exp(b_bnd-.5) for t in t_list], &#39;k--&#39;, linewidth=2, alpha=0.3)</span>
+
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">emp_err_list_eo</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Empirical (EO)&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#C87A8AFF&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="n">emp_err_list_xz</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Empirical (XZ)&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#2A9EB5FF&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_1</span><span class="o">+</span><span class="mf">0.8</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k-.&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s1">&#39;$\propto t$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_1</span><span class="o">-</span><span class="mf">1.7</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k-.&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_bnd</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s1">&#39;$\propto t^2$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_bnd</span><span class="o">-</span><span class="mf">.5</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_2</span><span class="o">-</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s1">&#39;$\propto t^3$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_list</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">b_2</span><span class="o">-</span><span class="mf">1.8</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">],</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="n">ax_set_text</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Total simulation time $t$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Trotter error $\epsilon$&#39;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">emp_err_list_xz</span><span class="p">)</span><span class="o">*</span><span class="mf">0.8</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">emp_err_list_xz</span><span class="p">)</span><span class="o">*</span><span class="mf">1.2</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
@@ -576,9 +551,8 @@ XYZ grouping:
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family [&#39;Helvetica&#39;] not found. Falling back to DejaVu Sans.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope (a): 1.015337483384697 ; Intercept (b): -8.7314788948569
-Slope (a): 2.8670618364601537 ; Intercept (b): -20.065041321832652
-Slope (a): 2.0 ; Intercept (b): -9.433483923290392
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope (a): 1.0381845304883242 ; Intercept (b): -8.840227801076965
+Slope (a): 2.865735737320368 ; Intercept (b): -20.056702017010803
 title: &lt;&lt;PF1, TFI (J=1, h=0.2), r=10000&gt;&gt;
 </pre></div>
 </div>
@@ -600,18 +574,6 @@ title: &lt;&lt;PF1, TFI (J=1, h=0.2), r=10000&gt;&gt;
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family [&#39;Helvetica&#39;] not found. Falling back to DejaVu Sans.
 </pre></div>
 </div>
@@ -870,199 +832,7 @@ title: &lt;&lt;PF1, TFI (J=1, h=0.2), r=10000&gt;&gt;
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Font family &#39;Helvetica&#39; not found.
-</pre></div>
-</div>
-<img alt="_images/28ce84e380c5cbf9a546cafece4805baae70ac4cbe3644616a8e0aca319fa83b.png" src="_images/28ce84e380c5cbf9a546cafece4805baae70ac4cbe3644616a8e0aca319fa83b.png" />
+<img alt="_images/d268d4842b0fedd8a47397bc816032c8e46ca75947236b33d403fe01424f328d.png" src="_images/d268d4842b0fedd8a47397bc816032c8e46ca75947236b33d403fe01424f328d.png" />
 </div>
 </div>
 </section>
@@ -1099,12 +869,12 @@ title: &lt;&lt;PF1, TFI (J=1, h=0.2), r=10000&gt;&gt;
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="grouping.html"
+       href="ordering.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Grouping</p>
+        <p class="prev-next-title">Ordering</p>
       </div>
     </a>
     <a class="right-next"

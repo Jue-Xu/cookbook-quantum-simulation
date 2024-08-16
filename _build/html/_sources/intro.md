@@ -10,7 +10,7 @@
 This is a pedagogic tutorial on quantum simulation with code.
 The package [quantum-simulation-recipe](https://youtu.be/QDPtcwhpQkE?si=_utI2VstkFiJfvxR) built with [qiskit](https://www.ibm.com/quantum/qiskit), [openfermion](https://quantumai.google/openfermion) etc.
 
-[Qiskit tutorial](https://youtu.be/QDPtcwhpQkE?si=_utI2VstkFiJfvxR)
+[Qiskit tutorial](https://youtube.com/playlist?list=PLOFEBzvs-VvrgHZt3exM_NNiNKtZlHvZi&si=PaaDp4Qjp0crOoXL)
 
 ```{tableofcontents}
 ```

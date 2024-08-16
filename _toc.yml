@@ -13,6 +13,7 @@ parts:
         - file: operator
         # - file: quantities
         - file: channel
+        - file: error
     - file: hamiltonian
       sections:
         - file: spin

@@ -183,6 +183,7 @@
 <li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error.html">Noise and Error</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -618,21 +619,18 @@ XYZ grouping:
 <span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">emp_err_list_xz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U_xyz</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 <span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="c1"># bnd_err_list_xz.append(tight_bound([term.to_matrix() for term in h_list_xz], 1, t, r))</span>
 
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/quantum_simulation_recipe/trotter.py:50,</span> in <span class="ni">pf</span><span class="nt">(h_list, t, r, order, use_jax, return_exact, verbose)</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span>         <span class="n">appro_U</span> <span class="o">=</span> <span class="n">appro_U_dt</span><span class="o">**</span><span class="n">r</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">50</span>         <span class="n">appro_U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">appro_U_dt</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="k">elif</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span>     <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">expH</span><span class="p">(</span><span class="n">herm</span><span class="p">,</span> <span class="n">t</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">),</span> <span class="n">use_jax</span><span class="o">=</span><span class="n">use_jax</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
+<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/quantum_simulation_recipe/trotter.py:46,</span> in <span class="ni">pf</span><span class="nt">(h_list, t, r, order, use_jax, return_exact, verbose)</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span> <span class="n">list_U</span> <span class="o">=</span> <span class="p">[</span><span class="n">expH</span><span class="p">(</span><span class="n">herm</span><span class="p">,</span> <span class="n">t</span><span class="o">/</span><span class="n">r</span><span class="p">,</span> <span class="n">use_jax</span><span class="o">=</span><span class="n">use_jax</span><span class="p">)</span> <span class="k">for</span> <span class="n">herm</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="c1"># appro_U_dt = np.linalg.multi_dot(list_U)</span>
+<span class="ne">---&gt; </span><span class="mi">46</span> <span class="n">appro_U_dt</span> <span class="o">=</span> <span class="n">sparse_multi_dot</span><span class="p">(</span><span class="n">list_U</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">appro_U_dt</span><span class="p">,</span> <span class="n">csr_matrix</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">48</span>     <span class="n">appro_U</span> <span class="o">=</span> <span class="n">appro_U_dt</span><span class="o">**</span><span class="n">r</span>
 
-<span class="nn">File &lt;__array_function__ internals&gt;:180,</span> in <span class="ni">matrix_power</span><span class="nt">(*args, **kwargs)</span>
-
-<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/numpy/linalg/linalg.py:668,</span> in <span class="ni">matrix_power</span><span class="nt">(a, n)</span>
-<span class="g g-Whitespace">    </span><span class="mi">666</span> <span class="n">z</span> <span class="o">=</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">667</span> <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">668</span>     <span class="n">z</span> <span class="o">=</span> <span class="n">a</span> <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fmatmul</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>     <span class="n">n</span><span class="p">,</span> <span class="n">bit</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">670</span>     <span class="k">if</span> <span class="n">bit</span><span class="p">:</span>
+<span class="nn">File /opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/quantum_simulation_recipe/trotter.py:145,</span> in <span class="ni">sparse_multi_dot</span><span class="nt">(sparse_matrices)</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span> <span class="n">product</span> <span class="o">=</span> <span class="n">sparse_matrices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span> <span class="k">for</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="n">sparse_matrices</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+<span class="ne">--&gt; </span><span class="mi">145</span>     <span class="n">product</span> <span class="o">=</span> <span class="n">product</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span> <span class="k">return</span> <span class="n">product</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>

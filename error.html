@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Channels &#8212; Quantum Simulation Cookbook</title>
+    <title>Noise and Error &#8212; Quantum Simulation Cookbook</title>
   
   
   
@@ -58,11 +58,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'channel';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'error';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Noise and Error" href="error.html" />
-    <link rel="prev" title="Operators" href="operator.html" />
+    <link rel="next" title="Gallery of toy models" href="hamiltonian.html" />
+    <link rel="prev" title="Channels" href="channel.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -185,8 +185,8 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="simulation.html">Quantum simulation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="state.html">States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Channels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="error.html">Noise and Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Noise and Error</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="hamiltonian.html">Gallery of toy models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -292,7 +292,7 @@
       
       
       
-      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation/issues/new?title=Issue%20on%20page%20%2Fchannel.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation/issues/new?title=Issue%20on%20page%20%2Ferror.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -322,7 +322,7 @@
       
       
       
-      <li><a href="_sources/channel.ipynb" target="_blank"
+      <li><a href="_sources/error.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -406,7 +406,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Channels</h1>
+    <h1>Noise and Error</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -417,18 +417,17 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representation">Representation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stinespring">Stinespring</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-transfer-matrix-ptm">Pauli Transfer Matrix (PTM)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kraus">Kraus</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superop">SuperOp</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choi">Choi</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi">Chi</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measures">Measures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement">Measurement</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#povm">POVM</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Kraus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-channel">Noise channel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-to-and-from-quantumchannel-operators">Converting to and from QuantumChannel operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#readout-error">Readout error</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#from-qiskit-aer-import-aersimulator">from qiskit_aer import AerSimulator</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -442,10 +441,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="channels">
-<h1>Channels<a class="headerlink" href="#channels" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="noise-and-error">
+<h1>Noise and Error<a class="headerlink" href="#noise-and-error" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p>John Watrous: <a class="reference external" href="https://youtu.be/cMl-xIDSmXI">https://youtu.be/cMl-xIDSmXI</a></p></li>
+<li><p>Qiskit tutorial: <a class="reference external" href="https://youtu.be/w--HZ4QXugA">https://youtu.be/w–HZ4QXugA</a></p></li>
+</ul>
+<ul class="simple">
+<li><p>Incoherent error: loss of quantum information in the form of superposition and entanglement</p></li>
+<li><p>coherent error in gate: incorrect Hamiltonian evolution</p></li>
+<li><p>state preparation and readout (SPAM) errors</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -470,39 +474,6 @@ document.write(`
 </div>
 <section id="representation">
 <h2>Representation<a class="headerlink" href="#representation" title="Link to this heading">#</a></h2>
-<section id="stinespring">
-<h3>Stinespring<a class="headerlink" href="#stinespring" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## random quantum channel in Stinespring form</span>
-<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">random_quantum_channel</span>
-<span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stinespring([[-1.84796689e-01+4.83217328e-02j,
-               3.99955719e-01-2.48291212e-01j],
-             [ 5.96016205e-01+6.09589027e-02j,
-              -3.12358221e-02-5.05571346e-02j],
-             [ 3.33019089e-01-5.17947047e-01j,
-              -9.34057539e-02+2.37915475e-01j],
-             [ 1.19865525e-01+2.31413847e-01j,
-               3.56704809e-02+4.30014803e-01j],
-             [-3.24384603e-01-1.28544091e-01j,
-              -2.63861055e-01+9.89309197e-02j],
-             [ 6.69170877e-02+1.37804433e-01j,
-               9.98885126e-02+5.67348315e-01j],
-             [ 6.28553829e-03-5.95132179e-02j,
-              -3.05303074e-01-3.98991394e-02j],
-             [ 1.20864703e-04-9.31378629e-02j,
-              -1.31407241e-01+3.08098537e-04j]],
-            input_dims=(2,), output_dims=(2,))
-</pre></div>
-</div>
-</div>
-</div>
-</section>
 <section id="pauli-transfer-matrix-ptm">
 <h3>Pauli Transfer Matrix (PTM)<a class="headerlink" href="#pauli-transfer-matrix-ptm" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://docs.quantum.ibm.com/api/qiskit/qiskit.quantum_info.PTM">https://docs.quantum.ibm.com/api/qiskit/qiskit.quantum_info.PTM</a></p>
@@ -519,14 +490,14 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>num_qubits:  1
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00+5.43524853e-19j, -6.93889390e-17+1.38777878e-17j,
-      -4.16333634e-17+0.00000000e+00j,  1.11022302e-16+9.37659175e-18j],
-     [-4.27078280e-01+0.00000000e+00j,  7.95246871e-03+0.00000000e+00j,
-      -1.43499917e-02+0.00000000e+00j, -1.77472031e-02+0.00000000e+00j],
-     [ 2.57450076e-01+0.00000000e+00j,  1.73501826e-01+0.00000000e+00j,
-       1.51773091e-01+0.00000000e+00j,  1.21362615e-02+0.00000000e+00j],
-     [-3.31656669e-01+8.61052764e-18j,  8.74606271e-02+0.00000000e+00j,
-       3.24536178e-01+0.00000000e+00j,  2.22823308e-01-4.31378871e-18j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00-1.62043135e-18j, -6.93889390e-18+3.46944695e-18j,
+       3.12250226e-17+0.00000000e+00j,  0.00000000e+00-8.89628970e-18j],
+     [ 1.88065483e-01-5.20417043e-18j, -1.15362942e-01+0.00000000e+00j,
+       1.53380269e-01+0.00000000e+00j, -2.06477978e-01+5.20417043e-18j],
+     [-1.25508465e-01+0.00000000e+00j, -4.57155516e-01+0.00000000e+00j,
+      -4.50234153e-01+0.00000000e+00j, -1.37733808e-01+0.00000000e+00j],
+     [ 1.09459698e-01+5.72149298e-18j, -6.41517365e-02+0.00000000e+00j,
+      -1.15933560e-01+0.00000000e+00j,  1.89603009e-01+1.18999014e-19j]],
     input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -539,14 +510,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00-7.94966123e-18j, -6.74541368e-17+1.48082331e-17j,
-      -1.09257032e-17+2.84389711e-18j,  1.36486845e-16+1.12196230e-17j],
-     [-4.28283035e-01-3.84940442e-19j, -3.97868952e-03-5.92690175e-18j,
-      -8.05166994e-03+0.00000000e+00j, -4.26977984e-03-3.92798099e-18j],
-     [ 2.18400137e-01+2.44430130e-19j,  2.87741214e-02+3.57283753e-18j,
-       2.44839774e-02+0.00000000e+00j,  1.46702770e-03+2.36165099e-18j],
-     [-3.59358175e-01+1.17795870e-17j,  7.64914137e-02-4.97994754e-18j,
-       1.20315025e-01-1.39998050e-18j,  5.20367010e-02-5.03223453e-18j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PTM([[ 1.00000000e+00-3.56216466e-18j, -2.04130940e-17+3.63991378e-18j,
+       1.61021616e-17+1.56352324e-18j, -2.86801248e-18-1.12994174e-17j],
+     [ 1.24518157e-01-5.52026460e-18j, -4.35641068e-02+3.18626648e-19j,
+      -6.28137076e-02-6.03338005e-19j, -3.64545873e-02-1.31129774e-18j],
+     [-1.70051742e-01+1.79445005e-18j,  2.67401695e-01-4.35444962e-19j,
+       1.48560127e-01+0.00000000e+00j,  1.30290266e-01-1.27894574e-18j],
+     [ 1.32699502e-01+6.97581550e-18j,  4.82370373e-02+3.72130623e-19j,
+       2.03762858e-02-1.37959793e-20j,  6.51631925e-02-1.26251661e-18j]],
     input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
@@ -579,195 +550,323 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kraus([[[-0.21937625-0.3432328j ,  0.04299193-0.00354056j],
-        [-0.13219999-0.01223734j, -0.42600098+0.22683753j]],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kraus([[[ 0.16510025+0.12138173j, -0.38686969+0.10334354j],
+        [ 0.18967791+0.08547223j, -0.24605432+0.14991361j]],
 
-       [[-0.14047125-0.13301201j,  0.44918203+0.35293566j],
-        [ 0.23139116+0.10174378j, -0.07922607+0.14796983j]],
+       [[-0.09578052+0.26031781j,  0.56404581+0.18198139j],
+        [ 0.18858765+0.45824502j,  0.18618338+0.23237352j]],
 
-       [[-0.11802655+0.06385861j,  0.42335462+0.155765j  ],
-        [ 0.39481031-0.40751119j, -0.00957106-0.19313002j]],
+       [[ 0.26550027+0.11849789j,  0.03895017+0.30938416j],
+        [ 0.13478559-0.24814475j, -0.24065174-0.19046563j]],
 
-       [[ 0.38444718-0.18631373j,  0.19457416+0.32520188j],
-        [ 0.43185509+0.07849005j,  0.0702214 -0.14586998j]]],
+       [[-0.50043097-0.34562591j,  0.1331936 -0.08831569j],
+        [-0.19262152+0.14479469j,  0.22561661-0.22099635j]]],
       input_dims=(2,), output_dims=(2,))
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="superop">
-<h3>SuperOp<a class="headerlink" href="#superop" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SuperOp</span>
-<span class="n">rqc_superop</span> <span class="o">=</span> <span class="n">SuperOp</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="n">rqc_superop</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SuperOp([[ 0.28793863-1.45385027e-18j,  0.30452688+1.29052334e-01j,
-           0.30452688-1.29052334e-01j,  0.66223641-1.12120469e-17j],
-         [-0.12479291+3.72730842e-01j,  0.05868011-1.65638036e-01j,
-           0.10320367+4.67896567e-01j,  0.08994902-3.25730486e-01j],
-         [-0.12479291-3.72730842e-01j,  0.10320367-4.67896567e-01j,
-           0.05868011+1.65638036e-01j,  0.08994902+3.25730486e-01j],
-         [ 0.71206137-2.06229643e-18j, -0.30452688-1.29052334e-01j,
-          -0.30452688+1.29052334e-01j,  0.33776359-1.93357060e-18j]],
-        input_dims=(2,), output_dims=(2,))
-</pre></div>
-</div>
-</div>
-</div>
 </section>
-<section id="choi">
-<h3>Choi<a class="headerlink" href="#choi" title="Link to this heading">#</a></h3>
+<section id="noise-channel">
+<h2>Noise channel<a class="headerlink" href="#noise-channel" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://docs.quantum.ibm.com/guides/build-noise-models#build-noise-models">https://docs.quantum.ibm.com/guides/build-noise-models#build-noise-models</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Choi</span>
-
-<span class="n">rqc_choi</span> <span class="o">=</span> <span class="n">Choi</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="n">rqc_choi</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Choi([[ 0.29232812-1.03017860e-18j, -0.04411638-5.52416986e-02j,
-        0.06807375+5.94847680e-02j,  0.00937887-6.18174517e-02j],
-      [-0.04411638+5.52416986e-02j,  0.70767188+1.09127593e-17j,
-       -0.06718603+2.37526207e-01j, -0.06807375-5.94847680e-02j],
-      [ 0.06807375-5.94847680e-02j, -0.06718603-2.37526207e-01j,
-        0.70568983-1.15906241e-17j, -0.26141011-2.99664069e-01j],
-      [ 0.00937887+6.18174517e-02j, -0.06807375+5.94847680e-02j,
-       -0.26141011+2.99664069e-01j,  0.29431017+7.18027144e-18j]],
-     input_dims=(2,), output_dims=(2,))
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="chi">
-<h3>Chi<a class="headerlink" href="#chi" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Chi</span>
-<span class="n">rqc_chi</span> <span class="o">=</span> <span class="n">Chi</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="n">rqc_chi</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chi([[ 0.45948097-6.93889390e-18j,  0.02525234-1.73527806e-01j,
-      -0.11609877+2.65623876e-02j, -0.11711756+1.23280302e-01j],
-     [ 0.02525234+1.73527806e-01j,  0.47353862-1.38777878e-17j,
-      -0.22282147+1.17117564e-01j,  0.10980373-1.16098768e-01j],
-     [-0.11609877-2.65623876e-02j, -0.22282147-1.17117564e-01j,
-       0.61001985+1.38777878e-17j,  0.19066813-2.52523440e-02j],
-     [-0.11711756-1.23280302e-01j,  0.10980373+1.16098768e-01j,
-       0.19066813+2.52523440e-02j,  0.45696056-6.93889390e-18j]],
-    input_dims=(2,), output_dims=(2,))
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="measures">
-<h2>Measures<a class="headerlink" href="#measures" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">average_gate_fidelity</span>
-<span class="n">average_gate_fidelity</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5787893590846312
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">process_fidelity</span>
-<span class="n">process_fidelity</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6509548538932426
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">gate_error</span>
-<span class="n">gate_error</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5403282197105239
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">diamond_norm</span><span class="p">,</span> <span class="n">random_quantum_channel</span>
-<span class="n">diamond_norm</span><span class="p">(</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">random_quantum_channel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-
-<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">diamond_norm</span><span class="p">,</span> <span class="n">random_quantum_channel</span>
-<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Kraus</span><span class="p">,</span> <span class="n">SuperOp</span><span class="p">,</span> <span class="n">PTM</span>
-
-<span class="c1"># diamond_norm(random_quantum_channel(2, 2)-random_quantum_channel(2, 2))</span>
-<span class="c1">## single qubit depolarizing channel</span>
-<span class="kn">from</span> <span class="nn">qiskit_aer.noise</span> <span class="kn">import</span> <span class="p">(</span><span class="n">pauli_error</span><span class="p">)</span>
-<span class="c1"># error = depolarizing_error(0.05, 1)</span>
-<span class="c1"># error</span>
-<span class="n">p_error</span> <span class="o">=</span> <span class="mf">0.03</span>
-<span class="n">ic</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
-<span class="n">dep_err</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_error</span><span class="p">)])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dep_err</span><span class="p">)</span>
-<span class="n">dep_ptm</span> <span class="o">=</span> <span class="n">PTM</span><span class="p">(</span><span class="n">dep_err</span><span class="p">)</span>
-<span class="n">dep_ptm</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;diamond distance: </span><span class="si">{</span><span class="n">diamond_norm</span><span class="p">(</span><span class="n">dep_ptm</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ic</span><span class="p">)</span><span class="si">}</span><span class="s1"> with noise rate </span><span class="si">{</span><span class="n">p_error</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construct a 1-qubit bit-flip and phase-flip errors</span>
+<span class="n">p_error</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">bit_flip</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_error</span><span class="p">)])</span>
+<span class="n">phase_flip</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="n">p_error</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_error</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bit_flip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">phase_flip</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>QuantumError on 1 qubits. Noise circuits:
-  P(0) = 0.01, Circuit = 
+  P(0) = 0.05, Circuit = 
    ┌───┐
 q: ┤ X ├
    └───┘
-  P(1) = 0.01, Circuit = 
-   ┌───┐
-q: ┤ Y ├
-   └───┘
-  P(2) = 0.01, Circuit = 
-   ┌───┐
-q: ┤ Z ├
-   └───┘
-  P(3) = 0.97, Circuit = 
+  P(1) = 0.95, Circuit = 
    ┌───┐
 q: ┤ I ├
    └───┘
-diamond distance: 0.06000010519101877 with noise rate 0.03
+QuantumError on 1 qubits. Noise circuits:
+  P(0) = 0.05, Circuit = 
+   ┌───┐
+q: ┤ Z ├
+   └───┘
+  P(1) = 0.95, Circuit = 
+   ┌───┐
+q: ┤ I ├
+   └───┘
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compose two bit-flip and phase-flip errors</span>
+<span class="n">bitphase_flip</span> <span class="o">=</span> <span class="n">bit_flip</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">phase_flip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bitphase_flip</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>QuantumError on 1 qubits. Noise circuits:
+  P(0) = 0.0025000000000000005, Circuit = 
+   ┌───┐┌───┐
+q: ┤ X ├┤ Z ├
+   └───┘└───┘
+  P(1) = 0.0475, Circuit = 
+   ┌───┐┌───┐
+q: ┤ X ├┤ I ├
+   └───┘└───┘
+  P(2) = 0.0475, Circuit = 
+   ┌───┐┌───┐
+q: ┤ I ├┤ Z ├
+   └───┘└───┘
+  P(3) = 0.9025, Circuit = 
+   ┌───┐┌───┐
+q: ┤ I ├┤ I ├
+   └───┘└───┘
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tensor product two bit-flip and phase-flip errors with</span>
+<span class="c1"># bit-flip on qubit-0, phase-flip on qubit-1</span>
+<span class="n">error2</span> <span class="o">=</span> <span class="n">phase_flip</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">bit_flip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">error2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>QuantumError on 2 qubits. Noise circuits:
+  P(0) = 0.0025000000000000005, Circuit = 
+     ┌───┐
+q_0: ┤ X ├
+     ├───┤
+q_1: ┤ Z ├
+     └───┘
+  P(1) = 0.0475, Circuit = 
+     ┌───┐
+q_0: ┤ I ├
+     ├───┤
+q_1: ┤ Z ├
+     └───┘
+  P(2) = 0.0475, Circuit = 
+     ┌───┐
+q_0: ┤ X ├
+     ├───┤
+q_1: ┤ I ├
+     └───┘
+  P(3) = 0.9025, Circuit = 
+     ┌───┐
+q_0: ┤ I ├
+     ├───┤
+q_1: ┤ I ├
+     └───┘
+</pre></div>
+</div>
+</div>
+</div>
+<section id="converting-to-and-from-quantumchannel-operators">
+<h3>Converting to and from QuantumChannel operators<a class="headerlink" href="#converting-to-and-from-quantumchannel-operators" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to Kraus operator</span>
+<span class="n">bit_flip_kraus</span> <span class="o">=</span> <span class="n">Kraus</span><span class="p">(</span><span class="n">bit_flip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bit_flip_kraus</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kraus([[[ 9.74679434e-01+0.j,  0.00000000e+00+0.j],
+        [ 0.00000000e+00+0.j,  9.74679434e-01+0.j]],
+
+       [[ 0.00000000e+00+0.j,  2.23606798e-01+0.j],
+        [ 2.23606798e-01+0.j, -4.96506831e-17+0.j]]],
+      input_dims=(2,), output_dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to Superoperator</span>
+<span class="n">phase_flip_sop</span> <span class="o">=</span> <span class="n">SuperOp</span><span class="p">(</span><span class="n">phase_flip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">phase_flip_sop</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SuperOp([[1. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
+         [0. +0.j, 0.9+0.j, 0. +0.j, 0. +0.j],
+         [0. +0.j, 0. +0.j, 0.9+0.j, 0. +0.j],
+         [0. +0.j, 0. +0.j, 0. +0.j, 1. +0.j]],
+        input_dims=(2,), output_dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert back to a quantum error</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">QuantumError</span><span class="p">(</span><span class="n">bit_flip_kraus</span><span class="p">))</span>
+ 
+<span class="c1"># Check conversion is equivalent to original error</span>
+<span class="n">QuantumError</span><span class="p">(</span><span class="n">bit_flip_kraus</span><span class="p">)</span> <span class="o">==</span> <span class="n">bit_flip</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>QuantumError on 1 qubits. Noise circuits:
+  P(0) = 1.0, Circuit = 
+   ┌───────┐
+q: ┤ kraus ├
+   └───────┘
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="measurement">
-<h2>Measurement<a class="headerlink" href="#measurement" title="Link to this heading">#</a></h2>
-<section id="povm">
-<h3>POVM<a class="headerlink" href="#povm" title="Link to this heading">#</a></h3>
+<section id="readout-error">
+<h3>Readout error<a class="headerlink" href="#readout-error" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Measurement misassignment probabilities</span>
+<span class="n">p0given1</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">p1given0</span> <span class="o">=</span> <span class="mf">0.05</span>
+ 
+<span class="n">ReadoutError</span><span class="p">([[</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p1given0</span><span class="p">,</span> <span class="n">p1given0</span><span class="p">],</span> <span class="p">[</span><span class="n">p0given1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p0given1</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ReadoutError([[0.95 0.05]
+ [0.1  0.9 ]])
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="id1">
-<h3>Kraus<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># System Specification</span>
+<span class="n">n_qubits</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">circ</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">)</span>
+ 
+<span class="c1"># Test Circuit</span>
+<span class="n">circ</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_qubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">circ</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qubit</span><span class="p">,</span> <span class="n">qubit</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">circ</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        ┌───┐                ░ ┌─┐         
+   q_0: ┤ H ├──■─────────────░─┤M├─────────
+        └───┘┌─┴─┐           ░ └╥┘┌─┐      
+   q_1: ─────┤ X ├──■────────░──╫─┤M├──────
+             └───┘┌─┴─┐      ░  ║ └╥┘┌─┐   
+   q_2: ──────────┤ X ├──■───░──╫──╫─┤M├───
+                  └───┘┌─┴─┐ ░  ║  ║ └╥┘┌─┐
+   q_3: ───────────────┤ X ├─░──╫──╫──╫─┤M├
+                       └───┘ ░  ║  ║  ║ └╥┘
+meas: 4/════════════════════════╩══╩══╩══╩═
+                                0  1  2  3 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ideal simulator and execution</span>
+<span class="n">sim_ideal</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span>
+<span class="n">result_ideal</span> <span class="o">=</span> <span class="n">sim_ideal</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">result_ideal</span><span class="o">.</span><span class="n">get_counts</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/fae03f46edc8aad7728c010ae146d98da601ec6ded973ab4ca89ddde0f5f4ee6.png"><img alt="_images/fae03f46edc8aad7728c010ae146d98da601ec6ded973ab4ca89ddde0f5f4ee6.png" src="_images/fae03f46edc8aad7728c010ae146d98da601ec6ded973ab4ca89ddde0f5f4ee6.png" style="width: 633px; height: 467px;" /></a>
+</div>
+</div>
+<section id="from-qiskit-aer-import-aersimulator">
+<h4>from qiskit_aer import AerSimulator<a class="headerlink" href="#from-qiskit-aer-import-aersimulator" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example error probabilities</span>
+<span class="n">p_reset</span> <span class="o">=</span> <span class="mf">0.03</span>
+<span class="n">p_meas</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">p_gate1</span> <span class="o">=</span> <span class="mf">0.05</span>
+ 
+<span class="c1"># QuantumError objects</span>
+<span class="n">error_reset</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">p_reset</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_reset</span><span class="p">)])</span>
+<span class="n">error_meas</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="n">p_meas</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_meas</span><span class="p">)])</span>
+<span class="n">error_gate1</span> <span class="o">=</span> <span class="n">pauli_error</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="n">p_gate1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_gate1</span><span class="p">)])</span>
+<span class="n">error_gate2</span> <span class="o">=</span> <span class="n">error_gate1</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">error_gate1</span><span class="p">)</span>
+ 
+<span class="c1"># Add errors to noise model</span>
+<span class="n">noise_bit_flip</span> <span class="o">=</span> <span class="n">NoiseModel</span><span class="p">()</span>
+<span class="n">noise_bit_flip</span><span class="o">.</span><span class="n">add_all_qubit_quantum_error</span><span class="p">(</span><span class="n">error_reset</span><span class="p">,</span> <span class="s2">&quot;reset&quot;</span><span class="p">)</span>
+<span class="n">noise_bit_flip</span><span class="o">.</span><span class="n">add_all_qubit_quantum_error</span><span class="p">(</span><span class="n">error_meas</span><span class="p">,</span> <span class="s2">&quot;measure&quot;</span><span class="p">)</span>
+<span class="n">noise_bit_flip</span><span class="o">.</span><span class="n">add_all_qubit_quantum_error</span><span class="p">(</span><span class="n">error_gate1</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;u1&quot;</span><span class="p">,</span> <span class="s2">&quot;u2&quot;</span><span class="p">,</span> <span class="s2">&quot;u3&quot;</span><span class="p">])</span>
+<span class="n">noise_bit_flip</span><span class="o">.</span><span class="n">add_all_qubit_quantum_error</span><span class="p">(</span><span class="n">error_gate2</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;cx&quot;</span><span class="p">])</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="n">noise_bit_flip</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NoiseModel:
+  Basis gates: [&#39;cx&#39;, &#39;id&#39;, &#39;rz&#39;, &#39;sx&#39;, &#39;u1&#39;, &#39;u2&#39;, &#39;u3&#39;]
+  Instructions with noise: [&#39;u2&#39;, &#39;reset&#39;, &#39;u3&#39;, &#39;measure&#39;, &#39;u1&#39;, &#39;cx&#39;]
+  All-qubits errors: [&#39;reset&#39;, &#39;measure&#39;, &#39;u1&#39;, &#39;u2&#39;, &#39;u3&#39;, &#39;cx&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create noisy simulator backend</span>
+<span class="n">sim_noise</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">(</span><span class="n">noise_model</span><span class="o">=</span><span class="n">noise_bit_flip</span><span class="p">)</span>
+ 
+<span class="c1"># Transpile circuit for noisy basis gates</span>
+<span class="n">passmanager</span> <span class="o">=</span> <span class="n">generate_preset_pass_manager</span><span class="p">(</span><span class="n">optimization_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">sim_noise</span><span class="p">)</span>
+<span class="n">circ_tnoise</span> <span class="o">=</span> <span class="n">passmanager</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">circ</span><span class="p">)</span>
+ 
+<span class="c1"># Run and get counts</span>
+<span class="n">result_bit_flip</span> <span class="o">=</span> <span class="n">sim_noise</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">circ_tnoise</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">counts_bit_flip</span> <span class="o">=</span> <span class="n">result_bit_flip</span><span class="o">.</span><span class="n">get_counts</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+ 
+<span class="c1"># Plot noisy output</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts_bit_flip</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/numpy/linalg/linalg.py:2154: RuntimeWarning: divide by zero encountered in det
+  r = _umath_linalg.det(a, signature=signature)
+/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/numpy/linalg/linalg.py:2154: RuntimeWarning: invalid value encountered in det
+  r = _umath_linalg.det(a, signature=signature)
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/cd5316f044949aa24e1172f83967c5bcd6107c6e1129631e7040954039774876.png"><img alt="_images/cd5316f044949aa24e1172f83967c5bcd6107c6e1129631e7040954039774876.png" src="_images/cd5316f044949aa24e1172f83967c5bcd6107c6e1129631e7040954039774876.png" style="width: 633px; height: 467px;" /></a>
+</div>
+</div>
+</section>
 </section>
 </section>
 </section>
@@ -803,20 +902,20 @@ diamond distance: 0.06000010519101877 with noise rate 0.03
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="operator.html"
+       href="channel.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Operators</p>
+        <p class="prev-next-title">Channels</p>
       </div>
     </a>
     <a class="right-next"
-       href="error.html"
+       href="hamiltonian.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Noise and Error</p>
+        <p class="prev-next-title">Gallery of toy models</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -837,18 +936,17 @@ diamond distance: 0.06000010519101877 with noise rate 0.03
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representation">Representation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stinespring">Stinespring</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pauli-transfer-matrix-ptm">Pauli Transfer Matrix (PTM)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kraus">Kraus</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superop">SuperOp</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choi">Choi</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi">Chi</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measures">Measures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement">Measurement</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#povm">POVM</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Kraus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-channel">Noise channel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-to-and-from-quantumchannel-operators">Converting to and from QuantumChannel operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#readout-error">Readout error</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#from-qiskit-aer-import-aersimulator">from qiskit_aer import AerSimulator</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

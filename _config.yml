@@ -15,7 +15,8 @@ only_build_toc_files        : true
 # See https://jupyterbook.org/content/execute.html
 execute:
   # execute_notebooks: force
-  execute_notebooks: 'cache'
+  # execute_notebooks: 'cache'
+    execute_notebooks: 'off'
 
 # Define the name of the latex output file for PDF builds
 latex:

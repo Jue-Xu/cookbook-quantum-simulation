@@ -61,6 +61,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'phase_transition';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -397,6 +399,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetry-protected-topological-spt-phase">Symmetry protected topological (SPT) phase</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamical-quantum-phase-transition">Dynamical quantum phase transition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equilibrium-quantum-phase-transition">Equilibrium quantum phase transition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-phase-transition">Statistical phase transition</a></li>
@@ -415,7 +418,7 @@
 <h1>Phase transition<a class="headerlink" href="#phase-transition" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">Operator</span><span class="p">,</span> <span class="n">partial_trace</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">DensityMatrix</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Statevector</span><span class="p">,</span> <span class="n">SparsePauliOp</span><span class="p">,</span> <span class="n">Operator</span> 
 
 <span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
 <span class="kn">import</span> <span class="nn">scipy.sparse.linalg</span> <span class="k">as</span> <span class="nn">ssla</span>
@@ -433,6 +436,97 @@
 </div>
 </div>
 </div>
+<section id="symmetry-protected-topological-spt-phase">
+<h2>Symmetry protected topological (SPT) phase<a class="headerlink" href="#symmetry-protected-topological-spt-phase" title="Link to this heading">#</a></h2>
+<p>one-dimensional cluster-Ising model
+$<span class="math notranslate nohighlight">\(H = -\sum_{i=1}^{N-2} Z_i X_{i+1} Z_{i+2} - h_1 \sum_{i=1}^N X_i - h_2 \sum_{i=1}^{N-1} X_iX_{i+1} \)</span>$</p>
+<p><a class="reference external" href="https://arxiv.org/abs/1810.03787">https://arxiv.org/abs/1810.03787</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Cluster_Ising</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h1</span> <span class="o">=</span> <span class="n">h1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h2</span> <span class="o">=</span> <span class="n">h2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([[</span><span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">+=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([[</span><span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;ZXZ&#39;</span> <span class="o">+</span> <span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">3</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">+=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([[</span><span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;X&#39;</span> <span class="o">+</span> <span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="n">h1</span><span class="p">]])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">+=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([[</span><span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;XX&#39;</span> <span class="o">+</span> <span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="o">-</span><span class="n">h2</span><span class="p">]])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">+=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([[</span><span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;XI&#39;</span><span class="p">,</span> <span class="o">-</span><span class="n">h1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="o">-</span><span class="n">h1</span><span class="p">]])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">+=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([[</span><span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;XX&#39;</span><span class="p">,</span> <span class="o">-</span><span class="n">h2</span><span class="p">]])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+        <span class="n">order_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">order_string</span> <span class="o">+=</span> <span class="s1">&#39;Z&#39;</span>
+            <span class="k">elif</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">order_string</span> <span class="o">+=</span> <span class="s1">&#39;X&#39;</span>
+            <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                <span class="n">order_string</span> <span class="o">+=</span> <span class="s1">&#39;Z&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">order_string</span> <span class="o">+=</span> <span class="s1">&#39;I&#39;</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;order string: &#39;</span><span class="p">,</span> <span class="n">order_string</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string_order</span> <span class="o">=</span> <span class="n">SparsePauliOp</span><span class="o">.</span><span class="n">from_list</span><span class="p">([[</span><span class="n">order_string</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">colors</span>
+
+<span class="n">h1_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">h2_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">h1_mesh</span> <span class="p">,</span> <span class="n">h2_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">h1_list</span><span class="p">,</span> <span class="n">h2_list</span><span class="p">)</span>
+<span class="n">exp_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">h1_list</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">h2_list</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i1</span><span class="p">,</span> <span class="n">h1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">h1_list</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i2</span><span class="p">,</span> <span class="n">h2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">h2_list</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># number of spins (should be at least odd number)</span>
+        <span class="n">ci</span> <span class="o">=</span> <span class="n">Cluster_Ising</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">h1</span><span class="o">=</span><span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="o">=</span><span class="n">h2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># create a cluster Ising model with n spins, h1=1, h2=2</span>
+
+        <span class="c1"># print(ci.H) # print the Hamiltonian</span>
+        <span class="c1"># print(ci.string_order) # print the string order operator</span>
+
+        <span class="c1"># ground state of the Hamiltonian</span>
+        <span class="n">gnd_st</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">ci</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">())[</span><span class="mi">1</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ob</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">string_order</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+        <span class="n">exp_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">gnd_st</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">gnd_st</span><span class="p">))</span>
+        <span class="n">exp_vals</span><span class="p">[</span><span class="n">i2</span><span class="p">,</span> <span class="n">i1</span><span class="p">]</span> <span class="o">=</span> <span class="n">exp_val</span>
+
+<span class="c1"># print(exp_vals)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">exp_vals</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">h1_mesh</span><span class="p">,</span> <span class="n">h2_mesh</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">z</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">vmax</span><span class="o">=</span><span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>  <span class="c1"># , extend=&#39;max&#39;</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$h_1$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$h_2$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Paramagnetic&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;axes fraction&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Antiferromagnetic&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;axes fraction&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;SPT&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;axes fraction&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.2, 0.4, &#39;SPT&#39;)
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/247063f54f818a0408991ce1633921635047225ad9ce1c0ac55998880b0c09b6.png"><img alt="_images/247063f54f818a0408991ce1633921635047225ad9ce1c0ac55998880b0c09b6.png" src="_images/247063f54f818a0408991ce1633921635047225ad9ce1c0ac55998880b0c09b6.png" style="width: 584px; height: 459px;" /></a>
+</div>
+</div>
+</section>
 <section id="dynamical-quantum-phase-transition">
 <h2>Dynamical quantum phase transition<a class="headerlink" href="#dynamical-quantum-phase-transition" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="http://arxiv.org/abs/1709.07461">http://arxiv.org/abs/1709.07461</a></p>
@@ -554,6 +648,7 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetry-protected-topological-spt-phase">Symmetry protected topological (SPT) phase</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamical-quantum-phase-transition">Dynamical quantum phase transition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equilibrium-quantum-phase-transition">Equilibrium quantum phase transition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-phase-transition">Statistical phase transition</a></li>

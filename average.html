@@ -402,7 +402,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#state-worst-case-vs-average-case-bound">State: Worst-case VS average-case Bound</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#state-worst-case-vs-average-case-bound">State: Worst-case VS average-case Bound</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worst-initial-state-for-trotter">Worst initial state for Trotter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worst-case-singular-value">Worst-case: singular value</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-quantum-mean-value">Observable (quantum mean value)</a></li>
 </ul>
             </nav>
@@ -441,6 +445,176 @@
 </div>
 <section id="state-worst-case-vs-average-case-bound">
 <h2>State: Worst-case VS average-case Bound<a class="headerlink" href="#state-worst-case-vs-average-case-bound" title="Link to this heading">#</a></h2>
+<section id="worst-initial-state-for-trotter">
+<h3>Worst initial state for Trotter<a class="headerlink" href="#worst-initial-state-for-trotter" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.quantum_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_unitary</span><span class="p">,</span> <span class="n">random_hermitian</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quantum_simulation_recipe.spin</span><span class="w"> </span><span class="kn">import</span> <span class="n">Nearest_Neighbour_1d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quantum_simulation_recipe.trotter</span><span class="w"> </span><span class="kn">import</span> <span class="n">pf</span><span class="p">,</span> <span class="n">expH</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">error_operator</span><span class="p">(</span><span class="n">H_list</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mf">2.453</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">appro_U</span><span class="p">,</span> <span class="n">exact_U</span> <span class="o">=</span> <span class="n">pf</span><span class="p">(</span><span class="n">H_list</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">return_exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">exact_U</span> <span class="o">-</span> <span class="n">appro_U</span>
+
+<span class="n">MFI</span> <span class="o">=</span> <span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="mf">0.8090</span><span class="p">,</span> <span class="n">hy</span><span class="o">=</span><span class="mf">0.9045</span><span class="p">,</span> <span class="n">Jx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">TFI</span> <span class="o">=</span> <span class="n">Nearest_Neighbour_1d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">Jz</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">hx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">TFI_H_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">TFI</span><span class="o">.</span><span class="n">ham_par</span><span class="p">]</span>
+<span class="c1"># H_list = [h.to_matrix() for h in TFI.ham_xyz]</span>
+<span class="n">MFI_H_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">MFI</span><span class="o">.</span><span class="n">ham_par</span><span class="p">]</span>
+<span class="n">RND_H_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_hermitian</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">random_hermitian</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+<span class="n">TFI_E</span> <span class="o">=</span> <span class="n">error_operator</span><span class="p">(</span><span class="n">TFI_H_list</span><span class="p">)</span>
+<span class="n">MFI_E</span> <span class="o">=</span> <span class="n">error_operator</span><span class="p">(</span><span class="n">MFI_H_list</span><span class="p">)</span>
+<span class="n">RND_E</span> <span class="o">=</span> <span class="n">error_operator</span><span class="p">(</span><span class="n">RND_H_list</span><span class="p">)</span>
+<span class="c1"># D = expH(H1+H2, 1) - expH(H1, 1)@expH(H2, 1)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E of MFI is normal: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">MFI_E</span><span class="nd">@MFI_E</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">MFI_E</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="nd">@MFI_E</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E of TFI is normal: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">TFI_E</span><span class="nd">@TFI_E</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">TFI_E</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="nd">@TFI_E</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E of TFI is Hermitian: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">TFI_E</span><span class="p">,</span> <span class="n">TFI_E</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E of TFI is anti-Hermitian: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">TFI_E</span><span class="p">,</span> <span class="o">-</span><span class="n">TFI_E</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E of TFI is unitary: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">TFI_E</span><span class="p">,</span> <span class="n">TFI_E</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">TFI_E</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E of MFI is normal:  False
+E of TFI is normal:  True
+E of TFI is Hermitian:  False
+E of TFI is anti-Hermitian:  False
+E of TFI is unitary:  False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="n">MFI_E</span>
+<span class="c1"># D = TFI_E</span>
+<span class="c1"># D = RND_E</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;DD* is Hermitian (trivial): &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">D</span><span class="nd">@D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="p">(</span><span class="n">D</span><span class="nd">@D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;eigenvals of D (by eigh): &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;eigenvals of D*D (by eigh): </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span><span class="nd">@D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># print(np.linalg.eigh(D.conj().T@D)[0])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;eigenvals of D*D (by eig, not sorted): </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">D</span><span class="nd">@D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DD* is Hermitian (trivial):  True
+eigenvals of D (by eigh):  [-0.79155 -0.37126  0.02682  1.54871]
+eigenvals of D*D (by eigh): 
+ [0.01403 0.11221 2.4417  2.85321]
+eigenvals of D*D (by eig, not sorted): 
+ [2.85321-0.j 2.4417 -0.j 0.11221+0.j 0.01403-0.j]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;D is normal: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">D</span><span class="nd">@D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="nd">@D</span><span class="p">))</span>
+<span class="c1"># print(D@D.conj().T-D.conj().T@D)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------eigen of D D*&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span> <span class="o">@</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># print(np.linalg.eigh(D @ D.conj().T)[1])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------eigen of D* D&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">D</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># print(np.linalg.eigh(D.conj().T @ D)[1])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;DD*!=D*D, but they have the same eigenvalues (similar??).&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">D</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span> <span class="o">@</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>D is normal:  False
+---------eigen of D D*
+[0.01403 0.11221 2.4417  2.85321]
+---------eigen of D* D
+[0.01403 0.11221 2.4417  2.85321]
+DD*!=D*D, but they have the same eigenvalues (similar??).
+(0.5497812019484642+0.050036165227177194j)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="worst-case-singular-value">
+<h3>Worst-case: singular value<a class="headerlink" href="#worst-case-singular-value" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;spetral norm: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;S: &quot;</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>   
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;square of singular values: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">S</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">U</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;V: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+<span class="c1"># init_st = V[0].T</span>
+<span class="n">init_st_svd</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;init_st_svd: &quot;</span><span class="p">,</span> <span class="n">init_st_svd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>spetral norm:  1.6891439100095893
+S:  [1.68914 1.56259 0.33498 0.11845]
+square of singular values: 
+ [0.014029287629003814, 0.11220908840624161, 2.441700759298198, 2.8532071487224835]
+U: 
+ [[-0.20572+0.57631j -0.4436 +0.04446j -0.40134-0.40178j  0.31204+0.08321j]
+ [ 0.05161-0.00535j -0.09772-0.78246j -0.3361 +0.47573j  0.18116+0.05845j]
+ [ 0.09959-0.40388j -0.05016+0.27609j -0.06563+0.08953j  0.55808+0.65149j]
+ [ 0.05193+0.66867j  0.31645-0.02386j  0.4988 +0.27766j  0.16947+0.308j  ]]
+V: 
+ [[-0.67068+0.j       0.39496+0.13057j  0.00134+0.05187j -0.55865-0.24973j]
+ [-0.31735+0.j       0.07078-0.27154j  0.03861+0.78759j  0.44569-0.01098j]
+ [-0.57087+0.j       0.0138 -0.11015j  0.06228-0.57914j  0.54609+0.15585j]
+ [-0.35154+0.j      -0.83982+0.17489j -0.13854+0.13054j -0.22333+0.23328j]]
+init_st_svd:  [-0.67068-0.j       0.39496-0.13057j  0.00134-0.05187j -0.55865+0.24973j]
+</pre></div>
+</div>
+</div>
+</div>
+<p>the worst-input is the U, V or eigenstate of largest singular value?</p>
+<ul class="simple">
+<li><p>If E is normal e.g. TFI, they are the same</p></li>
+<li><p>Otherwise e.g. MFI, the worst input (largest singular value) is V[0].conj().T</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;eigen values: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span> <span class="o">@</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;squre of singualr values: &quot;</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">S</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>   
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span> <span class="o">@</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">D</span><span class="nd">@np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span> <span class="o">@</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;eigenvector with largest eigval: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">D</span> <span class="o">@</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="nd">@np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span> <span class="o">@</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span> <span class="o">@</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="c1"># print(np.linalg.norm(np.linalg.eigh(D @ D.conj().T)[1][:,-1])) verify normalized vector</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">D</span><span class="nd">@np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">D</span> <span class="o">@</span> <span class="n">D</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>  <span class="c1"># .conj().T</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;achieve spectral norm (square root of largest eigenval): &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">D</span><span class="nd">@init_st_svd</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">D</span><span class="nd">@V</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">D</span><span class="nd">@U</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>eigen values:  [0.01403 0.11221 2.4417  2.85321]
+squre of singualr values:  [0.014029287629003814, 0.11220908840624161, 2.441700759298198, 2.8532071487224835]
+[[-0.32294+0.j       0.56789+0.j       0.44582-0.j      -0.61192+0.j     ]
+ [-0.1901 -0.0098j  -0.09905-0.574j    0.0192 +0.7883j   0.02239+0.0468j ]
+ [-0.7071 -0.4857j  -0.01695-0.10971j  0.07744-0.26971j  0.41386-0.04199j]
+ [-0.2431 -0.25393j -0.54895+0.15667j -0.31725-0.00782j -0.61229+0.27371j]]
+[-0.36482+0.50027j  0.66319-0.04171j  0.00876-0.58929j  0.05976+1.13047j]
+eigenvector with largest eigval: 
+ [-0.61192-0.j       0.02239+0.0468j   0.41386-0.04199j -0.61229+0.27371j]
+1.5664627453249478
+achieve spectral norm (square root of largest eigenval):  1.689143910009589
+1.5873420245042686
+1.350723692946984
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="observable-quantum-mean-value">
 <h2>Observable (quantum mean value)<a class="headerlink" href="#observable-quantum-mean-value" title="Link to this heading">#</a></h2>
@@ -512,7 +686,11 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#state-worst-case-vs-average-case-bound">State: Worst-case VS average-case Bound</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#state-worst-case-vs-average-case-bound">State: Worst-case VS average-case Bound</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worst-initial-state-for-trotter">Worst initial state for Trotter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worst-case-singular-value">Worst-case: singular value</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observable-quantum-mean-value">Observable (quantum mean value)</a></li>
 </ul>
   </nav></div>

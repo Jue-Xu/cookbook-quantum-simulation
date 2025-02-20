@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Ground state &#8212; Quantum Simulation Cookbook</title>
+    <title>Analog simulation &#8212; Quantum Simulation Cookbook</title>
   
   
   
@@ -61,11 +61,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ground';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'analog';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Phase transition" href="phase_transition.html" />
-    <link rel="prev" title="Tensor network" href="tensor_network.html" />
+    <link rel="next" title="Pauli path integral" href="path_integral.html" />
+    <link rel="prev" title="QSP and QSVT" href="qsp.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -186,7 +186,7 @@
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quantum algorithms</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="trotter.html">Product formula</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="ordering.html">Ordering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="interference.html">Error interference</a></li>
@@ -199,7 +199,7 @@
 <li class="toctree-l2"><a class="reference internal" href="qsp.html">QSP and QSVT</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="analog.html">Analog simulation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analog simulation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classical simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -207,8 +207,8 @@
 <li class="toctree-l1"><a class="reference internal" href="tensor_network.html">Tensor network</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Ground state</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ground.html">Ground state</a></li>
 <li class="toctree-l1"><a class="reference internal" href="phase_transition.html">Phase transition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="open.html">Open system</a></li>
 </ul>
@@ -287,7 +287,7 @@
       
       
       
-      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation/issues/new?title=Issue%20on%20page%20%2Fground.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Jue-Xu/cookbook-quantum-simulation/issues/new?title=Issue%20on%20page%20%2Fanalog.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -317,7 +317,7 @@
       
       
       
-      <li><a href="_sources/ground.ipynb" target="_blank"
+      <li><a href="_sources/analog.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -380,9 +380,7 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -393,19 +391,11 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Ground state</h1>
+    <h1>Analog simulation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-surface-of-h-chain">Energy surface of H chain</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -415,110 +405,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="ground-state">
-<h1>Ground state<a class="headerlink" href="#ground-state" title="Link to this heading">#</a></h1>
-<section id="energy-surface-of-h-chain">
-<h2>Energy surface of H chain<a class="headerlink" href="#energy-surface-of-h-chain" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://quantumai.google/openfermion/tutorials/intro_to_openfermion">https://quantumai.google/openfermion/tutorials/intro_to_openfermion</a></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">openfermion.chem</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolecularData</span>
-
-<span class="c1"># Set parameters to make a simple molecule.</span>
-<span class="n">diatomic_bond_length</span> <span class="o">=</span> <span class="mf">.7414</span>
-<span class="n">geometry</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">diatomic_bond_length</span><span class="p">))]</span>
-<span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;sto-3g&#39;</span>
-<span class="n">multiplicity</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">charge</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">description</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">diatomic_bond_length</span><span class="p">)</span>
-
-<span class="c1"># Make molecule and print out a few interesting facts about it.</span>
-<span class="n">molecule</span> <span class="o">=</span> <span class="n">MolecularData</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span>
-                         <span class="n">charge</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Molecule has automatically generated name </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-    <span class="n">molecule</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Information about this molecule would be saved at:</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-    <span class="n">molecule</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This molecule has </span><span class="si">{}</span><span class="s1"> atoms and </span><span class="si">{}</span><span class="s1"> electrons.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-    <span class="n">molecule</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">molecule</span><span class="o">.</span><span class="n">n_electrons</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">atom</span><span class="p">,</span> <span class="n">atomic_number</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">atoms</span><span class="p">,</span> <span class="n">molecule</span><span class="o">.</span><span class="n">protons</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Contains </span><span class="si">{}</span><span class="s1"> atom, which has </span><span class="si">{}</span><span class="s1"> protons.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">atom</span><span class="p">,</span> <span class="n">atomic_number</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Molecule has automatically generated name H2_sto-3g_singlet_0.7414
-Information about this molecule would be saved at:
-/opt/homebrew/Caskroom/miniforge/base/lib/python3.10/site-packages/openfermion/testing/data/H2_sto-3g_singlet_0.7414
-
-This molecule has 2 atoms and 2 electrons.
-Contains H atom, which has 1 protons.
-Contains H atom, which has 1 protons.
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set molecule parameters.</span>
-<span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;sto-3g&#39;</span>
-<span class="n">multiplicity</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">bond_length_interval</span> <span class="o">=</span> <span class="mf">0.1</span>
-<span class="n">n_points</span> <span class="o">=</span> <span class="mi">25</span>
-<span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="c1"># Generate molecule at different bond lengths.</span>
-<span class="n">hf_energies</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">fci_energies</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">bond_lengths</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_points</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="n">bond_length</span> <span class="o">=</span> <span class="n">bond_length_interval</span> <span class="o">*</span> <span class="n">point</span>
-    <span class="n">bond_lengths</span> <span class="o">+=</span> <span class="p">[</span><span class="n">bond_length</span><span class="p">]</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">bond_length</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">geometry</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">bond_length</span><span class="p">))]</span>
-    <span class="n">molecule</span> <span class="o">=</span> <span class="n">MolecularData</span><span class="p">(</span>
-        <span class="n">geometry</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
-
-    <span class="c1"># Load data.</span>
-    <span class="n">molecule</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-
-    <span class="c1"># Print out some results of calculation.</span>
-    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">At bond length of </span><span class="si">{}</span><span class="s1"> angstrom, molecular hydrogen has:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">bond_length</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hartree-Fock energy of </span><span class="si">{}</span><span class="s1"> Hartree.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">hf_energy</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MP2 energy of </span><span class="si">{}</span><span class="s1"> Hartree.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">mp2_energy</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FCI energy of </span><span class="si">{}</span><span class="s1"> Hartree.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">fci_energy</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nuclear repulsion energy between protons is </span><span class="si">{}</span><span class="s1"> Hartree.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">molecule</span><span class="o">.</span><span class="n">nuclear_repulsion</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">orbital</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">n_orbitals</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spatial orbital </span><span class="si">{}</span><span class="s1"> has energy of </span><span class="si">{}</span><span class="s1"> Hartree.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">orbital</span><span class="p">,</span> <span class="n">molecule</span><span class="o">.</span><span class="n">orbital_energies</span><span class="p">[</span><span class="n">orbital</span><span class="p">]))</span>
-    <span class="n">hf_energies</span> <span class="o">+=</span> <span class="p">[</span><span class="n">molecule</span><span class="o">.</span><span class="n">hf_energy</span><span class="p">]</span>
-    <span class="n">fci_energies</span> <span class="o">+=</span> <span class="p">[</span><span class="n">molecule</span><span class="o">.</span><span class="n">fci_energy</span><span class="p">]</span>
-
-<span class="c1"># Plot.</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bond_lengths</span><span class="p">,</span> <span class="n">fci_energies</span><span class="p">,</span> <span class="s1">&#39;x-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;FCI&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bond_lengths</span><span class="p">,</span> <span class="n">hf_energies</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Hartree-Fock&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Energy in Hartree&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Bond length in angstrom&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/c442304f0535d18e2010706d0575ad31bd66b09cb09318a2ff84d2a73fcd5b87.png"><img alt="_images/c442304f0535d18e2010706d0575ad31bd66b09cb09318a2ff84d2a73fcd5b87.png" src="_images/c442304f0535d18e2010706d0575ad31bd66b09cb09318a2ff84d2a73fcd5b87.png" style="width: 578px; height: 432px;" /></a>
-</div>
-</div>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="analog-simulation">
+<h1>Analog simulation<a class="headerlink" href="#analog-simulation" title="Link to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -552,20 +440,20 @@ Contains H atom, which has 1 protons.
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="tensor_network.html"
+       href="qsp.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Tensor network</p>
+        <p class="prev-next-title">QSP and QSVT</p>
       </div>
     </a>
     <a class="right-next"
-       href="phase_transition.html"
+       href="path_integral.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Phase transition</p>
+        <p class="prev-next-title">Pauli path integral</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -575,22 +463,6 @@ Contains H atom, which has 1 protons.
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-surface-of-h-chain">Energy surface of H chain</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

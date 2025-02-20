@@ -39,6 +39,7 @@ parts:
       sections:
         - file: lcu
         - file: qsp
+    - file: analog
 
   - caption: Classical simulation
     chapters:
